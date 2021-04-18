@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 public class Service2 {
     @RecordTestForThis
     public int add(int x, int y) throws InterruptedException {
-        System.out.println("serve start");
-        Thread.sleep(500);
-        System.out.println("serve end");
+        Thread.sleep(100);
         return x + y;
     }
 }
