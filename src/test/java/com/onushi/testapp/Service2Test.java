@@ -16,4 +16,16 @@ class Service2Test {
         Service2 service2 = new Service2();
         assertEquals(service2.add(-6, 4), -2);
     }
+
+    @Test
+    void negate() throws Exception {
+        Service2 service2 = new Service2();
+        assertEquals(service2.negate(-6), 6);
+    }
+
+    @Test
+    void returnZero() throws Exception {
+        Service2 service2 = new Service2();
+        assertEquals(service2.returnZero(), 0);
+    }
 }

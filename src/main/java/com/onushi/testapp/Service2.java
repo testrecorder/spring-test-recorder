@@ -5,9 +5,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Service2 {
-    @RecordTestForThis
     public int add(int x, int y) throws InterruptedException {
-        Thread.sleep(100);
         return x + y;
+    }
+
+    public int negate(int x) throws InterruptedException {
+        return -x;
+    }
+
+    @RecordTestForThis
+    public int returnZero() throws InterruptedException {
+        return 0;
     }
 }

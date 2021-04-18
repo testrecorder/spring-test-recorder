@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! this should be written better later
+// TODO IB !!!! this should also have tests
 @Component
 public class TestGenerator {
 
@@ -22,6 +22,10 @@ public class TestGenerator {
         String packageName = packageAndClassName.substring(0, lastPointIndex);
         String className = packageAndClassName.substring(lastPointIndex + 1);
 
+        printTest(result, methodInvocation, methodName, packageName, className);
+    }
+
+    private void printTest(Object result, MethodInvocationProceedingJoinPoint methodInvocation, String methodName, String packageName, String className) {
         printBeginMarker();
 
         printPackage(packageName);
@@ -40,7 +44,7 @@ public class TestGenerator {
     }
 
     private void printPackage(String packageName) {
-        System.out.println("package " + packageName + ";");
+        System.out.printf("package %s;%n", packageName);
         System.out.println();
     }
 
@@ -53,17 +57,16 @@ public class TestGenerator {
 
     private void printClassAndTest(String className, String methodName, Object[] arguments, Object result) {
         String classNameVar = className.substring(0,1).toLowerCase(Locale.ROOT) + className.substring(1);
-
-        // TODO IB !!!! String.format() here
-        System.out.println("class " + className + "Test {");
-        System.out.println("    @Test");
-        System.out.println("    void " + methodName + "() throws Exception {");
-        System.out.println("        " + className + " " + classNameVar + " = new " + className + "();");
         String argumentsText = "";
         if (arguments.length > 0) {
             argumentsText = Arrays.stream(arguments).map(Object::toString).collect(Collectors.joining(", "));
         }
-        System.out.println("        assertEquals(" + classNameVar + "." + methodName + "(" + argumentsText + "), " + result + ");");
+
+        System.out.printf("class %sTest {%n", className);
+        System.out.println("    @Test");
+        System.out.printf("    void %s() throws Exception {%n", methodName);
+        System.out.printf("        %s %s = new %s();%n", className, classNameVar, className);
+        System.out.printf("        assertEquals(%s.%s(%s), %s);%n", classNameVar, methodName, argumentsText, result);
         System.out.println("    }");
         System.out.println("}");
     }
