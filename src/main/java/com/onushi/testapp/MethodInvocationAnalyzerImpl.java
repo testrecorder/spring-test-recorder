@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! extract interface
 @Component
-public class TestRunAnalyser {
+public class MethodInvocationAnalyzerImpl implements MethodInvocationAnalyzer {
 
+    @Override
     public TestRunDto createTestRunDto(ProceedingJoinPoint proceedingJoinPoint, Object result) {
         MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint)proceedingJoinPoint;
 
@@ -22,7 +22,7 @@ public class TestRunAnalyser {
         String packageName = packageAndClassName.substring(0, lastPointIndex);
         String className = packageAndClassName.substring(lastPointIndex + 1);
 
-        List<ObjectDto> arguments = Arrays.stream(methodInvocation.getArgs()).map(TestRunAnalyser::createObjectDto).collect(Collectors.toList());
+        List<ObjectDto> arguments = Arrays.stream(methodInvocation.getArgs()).map(x -> createObjectDto(x)).collect(Collectors.toList());
         return TestRunDto.builder()
                 .packageName(packageName)
                 .className(className)

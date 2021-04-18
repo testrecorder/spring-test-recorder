@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class RecordTestAspect {
-    private final TestRunAnalyser testRunAnalyser;
+    private final MethodInvocationAnalyzer methodInvocationAnalyzer;
     private final TestGenerator testGenerator;
-    public RecordTestAspect(TestRunAnalyser testRunAnalyser, TestGenerator testGenerator) {
-        this.testRunAnalyser = testRunAnalyser;
+    public RecordTestAspect(MethodInvocationAnalyzer methodInvocationAnalyzer, TestGenerator testGenerator) {
+        this.methodInvocationAnalyzer = methodInvocationAnalyzer;
         this.testGenerator = testGenerator;
     }
 
@@ -19,7 +19,7 @@ public class RecordTestAspect {
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = proceedingJoinPoint.proceed();
-        TestRunDto testRunDto = testRunAnalyser.createTestRunDto(proceedingJoinPoint, result);
+        TestRunDto testRunDto = methodInvocationAnalyzer.createTestRunDto(proceedingJoinPoint, result);
         String testString = testGenerator.getTestString(testRunDto);
         System.out.println(testString);
         return result;
