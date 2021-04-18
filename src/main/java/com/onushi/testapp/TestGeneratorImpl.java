@@ -4,13 +4,11 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-// TODO IB this should also have tests
-// TODO IB in the final version I should group tests for the same class together
 @Component
 public class TestGeneratorImpl implements TestGenerator {
 
     // TODO IB this should also have tests
-    // TODO IB in the final version I should group tests for the same class together
+    // TODO IB I should group tests for the same class together
     @Override
     public String getTestString(TestRunDto testRunDto) {
         StringBuilder stringBuilder = new StringBuilder();
