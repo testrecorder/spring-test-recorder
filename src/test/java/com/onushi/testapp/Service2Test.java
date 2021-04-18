@@ -2,9 +2,8 @@ package com.onushi.testapp;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// TODO IB !!!! this should be generated
 class Service2Test {
     @Test
     void add() throws Exception {

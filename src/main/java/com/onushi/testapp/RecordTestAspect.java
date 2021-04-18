@@ -8,17 +8,16 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class RecordTestAspect {
-    // TODO IB !!!! do something else here
+    private final TestGenerator testGenerator;
+    public RecordTestAspect(TestGenerator testGenerator) {
+        this.testGenerator = testGenerator;
+    }
+
     // TODO IB !!!! why it doesn't work if this aspect is moved in another package?
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
-    public Object applyRecordTestForThis(ProceedingJoinPoint joinPoint) throws Throwable {
-        long start = System.currentTimeMillis();
-
-        Object result = joinPoint.proceed();
-
-        long executionTime = System.currentTimeMillis() - start;
-
-        System.out.println(joinPoint.getSignature() + " executed in " + executionTime + "ms");
+    public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        Object result = proceedingJoinPoint.proceed();
+        testGenerator.generate(proceedingJoinPoint, result);
         return result;
     }
 }
