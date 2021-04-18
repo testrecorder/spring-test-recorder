@@ -1,12 +1,11 @@
 package com.onushi.testrecording.dto;
 
-import com.onushi.testrecording.dto.ObjectDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ObjectDtoConverter {
     // TODO IB !!!! make it work in all the simple cases
-    public static ObjectDto createObjectDto(Object object) {
+    public ObjectDto createObjectDto(Object object) {
         String className;
         String value;
         if (object == null) {

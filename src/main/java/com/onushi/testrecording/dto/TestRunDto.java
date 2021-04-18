@@ -1,6 +1,5 @@
 package com.onushi.testrecording.dto;
 
-import com.onushi.testrecording.dto.ObjectDto;
 import lombok.Builder;
 import lombok.Data;
 import java.util.List;

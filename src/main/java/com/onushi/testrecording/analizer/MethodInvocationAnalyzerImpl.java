@@ -1,4 +1,4 @@
-package com.onushi.testapp;
+package com.onushi.testrecording.analizer;
 
 import com.onushi.testrecording.dto.ObjectDto;
 import com.onushi.testrecording.dto.ObjectDtoConverter;
@@ -13,6 +13,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class MethodInvocationAnalyzerImpl implements MethodInvocationAnalyzer {
+    private final ObjectDtoConverter objectDtoConverter;
+    public MethodInvocationAnalyzerImpl(ObjectDtoConverter objectDtoConverter) {
+        this.objectDtoConverter = objectDtoConverter;
+    }
 
     @Override
     public TestRunDto createTestRunDto(ProceedingJoinPoint proceedingJoinPoint, Object result) {
@@ -25,13 +29,13 @@ public class MethodInvocationAnalyzerImpl implements MethodInvocationAnalyzer {
         String packageName = packageAndClassName.substring(0, lastPointIndex);
         String className = packageAndClassName.substring(lastPointIndex + 1);
 
-        List<ObjectDto> arguments = Arrays.stream(methodInvocation.getArgs()).map(ObjectDtoConverter::createObjectDto).collect(Collectors.toList());
+        List<ObjectDto> arguments = Arrays.stream(methodInvocation.getArgs()).map(objectDtoConverter::createObjectDto).collect(Collectors.toList());
         return TestRunDto.builder()
                 .packageName(packageName)
                 .className(className)
                 .methodName(methodName)
                 .arguments(arguments)
-                .result(ObjectDtoConverter.createObjectDto(result))
+                .result(objectDtoConverter.createObjectDto(result))
                 .build();
     }
 }

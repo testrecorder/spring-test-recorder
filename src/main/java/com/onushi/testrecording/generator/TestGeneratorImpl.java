@@ -1,4 +1,4 @@
-package com.onushi.testapp;
+package com.onushi.testrecording.generator;
 
 import com.onushi.testrecording.dto.ObjectDto;
 import com.onushi.testrecording.dto.TestRunDto;
