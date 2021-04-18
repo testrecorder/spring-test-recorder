@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecordTestAspect {
     // TODO IB !!!! do something else here
-    // TODO IB !!!! test returning int
     // TODO IB !!!! why it doesn't work if this aspect is moved in another package?
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
     public Object applyRecordTestForThis(ProceedingJoinPoint joinPoint) throws Throwable {
