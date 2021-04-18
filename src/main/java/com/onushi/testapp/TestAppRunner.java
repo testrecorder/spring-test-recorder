@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TestAppRunner implements CommandLineRunner {
-    private final Service2 service2;
-    public TestAppRunner(Service2 service2) {
-        this.service2 = service2;
+    private final MathService mathService;
+    public TestAppRunner(MathService mathService) {
+        this.mathService = mathService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        service2.returnZero();
+        mathService.returnZero();
     }
 }

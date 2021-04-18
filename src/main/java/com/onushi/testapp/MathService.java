@@ -4,7 +4,7 @@ import com.onushi.testrecording.RecordTestForThis;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Service2 {
+public class MathService {
     public int add(int x, int y) throws InterruptedException {
         return x + y;
     }
