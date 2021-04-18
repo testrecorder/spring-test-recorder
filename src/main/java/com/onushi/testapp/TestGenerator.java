@@ -22,15 +22,15 @@ public class TestGenerator {
         String packageName = packageAndClassName.substring(0, lastPointIndex);
         String className = packageAndClassName.substring(lastPointIndex + 1);
 
-        return getTestString(result, methodInvocation, methodName, packageName, className);
+        return getTestString(packageName, className, methodName, methodInvocation.getArgs(), result);
     }
 
-    private String getTestString(Object result, MethodInvocationProceedingJoinPoint methodInvocation, String methodName, String packageName, String className) {
+    public String getTestString(String packageName, String className, String methodName, Object[] arguments, Object result) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getBeginMarkerString());
         stringBuilder.append(getPackageString(packageName));
         stringBuilder.append(getImportsString());
-        stringBuilder.append(getClassAndTestString(className, methodName, methodInvocation.getArgs(), result));
+        stringBuilder.append(getClassAndTestString(className, methodName, arguments, result));
         stringBuilder.append(getEndMarkerString());
         return stringBuilder.toString();
     }
