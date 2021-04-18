@@ -18,7 +18,6 @@ public class RecordTestAspect {
         this.testGenerator = testGenerator;
     }
 
-    // TODO IB why it doesn't work if this aspect is moved in another package?
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = proceedingJoinPoint.proceed();

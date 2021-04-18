@@ -17,8 +17,12 @@ public class MathService {
         return 0;
     }
 
-    @RecordTestForThis
     public float addFloats(float x, float y) {
         return x + y;
+    }
+
+    @RecordTestForThis
+    public Integer addStrings(String a, String b) {
+        return Integer.parseInt(a) + Integer.parseInt(b);
     }
 }

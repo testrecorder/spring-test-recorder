@@ -5,6 +5,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ObjectDtoConverter {
     // TODO IB !!!! make it work in all the simple cases
+    // TODO IB something special for char -> (char)c
+    // TODO handle objects sent as params
+    // TODO handle objects received as result
+    // TODO handle exceptions being thrown
     public ObjectDto createObjectDto(Object object) {
         String className;
         String value;
@@ -26,7 +30,9 @@ public class ObjectDtoConverter {
                 case "java.lang.short":
                     value = "(short)" + object;
                     break;
-                // TODO IB something special for char
+                case "java.lang.String":
+                    value = "\"" + object + "\"";
+                    break;
                 default:
                     value = object.toString();
                     break;

@@ -12,6 +12,6 @@ public class TestAppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        mathService.addFloats(2f, 5f);
+        mathService.addStrings("2", "5");
     }
 }
