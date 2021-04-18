@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+// TODO IB use a templating engine here
 @Component
 public class TestGeneratorImpl implements TestGenerator {
 

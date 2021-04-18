@@ -9,9 +9,10 @@ import java.util.Date;
 public class ObjectDtoConverter {
     // TODO IB !!!! make it work in all the simple cases
     // TODO IB something special for char -> (char)c
-    // TODO handle objects sent as params
-    // TODO handle objects received as result
-    // TODO handle exceptions being thrown
+    // TODO IB handle objects sent as params
+    // TODO IB handle objects received as result
+    // TODO IB handle exceptions being thrown
+    // TODO IB maybe I can use serialization to transform to Json and back
     public ObjectDto createObjectDto(Object object) {
         String className;
         String value;
@@ -20,6 +21,7 @@ public class ObjectDtoConverter {
             value = "null";
         } else {
             className = object.getClass().getName();
+            // TODO !!!! some of this must actually be moved to Generate
             switch (className) {
                 case "java.lang.Float":
                     value = object + "f";
