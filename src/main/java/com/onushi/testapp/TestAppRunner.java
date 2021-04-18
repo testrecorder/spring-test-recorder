@@ -12,7 +12,7 @@ public class TestAppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        int result = service2.add(2, 3);
+        int result = service2.add(-6, 4);
         System.out.println("Result of service2.add " + result);
     }
 }
