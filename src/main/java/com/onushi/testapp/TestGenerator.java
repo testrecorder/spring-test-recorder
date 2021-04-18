@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! this should also have tests
 @Component
 public class TestGenerator {
 
@@ -25,6 +24,7 @@ public class TestGenerator {
         return getTestString(packageName, className, methodName, methodInvocation.getArgs(), result);
     }
 
+    // TODO IB !!!! this should also have tests
     public String getTestString(String packageName, String className, String methodName, Object[] arguments, Object result) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getBeginMarkerString());
@@ -45,8 +45,8 @@ public class TestGenerator {
 
     private StringBuilder getImportsString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("import org.junit.jupiter.api.Test;%n%n");
-        stringBuilder.append("import static org.junit.jupiter.api.Assertions.*;%n%n");
+        stringBuilder.append(String.format("import org.junit.jupiter.api.Test;%n%n"));
+        stringBuilder.append(String.format("import static org.junit.jupiter.api.Assertions.*;%n%n"));
         return stringBuilder;
     }
 
