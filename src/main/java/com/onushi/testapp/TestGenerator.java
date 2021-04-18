@@ -5,33 +5,22 @@ import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+// TODO IB !!!! the generators should receive an DTO with DTOs
 @Component
 public class TestGenerator {
 
-    public String generate(ProceedingJoinPoint proceedingJoinPoint, Object result) {
-        MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint)proceedingJoinPoint;
-
-        String packageAndClassName = proceedingJoinPoint.getSignature().getDeclaringTypeName();
-        String methodName = proceedingJoinPoint.getSignature().getName();
-
-        int lastPointIndex = packageAndClassName.lastIndexOf(".");
-        String packageName = packageAndClassName.substring(0, lastPointIndex);
-        String className = packageAndClassName.substring(lastPointIndex + 1);
-
-        return getTestString(packageName, className, methodName, methodInvocation.getArgs(), result);
-    }
-
     // TODO IB this should also have tests
     // TODO IB in the final version I should group tests for the same class together
-    public String getTestString(String packageName, String className, String methodName, Object[] arguments, Object result) {
+    public String getTestString(TestRunDto testRunDto) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getBeginMarkerString());
-        stringBuilder.append(getPackageString(packageName));
+        stringBuilder.append(getPackageString(testRunDto.getPackageName()));
         stringBuilder.append(getImportsString());
-        stringBuilder.append(getClassAndTestString(className, methodName, arguments, result));
+        stringBuilder.append(getClassAndTestString(testRunDto.getClassName(), testRunDto.getMethodName(), testRunDto.getArguments(), testRunDto.getResult()));
         stringBuilder.append(getEndMarkerString());
         return stringBuilder.toString();
     }
@@ -51,19 +40,19 @@ public class TestGenerator {
         return stringBuilder;
     }
 
-    private StringBuilder getClassAndTestString(String className, String methodName, Object[] arguments, Object result) {
+    private StringBuilder getClassAndTestString(String className, String methodName, List<ObjectDto> arguments, ObjectDto result) {
         StringBuilder stringBuilder = new StringBuilder();
         String classNameVar = className.substring(0,1).toLowerCase(Locale.ROOT) + className.substring(1);
         String argumentsText = "";
-        if (arguments.length > 0) {
-            argumentsText = Arrays.stream(arguments).map(Object::toString).collect(Collectors.joining(", "));
+        if (arguments.size() > 0) {
+            argumentsText = arguments.stream().map(ObjectDto::getValue).collect(Collectors.joining(", "));
         }
 
         stringBuilder.append(String.format("class %sTest {%n", className));
         stringBuilder.append(String.format("    @Test%n"));
         stringBuilder.append(String.format("    void %s() throws Exception {%n", methodName));
         stringBuilder.append(String.format("        %s %s = new %s();%n", className, classNameVar, className));
-        stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n", classNameVar, methodName, argumentsText, result));
+        stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n", classNameVar, methodName, argumentsText, result.getValue()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;

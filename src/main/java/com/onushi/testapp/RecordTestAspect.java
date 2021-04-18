@@ -17,7 +17,8 @@ public class RecordTestAspect {
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = proceedingJoinPoint.proceed();
-        String testString = testGenerator.generate(proceedingJoinPoint, result);
+        TestRunDto testRunDto = TestRunDto.fromMethodInvocationAndResult(proceedingJoinPoint, result);
+        String testString = testGenerator.getTestString(testRunDto);
         System.out.println(testString);
         return result;
     }
