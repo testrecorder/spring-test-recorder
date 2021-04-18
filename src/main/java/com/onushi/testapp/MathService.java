@@ -6,15 +6,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class MathService {
     @RecordTestForThis
-    public int add(int x, int y) throws InterruptedException {
+    public int add(int x, int y) {
         return x + y;
     }
 
-    public int negate(int x) throws InterruptedException {
+    public int negate(int x) {
         return -x;
     }
 
-    public int returnZero() throws InterruptedException {
+    public int returnZero() {
         return 0;
     }
 }
