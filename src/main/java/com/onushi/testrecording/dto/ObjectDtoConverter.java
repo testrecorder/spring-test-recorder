@@ -1,5 +1,6 @@
-package com.onushi.testapp;
+package com.onushi.testrecording.dto;
 
+import com.onushi.testrecording.dto.ObjectDto;
 import org.springframework.stereotype.Component;
 
 @Component

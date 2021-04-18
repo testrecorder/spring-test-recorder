@@ -1,5 +1,7 @@
 package com.onushi.testapp;
 
+import com.onushi.testrecording.dto.ObjectDto;
+import com.onushi.testrecording.dto.TestRunDto;
 import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.stream.Collectors;
