@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class TestGenerator {
 
-    public void generate(ProceedingJoinPoint proceedingJoinPoint, Object result) {
+    public String generate(ProceedingJoinPoint proceedingJoinPoint, Object result) {
         MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint)proceedingJoinPoint;
 
         String packageAndClassName = proceedingJoinPoint.getSignature().getDeclaringTypeName();
@@ -22,58 +22,53 @@ public class TestGenerator {
         String packageName = packageAndClassName.substring(0, lastPointIndex);
         String className = packageAndClassName.substring(lastPointIndex + 1);
 
-        printTest(result, methodInvocation, methodName, packageName, className);
+        return getTestString(result, methodInvocation, methodName, packageName, className);
     }
 
-    private void printTest(Object result, MethodInvocationProceedingJoinPoint methodInvocation, String methodName, String packageName, String className) {
-        printBeginMarker();
-
-        printPackage(packageName);
-
-        printImports();
-
-        printClassAndTest(className, methodName, methodInvocation.getArgs(), result);
-
-        printEndMarker();
+    private String getTestString(Object result, MethodInvocationProceedingJoinPoint methodInvocation, String methodName, String packageName, String className) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getBeginMarkerString());
+        stringBuilder.append(getPackageString(packageName));
+        stringBuilder.append(getImportsString());
+        stringBuilder.append(getClassAndTestString(className, methodName, methodInvocation.getArgs(), result));
+        stringBuilder.append(getEndMarkerString());
+        return stringBuilder.toString();
     }
 
-    private void printBeginMarker() {
-        System.out.println();
-        System.out.println("BEGIN GENERATED TEST =========");
-        System.out.println();
+    private String getBeginMarkerString() {
+        return String.format("%nBEGIN GENERATED TEST =========%n%n");
     }
 
-    private void printPackage(String packageName) {
-        System.out.printf("package %s;%n", packageName);
-        System.out.println();
+    private String getPackageString(String packageName) {
+        return String.format("package %s;%n%n", packageName);
     }
 
-    private void printImports() {
-        System.out.println("import org.junit.jupiter.api.Test;");
-        System.out.println();
-        System.out.println("import static org.junit.jupiter.api.Assertions.*;");
-        System.out.println();
+    private StringBuilder getImportsString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("import org.junit.jupiter.api.Test;%n%n");
+        stringBuilder.append("import static org.junit.jupiter.api.Assertions.*;%n%n");
+        return stringBuilder;
     }
 
-    private void printClassAndTest(String className, String methodName, Object[] arguments, Object result) {
+    private StringBuilder getClassAndTestString(String className, String methodName, Object[] arguments, Object result) {
+        StringBuilder stringBuilder = new StringBuilder();
         String classNameVar = className.substring(0,1).toLowerCase(Locale.ROOT) + className.substring(1);
         String argumentsText = "";
         if (arguments.length > 0) {
             argumentsText = Arrays.stream(arguments).map(Object::toString).collect(Collectors.joining(", "));
         }
 
-        System.out.printf("class %sTest {%n", className);
-        System.out.println("    @Test");
-        System.out.printf("    void %s() throws Exception {%n", methodName);
-        System.out.printf("        %s %s = new %s();%n", className, classNameVar, className);
-        System.out.printf("        assertEquals(%s.%s(%s), %s);%n", classNameVar, methodName, argumentsText, result);
-        System.out.println("    }");
-        System.out.println("}");
+        stringBuilder.append(String.format("class %sTest {%n", className));
+        stringBuilder.append(String.format("    @Test%n"));
+        stringBuilder.append(String.format("    void %s() throws Exception {%n", methodName));
+        stringBuilder.append(String.format("        %s %s = new %s();%n", className, classNameVar, className));
+        stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n", classNameVar, methodName, argumentsText, result));
+        stringBuilder.append(String.format("    }%n"));
+        stringBuilder.append(String.format("}%n"));
+        return stringBuilder;
     }
 
-    private void printEndMarker() {
-        System.out.println();
-        System.out.println("END GENERATED TEST =========");
-        System.out.println();
+    private String getEndMarkerString() {
+        return String.format("%nEND GENERATED TEST =========%n%n");
     }
 }
