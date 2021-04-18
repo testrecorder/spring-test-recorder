@@ -32,10 +32,26 @@ public class MethodInvocationAnalyzerImpl implements MethodInvocationAnalyzer {
                 .build();
     }
 
+    // TODO IB !!!! make it work all the simple cases
     private static ObjectDto createObjectDto(Object object) {
+        String className;
+        String value;
+        if (object == null) {
+            className = "null";
+            value = "null";
+        } else {
+            className = object.getClass().getName();
+            if (className.equals("java.lang.Float")) {
+                value = object.toString() + "f";
+            } else {
+                value = object.toString();
+            }
+
+        }
+
         return ObjectDto.builder()
-                .typeName(object.getClass().toString())
-                .value(object.toString())
+                .typeName(className)
+                .value(value)
                 .build();
     }
 }

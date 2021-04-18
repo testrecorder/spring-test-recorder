@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MathService {
-    @RecordTestForThis
     public int add(int x, int y) {
         return x + y;
     }
@@ -16,5 +15,10 @@ public class MathService {
 
     public int returnZero() {
         return 0;
+    }
+
+    @RecordTestForThis
+    public float addFloats(float x, float y) {
+        return x + y;
     }
 }

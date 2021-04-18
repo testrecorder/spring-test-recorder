@@ -28,4 +28,10 @@ class MathServiceTest {
         MathService mathService = new MathService();
         assertEquals(mathService.returnZero(), 0);
     }
+
+    @Test
+    void addFloats() throws Exception {
+        MathService mathService = new MathService();
+        assertEquals(mathService.addFloats(2.0f, 5.0f), 7.0f);
+    }
 }
