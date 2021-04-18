@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ObjectDtoConverter {
-    // TODO IB !!!! make it work all the simple cases
+    // TODO IB !!!! make it work in all the simple cases
     public static ObjectDto createObjectDto(Object object) {
         String className;
         String value;
@@ -31,12 +31,8 @@ public class ObjectDtoConverter {
                     value = object.toString();
                     break;
             }
-
         }
 
-        return ObjectDto.builder()
-                .className(className)
-                .value(value)
-                .build();
+        return new ObjectDto(className, value);
     }
 }
