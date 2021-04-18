@@ -22,36 +22,13 @@ public class MethodInvocationAnalyzerImpl implements MethodInvocationAnalyzer {
         String packageName = packageAndClassName.substring(0, lastPointIndex);
         String className = packageAndClassName.substring(lastPointIndex + 1);
 
-        List<ObjectDto> arguments = Arrays.stream(methodInvocation.getArgs()).map(x -> createObjectDto(x)).collect(Collectors.toList());
+        List<ObjectDto> arguments = Arrays.stream(methodInvocation.getArgs()).map(ObjectDtoConverter::createObjectDto).collect(Collectors.toList());
         return TestRunDto.builder()
                 .packageName(packageName)
                 .className(className)
                 .methodName(methodName)
                 .arguments(arguments)
-                .result(createObjectDto(result))
-                .build();
-    }
-
-    // TODO IB !!!! make it work all the simple cases
-    private static ObjectDto createObjectDto(Object object) {
-        String className;
-        String value;
-        if (object == null) {
-            className = "null";
-            value = "null";
-        } else {
-            className = object.getClass().getName();
-            if (className.equals("java.lang.Float")) {
-                value = object.toString() + "f";
-            } else {
-                value = object.toString();
-            }
-
-        }
-
-        return ObjectDto.builder()
-                .typeName(className)
-                .value(value)
+                .result(ObjectDtoConverter.createObjectDto(result))
                 .build();
     }
 }

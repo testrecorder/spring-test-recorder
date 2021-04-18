@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class ObjectDto {
-    private String typeName;
+    private String className;
     private String value;
 }
