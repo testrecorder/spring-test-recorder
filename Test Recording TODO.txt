@@ -1,0 +1,6 @@
+TODO 
+	handle objects sent as params
+	
+	handle objects received as result
+	
+	handle exceptions being thrown
