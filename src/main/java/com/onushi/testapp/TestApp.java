@@ -1,13 +1,11 @@
-package com.onushi.testrecording;
+package com.onushi.testapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestrecordingApplication {
-
+public class TestApp {
 	public static void main(String[] args) {
-		SpringApplication.run(TestrecordingApplication.class, args);
+		SpringApplication.run(TestApp.class, args);
 	}
-
 }
