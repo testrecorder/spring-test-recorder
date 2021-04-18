@@ -24,7 +24,8 @@ public class TestGenerator {
         return getTestString(packageName, className, methodName, methodInvocation.getArgs(), result);
     }
 
-    // TODO IB !!!! this should also have tests
+    // TODO IB this should also have tests
+    // TODO IB in the final version I should group tests for the same class together
     public String getTestString(String packageName, String className, String methodName, Object[] arguments, Object result) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getBeginMarkerString());

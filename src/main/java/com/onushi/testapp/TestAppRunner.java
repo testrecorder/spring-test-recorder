@@ -12,6 +12,6 @@ public class TestAppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        mathService.returnZero();
+        mathService.add(2, 5);
     }
 }

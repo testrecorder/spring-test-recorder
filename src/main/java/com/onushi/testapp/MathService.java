@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MathService {
+    @RecordTestForThis
     public int add(int x, int y) throws InterruptedException {
         return x + y;
     }
@@ -13,7 +14,6 @@ public class MathService {
         return -x;
     }
 
-    @RecordTestForThis
     public int returnZero() throws InterruptedException {
         return 0;
     }
