@@ -2,6 +2,8 @@ package com.onushi.testapp;
 
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MathServiceTest {
@@ -39,5 +41,17 @@ class MathServiceTest {
     void addStrings() throws Exception {
         MathService mathService = new MathService();
         assertEquals(mathService.addStrings("2", "5"), 7);
+    }
+
+    @Test
+    void logicalAnd() throws Exception {
+        MathService mathService = new MathService();
+        assertEquals(mathService.logicalAnd(true, true), true);
+    }
+
+    @Test
+    void toYYYY_MM_DD_T_HH_MM_SS_Z() throws Exception {
+        MathService mathService = new MathService();
+        assertEquals(mathService.toYYYY_MM_DD_T_HH_MM_SS_Z(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2021-04-18 18:55:04.385")), "2021-04-18T15:55:04Z");
     }
 }

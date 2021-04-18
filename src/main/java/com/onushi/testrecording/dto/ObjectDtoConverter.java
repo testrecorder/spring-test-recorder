@@ -2,6 +2,9 @@ package com.onushi.testrecording.dto;
 
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Component
 public class ObjectDtoConverter {
     // TODO IB !!!! make it work in all the simple cases
@@ -32,6 +35,12 @@ public class ObjectDtoConverter {
                     break;
                 case "java.lang.String":
                     value = "\"" + object + "\"";
+                    break;
+                case "java.util.Date":
+                    Date date = (Date)object;
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                    String dateStr = simpleDateFormat.format(date);
+                    value = String.format("new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\").parse(\"%s\")", dateStr);
                     break;
                 default:
                     value = object.toString();
