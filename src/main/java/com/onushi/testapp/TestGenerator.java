@@ -1,11 +1,6 @@
 package com.onushi.testapp;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
@@ -20,7 +15,7 @@ public class TestGenerator {
         stringBuilder.append(getBeginMarkerString());
         stringBuilder.append(getPackageString(testRunDto.getPackageName()));
         stringBuilder.append(getImportsString());
-        stringBuilder.append(getClassAndTestString(testRunDto.getClassName(), testRunDto.getMethodName(), testRunDto.getArguments(), testRunDto.getResult()));
+        stringBuilder.append(getClassAndTestString(testRunDto));
         stringBuilder.append(getEndMarkerString());
         return stringBuilder.toString();
     }
@@ -40,19 +35,20 @@ public class TestGenerator {
         return stringBuilder;
     }
 
-    private StringBuilder getClassAndTestString(String className, String methodName, List<ObjectDto> arguments, ObjectDto result) {
+    private StringBuilder getClassAndTestString(TestRunDto testRunDto) {
         StringBuilder stringBuilder = new StringBuilder();
-        String classNameVar = className.substring(0,1).toLowerCase(Locale.ROOT) + className.substring(1);
+        String classNameVar = testRunDto.getClassName().substring(0,1).toLowerCase(Locale.ROOT) + testRunDto.getClassName().substring(1);
         String argumentsText = "";
-        if (arguments.size() > 0) {
-            argumentsText = arguments.stream().map(ObjectDto::getValue).collect(Collectors.joining(", "));
+        if (testRunDto.getArguments().size() > 0) {
+            argumentsText = testRunDto.getArguments().stream().map(ObjectDto::getValue).collect(Collectors.joining(", "));
         }
 
-        stringBuilder.append(String.format("class %sTest {%n", className));
+        stringBuilder.append(String.format("class %sTest {%n", testRunDto.getClassName()));
         stringBuilder.append(String.format("    @Test%n"));
-        stringBuilder.append(String.format("    void %s() throws Exception {%n", methodName));
-        stringBuilder.append(String.format("        %s %s = new %s();%n", className, classNameVar, className));
-        stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n", classNameVar, methodName, argumentsText, result.getValue()));
+        stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunDto.getMethodName()));
+        stringBuilder.append(String.format("        %s %s = new %s();%n", testRunDto.getClassName(), classNameVar, testRunDto.getClassName()));
+        stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
+                classNameVar, testRunDto.getMethodName(), argumentsText, testRunDto.getResult().getValue()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;
