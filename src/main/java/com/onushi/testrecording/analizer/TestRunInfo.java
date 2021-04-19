@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! use this
+// TODO IB handle objects sent as params
+// TODO IB handle objects received as result
+// TODO IB handle exceptions being thrown
+
 public class TestRunInfo {
     private final MethodInvocationProceedingJoinPoint methodInvocation;
     private final Object testResult;

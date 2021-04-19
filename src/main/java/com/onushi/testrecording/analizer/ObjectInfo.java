@@ -4,15 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 // TODO IB !!!! make it work in all the simple cases
-// TODO IB !!!! create a class analyzer to check if the constructors of the object being tested has dependencies
+// TODO IB !!!! create a class analyzer?
 
 // TODO IB something special for char -> (char)c
-// TODO IB handle objects sent as params
-// TODO IB handle objects received as result
-// TODO IB handle exceptions being thrown
 // TODO IB maybe I can use serialization to transform to Json and back
+
 public class ObjectInfo {
     private final Object object;
+    private String value = null;
 
     public ObjectInfo(Object object) {
         this.object = object;
@@ -28,6 +27,13 @@ public class ObjectInfo {
     }
 
     public String getValue() {
+        if (value == null) {
+            value = getValueInternal();
+        }
+        return value;
+    }
+
+    private String getValueInternal() {
         String className = getClassName();
         if (object == null) {
             return "null";
