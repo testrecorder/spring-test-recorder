@@ -7,13 +7,13 @@ import java.util.Date;
 
 @Component
 public class TestAppRunner implements CommandLineRunner {
-    private final MathService mathService;
-    public TestAppRunner(MathService mathService) {
-        this.mathService = mathService;
+    private final SampleService sampleService;
+    public TestAppRunner(SampleService sampleService) {
+        this.sampleService = sampleService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        mathService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date());
+        sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date());
     }
 }

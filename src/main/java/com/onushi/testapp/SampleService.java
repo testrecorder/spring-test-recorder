@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 @Component
-public class MathService {
+public class SampleService {
     public int add(int x, int y) {
         return x + y;
     }
