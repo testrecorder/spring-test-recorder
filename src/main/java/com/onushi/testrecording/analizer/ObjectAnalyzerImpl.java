@@ -9,6 +9,8 @@ import java.util.Date;
 @Component
 public class ObjectAnalyzerImpl implements ObjectAnalyzer {
     // TODO IB !!!! make it work in all the simple cases
+    // TODO IB !!!! create a class analyzer to check if the constructors of the object being tested has dependencies
+
     // TODO IB something special for char -> (char)c
     // TODO IB handle objects sent as params
     // TODO IB handle objects received as result
