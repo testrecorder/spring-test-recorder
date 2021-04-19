@@ -6,12 +6,10 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-// TODO IB use a templating engine here
+// TODO IB !!!! use a templating engine here
 @Component
 public class TestGenerator {
 
-    // TODO IB this should also have tests
-    // TODO IB I should group tests for the same class together
     public String getTestString(TestRunInfo testRunInfo) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getBeginMarkerString());

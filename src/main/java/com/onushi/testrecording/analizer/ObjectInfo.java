@@ -3,11 +3,10 @@ package com.onushi.testrecording.analizer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// TODO IB !!!! make it work in all the simple cases
-// TODO IB !!!! create a class analyzer?
-
+// TODO IB make it work in all the simple cases
+// TODO IB create a class analyzer to check object fields, setters and constructors
 // TODO IB something special for char -> (char)c
-// TODO IB maybe I can use serialization to transform to Json and back
+// TODO IB I can use serialization to transform to Json and back
 
 public class ObjectInfo {
     private final Object object;
@@ -19,7 +18,6 @@ public class ObjectInfo {
 
     public String getClassName() {
         if (object == null) {
-            // TODO IB !!!! do I need this if?
             return null;
         } else {
             return object.getClass().getName();

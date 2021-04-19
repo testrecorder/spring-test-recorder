@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO IB handle objects sent as params
-// TODO IB handle objects received as result
+// TODO IB Do I need to differentiate objects tested / sent as params / being the result?
 // TODO IB handle exceptions being thrown
 
 public class TestRunInfo {
