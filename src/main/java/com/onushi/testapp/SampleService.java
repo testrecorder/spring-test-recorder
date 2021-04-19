@@ -10,6 +10,8 @@ import java.util.TimeZone;
 
 @Component
 public class SampleService {
+    public final int testField = 5;
+
     public int add(int x, int y) {
         return x + y;
     }

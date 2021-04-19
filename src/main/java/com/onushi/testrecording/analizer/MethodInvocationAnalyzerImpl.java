@@ -23,6 +23,7 @@ public class MethodInvocationAnalyzerImpl implements MethodInvocationAnalyzer {
 
         String packageAndClassName = proceedingJoinPoint.getSignature().getDeclaringTypeName();
         String methodName = proceedingJoinPoint.getSignature().getName();
+        Object objectBeingTested = proceedingJoinPoint.getTarget();
 
         int lastPointIndex = packageAndClassName.lastIndexOf(".");
         String packageName = packageAndClassName.substring(0, lastPointIndex);
