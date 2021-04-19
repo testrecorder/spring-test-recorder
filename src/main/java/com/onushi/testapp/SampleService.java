@@ -12,6 +12,7 @@ import java.util.TimeZone;
 public class SampleService {
     public final int testField = 5;
 
+    @RecordTestForThis
     public int add(int x, int y) {
         return x + y;
     }
@@ -36,7 +37,6 @@ public class SampleService {
         return a && b;
     }
 
-    @RecordTestForThis
     public String toYYYY_MM_DD_T_HH_MM_SS_Z(Date date) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

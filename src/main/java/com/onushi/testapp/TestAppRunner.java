@@ -14,6 +14,8 @@ public class TestAppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        sampleService.add(2, 3);
+        sampleService.logicalAnd(true, true);
         sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date());
     }
 }
