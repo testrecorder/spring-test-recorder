@@ -54,4 +54,10 @@ class SampleServiceTest {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2021-04-19 20:50:45.457")), "2021-04-19T17:50:45Z");
     }
+
+    @Test
+    void testTypes() throws Exception {
+        SampleService sampleService = new SampleService();
+        assertEquals(sampleService.testTypes((short)6, (byte)4, 5, true, 'c', 1.5), 5);
+    }
 }

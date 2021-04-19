@@ -12,7 +12,6 @@ import java.util.TimeZone;
 public class SampleService {
     public final int testField = 5;
 
-    @RecordTestForThis
     public int add(int x, int y) {
         return x + y;
     }
@@ -43,4 +42,10 @@ public class SampleService {
         df.setTimeZone(tz);
         return df.format(date);
     }
+
+    @RecordTestForThis
+    public int testTypes(short s, byte b, int a, boolean b1, char c, double d) {
+        return 5;
+    }
+
 }

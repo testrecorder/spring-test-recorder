@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 // TODO IB !!!! use a templating engine here
+// TODO IB !!!! see https://www.baeldung.com/thymeleaf-generate-pdf
+// TODO IB ar trebui o faza de pre-generare in care sa analizez toate dependintele. sa vad duplicate, sa gasesc ordinea, sa dau nume la variabile
 @Component
 public class TestGenerator {
 
