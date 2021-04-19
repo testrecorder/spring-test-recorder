@@ -1,19 +1,21 @@
-package com.onushi.testrecording.dto;
+package com.onushi.testrecording.analizer;
 
+import com.onushi.testrecording.dto.ObjectDto;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
-public class ObjectDtoConverter {
+public class ObjectAnalyzerImpl implements ObjectAnalyzer {
     // TODO IB !!!! make it work in all the simple cases
     // TODO IB something special for char -> (char)c
     // TODO IB handle objects sent as params
     // TODO IB handle objects received as result
     // TODO IB handle exceptions being thrown
     // TODO IB maybe I can use serialization to transform to Json and back
-    public ObjectDto createObjectDto(Object object) {
+    @Override
+    public ObjectDto analyzeObject(Object object) {
         String className;
         String value;
         if (object == null) {
@@ -50,6 +52,9 @@ public class ObjectDtoConverter {
             }
         }
 
-        return new ObjectDto(className, value);
+        return ObjectDto.builder()
+                .className(className)
+                .value(value)
+                .build();
     }
 }

@@ -8,5 +8,5 @@ import org.springframework.stereotype.Component;
 @ComponentScan
 @Component
 public interface MethodInvocationAnalyzer {
-    TestRunDto createTestRunDto(ProceedingJoinPoint proceedingJoinPoint, Object result);
+    TestRunDto analyzeTestRun(ProceedingJoinPoint proceedingJoinPoint, Object result);
 }
