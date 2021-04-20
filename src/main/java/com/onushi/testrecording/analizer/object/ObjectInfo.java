@@ -16,7 +16,7 @@ public abstract class ObjectInfo {
         this.object = object;
     }
 
-    public List<String> getRequiredIncludes() {
+    public List<String> getRequiredImports() {
         return new ArrayList<>();
     }
 

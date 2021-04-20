@@ -17,6 +17,7 @@ public class TestGenerator {
         stringBuilder.append(getBeginMarkerString());
         stringBuilder.append(getPackageString(testRunInfo.getPackageName()));
         stringBuilder.append(getImportsString(testRunInfo));
+        stringBuilder.append("\n");
         stringBuilder.append(getClassAndTestString(testRunInfo));
         stringBuilder.append(getEndMarkerString());
         return stringBuilder.toString();
@@ -30,15 +31,10 @@ public class TestGenerator {
         return String.format("package %s;%n%n", packageName);
     }
 
-    private StringBuilder getImportsString(TestRunInfo testRunInfo) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("import org.junit.jupiter.api.Test;%n%n"));
-        testRunInfo.getArguments().stream()
-                .flatMap(x -> x.getRequiredIncludes().stream())
-                .distinct()
-                .forEach(stringBuilder::append);
-        stringBuilder.append(String.format("import static org.junit.jupiter.api.Assertions.*;%n%n"));
-        return stringBuilder;
+    private String getImportsString(TestRunInfo testRunInfo) {
+        return testRunInfo.getRequiredImports().stream()
+                .map(x -> String.format("import %s;%n", x))
+                .collect(Collectors.joining(""));
     }
 
     private StringBuilder getClassAndTestString(TestRunInfo testRunInfo) {
@@ -46,6 +42,7 @@ public class TestGenerator {
         String classNameVar = testRunInfo.getClassName().substring(0,1).toLowerCase(Locale.ROOT) + testRunInfo.getClassName().substring(1);
         String argumentsRequiredHelperObjects = testRunInfo.getArguments().stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
+                .map(x -> String.format("        %s%n", x))
                 .distinct()
                 .collect(Collectors.joining(""));
         String argumentsInit = testRunInfo.getArguments().stream().map(ObjectInfo::getInit).collect(Collectors.joining(""));

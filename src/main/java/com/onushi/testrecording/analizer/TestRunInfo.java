@@ -2,6 +2,8 @@ package com.onushi.testrecording.analizer;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +44,15 @@ public class TestRunInfo {
 
     public List<ObjectInfo> getArguments() {
         return Arrays.stream(methodInvocation.getArgs()).map(ObjectInfo::createObjectInfo).collect(Collectors.toList());
+    }
+
+    public List<String> getRequiredImports() {
+        List<String> results = new ArrayList<>();
+        results.add("org.junit.jupiter.api.Test");
+        results.add("static org.junit.jupiter.api.Assertions.*");
+        results.addAll(this.getArguments().stream()
+                .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
+        return results.stream().distinct().collect(Collectors.toList());
     }
 
     public ObjectInfo getTestResult() {
