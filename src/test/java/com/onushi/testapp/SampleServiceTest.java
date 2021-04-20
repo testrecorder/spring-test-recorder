@@ -3,6 +3,7 @@ package com.onushi.testapp;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,8 +52,10 @@ class SampleServiceTest {
 
     @Test
     void toYYYY_MM_DD_T_HH_MM_SS_Z() throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date1 = simpleDateFormat.parse("2021-04-20 16:47:12.080");
         SampleService sampleService = new SampleService();
-        assertEquals(sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2021-04-19 20:50:45.457")), "2021-04-19T17:50:45Z");
+        assertEquals(sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(date1), "2021-04-20T13:47:12Z");
     }
 
     @Test

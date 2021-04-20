@@ -40,17 +40,24 @@ public class TestGenerator {
     private StringBuilder getClassAndTestString(TestRunInfo testRunInfo) {
         StringBuilder stringBuilder = new StringBuilder();
         String classNameVar = testRunInfo.getClassName().substring(0,1).toLowerCase(Locale.ROOT) + testRunInfo.getClassName().substring(1);
-        String argumentsText = "";
+        String argumentsInit = "";
         if (testRunInfo.getArguments().size() > 0) {
-            argumentsText = testRunInfo.getArguments().stream().map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
+            argumentsInit = testRunInfo.getArguments().stream().map(ObjectInfo::getInit).collect(Collectors.joining(""));
+        }
+        String argumentsCode = "";
+        if (testRunInfo.getArguments().size() > 0) {
+            argumentsCode = testRunInfo.getArguments().stream().map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
         }
 
         stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getClassName()));
         stringBuilder.append(String.format("    @Test%n"));
         stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunInfo.getMethodName()));
+        if (!argumentsInit.equals("")) {
+            stringBuilder.append(argumentsInit);
+        }
         stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), classNameVar, testRunInfo.getClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
-                classNameVar, testRunInfo.getMethodName(), argumentsText, testRunInfo.getTestResult().getInlineCode()));
+                classNameVar, testRunInfo.getMethodName(), argumentsCode, testRunInfo.getTestResult().getInlineCode()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;

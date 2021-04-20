@@ -13,6 +13,10 @@ public abstract class ObjectInfo {
         this.object = object;
     }
 
+    public String getInit() {
+        return "";
+    }
+
     public abstract String getInlineCode();
 
     public abstract boolean isOnlyInline();

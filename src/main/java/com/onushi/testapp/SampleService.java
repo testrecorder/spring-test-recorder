@@ -36,6 +36,7 @@ public class SampleService {
         return a && b;
     }
 
+    @RecordTestForThis
     public String toYYYY_MM_DD_T_HH_MM_SS_Z(Date date) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -43,7 +44,6 @@ public class SampleService {
         return df.format(date);
     }
 
-    @RecordTestForThis
     public int testTypes(short s, byte b, int a, boolean b1, char c, double d) {
         return 5;
     }
