@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer;
+package com.onushi.testrecording.analizer.object;
 
 public class GenericObjectInfo extends ObjectInfo {
     protected GenericObjectInfo(Object object) {

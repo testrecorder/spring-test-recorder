@@ -1,5 +1,6 @@
 package com.onushi.testrecording.analizer;
 
+import com.onushi.testrecording.analizer.object.ObjectInfo;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import java.util.Arrays;
 import java.util.List;

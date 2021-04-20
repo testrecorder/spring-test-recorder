@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer;
+package com.onushi.testrecording.analizer.object;
 
 // TODO IB create a class analyzer to check object fields, setters and constructors
 // TODO IB I can use serialization to transform to Json and back
@@ -27,7 +27,7 @@ public abstract class ObjectInfo {
         }
     }
 
-    static ObjectInfo createObjectInfo(Object object) {
+    public static ObjectInfo createObjectInfo(Object object) {
         String className = getClassName(object);
             switch (className) {
                 case "null":

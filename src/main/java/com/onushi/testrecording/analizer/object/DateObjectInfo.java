@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer;
+package com.onushi.testrecording.analizer.object;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
