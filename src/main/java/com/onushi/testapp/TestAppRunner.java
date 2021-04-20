@@ -20,6 +20,11 @@ public class TestAppRunner implements CommandLineRunner {
         Date d2 = simpleDateFormat.parse("2021-02-02");
         Date min = sampleService.minDate(d1, d2);
 
+        Date d3 = simpleDateFormat.parse("2021-01-02");
+        Date d4 = simpleDateFormat.parse("2021-02-03");
+        Date min1 = sampleService.minDate(d3, d4);
+
+
         sampleService.addFloats(2f, 3f);
         sampleService.logicalAnd(true, true);
         sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date(), new Date());

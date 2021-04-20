@@ -1,9 +1,17 @@
 package com.onushi.testrecording.analizer;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+// TODO IB !!!! You cannot inject a component in a non-component
+// TODO IB !!!! Make all testable by mocking
+//@Component
+//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ObjectNameGenerator {
     private Map<Object, String> objectNames = new HashMap<>();
     private Map<String, Integer> lastIndexForClass = new HashMap<>();

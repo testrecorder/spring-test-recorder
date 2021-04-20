@@ -38,7 +38,7 @@ public class TestGenerator {
         StringBuilder stringBuilder = new StringBuilder();
         String argumentsRequiredHelperObjects = testRunInfo.getRequiredHelperObjects().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
-        String argumentsInit = testRunInfo.getArgumentsInit().stream()
+        String argumentsInit = testRunInfo.getObjectsInit().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
         String argumentsCode = String.join(", ", testRunInfo.getArgumentsInlineCode());
 
@@ -49,7 +49,7 @@ public class TestGenerator {
         stringBuilder.append(argumentsInit);
         stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), testRunInfo.getClassNameVar(), testRunInfo.getClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
-                testRunInfo.getClassNameVar(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getTestResult().getInlineCode()));
+                testRunInfo.getClassNameVar(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getExpectedResult().getInlineCode()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;

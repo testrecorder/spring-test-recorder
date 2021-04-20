@@ -14,19 +14,19 @@ import java.util.stream.Collectors;
 
 public class TestRunInfo {
     private final MethodInvocationProceedingJoinPoint methodInvocation;
-    private final Object testResult;
+    private final Object expectedResult;
     private final String packageName;
     private final String className;
     private final ObjectNameGenerator objectNameGenerator;
 
-    public TestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object testResult) {
+    public TestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object expectedResult) {
         this.methodInvocation = methodInvocation;
-        this.testResult = testResult;
+        this.expectedResult = expectedResult;
         String packageAndClassName = methodInvocation.getSignature().getDeclaringTypeName();
         int lastPointIndex = packageAndClassName.lastIndexOf(".");
         this.packageName = packageAndClassName.substring(0, lastPointIndex);
         this.className = packageAndClassName.substring(lastPointIndex + 1);
-        objectNameGenerator = new ObjectNameGenerator();
+        this.objectNameGenerator = new ObjectNameGenerator();
     }
 
     public String getPackageName() {
@@ -57,23 +57,27 @@ public class TestRunInfo {
         results.add("static org.junit.jupiter.api.Assertions.*");
         results.addAll(this.getArguments().stream()
                 .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
+        results.addAll(this.getExpectedResult().getRequiredImports());
         return results.stream().distinct().collect(Collectors.toList());
     }
 
     public List<String> getRequiredHelperObjects() {
-        return getArguments().stream()
+        List<String> results = getArguments().stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
-                .distinct()
                 .collect(Collectors.toList());
+        results.addAll(this.getExpectedResult().getRequiredHelperObjects());
+        return results.stream().distinct().collect(Collectors.toList());
     }
 
     public String getClassNameVar() {
         return getClassName().substring(0,1).toLowerCase(Locale.ROOT) + getClassName().substring(1);
     }
 
-    public List<String> getArgumentsInit() {
-        return getArguments().stream()
-                .map(ObjectInfo::getInit)
+    public List<String> getObjectsInit() {
+        List<String> results = getArguments().stream()
+                .map(ObjectInfo::getInit).collect(Collectors.toList());
+        results.add(getExpectedResult().getInit());
+        return results.stream()
                 .filter(x -> !x.equals(""))
                 .distinct()
                 .collect(Collectors.toList());
@@ -86,7 +90,7 @@ public class TestRunInfo {
     }
 
 
-    public ObjectInfo getTestResult() {
-        return ObjectInfo.createObjectInfo(testResult, "result");
+    public ObjectInfo getExpectedResult() {
+        return ObjectInfo.createObjectInfo(expectedResult, "expectedResult");
     }
 }
