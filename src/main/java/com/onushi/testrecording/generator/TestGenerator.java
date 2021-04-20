@@ -16,7 +16,7 @@ public class TestGenerator {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getBeginMarkerString());
         stringBuilder.append(getPackageString(testRunInfo.getPackageName()));
-        stringBuilder.append(getImportsString());
+        stringBuilder.append(getImportsString(testRunInfo));
         stringBuilder.append(getClassAndTestString(testRunInfo));
         stringBuilder.append(getEndMarkerString());
         return stringBuilder.toString();
@@ -30,9 +30,13 @@ public class TestGenerator {
         return String.format("package %s;%n%n", packageName);
     }
 
-    private StringBuilder getImportsString() {
+    private StringBuilder getImportsString(TestRunInfo testRunInfo) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("import org.junit.jupiter.api.Test;%n%n"));
+        testRunInfo.getArguments().stream()
+                .flatMap(x -> x.getRequiredIncludes().stream())
+                .distinct()
+                .forEach(stringBuilder::append);
         stringBuilder.append(String.format("import static org.junit.jupiter.api.Assertions.*;%n%n"));
         return stringBuilder;
     }
@@ -40,21 +44,18 @@ public class TestGenerator {
     private StringBuilder getClassAndTestString(TestRunInfo testRunInfo) {
         StringBuilder stringBuilder = new StringBuilder();
         String classNameVar = testRunInfo.getClassName().substring(0,1).toLowerCase(Locale.ROOT) + testRunInfo.getClassName().substring(1);
-        String argumentsInit = "";
-        if (testRunInfo.getArguments().size() > 0) {
-            argumentsInit = testRunInfo.getArguments().stream().map(ObjectInfo::getInit).collect(Collectors.joining(""));
-        }
-        String argumentsCode = "";
-        if (testRunInfo.getArguments().size() > 0) {
-            argumentsCode = testRunInfo.getArguments().stream().map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
-        }
+        String argumentsRequiredHelperObjects = testRunInfo.getArguments().stream()
+                .flatMap(x -> x.getRequiredHelperObjects().stream())
+                .distinct()
+                .collect(Collectors.joining(""));
+        String argumentsInit = testRunInfo.getArguments().stream().map(ObjectInfo::getInit).collect(Collectors.joining(""));
+        String argumentsCode = testRunInfo.getArguments().stream().map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
 
         stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getClassName()));
         stringBuilder.append(String.format("    @Test%n"));
         stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunInfo.getMethodName()));
-        if (!argumentsInit.equals("")) {
-            stringBuilder.append(argumentsInit);
-        }
+        stringBuilder.append(argumentsRequiredHelperObjects);
+        stringBuilder.append(argumentsInit);
         stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), classNameVar, testRunInfo.getClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
                 classNameVar, testRunInfo.getMethodName(), argumentsCode, testRunInfo.getTestResult().getInlineCode()));

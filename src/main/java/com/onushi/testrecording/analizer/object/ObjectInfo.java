@@ -6,11 +6,22 @@ package com.onushi.testrecording.analizer.object;
 // TODO IB !!!! detect if it's inline or no
 // TODO IB !!!! https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ObjectInfo {
     protected final Object object;
 
     protected ObjectInfo(Object object) {
         this.object = object;
+    }
+
+    public List<String> getRequiredIncludes() {
+        return new ArrayList<>();
+    }
+
+    public List<String> getRequiredHelperObjects() {
+        return new ArrayList<>();
     }
 
     public String getInit() {
