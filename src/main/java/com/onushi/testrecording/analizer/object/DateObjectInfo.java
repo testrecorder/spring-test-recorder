@@ -15,4 +15,9 @@ public class DateObjectInfo extends ObjectInfo {
         String dateStr = simpleDateFormat.format(date);
         return String.format("new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\").parse(\"%s\")", dateStr);
     }
+
+    @Override
+    public boolean isInline() {
+        return false;
+    }
 }

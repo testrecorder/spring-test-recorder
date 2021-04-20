@@ -9,4 +9,9 @@ public class GenericObjectInfo extends ObjectInfo {
     public String getValue() {
         return object.toString();
     }
+
+    @Override
+    public boolean isInline() {
+        return true;
+    }
 }

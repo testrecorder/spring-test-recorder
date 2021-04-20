@@ -9,4 +9,9 @@ public class CharacterObjectInfo extends ObjectInfo {
     public String getValue() {
         return "'" + object + "'";
     }
+
+    @Override
+    public boolean isInline() {
+        return true;
+    }
 }

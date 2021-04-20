@@ -9,4 +9,9 @@ public class FloatObjectInfo extends ObjectInfo {
     public String getValue() {
         return object + "f";
     }
+
+    @Override
+    public boolean isInline() {
+        return true;
+    }
 }

@@ -9,4 +9,9 @@ public class ByteObjectInfo extends ObjectInfo {
     public String getValue() {
         return "(byte)" + object;
     }
+
+    @Override
+    public boolean isInline() {
+        return true;
+    }
 }

@@ -9,5 +9,10 @@ public class ShortObjectInfo extends ObjectInfo {
     public String getValue() {
         return "(short)" + object;
     }
+
+    @Override
+    public boolean isInline() {
+        return true;
+    }
 }
 

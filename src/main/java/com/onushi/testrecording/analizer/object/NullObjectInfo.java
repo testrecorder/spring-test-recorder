@@ -9,4 +9,9 @@ public class NullObjectInfo extends ObjectInfo {
     public String getValue() {
         return "null";
     }
+
+    @Override
+    public boolean isInline() {
+        return true;
+    }
 }

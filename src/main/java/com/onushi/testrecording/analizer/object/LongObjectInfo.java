@@ -9,4 +9,9 @@ public class LongObjectInfo extends ObjectInfo {
     public String getValue() {
         return object + "L";
     }
+
+    @Override
+    public boolean isInline() {
+        return true;
+    }
 }
