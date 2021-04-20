@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.object;
 
 public class NullObjectInfo extends ObjectInfo {
-    protected NullObjectInfo() {
-        super(null);
+    protected NullObjectInfo(String objectName) {
+        super(null, objectName);
     }
 
     @Override

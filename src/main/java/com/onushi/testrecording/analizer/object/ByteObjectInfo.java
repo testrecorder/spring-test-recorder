@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.object;
 
 public class ByteObjectInfo extends ObjectInfo {
-    public ByteObjectInfo(Object object) {
-        super(object);
+    public ByteObjectInfo(Object object, String objectName) {
+        super(object, objectName);
     }
 
     @Override

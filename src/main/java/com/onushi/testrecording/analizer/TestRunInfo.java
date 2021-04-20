@@ -17,6 +17,7 @@ public class TestRunInfo {
     private final Object testResult;
     private final String packageName;
     private final String className;
+    private final ObjectNameGenerator objectNameGenerator;
 
     public TestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object testResult) {
         this.methodInvocation = methodInvocation;
@@ -25,6 +26,7 @@ public class TestRunInfo {
         int lastPointIndex = packageAndClassName.lastIndexOf(".");
         this.packageName = packageAndClassName.substring(0, lastPointIndex);
         this.className = packageAndClassName.substring(lastPointIndex + 1);
+        objectNameGenerator = new ObjectNameGenerator();
     }
 
     public String getPackageName() {
@@ -36,7 +38,7 @@ public class TestRunInfo {
     }
 
     public ObjectInfo getObjectBeingTested() {
-        return ObjectInfo.createObjectInfo(methodInvocation.getTarget());
+        return ObjectInfo.createObjectInfo(methodInvocation.getTarget(), "testedObject");
     }
 
     public String getMethodName() {
@@ -44,7 +46,9 @@ public class TestRunInfo {
     }
 
     public List<ObjectInfo> getArguments() {
-        return Arrays.stream(methodInvocation.getArgs()).map(ObjectInfo::createObjectInfo).collect(Collectors.toList());
+        return Arrays.stream(methodInvocation.getArgs())
+                .map(x -> ObjectInfo.createObjectInfo(x, this.objectNameGenerator.generateObjectName(x)))
+                .collect(Collectors.toList());
     }
 
     public List<String> getRequiredImports() {
@@ -83,6 +87,6 @@ public class TestRunInfo {
 
 
     public ObjectInfo getTestResult() {
-        return ObjectInfo.createObjectInfo(testResult);
+        return ObjectInfo.createObjectInfo(testResult, "result");
     }
 }

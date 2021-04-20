@@ -4,9 +4,8 @@ import com.onushi.testrecording.analizer.TestRunInfo;
 import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! use a templating engine here
-// TODO IB !!!! see https://www.baeldung.com/thymeleaf-generate-pdf
-// TODO IB ar trebui o faza de pre-generare in care sa analizez toate dependintele. sa vad duplicate, sa gasesc ordinea, sa dau nume la variabile
+// TODO IB use a templating engine here
+// TODO IB see https://www.baeldung.com/thymeleaf-generate-pdf
 @Component
 public class TestGenerator {
 

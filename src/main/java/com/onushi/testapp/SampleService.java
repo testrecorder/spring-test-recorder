@@ -36,7 +36,6 @@ public class SampleService {
         return a && b;
     }
 
-    @RecordTestForThis
     public String toYYYY_MM_DD_T_HH_MM_SS_Z(Date date, Date date1) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -48,4 +47,8 @@ public class SampleService {
         return 5;
     }
 
+    @RecordTestForThis
+    public Date minDate(Date date1, Date date2) {
+        return date1.before(date2) ? date1 : date2;
+    }
 }

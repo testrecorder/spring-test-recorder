@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.object;
 
 public class LongObjectInfo extends ObjectInfo {
-    public LongObjectInfo(Object object) {
-        super(object);
+    public LongObjectInfo(Object object, String objectName) {
+        super(object, objectName);
     }
 
     @Override

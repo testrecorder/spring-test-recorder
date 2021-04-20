@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.object;
 
 public class GenericObjectInfo extends ObjectInfo {
-    protected GenericObjectInfo(Object object) {
-        super(object);
+    protected GenericObjectInfo(Object object, String objectName) {
+        super(object, objectName);
     }
 
     @Override

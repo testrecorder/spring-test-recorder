@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.object;
 
 public class FloatObjectInfo extends ObjectInfo {
-    public FloatObjectInfo(Object object) {
-        super(object);
+    public FloatObjectInfo(Object object, String objectName) {
+        super(object, objectName);
     }
 
     @Override

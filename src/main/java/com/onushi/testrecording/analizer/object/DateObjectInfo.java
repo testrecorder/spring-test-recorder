@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DateObjectInfo extends ObjectInfo {
-    public DateObjectInfo(Object object) {
-        super(object);
+    public DateObjectInfo(Object object, String objectName) {
+        super(object, objectName);
     }
 
     @Override
@@ -30,14 +30,13 @@ public class DateObjectInfo extends ObjectInfo {
         String dateStr = simpleDateFormat.format(date);
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("Date date1 = simpleDateFormat.parse(\"%s\");", dateStr));
+        stringBuilder.append(String.format("Date %s = simpleDateFormat.parse(\"%s\");", this.objectName, dateStr));
         return stringBuilder.toString();
     }
 
     @Override
     public String getInlineCode() {
-        // TODO IB !!!! this should be provided by TestRun
-        return "date1";
+        return this.objectName;
     }
 
     @Override
