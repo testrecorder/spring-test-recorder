@@ -55,6 +55,13 @@ public class TestRunInfo {
         return results.stream().distinct().collect(Collectors.toList());
     }
 
+    public List<String> getRequiredHelperObjects() {
+        return getArguments().stream()
+                .flatMap(x -> x.getRequiredHelperObjects().stream())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
     public ObjectInfo getTestResult() {
         return ObjectInfo.createObjectInfo(testResult);
     }
