@@ -2,28 +2,31 @@ package com.onushi.testrecording.analizer;
 
 // TODO IB create a class analyzer to check object fields, setters and constructors
 // TODO IB I can use serialization to transform to Json and back
+// TODO IB !!!! think how to split declaration + initialization from use for complex objects
+// TODO IB !!!! detect if it's inline or no
+// TODO IB !!!! https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
+
 public abstract class ObjectInfo {
     protected final Object object;
-    protected String className;
 
     protected ObjectInfo(Object object) {
-        this.className = ObjectInfo.getClassName(object);
         this.object = object;
     }
 
     public abstract String getValue();
 
+    public String getClassName() {
+        return ObjectInfo.getClassName(object);
+    }
+
     private static String getClassName(Object object) {
         if (object == null) {
-            return null;
+            return "null";
         } else {
             return object.getClass().getName();
         }
     }
 
-    // TODO IB !!!! think how to split declaration + initialization from use for complex objects
-    // TODO IB !!!! detect if it's inline or no
-    // TODO IB !!!! https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
     static ObjectInfo createObjectInfo(Object object) {
         String className = getClassName(object);
             switch (className) {
