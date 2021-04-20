@@ -32,7 +32,7 @@ public class TestRunInfo {
     }
 
     public ObjectInfo getObjectBeingTested() {
-        return new ObjectInfo(methodInvocation.getTarget());
+        return ObjectInfo.createObjectInfo(methodInvocation.getTarget());
     }
 
     public String getMethodName() {
@@ -40,10 +40,10 @@ public class TestRunInfo {
     }
 
     public List<ObjectInfo> getArguments() {
-        return Arrays.stream(methodInvocation.getArgs()).map(ObjectInfo::new).collect(Collectors.toList());
+        return Arrays.stream(methodInvocation.getArgs()).map(ObjectInfo::createObjectInfo).collect(Collectors.toList());
     }
 
     public ObjectInfo getTestResult() {
-        return new ObjectInfo(testResult);
+        return ObjectInfo.createObjectInfo(testResult);
     }
 }

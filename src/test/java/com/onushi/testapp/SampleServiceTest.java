@@ -34,7 +34,7 @@ class SampleServiceTest {
     @Test
     void addFloats() throws Exception {
         SampleService sampleService = new SampleService();
-        assertEquals(sampleService.addFloats(2.0f, 5.0f), 7.0f);
+        assertEquals(sampleService.addFloats(2.0f, 3.0f), 5.0f);
     }
 
     @Test

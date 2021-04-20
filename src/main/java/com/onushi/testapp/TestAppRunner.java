@@ -14,7 +14,7 @@ public class TestAppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        sampleService.add(2, 3);
+        sampleService.addFloats(2f, 3f);
         sampleService.logicalAnd(true, true);
         sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date());
         sampleService.testTypes((short)6, (byte)4, 5, true, 'c', 1.5);

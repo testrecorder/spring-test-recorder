@@ -1,19 +1,19 @@
 package com.onushi.testrecording.analizer;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 // TODO IB create a class analyzer to check object fields, setters and constructors
 // TODO IB I can use serialization to transform to Json and back
-public class ObjectInfo {
-    private final Object object;
-    private String value = null;
+public abstract class ObjectInfo {
+    protected final Object object;
+    protected String className;
 
-    public ObjectInfo(Object object) {
+    protected ObjectInfo(Object object) {
+        this.className = ObjectInfo.getClassName(object);
         this.object = object;
     }
 
-    public String getClassName() {
+    public abstract String getValue();
+
+    private static String getClassName(Object object) {
         if (object == null) {
             return null;
         } else {
@@ -21,44 +21,34 @@ public class ObjectInfo {
         }
     }
 
-    public String getValue() {
-        if (value == null) {
-            value = getValueInternal();
-        }
-        return value;
-    }
-
+    // TODO IB !!!! think how to split declaration + initialization from use for complex objects
     // TODO IB !!!! detect if it's inline or no
-    private String getValueInternal() {
-        String className = getClassName();
-        if (object == null) {
-            return "null";
-        }
-        switch (className) {
-            case "java.lang.Float":
-                return object + "f";
-            case "java.lang.Long":
-                return object + "L";
-            case "java.lang.Byte":
-                return "(byte)" + object;
-            case "java.lang.Short":
-                return "(short)" + object;
-            case "java.lang.Character":
-                return "'" + object + "'";
-            case "java.lang.String":
-                return "\"" + object + "\"";
-            case "java.util.Date":
-                // TODO IB !!!! think how to split declaration + initialization from use for complex objects
-                Date date = (Date) object;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-                String dateStr = simpleDateFormat.format(date);
-                return String.format("new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\").parse(\"%s\")", dateStr);
-            case "java.lang.Boolean":
-            case "java.lang.Integer":
-            case "java.lang.Double":
-            default:
-                return object.toString();
-        }
+    // TODO IB !!!! https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
+    static ObjectInfo createObjectInfo(Object object) {
+        String className = getClassName(object);
+            switch (className) {
+                case "null":
+                    return new NullObjectInfo();
+                case "java.lang.Float":
+                    return new FloatObjectInfo(object);
+                case "java.lang.Long":
+                    return new LongObjectInfo(object);
+                case "java.lang.Byte":
+                    return new ByteObjectInfo(object);
+                case "java.lang.Short":
+                    return new ShortObjectInfo(object);
+                case "java.lang.Character":
+                    return new CharacterObjectInfo(object);
+                case "java.lang.String":
+                    return new StringObjectInfo(object);
+                case "java.util.Date":
+                    return new DateObjectInfo(object);
+                case "java.lang.Boolean":
+                case "java.lang.Integer":
+                case "java.lang.Double":
+                default:
+                    return new GenericObjectInfo(object);
+            }
     }
 }
 

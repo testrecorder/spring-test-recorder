@@ -1,1 +1,26 @@
 
+Add an enum specifying the destination of an object
+	TestedObject - this should not be mocked
+	Params
+	Result - 
+
+Problem
+	This library should run together with the user code
+	And the user needs to mark with an Annotation the funtions he wants to generate Unit Tests for
+
+Try mockito
+
+Apply Strategy pattern
+
+I have more objects that need to be created by the test
+	the tested object
+	the params
+	the result
+	
+Check if an object is a bean or not. It will help later
+
+	
+
+
+	
+	
