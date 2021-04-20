@@ -9,7 +9,7 @@ public class DateObjectInfo extends ObjectInfo {
     }
 
     @Override
-    public String getValue() {
+    public String getInlineCode() {
         Date date = (Date) object;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String dateStr = simpleDateFormat.format(date);
@@ -17,7 +17,7 @@ public class DateObjectInfo extends ObjectInfo {
     }
 
     @Override
-    public boolean isInline() {
+    public boolean isOnlyInline() {
         return false;
     }
 }

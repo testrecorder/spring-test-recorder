@@ -6,12 +6,12 @@ public class LongObjectInfo extends ObjectInfo {
     }
 
     @Override
-    public String getValue() {
+    public String getInlineCode() {
         return object + "L";
     }
 
     @Override
-    public boolean isInline() {
+    public boolean isOnlyInline() {
         return true;
     }
 }

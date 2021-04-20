@@ -6,12 +6,12 @@ public class CharacterObjectInfo extends ObjectInfo {
     }
 
     @Override
-    public String getValue() {
+    public String getInlineCode() {
         return "'" + object + "'";
     }
 
     @Override
-    public boolean isInline() {
+    public boolean isOnlyInline() {
         return true;
     }
 }

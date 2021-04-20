@@ -6,12 +6,12 @@ public class ByteObjectInfo extends ObjectInfo {
     }
 
     @Override
-    public String getValue() {
+    public String getInlineCode() {
         return "(byte)" + object;
     }
 
     @Override
-    public boolean isInline() {
+    public boolean isOnlyInline() {
         return true;
     }
 }

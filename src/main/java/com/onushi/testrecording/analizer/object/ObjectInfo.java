@@ -13,9 +13,9 @@ public abstract class ObjectInfo {
         this.object = object;
     }
 
-    public abstract String getValue();
+    public abstract String getInlineCode();
 
-    public abstract boolean isInline();
+    public abstract boolean isOnlyInline();
 
     public String getClassName() {
         return ObjectInfo.getClassName(object);

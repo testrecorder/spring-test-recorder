@@ -42,7 +42,7 @@ public class TestGenerator {
         String classNameVar = testRunInfo.getClassName().substring(0,1).toLowerCase(Locale.ROOT) + testRunInfo.getClassName().substring(1);
         String argumentsText = "";
         if (testRunInfo.getArguments().size() > 0) {
-            argumentsText = testRunInfo.getArguments().stream().map(ObjectInfo::getValue).collect(Collectors.joining(", "));
+            argumentsText = testRunInfo.getArguments().stream().map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
         }
 
         stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getClassName()));
@@ -50,7 +50,7 @@ public class TestGenerator {
         stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunInfo.getMethodName()));
         stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), classNameVar, testRunInfo.getClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
-                classNameVar, testRunInfo.getMethodName(), argumentsText, testRunInfo.getTestResult().getValue()));
+                classNameVar, testRunInfo.getMethodName(), argumentsText, testRunInfo.getTestResult().getInlineCode()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;

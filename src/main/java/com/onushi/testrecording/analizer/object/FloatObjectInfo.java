@@ -6,12 +6,12 @@ public class FloatObjectInfo extends ObjectInfo {
     }
 
     @Override
-    public String getValue() {
+    public String getInlineCode() {
         return object + "f";
     }
 
     @Override
-    public boolean isInline() {
+    public boolean isOnlyInline() {
         return true;
     }
 }
