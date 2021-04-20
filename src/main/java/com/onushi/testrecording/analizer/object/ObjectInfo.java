@@ -2,8 +2,6 @@ package com.onushi.testrecording.analizer.object;
 
 // TODO IB create a class analyzer to check object fields, setters and constructors
 // TODO IB I can use serialization to transform to Json and back
-// TODO IB !!!! think how to split declaration + initialization from use for complex objects
-// TODO IB !!!! detect if it's inline or no
 // TODO IB !!!! https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
 
 import java.util.ArrayList;

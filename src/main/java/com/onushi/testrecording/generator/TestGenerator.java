@@ -1,9 +1,7 @@
 package com.onushi.testrecording.generator;
 
-import com.onushi.testrecording.analizer.object.ObjectInfo;
 import com.onushi.testrecording.analizer.TestRunInfo;
 import org.springframework.stereotype.Component;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 // TODO IB !!!! use a templating engine here
@@ -15,7 +13,7 @@ public class TestGenerator {
     public String getTestString(TestRunInfo testRunInfo) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getBeginMarkerString());
-        stringBuilder.append(getPackageString(testRunInfo.getPackageName()));
+        stringBuilder.append(getPackageString(testRunInfo));
         stringBuilder.append(getImportsString(testRunInfo));
         stringBuilder.append("\n");
         stringBuilder.append(getClassAndTestString(testRunInfo));
@@ -27,8 +25,8 @@ public class TestGenerator {
         return String.format("%nBEGIN GENERATED TEST =========%n%n");
     }
 
-    private String getPackageString(String packageName) {
-        return String.format("package %s;%n%n", packageName);
+    private String getPackageString(TestRunInfo testRunInfo) {
+        return String.format("package %s;%n%n", testRunInfo.getPackageName());
     }
 
     private String getImportsString(TestRunInfo testRunInfo) {
@@ -40,9 +38,10 @@ public class TestGenerator {
     private StringBuilder getClassAndTestString(TestRunInfo testRunInfo) {
         StringBuilder stringBuilder = new StringBuilder();
         String argumentsRequiredHelperObjects = testRunInfo.getRequiredHelperObjects().stream()
-                .map(x -> String.format("        %s%n", x)).distinct().collect(Collectors.joining(""));
-        String argumentsInit = testRunInfo.getArguments().stream().map(ObjectInfo::getInit).collect(Collectors.joining(""));
-        String argumentsCode = testRunInfo.getArguments().stream().map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
+                .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
+        String argumentsInit = testRunInfo.getArgumentsInit().stream()
+                .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
+        String argumentsCode = String.join(", ", testRunInfo.getArgumentsInlineCode());
 
         stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getClassName()));
         stringBuilder.append(String.format("    @Test%n"));

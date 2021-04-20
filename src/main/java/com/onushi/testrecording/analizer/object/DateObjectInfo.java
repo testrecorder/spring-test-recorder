@@ -30,15 +30,12 @@ public class DateObjectInfo extends ObjectInfo {
         String dateStr = simpleDateFormat.format(date);
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("        Date date1 = simpleDateFormat.parse(\"%s\");%n", dateStr));
+        stringBuilder.append(String.format("Date date1 = simpleDateFormat.parse(\"%s\");", dateStr));
         return stringBuilder.toString();
     }
 
     @Override
     public String getInlineCode() {
-        // TODO IB !!!! required import improve. should be in TestRun
-        // TODO IB !!!! required before improve. should be in TestRun
-        // TODO IB !!!! TestRun should aggregate things from the ObjectInfos
         // TODO IB !!!! this should be provided by TestRun
         return "date1";
     }

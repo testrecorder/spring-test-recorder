@@ -53,9 +53,9 @@ class SampleServiceTest {
     @Test
     void toYYYY_MM_DD_T_HH_MM_SS_Z() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date date1 = simpleDateFormat.parse("2021-04-20 17:02:37.437");
+        Date date1 = simpleDateFormat.parse("2021-04-20 21:30:45.342");
         SampleService sampleService = new SampleService();
-        assertEquals(sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(date1, date1), "2021-04-20T14:02:37Z");
+        assertEquals(sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(date1, date1), "2021-04-20T18:30:45Z");
     }
 
     @Test

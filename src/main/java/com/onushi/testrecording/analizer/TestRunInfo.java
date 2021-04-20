@@ -67,6 +67,21 @@ public class TestRunInfo {
         return getClassName().substring(0,1).toLowerCase(Locale.ROOT) + getClassName().substring(1);
     }
 
+    public List<String> getArgumentsInit() {
+        return getArguments().stream()
+                .map(ObjectInfo::getInit)
+                .filter(x -> !x.equals(""))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getArgumentsInlineCode() {
+        return getArguments().stream()
+                .map(ObjectInfo::getInlineCode)
+                .collect(Collectors.toList());
+    }
+
+
     public ObjectInfo getTestResult() {
         return ObjectInfo.createObjectInfo(testResult);
     }
