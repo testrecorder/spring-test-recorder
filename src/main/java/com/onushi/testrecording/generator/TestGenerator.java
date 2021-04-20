@@ -39,22 +39,19 @@ public class TestGenerator {
 
     private StringBuilder getClassAndTestString(TestRunInfo testRunInfo) {
         StringBuilder stringBuilder = new StringBuilder();
-        String classNameVar = testRunInfo.getClassName().substring(0,1).toLowerCase(Locale.ROOT) + testRunInfo.getClassName().substring(1);
+        String argumentsRequiredHelperObjects = testRunInfo.getRequiredHelperObjects().stream()
+                .map(x -> String.format("        %s%n", x)).distinct().collect(Collectors.joining(""));
+        String argumentsInit = testRunInfo.getArguments().stream().map(ObjectInfo::getInit).collect(Collectors.joining(""));
         String argumentsCode = testRunInfo.getArguments().stream().map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
 
         stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getClassName()));
         stringBuilder.append(String.format("    @Test%n"));
         stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunInfo.getMethodName()));
-
-        String argumentsRequiredHelperObjects = testRunInfo.getRequiredHelperObjects().stream()
-                .map(x -> String.format("        %s%n", x)).distinct().collect(Collectors.joining(""));
         stringBuilder.append(argumentsRequiredHelperObjects);
-
-        String argumentsInit = testRunInfo.getArguments().stream().map(ObjectInfo::getInit).collect(Collectors.joining(""));
         stringBuilder.append(argumentsInit);
-        stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), classNameVar, testRunInfo.getClassName()));
+        stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), testRunInfo.getClassNameVar(), testRunInfo.getClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
-                classNameVar, testRunInfo.getMethodName(), argumentsCode, testRunInfo.getTestResult().getInlineCode()));
+                testRunInfo.getClassNameVar(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getTestResult().getInlineCode()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;

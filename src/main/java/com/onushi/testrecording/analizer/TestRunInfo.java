@@ -6,6 +6,7 @@ import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 // TODO IB Do I need to differentiate objects tested / sent as params / being the result?
@@ -60,6 +61,10 @@ public class TestRunInfo {
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    public String getClassNameVar() {
+        return getClassName().substring(0,1).toLowerCase(Locale.ROOT) + getClassName().substring(1);
     }
 
     public ObjectInfo getTestResult() {
