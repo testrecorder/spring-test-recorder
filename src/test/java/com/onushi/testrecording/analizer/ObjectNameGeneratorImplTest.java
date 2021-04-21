@@ -9,11 +9,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 // TODO IB how to check test coverage?
-class ObjectNameGeneratorTest {
+class ObjectNameGeneratorImplTest {
 
     @Test
     void generateObjectName() throws InterruptedException {
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        ObjectNameGeneratorImpl objectNameGenerator = new ObjectNameGeneratorImpl();
         assertEquals(objectNameGenerator.generateObjectName(new Date()), "date1");
         Thread.sleep(1);
         assertEquals(objectNameGenerator.generateObjectName(new Date()), "date2");
