@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer;
+package com.onushi.testrecording.analizer.testrun;
 
 import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;

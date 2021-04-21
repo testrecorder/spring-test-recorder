@@ -1,5 +1,6 @@
 package com.onushi.testrecording.analizer;
 
+import com.onushi.testrecording.analizer.testrun.ObjectNameGeneratorImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer;
+package com.onushi.testrecording.analizer.testrun;
 
 import java.util.HashMap;
 import java.util.Locale;
