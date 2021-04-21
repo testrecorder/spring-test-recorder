@@ -38,5 +38,4 @@ public class ObjectInfoFactory {
             return object.getClass().getName();
         }
     }
-
 }

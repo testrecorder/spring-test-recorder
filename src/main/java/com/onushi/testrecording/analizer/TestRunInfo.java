@@ -2,6 +2,7 @@ package com.onushi.testrecording.analizer;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
 import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
+import lombok.Getter;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 // TODO IB Do I need to differentiate objects tested / sent as params / being the result?
 // TODO IB handle exceptions being thrown
 
+@Getter
 public class TestRunInfo {
     private String packageName;
     private String className;
@@ -81,49 +83,5 @@ public class TestRunInfo {
                 .collect(Collectors.toList());
 
         return testRunInfo;
-    }
-
-    public String getPackageName() {
-        return packageName;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public ObjectInfo getObjectBeingTestedInfo() {
-        return objectBeingTestedInfo;
-    }
-
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public List<ObjectInfo> getArgumentObjectInfos() {
-        return argumentObjectInfos;
-    }
-
-    public List<String> getRequiredImports() {
-        return requiredImports;
-    }
-
-    public List<String> getRequiredHelperObjects() {
-        return requiredHelperObjects;
-    }
-
-    public String getClassNameVar() {
-        return classNameVar;
-    }
-
-    public List<String> getObjectsInit() {
-        return objectsInit;
-    }
-
-    public List<String> getArgumentsInlineCode() {
-        return argumentsInlineCode;
-    }
-
-    public ObjectInfo getResultObjectInfo() {
-        return resultObjectInfo;
     }
 }
