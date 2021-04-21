@@ -10,65 +10,41 @@ import java.util.List;
 public abstract class ObjectInfo {
     protected final Object object;
     protected final String objectName;
+    protected List<String> requiredImports = new ArrayList<>();
+    protected List<String> requiredHelperObjects = new ArrayList<>();
+    protected String init = "";
+    protected String inlineCode;
+    protected boolean isOnlyInline;
 
-    protected ObjectInfo(Object object, String objectName) {
+    protected ObjectInfo(Object object, String objectName, boolean isOnlyInline, String inlineCode) {
         this.object = object;
         this.objectName = objectName;
+        this.isOnlyInline = isOnlyInline;
+        this.inlineCode = inlineCode;
+    }
+
+    public String getObjectName() {
+        return objectName;
     }
 
     public List<String> getRequiredImports() {
-        return new ArrayList<>();
+        return requiredImports;
     }
 
     public List<String> getRequiredHelperObjects() {
-        return new ArrayList<>();
+        return requiredHelperObjects;
     }
 
     public String getInit() {
-        return "";
+        return init;
     }
 
-    public abstract String getInlineCode();
-
-    public abstract boolean isOnlyInline();
-
-    public String getClassName() {
-        return ObjectInfo.getClassName(object);
+    public String getInlineCode() {
+        return inlineCode;
     }
 
-    private static String getClassName(Object object) {
-        if (object == null) {
-            return "null";
-        } else {
-            return object.getClass().getName();
-        }
-    }
-
-    public static ObjectInfo createObjectInfo(Object object, String objectName) {
-        String className = getClassName(object);
-            switch (className) {
-                case "null":
-                    return new NullObjectInfo(objectName);
-                case "java.lang.Float":
-                    return new FloatObjectInfo(object, objectName);
-                case "java.lang.Long":
-                    return new LongObjectInfo(object, objectName);
-                case "java.lang.Byte":
-                    return new ByteObjectInfo(object, objectName);
-                case "java.lang.Short":
-                    return new ShortObjectInfo(object, objectName);
-                case "java.lang.Character":
-                    return new CharacterObjectInfo(object, objectName);
-                case "java.lang.String":
-                    return new StringObjectInfo(object, objectName);
-                case "java.util.Date":
-                    return new DateObjectInfo(object, objectName);
-                case "java.lang.Boolean":
-                case "java.lang.Integer":
-                case "java.lang.Double":
-                default:
-                    return new GenericObjectInfo(object, objectName);
-            }
+    public boolean isOnlyInline() {
+        return isOnlyInline;
     }
 }
 

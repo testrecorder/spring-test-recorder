@@ -1,6 +1,7 @@
 package com.onushi.testrecording.analizer;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
+import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class TestRunInfo {
     private final String packageName;
     private final String className;
     private final ObjectNameGeneratorImpl objectNameGenerator;
+    private final ObjectInfoFactory objectInfoFactory;
 
     public TestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object expectedResult) {
         this.methodInvocation = methodInvocation;
@@ -27,7 +29,9 @@ public class TestRunInfo {
         int lastPointIndex = packageAndClassName.lastIndexOf(".");
         this.packageName = packageAndClassName.substring(0, lastPointIndex);
         this.className = packageAndClassName.substring(lastPointIndex + 1);
+        // TODO IB !!!! not ok
         this.objectNameGenerator = new ObjectNameGeneratorImpl();
+        this.objectInfoFactory = new ObjectInfoFactory();
     }
 
     public String getPackageName() {
@@ -39,7 +43,7 @@ public class TestRunInfo {
     }
 
     public ObjectInfo getObjectBeingTested() {
-        return ObjectInfo.createObjectInfo(methodInvocation.getTarget(), "testedObject");
+        return objectInfoFactory.getObjectInfo(methodInvocation.getTarget(), "testedObject");
     }
 
     public String getMethodName() {
@@ -48,7 +52,7 @@ public class TestRunInfo {
 
     public List<ObjectInfo> getArguments() {
         return Arrays.stream(methodInvocation.getArgs())
-                .map(x -> ObjectInfo.createObjectInfo(x, this.objectNameGenerator.generateObjectName(x)))
+                .map(x -> objectInfoFactory.getObjectInfo(x, this.objectNameGenerator.generateObjectName(x)))
                 .collect(Collectors.toList());
     }
 
@@ -93,6 +97,6 @@ public class TestRunInfo {
 
     public ObjectInfo getExpectedResult() {
         // TODO IB is this expectedResult or testResult. this is a smell
-        return ObjectInfo.createObjectInfo(expectedResult, "expectedResult");
+        return objectInfoFactory.getObjectInfo(expectedResult, "expectedResult");
     }
 }

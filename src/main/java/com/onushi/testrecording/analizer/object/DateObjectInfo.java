@@ -5,40 +5,19 @@ import java.util.*;
 
 public class DateObjectInfo extends ObjectInfo {
     public DateObjectInfo(Object object, String objectName) {
-        super(object, objectName);
-    }
+        super(object, objectName, false, objectName);
 
-    @Override
-    public List<String> getRequiredImports() {
-        List<String> results = new ArrayList<>();
-        results.add("java.text.SimpleDateFormat");
-        results.add("java.util.Date");
-        return results;
-    }
+        this.requiredImports = new ArrayList<>();
+        this.requiredImports.add("java.text.SimpleDateFormat");
+        this.requiredImports.add("java.util.Date");
 
-    @Override
-    public List<String> getRequiredHelperObjects() {
-        List<String> results = new ArrayList<>();
-        results.add("SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");");
-        return results;
-    }
+        this.requiredHelperObjects = new ArrayList<>();
+        this.requiredHelperObjects.add("SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");");
 
-    @Override
-    public String getInit() {
         Date date = (Date) object;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String dateStr = simpleDateFormat.format(date);
 
-        return String.format("Date %s = simpleDateFormat.parse(\"%s\");", this.objectName, dateStr);
-    }
-
-    @Override
-    public String getInlineCode() {
-        return this.objectName;
-    }
-
-    @Override
-    public boolean isOnlyInline() {
-        return false;
+        this.init = String.format("Date %s = simpleDateFormat.parse(\"%s\");", this.objectName, dateStr);
     }
 }
