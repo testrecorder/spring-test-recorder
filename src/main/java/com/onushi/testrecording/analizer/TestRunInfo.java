@@ -53,7 +53,6 @@ public class TestRunInfo {
         ObjectInfo resultObjectInfo = objectInfoFactory.getObjectInfo(result, "expectedResult");
         testRunInfo.resultObjectInfo = resultObjectInfo;
 
-
         List<String> requiredImports = new ArrayList<>();
         requiredImports.add("org.junit.jupiter.api.Test");
         requiredImports.add("static org.junit.jupiter.api.Assertions.*");

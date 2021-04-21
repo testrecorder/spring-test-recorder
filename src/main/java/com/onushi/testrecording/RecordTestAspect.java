@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class RecordTestAspect {
-    private final TestGenerator testGenerator;
     private final TestRunInfoFactory testRunInfoFactory;
+    private final TestGenerator testGenerator;
 
-    public RecordTestAspect(TestGenerator testGenerator, TestRunInfoFactory testRunInfoFactory) {
-        this.testGenerator = testGenerator;
+    public RecordTestAspect(TestRunInfoFactory testRunInfoFactory, TestGenerator testGenerator) {
         this.testRunInfoFactory = testRunInfoFactory;
+        this.testGenerator = testGenerator;
     }
 
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
