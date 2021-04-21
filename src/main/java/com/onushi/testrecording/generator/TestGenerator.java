@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 
 // TODO IB use a templating engine here. see https://www.baeldung.com/thymeleaf-generate-pdf
+// TODO IB Write a test for this
 @Component
 public class TestGenerator {
 

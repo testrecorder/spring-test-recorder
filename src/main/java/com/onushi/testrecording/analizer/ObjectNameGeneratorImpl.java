@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-// TODO IB Make all testable by mocking
 public class ObjectNameGeneratorImpl implements ObjectNameGenerator {
     private final Map<Object, String> objectNames = new HashMap<>();
     private final Map<String, Integer> lastIndexForClass = new HashMap<>();
