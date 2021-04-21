@@ -9,7 +9,6 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ObjectInfoFactoryTest {
-
     @Test
     void testNullObjectInfo() {
         ObjectInfoFactory objectInfoFactory = new ObjectInfoFactory();
@@ -29,7 +28,6 @@ class ObjectInfoFactoryTest {
         assertEquals(objectInfo.getRequiredImports().size(), 0);
         assertEquals(objectInfo.getInit(), "");
     }
-
 
     @Test
     void testLongObjectInfo() {
