@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 // TODO IB Do I need to differentiate objects tested / sent as params / being the result?
 // TODO IB handle exceptions being thrown
 
-// TODO IB !!!! the code should be in a service or factory. The data in a structure.
-// TODO IB !!!! This way you can inject the service and create the data objects
+// TODO IB the code should be in a service or factory. The data in a structure. This way you can inject the service and create the data objects
 public class TestRunInfo {
     private final MethodInvocationProceedingJoinPoint methodInvocation;
     private final Object expectedResult;

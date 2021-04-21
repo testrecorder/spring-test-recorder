@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-// TODO IB !!!! You cannot inject a component in a non-component
-// TODO IB !!!! Make all testable by mocking
+// TODO IB You cannot inject a component in a non-component
+// TODO IB Make all testable by mocking
 //@Component
 //@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ObjectNameGeneratorImpl implements ObjectNameGenerator {

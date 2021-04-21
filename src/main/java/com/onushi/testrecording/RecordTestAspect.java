@@ -20,7 +20,7 @@ public class RecordTestAspect {
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = proceedingJoinPoint.proceed();
 
-        // TODO IB !!!! OK?
+        // TODO IB new is OK?
         TestRunInfo testRunInfo = new TestRunInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
         String testString = testGenerator.getTestString(testRunInfo);
         System.out.println(testString);
