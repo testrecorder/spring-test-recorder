@@ -29,9 +29,7 @@ public class DateObjectInfo extends ObjectInfo {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String dateStr = simpleDateFormat.format(date);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("Date %s = simpleDateFormat.parse(\"%s\");", this.objectName, dateStr));
-        return stringBuilder.toString();
+        return String.format("Date %s = simpleDateFormat.parse(\"%s\");", this.objectName, dateStr);
     }
 
     @Override

@@ -9,45 +9,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SampleServiceTest {
     @Test
-    void addPositiveNumbers() throws Exception {
+    void addPositiveNumbers() {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.add(2, 3), 5);
     }
 
     @Test
-    void addWithNegativeNumbers() throws Exception {
+    void addWithNegativeNumbers() {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.add(-6, 4), -2);
     }
 
     @Test
-    void negate() throws Exception {
+    void negate() {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.negate(-6), 6);
     }
 
     @Test
-    void returnZero() throws Exception {
+    void returnZero() {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.returnZero(), 0);
     }
 
     @Test
-    void addFloats() throws Exception {
+    void addFloats() {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.addFloats(2.0f, 3.0f), 5.0f);
     }
 
     @Test
-    void addStrings() throws Exception {
+    void addStrings() {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.addStrings("2", "5"), 7);
     }
 
     @Test
-    void logicalAnd() throws Exception {
+    void logicalAnd() {
         SampleService sampleService = new SampleService();
-        assertEquals(sampleService.logicalAnd(true, true), true);
+        assertTrue(sampleService.logicalAnd(true, true));
     }
 
     @Test
@@ -59,7 +59,7 @@ class SampleServiceTest {
     }
 
     @Test
-    void testTypes() throws Exception {
+    void testTypes() {
         SampleService sampleService = new SampleService();
         assertEquals(sampleService.testTypes((short)6, (byte)4, 5, true, 'c', 1.5), 5);
     }

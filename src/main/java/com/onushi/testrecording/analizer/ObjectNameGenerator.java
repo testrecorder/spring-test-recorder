@@ -1,9 +1,5 @@
 package com.onushi.testrecording.analizer;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -13,8 +9,8 @@ import java.util.Map;
 //@Component
 //@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ObjectNameGenerator {
-    private Map<Object, String> objectNames = new HashMap<>();
-    private Map<String, Integer> lastIndexForClass = new HashMap<>();
+    private final Map<Object, String> objectNames = new HashMap<>();
+    private final Map<String, Integer> lastIndexForClass = new HashMap<>();
 
     public String generateObjectName(Object object) {
         if (objectNames.containsKey(object)) {
@@ -29,7 +25,7 @@ public class ObjectNameGenerator {
     private String getNewObjectName(Object object) {
         String className = getClassName(object);
         String objectNameRoot = className.substring(0,1).toLowerCase(Locale.ROOT) + className.substring(1);
-        Integer newIndex;
+        int newIndex;
         if (lastIndexForClass.containsKey(objectNameRoot)) {
             newIndex = lastIndexForClass.get(objectNameRoot) + 1;
         } else {

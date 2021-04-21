@@ -10,14 +10,12 @@ import java.util.stream.Collectors;
 public class TestGenerator {
 
     public String getTestString(TestRunInfo testRunInfo) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getBeginMarkerString());
-        stringBuilder.append(getPackageString(testRunInfo));
-        stringBuilder.append(getImportsString(testRunInfo));
-        stringBuilder.append("\n");
-        stringBuilder.append(getClassAndTestString(testRunInfo));
-        stringBuilder.append(getEndMarkerString());
-        return stringBuilder.toString();
+        return getBeginMarkerString() +
+                getPackageString(testRunInfo) +
+                getImportsString(testRunInfo) +
+                "\n" +
+                getClassAndTestString(testRunInfo) +
+                getEndMarkerString();
     }
 
     private String getBeginMarkerString() {
