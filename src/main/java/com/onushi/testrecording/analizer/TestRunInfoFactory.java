@@ -14,6 +14,6 @@ public class TestRunInfoFactory {
 
     public TestRunInfo getTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
         ObjectNameGeneratorImpl objectNameGenerator = new ObjectNameGeneratorImpl();
-        return new TestRunInfo(methodInvocation, result, objectNameGenerator, objectInfoFactory);
+        return TestRunInfo.createTestRunInfo(methodInvocation, result, objectNameGenerator, objectInfoFactory);
     }
 }
