@@ -47,7 +47,7 @@ public class TestGenerator {
         stringBuilder.append(argumentsInit);
         stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), testRunInfo.getClassNameVar(), testRunInfo.getClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
-                testRunInfo.getClassNameVar(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getExpectedResult().getInlineCode()));
+                testRunInfo.getClassNameVar(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getResultObjectInfo().getInlineCode()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;

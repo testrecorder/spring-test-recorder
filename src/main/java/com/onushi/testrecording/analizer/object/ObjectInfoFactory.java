@@ -1,5 +1,8 @@
 package com.onushi.testrecording.analizer.object;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ObjectInfoFactory {
     public ObjectInfo getObjectInfo(Object object, String objectName) {
         String className = getClassName(object);

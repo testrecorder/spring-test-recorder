@@ -1,6 +1,7 @@
 package com.onushi.testrecording;
 
 import com.onushi.testrecording.analizer.TestRunInfo;
+import com.onushi.testrecording.analizer.TestRunInfoFactory;
 import com.onushi.testrecording.generator.TestGenerator;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,16 +13,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecordTestAspect {
     private final TestGenerator testGenerator;
-    public RecordTestAspect(TestGenerator testGenerator) {
+    private final TestRunInfoFactory testRunInfoFactory;
+
+    public RecordTestAspect(TestGenerator testGenerator, TestRunInfoFactory testRunInfoFactory) {
         this.testGenerator = testGenerator;
+        this.testRunInfoFactory = testRunInfoFactory;
     }
 
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = proceedingJoinPoint.proceed();
 
-        // TODO IB new is OK?
-        TestRunInfo testRunInfo = new TestRunInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
+        TestRunInfo testRunInfo = testRunInfoFactory.getTestRunInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
         String testString = testGenerator.getTestString(testRunInfo);
         System.out.println(testString);
 
