@@ -2,6 +2,8 @@ package com.onushi.testrecording.analizer.object;
 
 import org.springframework.stereotype.Component;
 
+// TODO IB !!!! handle also array and void
+// TODO IB In the future I need to implement generics
 @Component
 public class ObjectInfoFactory {
     public ObjectInfo getObjectInfo(Object object, String objectName) {
