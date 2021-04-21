@@ -91,6 +91,7 @@ public class TestRunInfo {
 
 
     public ObjectInfo getExpectedResult() {
+        // TODO IB is this expectedResult or testResult. this is a smell
         return ObjectInfo.createObjectInfo(expectedResult, "expectedResult");
     }
 }
