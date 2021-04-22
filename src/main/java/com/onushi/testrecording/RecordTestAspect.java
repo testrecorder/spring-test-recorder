@@ -1,7 +1,7 @@
 package com.onushi.testrecording;
 
-import com.onushi.testrecording.analizer.testrun.TestInfo;
-import com.onushi.testrecording.analizer.testrun.TestInfoFactory;
+import com.onushi.testrecording.analizer.test.TestInfo;
+import com.onushi.testrecording.analizer.test.TestInfoFactory;
 import com.onushi.testrecording.generator.TestGenerator;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

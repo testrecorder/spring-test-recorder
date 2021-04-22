@@ -1,6 +1,6 @@
 package com.onushi.testrecording.generator;
 
-import com.onushi.testrecording.analizer.testrun.TestInfo;
+import com.onushi.testrecording.analizer.test.TestInfo;
 import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 
