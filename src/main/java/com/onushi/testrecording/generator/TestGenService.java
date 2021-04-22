@@ -1,5 +1,6 @@
 package com.onushi.testrecording.generator;
 
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -7,6 +8,12 @@ import java.util.stream.Collectors;
 // TODO IB use a templating engine here. see https://www.baeldung.com/thymeleaf-generate-pdf
 @Service
 public class TestGenService {
+    private final ClassInfoService classInfoService;
+
+    public TestGenService(ClassInfoService classInfoService) {
+        this.classInfoService = classInfoService;
+    }
+
     public String generateTestString(TestGenInfo testGenInfo) {
         return getBeginMarkerString() +
                 getPackageString(testGenInfo) +
@@ -49,13 +56,16 @@ public class TestGenService {
         stringBuilder.append("\n");
 
         stringBuilder.append(String.format("        // Act%n"));
-        stringBuilder.append(String.format("        result = %s.%s(%s);%n",
+        stringBuilder.append(String.format("        %s result = %s.%s(%s);%n",
+                classInfoService.getShortClassName(testGenInfo.getResultObjectInfo().getObject()),
                 testGenInfo.getTargetObjectInfo().getObjectName(),
                 testGenInfo.getMethodName(),
                 String.join(", ", testGenInfo.getArgumentsInlineCode())));
         stringBuilder.append("\n");
 
+        // TODO IB !!!! sometimes this needs to be a single line
         stringBuilder.append(String.format("        // Assert%n"));
+        stringBuilder.append(String.format("        %s%n", testGenInfo.getResultInit()));
         stringBuilder.append(String.format("        assertEquals(result, %s);%n",
                 testGenInfo.getResultObjectInfo().getObjectName()));
 

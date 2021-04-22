@@ -45,6 +45,8 @@ public class TestGenFactory {
 
         setArgumentsInlineCode(testGenInfo);
 
+        testGenInfo.resultInit = testGenInfo.resultObjectInfo.getInit();
+
         return testGenInfo;
     }
 
@@ -69,7 +71,6 @@ public class TestGenFactory {
     private void setObjectsInit(TestGenInfo testGenInfo) {
         testGenInfo.objectsInit = testGenInfo.argumentObjectInfos.stream()
                 .map(ObjectInfo::getInit).collect(Collectors.toList());
-        testGenInfo.objectsInit.add(testGenInfo.resultObjectInfo.getInit());
         testGenInfo.objectsInit = testGenInfo.objectsInit.stream()
                 .filter(x -> !x.equals(""))
                 .distinct()

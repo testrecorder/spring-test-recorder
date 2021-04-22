@@ -21,6 +21,8 @@ public class TestGenInfo {
     protected List<String> requiredHelperObjects;
     protected List<String> objectsInit;
     protected List<String> argumentsInlineCode;
+    protected String resultInit;
+
     protected final Map<Object, String> objectNames = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
