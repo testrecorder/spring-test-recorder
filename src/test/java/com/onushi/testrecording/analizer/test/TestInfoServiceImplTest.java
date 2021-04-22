@@ -1,8 +1,6 @@
-package com.onushi.testrecording.analizer;
+package com.onushi.testrecording.analizer.test;
 
-import com.onushi.testrecording.analizer.test.ObjectNameService;
-import com.onushi.testrecording.analizer.test.ObjectNameServiceImpl;
-import com.onushi.testrecording.analizer.test.TestInfo;
+import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
 import com.onushi.testrecording.analizer.utils.ClassService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +14,7 @@ import static org.mockito.Mockito.when;
 
 // TODO IB how to check test coverage?
 @ExtendWith(MockitoExtension.class)
-class ObjectNameServiceImplTest {
+class TestInfoServiceImplTest {
     @Mock
     TestInfo testInfoMock;
 
@@ -29,7 +27,8 @@ class ObjectNameServiceImplTest {
         when(testInfoMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
         ClassService classService = new ClassService();
-        ObjectNameService objectNameService = new ObjectNameServiceImpl(classService);
+        ObjectInfoFactory objectInfoFactory = new ObjectInfoFactory(classService);
+        TestInfoService objectNameService = new TestInfoService(objectInfoFactory, classService);
         assertEquals(objectNameService.generateObjectName(testInfoMock, new Date()), "date1");
         Thread.sleep(1);
         assertEquals(objectNameService.generateObjectName(testInfoMock, new Date()), "date2");
