@@ -4,7 +4,6 @@ import com.onushi.testrecording.analizer.object.ObjectInfo;
 import com.onushi.testrecording.analizer.object.ObjectInfoService;
 import com.onushi.testrecording.analizer.utils.ClassService;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
