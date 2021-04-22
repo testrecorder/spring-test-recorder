@@ -24,6 +24,8 @@ public class TestGenFactory {
     public TestGenInfo createTestGenInfo(MethodRunInfo methodRunInfo) {
         TestGenInfo testGenInfo = new TestGenInfo();
 
+        testGenInfo.targetObjectInfo = objectInfoService.createObjectInfo(methodRunInfo.getTarget(),
+                classInfoService.getObjectNameBase(methodRunInfo.getTarget()));
         testGenInfo.packageName = classInfoService.getPackageName(methodRunInfo.getTarget());
         testGenInfo.shortClassName = classInfoService.getShortClassName(methodRunInfo.getTarget());
         testGenInfo.methodName = methodRunInfo.getMethodName();
@@ -32,10 +34,8 @@ public class TestGenFactory {
                 .map(x -> objectInfoService.createObjectInfo(x, objectNamesService.generateObjectName(testGenInfo, x)))
                 .collect(Collectors.toList());
 
-        testGenInfo.targetObjectName = classInfoService.getObjectNameBase(methodRunInfo.getTarget());
-
         testGenInfo.resultObjectInfo = objectInfoService.createObjectInfo(methodRunInfo.getResult(), "expectedResult");
-        testGenInfo.objectBeingTestedInfo = objectInfoService.createObjectInfo(methodRunInfo.getTarget(), "testedObject");
+
 
         setRequiredImports(testGenInfo);
 
@@ -46,7 +46,6 @@ public class TestGenFactory {
         setArgumentsInlineCode(testGenInfo);
 
         return testGenInfo;
-
     }
 
     private void setRequiredImports(TestGenInfo testGenInfo) {
