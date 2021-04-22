@@ -1,7 +1,5 @@
 package com.onushi.testrecording.generator;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;

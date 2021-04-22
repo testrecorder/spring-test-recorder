@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO IB !!!! Move some parts of MethodRunInfo here
 // TODO IB !!!! Read all the code again to see if it makes sense
 // TODO IB !!!! Write tests for all the code
 @Getter
