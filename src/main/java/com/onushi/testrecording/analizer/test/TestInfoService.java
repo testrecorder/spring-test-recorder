@@ -24,46 +24,43 @@ public class TestInfoService {
     public TestInfo createTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
         TestInfo testInfo = new TestInfo();
 
-        // TODO IB !!!! remove intermediary vars
         testInfo.packageName = classService.getPackageName(methodInvocation.getTarget());
         testInfo.shortClassName = classService.getShortClassName(methodInvocation.getTarget());
 
         testInfo.objectBeingTestedInfo = objectInfoService.createObjectInfo(methodInvocation.getTarget(), "testedObject");
         testInfo.methodName = methodInvocation.getSignature().getName();
 
-        List<ObjectInfo> argumentObjectInfos = Arrays.stream(methodInvocation.getArgs())
+        testInfo.argumentObjectInfos = Arrays.stream(methodInvocation.getArgs())
                 .map(x -> objectInfoService.createObjectInfo(x, generateObjectName(testInfo, x)))
                 .collect(Collectors.toList());
-        testInfo.argumentObjectInfos = argumentObjectInfos;
 
-        ObjectInfo resultObjectInfo = objectInfoService.createObjectInfo(result, "expectedResult");
-        testInfo.resultObjectInfo = resultObjectInfo;
+        testInfo.resultObjectInfo = objectInfoService.createObjectInfo(result, "expectedResult");
 
-        List<String> requiredImports = new ArrayList<>();
-        requiredImports.add("org.junit.jupiter.api.Test");
-        requiredImports.add("static org.junit.jupiter.api.Assertions.*");
-        requiredImports.addAll(argumentObjectInfos.stream()
+        testInfo.requiredImports = new ArrayList<>();
+        testInfo.requiredImports.add("org.junit.jupiter.api.Test");
+        testInfo.requiredImports.add("static org.junit.jupiter.api.Assertions.*");
+        testInfo.requiredImports.addAll(testInfo.argumentObjectInfos.stream()
                 .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
-        requiredImports.addAll(resultObjectInfo.getRequiredImports());
-        testInfo.requiredImports = requiredImports.stream().distinct().collect(Collectors.toList());
+        testInfo.requiredImports.addAll(testInfo.resultObjectInfo.getRequiredImports());
+        testInfo.requiredImports = testInfo.requiredImports.stream().distinct().collect(Collectors.toList());
 
-        List<String> requiredHelperObjects = argumentObjectInfos.stream()
+        testInfo.requiredHelperObjects = testInfo.argumentObjectInfos.stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
                 .collect(Collectors.toList());
-        requiredHelperObjects.addAll(resultObjectInfo.getRequiredHelperObjects());
-        testInfo.requiredHelperObjects = requiredHelperObjects.stream().distinct().collect(Collectors.toList());
+        testInfo.requiredHelperObjects.addAll(testInfo.resultObjectInfo.getRequiredHelperObjects());
+        testInfo.requiredHelperObjects = testInfo.requiredHelperObjects.stream().distinct().collect(Collectors.toList());
 
         testInfo.targetObjectName = classService.getObjectNameBase(methodInvocation.getTarget());
 
-        List<String> objectsInit = argumentObjectInfos.stream()
+        testInfo.objectsInit = testInfo.argumentObjectInfos.stream()
                 .map(ObjectInfo::getInit).collect(Collectors.toList());
-        objectsInit.add(resultObjectInfo.getInit());
-        testInfo.objectsInit = objectsInit.stream()
+        testInfo.objectsInit.add(testInfo.resultObjectInfo.getInit());
+        testInfo.objectsInit = testInfo.objectsInit.stream()
                 .filter(x -> !x.equals(""))
                 .distinct()
                 .collect(Collectors.toList());
 
-        testInfo.argumentsInlineCode = argumentObjectInfos.stream()
+        testInfo.argumentsInlineCode = testInfo.argumentObjectInfos.stream()
                 .map(ObjectInfo::getInlineCode)
                 .collect(Collectors.toList());
 
