@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 // Unit tests will be generated for this method from runtime parameters and result
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RecordTestForThisMethod {
+public @interface RecordTest {
 }
