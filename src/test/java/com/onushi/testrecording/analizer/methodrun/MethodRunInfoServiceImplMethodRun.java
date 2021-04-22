@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.test;
+package com.onushi.testrecording.analizer.methodrun;
 
 import com.onushi.testrecording.analizer.object.ObjectInfoService;
 import com.onushi.testrecording.analizer.clazz.ClassService;

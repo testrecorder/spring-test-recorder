@@ -4,7 +4,7 @@ import com.onushi.testrecording.analizer.clazz.ClassService;
 import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
-// TODO IB In the future I need to implement generics
+// TODO IB LATER generics
 @Component
 public class ObjectInfoService {
     private final ClassService classService;

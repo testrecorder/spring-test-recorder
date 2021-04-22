@@ -1,12 +1,11 @@
 package com.onushi.testrecording.generator;
 
-import com.onushi.testrecording.analizer.test.MethodRunInfo;
+import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 // TODO IB use a templating engine here. see https://www.baeldung.com/thymeleaf-generate-pdf
-// TODO IB Write tests for the classes that don't have test
 @Service
 public class TestGenService {
 

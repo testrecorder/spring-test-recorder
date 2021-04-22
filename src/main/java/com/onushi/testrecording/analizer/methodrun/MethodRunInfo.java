@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.test;
+package com.onushi.testrecording.analizer.methodrun;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import java.util.*;
 // TODO IB Do I need to differentiate objects tested / sent as params / being the result?
 // TODO IB handle exceptions being thrown
 
-// TODO IB !!!! maybe these are 2 objects after all
 @Getter
 public class MethodRunInfo {
     protected String packageName;
