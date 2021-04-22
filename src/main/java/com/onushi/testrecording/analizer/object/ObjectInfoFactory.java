@@ -3,7 +3,7 @@ package com.onushi.testrecording.analizer.object;
 import com.onushi.testrecording.analizer.utils.ClassHelper;
 import org.springframework.stereotype.Component;
 
-// TODO IB !!!! handle also array and void
+// TODO IB handle also array and void
 // TODO IB In the future I need to implement generics
 @Component
 public class ObjectInfoFactory {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.Locale;
 
 // TODO IB !!!! test this
+// TODO IB !!!! maybe I can make this a service after all. ObjectNameGeneratorImpl is the trouble. Should be a service too
 public class ClassHelper {
 
     public static String getFullClassName(Object object) {
@@ -22,6 +23,16 @@ public class ClassHelper {
             return fullClassName.substring(lastPointIndex + 1);
         } else {
             return fullClassName;
+        }
+    }
+
+    public static String getPackageName(Object object) {
+        String fullClassName = getFullClassName(object);
+        int lastPointIndex = fullClassName.lastIndexOf(".");
+        if (lastPointIndex != -1) {
+            return fullClassName.substring(0, lastPointIndex);
+        } else {
+            return "";
         }
     }
 

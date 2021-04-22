@@ -30,7 +30,7 @@ public class TestAppRunner implements CommandLineRunner {
         sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date(), new Date());
         sampleService.testTypes((short)6, (byte)4, 5, true, 'c', 1.5);
 
-        // TODO IB !!!! can I see the name of the params in the constructor?
+        // TODO IB can I see the name of the params in the constructor?
         Person person = Person.builder()
                 .isActor(true)
                 .build();

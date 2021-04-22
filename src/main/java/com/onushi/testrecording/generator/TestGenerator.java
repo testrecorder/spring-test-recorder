@@ -40,17 +40,17 @@ public class TestGenerator {
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
         String argumentsCode = String.join(", ", testRunInfo.getArgumentsInlineCode());
 
-        // TODO IB !!!! create a result variable
-        // TODO IB !!!! move expectedResult at end
+        // TODO IB create a result variable
+        // TODO IB move expectedResult at end
 
-        stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getClassName()));
+        stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getShortClassName()));
         stringBuilder.append(String.format("    @Test%n"));
         stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunInfo.getMethodName()));
         stringBuilder.append(argumentsRequiredHelperObjects);
         stringBuilder.append(argumentsInit);
-        stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getClassName(), testRunInfo.getClassNameVar(), testRunInfo.getClassName()));
+        stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getShortClassName(), testRunInfo.getTargetObjectName(), testRunInfo.getShortClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
-                testRunInfo.getClassNameVar(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getResultObjectInfo().getInlineCode()));
+                testRunInfo.getTargetObjectName(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getResultObjectInfo().getInlineCode()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;

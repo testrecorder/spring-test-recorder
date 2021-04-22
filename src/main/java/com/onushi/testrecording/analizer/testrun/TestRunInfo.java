@@ -2,13 +2,13 @@ package com.onushi.testrecording.analizer.testrun;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
 import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
+import com.onushi.testrecording.analizer.utils.ClassHelper;
 import lombok.Getter;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 // TODO IB Do I need to differentiate objects tested / sent as params / being the result?
@@ -17,19 +17,20 @@ import java.util.stream.Collectors;
 @Getter
 public class TestRunInfo {
     private String packageName;
-    private String className;
+    private String shortClassName;
     private ObjectInfo objectBeingTestedInfo;
     private String methodName;
     private List<ObjectInfo> argumentObjectInfos;
     private List<String> requiredImports;
     private List<String> requiredHelperObjects;
-    private String classNameVar;
+    private String targetObjectName;
     private List<String> objectsInit;
     private List<String> argumentsInlineCode;
     private ObjectInfo resultObjectInfo;
 
     private TestRunInfo() {}
 
+    // TODO IB from testRun I should create a new object called generatedTest. objectNameGenerator are part of that object
     public static TestRunInfo createTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation,
                        Object result,
                        ObjectNameGenerator objectNameGenerator,
@@ -37,11 +38,8 @@ public class TestRunInfo {
     ) {
         TestRunInfo testRunInfo = new TestRunInfo();
 
-        // TODO IB !!!! use ClassHelper
-        String packageAndClassName = methodInvocation.getSignature().getDeclaringTypeName();
-        int lastPointIndex = packageAndClassName.lastIndexOf(".");
-        testRunInfo.packageName = packageAndClassName.substring(0, lastPointIndex);
-        testRunInfo.className = packageAndClassName.substring(lastPointIndex + 1);
+        testRunInfo.packageName = ClassHelper.getPackageName(methodInvocation.getTarget());
+        testRunInfo.shortClassName = ClassHelper.getShortClassName(methodInvocation.getTarget());
 
         testRunInfo.objectBeingTestedInfo = objectInfoFactory.getObjectInfo(methodInvocation.getTarget(), "testedObject");
         testRunInfo.methodName = methodInvocation.getSignature().getName();
@@ -68,8 +66,7 @@ public class TestRunInfo {
         requiredHelperObjects.addAll(resultObjectInfo.getRequiredHelperObjects());
         testRunInfo.requiredHelperObjects = requiredHelperObjects.stream().distinct().collect(Collectors.toList());
 
-        // TODO IB !!!! use ObjectNameGenerator here
-        testRunInfo.classNameVar = testRunInfo.className.substring(0,1).toLowerCase(Locale.ROOT) + testRunInfo.className.substring(1);
+        testRunInfo.targetObjectName = ClassHelper.getObjectNameBase(methodInvocation.getTarget());
 
         List<String> objectsInit = argumentObjectInfos.stream()
                 .map(ObjectInfo::getInit).collect(Collectors.toList());
