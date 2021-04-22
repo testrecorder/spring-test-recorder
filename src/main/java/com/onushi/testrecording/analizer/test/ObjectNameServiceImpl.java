@@ -1,34 +1,31 @@
 package com.onushi.testrecording.analizer.test;
 
 import com.onushi.testrecording.analizer.utils.ClassHelper;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
+@Service
 public class ObjectNameServiceImpl implements ObjectNameService {
-    private final Map<Object, String> objectNames = new HashMap<>();
-    private final Map<String, Integer> lastIndexForClass = new HashMap<>();
 
     @Override
-    public String generateObjectName(Object object) {
-        if (objectNames.containsKey(object)) {
-            return objectNames.get(object);
+    public String generateObjectName(TestInfo testInfo, Object object) {
+        if (testInfo.getObjectNames().containsKey(object)) {
+            return testInfo.getObjectNames().get(object);
         } else {
-            String newObjectName = getNewObjectName(object);
-            objectNames.put(object, newObjectName);
+            String newObjectName = getNewObjectName(testInfo, object);
+            testInfo.getObjectNames().put(object, newObjectName);
             return newObjectName;
         }
     }
 
-    private String getNewObjectName(Object object) {
+    private String getNewObjectName(TestInfo testInfo, Object object) {
         String objectNameBase = ClassHelper.getObjectNameBase(object);
         int newIndex;
-        if (lastIndexForClass.containsKey(objectNameBase)) {
-            newIndex = lastIndexForClass.get(objectNameBase) + 1;
+        if (testInfo.getLastIndexForObjectName().containsKey(objectNameBase)) {
+            newIndex = testInfo.getLastIndexForObjectName().get(objectNameBase) + 1;
         } else {
             newIndex = 1;
         }
-        lastIndexForClass.put(objectNameBase, newIndex);
+        testInfo.getLastIndexForObjectName().put(objectNameBase, newIndex);
         return objectNameBase + newIndex;
     }
 }

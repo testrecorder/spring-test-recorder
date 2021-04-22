@@ -6,14 +6,13 @@ import com.onushi.testrecording.analizer.utils.ClassHelper;
 import lombok.Getter;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // TODO IB Do I need to differentiate objects tested / sent as params / being the result?
 // TODO IB handle exceptions being thrown
 
+// TODO IB !!!! maybe these are 2 objects after all
 @Getter
 public class TestInfo {
     private String packageName;
@@ -27,6 +26,8 @@ public class TestInfo {
     private List<String> objectsInit;
     private List<String> argumentsInlineCode;
     private ObjectInfo resultObjectInfo;
+    private final Map<Object, String> objectNames = new HashMap<>();
+    private final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
     private TestInfo() {}
 
@@ -44,7 +45,7 @@ public class TestInfo {
         testInfo.methodName = methodInvocation.getSignature().getName();
 
         List<ObjectInfo> argumentObjectInfos = Arrays.stream(methodInvocation.getArgs())
-                .map(x -> objectInfoFactory.getObjectInfo(x, objectNameService.generateObjectName(x)))
+                .map(x -> objectInfoFactory.getObjectInfo(x, objectNameService.generateObjectName(testInfo, x)))
                 .collect(Collectors.toList());
         testInfo.argumentObjectInfos = argumentObjectInfos;
 

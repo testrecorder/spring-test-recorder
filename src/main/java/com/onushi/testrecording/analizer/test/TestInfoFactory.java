@@ -7,13 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestInfoFactory {
     private final ObjectInfoFactory objectInfoFactory;
+    private final ObjectNameService objectNameService;
 
-    public TestInfoFactory(ObjectInfoFactory objectInfoFactory) {
+    public TestInfoFactory(ObjectInfoFactory objectInfoFactory, ObjectNameService objectNameService) {
         this.objectInfoFactory = objectInfoFactory;
+        this.objectNameService = objectNameService;
     }
 
     public TestInfo getTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
-        ObjectNameService objectNameService = new ObjectNameServiceImpl();
         return TestInfo.createTestRunInfo(methodInvocation, result, objectNameService, objectInfoFactory);
     }
 }
