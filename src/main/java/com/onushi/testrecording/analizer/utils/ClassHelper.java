@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
-// TODO IB !!!! maybe I can make this a service after all. ObjectNameGeneratorImpl is the trouble. Should be a service too
+// TODO IB !!!! maybe I can make this a service after all. ObjectNameServiceImpl is the trouble. Should be a service too
 public class ClassHelper {
 
     public static String getFullClassName(Object object) {

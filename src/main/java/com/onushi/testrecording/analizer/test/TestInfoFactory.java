@@ -13,7 +13,7 @@ public class TestInfoFactory {
     }
 
     public TestInfo getTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGeneratorImpl();
-        return TestInfo.createTestRunInfo(methodInvocation, result, objectNameGenerator, objectInfoFactory);
+        ObjectNameService objectNameService = new ObjectNameServiceImpl();
+        return TestInfo.createTestRunInfo(methodInvocation, result, objectNameService, objectInfoFactory);
     }
 }

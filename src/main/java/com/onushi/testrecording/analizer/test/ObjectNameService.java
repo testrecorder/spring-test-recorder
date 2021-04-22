@@ -1,5 +1,5 @@
 package com.onushi.testrecording.analizer.test;
 
-public interface ObjectNameGenerator {
+public interface ObjectNameService {
     String generateObjectName(Object object);
 }

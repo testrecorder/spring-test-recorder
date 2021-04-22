@@ -32,7 +32,7 @@ public class TestInfo {
 
     public static TestInfo createTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation,
                                              Object result,
-                                             ObjectNameGenerator objectNameGenerator,
+                                             ObjectNameService objectNameService,
                                              ObjectInfoFactory objectInfoFactory
     ) {
         TestInfo testInfo = new TestInfo();
@@ -44,7 +44,7 @@ public class TestInfo {
         testInfo.methodName = methodInvocation.getSignature().getName();
 
         List<ObjectInfo> argumentObjectInfos = Arrays.stream(methodInvocation.getArgs())
-                .map(x -> objectInfoFactory.getObjectInfo(x, objectNameGenerator.generateObjectName(x)))
+                .map(x -> objectInfoFactory.getObjectInfo(x, objectNameService.generateObjectName(x)))
                 .collect(Collectors.toList());
         testInfo.argumentObjectInfos = argumentObjectInfos;
 

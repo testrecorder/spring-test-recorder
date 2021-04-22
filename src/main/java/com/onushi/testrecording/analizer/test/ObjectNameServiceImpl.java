@@ -5,7 +5,7 @@ import com.onushi.testrecording.analizer.utils.ClassHelper;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ObjectNameGeneratorImpl implements ObjectNameGenerator {
+public class ObjectNameServiceImpl implements ObjectNameService {
     private final Map<Object, String> objectNames = new HashMap<>();
     private final Map<String, Integer> lastIndexForClass = new HashMap<>();
 
