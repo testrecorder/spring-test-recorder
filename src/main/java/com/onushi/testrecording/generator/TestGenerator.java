@@ -2,11 +2,14 @@ package com.onushi.testrecording.generator;
 
 import com.onushi.testrecording.analizer.test.TestInfo;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.stream.Collectors;
 
 // TODO IB use a templating engine here. see https://www.baeldung.com/thymeleaf-generate-pdf
 // TODO IB Write a test for this
-@Component
+// TODO IB !!!! Create a TestGenInfo in this package
+@Service
 public class TestGenerator {
 
     public String getTestString(TestInfo testInfo) {

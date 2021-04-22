@@ -28,7 +28,7 @@ class TestInfoServiceImplTest {
 
         ClassService classService = new ClassService();
         ObjectInfoService objectInfoService = new ObjectInfoService(classService);
-        TestInfoService testInfoService = new TestInfoService(objectInfoService, classService);
+        TestInfoService testInfoService = new TestInfoService(classService);
         assertEquals(testInfoService.generateObjectName(testInfoMock, new Date()), "date1");
         Thread.sleep(1);
         assertEquals(testInfoService.generateObjectName(testInfoMock, new Date()), "date2");
