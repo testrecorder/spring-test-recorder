@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 // TODO IB !!!! maybe these are 2 objects after all
 @Getter
 public class TestInfo {
-    private String packageName;
-    private String shortClassName;
-    private ObjectInfo objectBeingTestedInfo;
-    private String methodName;
-    private List<ObjectInfo> argumentObjectInfos;
-    private List<String> requiredImports;
-    private List<String> requiredHelperObjects;
-    private String targetObjectName;
-    private List<String> objectsInit;
-    private List<String> argumentsInlineCode;
-    private ObjectInfo resultObjectInfo;
-    private final Map<Object, String> objectNames = new HashMap<>();
-    private final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
+    protected String packageName;
+    protected String shortClassName;
+    protected ObjectInfo objectBeingTestedInfo;
+    protected String methodName;
+    protected List<ObjectInfo> argumentObjectInfos;
+    protected List<String> requiredImports;
+    protected List<String> requiredHelperObjects;
+    protected String targetObjectName;
+    protected List<String> objectsInit;
+    protected List<String> argumentsInlineCode;
+    protected ObjectInfo resultObjectInfo;
+    protected final Map<Object, String> objectNames = new HashMap<>();
+    protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
     private TestInfo() {}
 
