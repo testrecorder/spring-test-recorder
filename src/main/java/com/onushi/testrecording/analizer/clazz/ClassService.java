@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.utils;
+package com.onushi.testrecording.analizer.clazz;
 
 import org.springframework.stereotype.Service;
 

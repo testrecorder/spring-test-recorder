@@ -1,6 +1,6 @@
 package com.onushi.testrecording.analizer.test;
 
-import com.onushi.testrecording.analizer.utils.ClassService;
+import com.onushi.testrecording.analizer.clazz.ClassService;
 import org.springframework.stereotype.Service;
 
 @Service

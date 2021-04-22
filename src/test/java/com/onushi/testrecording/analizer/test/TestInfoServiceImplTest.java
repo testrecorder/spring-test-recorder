@@ -1,7 +1,7 @@
 package com.onushi.testrecording.analizer.test;
 
 import com.onushi.testrecording.analizer.object.ObjectInfoService;
-import com.onushi.testrecording.analizer.utils.ClassService;
+import com.onushi.testrecording.analizer.clazz.ClassService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+// TODO IB needed?
 @Getter
 public class ClazzInfo {
     private final Field[] fields;

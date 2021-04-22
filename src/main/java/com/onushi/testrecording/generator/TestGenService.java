@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.stream.Collectors;
 
 // TODO IB use a templating engine here. see https://www.baeldung.com/thymeleaf-generate-pdf
-// TODO IB Write a test for this
-// TODO IB !!!! Create a TestGenInfo in this package
+// TODO IB Write tests for the classes that don't have test
 @Service
 public class TestGenService {
 

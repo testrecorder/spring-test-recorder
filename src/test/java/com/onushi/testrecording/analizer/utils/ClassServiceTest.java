@@ -1,5 +1,6 @@
 package com.onushi.testrecording.analizer.utils;
 
+import com.onushi.testrecording.analizer.clazz.ClassService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

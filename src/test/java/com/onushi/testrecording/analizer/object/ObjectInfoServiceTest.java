@@ -1,6 +1,6 @@
 package com.onushi.testrecording.analizer.object;
 
-import com.onushi.testrecording.analizer.utils.ClassService;
+import com.onushi.testrecording.analizer.clazz.ClassService;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;

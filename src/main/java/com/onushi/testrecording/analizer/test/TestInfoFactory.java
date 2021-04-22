@@ -2,7 +2,7 @@ package com.onushi.testrecording.analizer.test;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
 import com.onushi.testrecording.analizer.object.ObjectInfoService;
-import com.onushi.testrecording.analizer.utils.ClassService;
+import com.onushi.testrecording.analizer.clazz.ClassService;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.stereotype.Service;
 

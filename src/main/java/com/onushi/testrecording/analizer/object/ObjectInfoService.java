@@ -1,6 +1,6 @@
 package com.onushi.testrecording.analizer.object;
 
-import com.onushi.testrecording.analizer.utils.ClassService;
+import com.onushi.testrecording.analizer.clazz.ClassService;
 import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
