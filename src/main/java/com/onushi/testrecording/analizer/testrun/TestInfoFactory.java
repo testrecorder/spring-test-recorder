@@ -5,15 +5,15 @@ import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestRunInfoFactory {
+public class TestInfoFactory {
     private final ObjectInfoFactory objectInfoFactory;
 
-    public TestRunInfoFactory(ObjectInfoFactory objectInfoFactory) {
+    public TestInfoFactory(ObjectInfoFactory objectInfoFactory) {
         this.objectInfoFactory = objectInfoFactory;
     }
 
-    public TestRunInfo getTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
+    public TestInfo getTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGeneratorImpl();
-        return TestRunInfo.createTestRunInfo(methodInvocation, result, objectNameGenerator, objectInfoFactory);
+        return TestInfo.createTestRunInfo(methodInvocation, result, objectNameGenerator, objectInfoFactory);
     }
 }

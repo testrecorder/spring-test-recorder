@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 // TODO IB handle exceptions being thrown
 
 @Getter
-public class TestRunInfo {
+public class TestInfo {
     private String packageName;
     private String shortClassName;
     private ObjectInfo objectBeingTestedInfo;
@@ -28,29 +28,28 @@ public class TestRunInfo {
     private List<String> argumentsInlineCode;
     private ObjectInfo resultObjectInfo;
 
-    private TestRunInfo() {}
+    private TestInfo() {}
 
-    // TODO IB from testRun I should create a new object called generatedTest. objectNameGenerator are part of that object
-    public static TestRunInfo createTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation,
-                       Object result,
-                       ObjectNameGenerator objectNameGenerator,
-                       ObjectInfoFactory objectInfoFactory
+    public static TestInfo createTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation,
+                                             Object result,
+                                             ObjectNameGenerator objectNameGenerator,
+                                             ObjectInfoFactory objectInfoFactory
     ) {
-        TestRunInfo testRunInfo = new TestRunInfo();
+        TestInfo testInfo = new TestInfo();
 
-        testRunInfo.packageName = ClassHelper.getPackageName(methodInvocation.getTarget());
-        testRunInfo.shortClassName = ClassHelper.getShortClassName(methodInvocation.getTarget());
+        testInfo.packageName = ClassHelper.getPackageName(methodInvocation.getTarget());
+        testInfo.shortClassName = ClassHelper.getShortClassName(methodInvocation.getTarget());
 
-        testRunInfo.objectBeingTestedInfo = objectInfoFactory.getObjectInfo(methodInvocation.getTarget(), "testedObject");
-        testRunInfo.methodName = methodInvocation.getSignature().getName();
+        testInfo.objectBeingTestedInfo = objectInfoFactory.getObjectInfo(methodInvocation.getTarget(), "testedObject");
+        testInfo.methodName = methodInvocation.getSignature().getName();
 
         List<ObjectInfo> argumentObjectInfos = Arrays.stream(methodInvocation.getArgs())
                 .map(x -> objectInfoFactory.getObjectInfo(x, objectNameGenerator.generateObjectName(x)))
                 .collect(Collectors.toList());
-        testRunInfo.argumentObjectInfos = argumentObjectInfos;
+        testInfo.argumentObjectInfos = argumentObjectInfos;
 
         ObjectInfo resultObjectInfo = objectInfoFactory.getObjectInfo(result, "expectedResult");
-        testRunInfo.resultObjectInfo = resultObjectInfo;
+        testInfo.resultObjectInfo = resultObjectInfo;
 
         List<String> requiredImports = new ArrayList<>();
         requiredImports.add("org.junit.jupiter.api.Test");
@@ -58,28 +57,28 @@ public class TestRunInfo {
         requiredImports.addAll(argumentObjectInfos.stream()
                 .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
         requiredImports.addAll(resultObjectInfo.getRequiredImports());
-        testRunInfo.requiredImports = requiredImports.stream().distinct().collect(Collectors.toList());
+        testInfo.requiredImports = requiredImports.stream().distinct().collect(Collectors.toList());
 
         List<String> requiredHelperObjects = argumentObjectInfos.stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
                 .collect(Collectors.toList());
         requiredHelperObjects.addAll(resultObjectInfo.getRequiredHelperObjects());
-        testRunInfo.requiredHelperObjects = requiredHelperObjects.stream().distinct().collect(Collectors.toList());
+        testInfo.requiredHelperObjects = requiredHelperObjects.stream().distinct().collect(Collectors.toList());
 
-        testRunInfo.targetObjectName = ClassHelper.getObjectNameBase(methodInvocation.getTarget());
+        testInfo.targetObjectName = ClassHelper.getObjectNameBase(methodInvocation.getTarget());
 
         List<String> objectsInit = argumentObjectInfos.stream()
                 .map(ObjectInfo::getInit).collect(Collectors.toList());
         objectsInit.add(resultObjectInfo.getInit());
-        testRunInfo.objectsInit = objectsInit.stream()
+        testInfo.objectsInit = objectsInit.stream()
                 .filter(x -> !x.equals(""))
                 .distinct()
                 .collect(Collectors.toList());
 
-        testRunInfo.argumentsInlineCode = argumentObjectInfos.stream()
+        testInfo.argumentsInlineCode = argumentObjectInfos.stream()
                 .map(ObjectInfo::getInlineCode)
                 .collect(Collectors.toList());
 
-        return testRunInfo;
+        return testInfo;
     }
 }

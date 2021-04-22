@@ -1,6 +1,6 @@
 package com.onushi.testrecording.generator;
 
-import com.onushi.testrecording.analizer.testrun.TestRunInfo;
+import com.onushi.testrecording.analizer.testrun.TestInfo;
 import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 
@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 @Component
 public class TestGenerator {
 
-    public String getTestString(TestRunInfo testRunInfo) {
+    public String getTestString(TestInfo testInfo) {
         return getBeginMarkerString() +
-                getPackageString(testRunInfo) +
-                getImportsString(testRunInfo) +
+                getPackageString(testInfo) +
+                getImportsString(testInfo) +
                 "\n" +
-                getClassAndTestString(testRunInfo) +
+                getClassAndTestString(testInfo) +
                 getEndMarkerString();
     }
 
@@ -22,35 +22,35 @@ public class TestGenerator {
         return String.format("%nBEGIN GENERATED TEST =========%n%n");
     }
 
-    private String getPackageString(TestRunInfo testRunInfo) {
-        return String.format("package %s;%n%n", testRunInfo.getPackageName());
+    private String getPackageString(TestInfo testInfo) {
+        return String.format("package %s;%n%n", testInfo.getPackageName());
     }
 
-    private String getImportsString(TestRunInfo testRunInfo) {
-        return testRunInfo.getRequiredImports().stream()
+    private String getImportsString(TestInfo testInfo) {
+        return testInfo.getRequiredImports().stream()
                 .map(x -> String.format("import %s;%n", x))
                 .collect(Collectors.joining(""));
     }
 
-    private StringBuilder getClassAndTestString(TestRunInfo testRunInfo) {
+    private StringBuilder getClassAndTestString(TestInfo testInfo) {
         StringBuilder stringBuilder = new StringBuilder();
-        String argumentsRequiredHelperObjects = testRunInfo.getRequiredHelperObjects().stream()
+        String argumentsRequiredHelperObjects = testInfo.getRequiredHelperObjects().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
-        String argumentsInit = testRunInfo.getObjectsInit().stream()
+        String argumentsInit = testInfo.getObjectsInit().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
-        String argumentsCode = String.join(", ", testRunInfo.getArgumentsInlineCode());
+        String argumentsCode = String.join(", ", testInfo.getArgumentsInlineCode());
 
         // TODO IB create a result variable
         // TODO IB move expectedResult at end
 
-        stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getShortClassName()));
+        stringBuilder.append(String.format("class %sTest {%n", testInfo.getShortClassName()));
         stringBuilder.append(String.format("    @Test%n"));
-        stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunInfo.getMethodName()));
+        stringBuilder.append(String.format("    void %s() throws Exception {%n", testInfo.getMethodName()));
         stringBuilder.append(argumentsRequiredHelperObjects);
         stringBuilder.append(argumentsInit);
-        stringBuilder.append(String.format("        %s %s = new %s();%n", testRunInfo.getShortClassName(), testRunInfo.getTargetObjectName(), testRunInfo.getShortClassName()));
+        stringBuilder.append(String.format("        %s %s = new %s();%n", testInfo.getShortClassName(), testInfo.getTargetObjectName(), testInfo.getShortClassName()));
         stringBuilder.append(String.format("        assertEquals(%s.%s(%s), %s);%n",
-                testRunInfo.getTargetObjectName(), testRunInfo.getMethodName(), argumentsCode, testRunInfo.getResultObjectInfo().getInlineCode()));
+                testInfo.getTargetObjectName(), testInfo.getMethodName(), argumentsCode, testInfo.getResultObjectInfo().getInlineCode()));
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));
         return stringBuilder;
