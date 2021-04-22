@@ -1,15 +1,15 @@
 package com.onushi.testrecording.analizer.methodrun;
 
-import com.onushi.testrecording.analizer.clazz.ClassService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.springframework.stereotype.Service;
 
 // TODO IB !!!! move from here
 @Service
 public class MethodRunInfoService {
-    private final ClassService classService;
+    private final ClassInfoService classInfoService;
 
-    public MethodRunInfoService(ClassService classService) {
-        this.classService = classService;
+    public MethodRunInfoService(ClassInfoService classInfoService) {
+        this.classInfoService = classInfoService;
     }
 
      public String generateObjectName(MethodRunInfo methodRunInfo, Object object) {
@@ -23,7 +23,7 @@ public class MethodRunInfoService {
     }
 
     private String getNewObjectName(MethodRunInfo methodRunInfo, Object object) {
-        String objectNameBase = classService.getObjectNameBase(object);
+        String objectNameBase = classInfoService.getObjectNameBase(object);
         int newIndex;
         if (methodRunInfo.getLastIndexForObjectName().containsKey(objectNameBase)) {
             newIndex = methodRunInfo.getLastIndexForObjectName().get(objectNameBase) + 1;

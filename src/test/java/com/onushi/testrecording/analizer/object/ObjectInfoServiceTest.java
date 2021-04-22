@@ -1,6 +1,6 @@
 package com.onushi.testrecording.analizer.object;
 
-import com.onushi.testrecording.analizer.clazz.ClassService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -108,6 +108,6 @@ class ObjectInfoServiceTest {
     }
 
     private ObjectInfoService getObjectInfoService() {
-        return new ObjectInfoService(new ClassService());
+        return new ObjectInfoService(new ClassInfoService());
     }
 }

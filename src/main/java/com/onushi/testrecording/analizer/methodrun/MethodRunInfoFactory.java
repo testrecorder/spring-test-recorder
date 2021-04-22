@@ -2,7 +2,7 @@ package com.onushi.testrecording.analizer.methodrun;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
 import com.onushi.testrecording.analizer.object.ObjectInfoService;
-import com.onushi.testrecording.analizer.clazz.ClassService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +14,19 @@ import java.util.stream.Collectors;
 public class MethodRunInfoFactory {
     private final ObjectInfoService objectInfoService;
     private final MethodRunInfoService methodRunInfoService;
-    private final ClassService classService;
+    private final ClassInfoService classInfoService;
 
-    public MethodRunInfoFactory(ObjectInfoService objectInfoService, MethodRunInfoService methodRunInfoService, ClassService classService) {
+    public MethodRunInfoFactory(ObjectInfoService objectInfoService, MethodRunInfoService methodRunInfoService, ClassInfoService classInfoService) {
         this.objectInfoService = objectInfoService;
         this.methodRunInfoService = methodRunInfoService;
-        this.classService = classService;
+        this.classInfoService = classInfoService;
     }
 
     public MethodRunInfo createMethodRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
         MethodRunInfo methodRunInfo = new MethodRunInfo();
 
-        methodRunInfo.packageName = classService.getPackageName(methodInvocation.getTarget());
-        methodRunInfo.shortClassName = classService.getShortClassName(methodInvocation.getTarget());
+        methodRunInfo.packageName = classInfoService.getPackageName(methodInvocation.getTarget());
+        methodRunInfo.shortClassName = classInfoService.getShortClassName(methodInvocation.getTarget());
 
         methodRunInfo.objectBeingTestedInfo = objectInfoService.createObjectInfo(methodInvocation.getTarget(), "testedObject");
         methodRunInfo.methodName = methodInvocation.getSignature().getName();
@@ -39,7 +39,7 @@ public class MethodRunInfoFactory {
 
         setRequiredHelperObjects(methodRunInfo);
 
-        methodRunInfo.targetObjectName = classService.getObjectNameBase(methodInvocation.getTarget());
+        methodRunInfo.targetObjectName = classInfoService.getObjectNameBase(methodInvocation.getTarget());
 
         setObjectsInit(methodRunInfo);
 

@@ -1,20 +1,20 @@
 package com.onushi.testrecording.analizer.object;
 
-import com.onushi.testrecording.analizer.clazz.ClassService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
 // TODO IB LATER generics
 @Component
 public class ObjectInfoService {
-    private final ClassService classService;
+    private final ClassInfoService classInfoService;
 
-    public ObjectInfoService(ClassService classService) {
-        this.classService = classService;
+    public ObjectInfoService(ClassInfoService classInfoService) {
+        this.classInfoService = classInfoService;
     }
 
     public ObjectInfo createObjectInfo(Object object, String objectName) {
-        String fullClassName = classService.getFullClassName(object);
+        String fullClassName = classInfoService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
                 return new NullObjectInfo(objectName);

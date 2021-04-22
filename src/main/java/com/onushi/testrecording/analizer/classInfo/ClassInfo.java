@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.clazz;
+package com.onushi.testrecording.analizer.classInfo;
 
 import lombok.Getter;
 
@@ -7,11 +7,11 @@ import java.lang.reflect.Method;
 
 // TODO IB needed?
 @Getter
-public class ClazzInfo {
+public class ClassInfo {
     private final Field[] fields;
     private final Method[] methods;
 
-    public ClazzInfo(Object object) {
+    public ClassInfo(Object object) {
         this.fields = object.getClass().getFields();
         this.methods = object.getClass().getMethods();
         try {

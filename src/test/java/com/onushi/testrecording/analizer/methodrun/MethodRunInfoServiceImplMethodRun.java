@@ -1,7 +1,7 @@
 package com.onushi.testrecording.analizer.methodrun;
 
 import com.onushi.testrecording.analizer.object.ObjectInfoService;
-import com.onushi.testrecording.analizer.clazz.ClassService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -26,9 +26,9 @@ class MethodRunInfoServiceImplMethodRun {
         when(methodRunInfoMock.getObjectNames()).thenReturn(objectNames);
         when(methodRunInfoMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
-        ClassService classService = new ClassService();
-        ObjectInfoService objectInfoService = new ObjectInfoService(classService);
-        MethodRunInfoService methodRunInfoService = new MethodRunInfoService(classService);
+        ClassInfoService classInfoService = new ClassInfoService();
+        ObjectInfoService objectInfoService = new ObjectInfoService(classInfoService);
+        MethodRunInfoService methodRunInfoService = new MethodRunInfoService(classInfoService);
         assertEquals(methodRunInfoService.generateObjectName(methodRunInfoMock, new Date()), "date1");
         Thread.sleep(1);
         assertEquals(methodRunInfoService.generateObjectName(methodRunInfoMock, new Date()), "date2");

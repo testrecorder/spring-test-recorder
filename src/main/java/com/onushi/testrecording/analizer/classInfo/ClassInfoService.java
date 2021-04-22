@@ -1,11 +1,12 @@
-package com.onushi.testrecording.analizer.clazz;
+package com.onushi.testrecording.analizer.classInfo;
 
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
+// TODO IB !!!! order in these classes
 @Service
-public class ClassService {
+public class ClassInfoService {
 
     public String getFullClassName(Object object) {
         if (object == null) {
