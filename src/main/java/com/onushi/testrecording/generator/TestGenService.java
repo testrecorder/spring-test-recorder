@@ -18,6 +18,8 @@ public class TestGenService {
                 getEndMarkerString();
     }
 
+    // TODO IB !!!! split into arrange, act, assert
+
     private String getBeginMarkerString() {
         return String.format("%nBEGIN GENERATED TEST =========%n%n");
     }
