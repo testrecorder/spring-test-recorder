@@ -1,7 +1,8 @@
 package com.onushi.testrecording.analizer.testrun;
 
+import com.onushi.testrecording.analizer.utils.ClassHelper;
+
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class ObjectNameGeneratorImpl implements ObjectNameGenerator {
@@ -20,29 +21,14 @@ public class ObjectNameGeneratorImpl implements ObjectNameGenerator {
     }
 
     private String getNewObjectName(Object object) {
-        String className = getClassName(object);
-        String objectNameRoot = className.substring(0,1).toLowerCase(Locale.ROOT) + className.substring(1);
+        String objectNameBase = ClassHelper.getObjectNameBase(object);
         int newIndex;
-        if (lastIndexForClass.containsKey(objectNameRoot)) {
-            newIndex = lastIndexForClass.get(objectNameRoot) + 1;
+        if (lastIndexForClass.containsKey(objectNameBase)) {
+            newIndex = lastIndexForClass.get(objectNameBase) + 1;
         } else {
             newIndex = 1;
         }
-        lastIndexForClass.put(objectNameRoot, newIndex);
-        return objectNameRoot + newIndex;
-    }
-
-    private String getClassName(Object object) {
-        if (object == null) {
-            return "null";
-        } else {
-            String fullClassName = object.getClass().getName();
-            int lastPointIndex = fullClassName.lastIndexOf(".");
-            if (lastPointIndex != -1) {
-                return fullClassName.substring(lastPointIndex + 1);
-            } else {
-                return fullClassName;
-            }
-        }
+        lastIndexForClass.put(objectNameBase, newIndex);
+        return objectNameBase + newIndex;
     }
 }

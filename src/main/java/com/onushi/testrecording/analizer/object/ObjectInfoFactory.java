@@ -1,5 +1,6 @@
 package com.onushi.testrecording.analizer.object;
 
+import com.onushi.testrecording.analizer.utils.ClassHelper;
 import org.springframework.stereotype.Component;
 
 // TODO IB !!!! handle also array and void
@@ -7,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ObjectInfoFactory {
     public ObjectInfo getObjectInfo(Object object, String objectName) {
-        String className = getClassName(object);
-        switch (className) {
+        String fullClassName = ClassHelper.getFullClassName(object);
+        switch (fullClassName) {
             case "null":
                 return new NullObjectInfo(objectName);
             case "java.lang.Float":
@@ -30,14 +31,6 @@ public class ObjectInfoFactory {
             case "java.lang.Double":
             default:
                 return new GenericObjectInfo(object, objectName);
-        }
-    }
-
-    private String getClassName(Object object) {
-        if (object == null) {
-            return "null";
-        } else {
-            return object.getClass().getName();
         }
     }
 }

@@ -37,6 +37,7 @@ public class TestRunInfo {
     ) {
         TestRunInfo testRunInfo = new TestRunInfo();
 
+        // TODO IB !!!! use ClassHelper
         String packageAndClassName = methodInvocation.getSignature().getDeclaringTypeName();
         int lastPointIndex = packageAndClassName.lastIndexOf(".");
         testRunInfo.packageName = packageAndClassName.substring(0, lastPointIndex);
@@ -67,6 +68,7 @@ public class TestRunInfo {
         requiredHelperObjects.addAll(resultObjectInfo.getRequiredHelperObjects());
         testRunInfo.requiredHelperObjects = requiredHelperObjects.stream().distinct().collect(Collectors.toList());
 
+        // TODO IB !!!! use ObjectNameGenerator here
         testRunInfo.classNameVar = testRunInfo.className.substring(0,1).toLowerCase(Locale.ROOT) + testRunInfo.className.substring(1);
 
         List<String> objectsInit = argumentObjectInfos.stream()

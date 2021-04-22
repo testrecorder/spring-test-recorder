@@ -40,6 +40,9 @@ public class TestGenerator {
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining(""));
         String argumentsCode = String.join(", ", testRunInfo.getArgumentsInlineCode());
 
+        // TODO IB !!!! create a result variable
+        // TODO IB !!!! move expectedResult at end
+
         stringBuilder.append(String.format("class %sTest {%n", testRunInfo.getClassName()));
         stringBuilder.append(String.format("    @Test%n"));
         stringBuilder.append(String.format("    void %s() throws Exception {%n", testRunInfo.getMethodName()));
