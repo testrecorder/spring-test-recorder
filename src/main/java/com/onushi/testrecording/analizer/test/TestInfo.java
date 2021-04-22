@@ -1,13 +1,9 @@
 package com.onushi.testrecording.analizer.test;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
-import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
-import com.onushi.testrecording.analizer.utils.ClassService;
 import lombok.Getter;
-import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 // TODO IB Do I need to differentiate objects tested / sent as params / being the result?
 // TODO IB handle exceptions being thrown

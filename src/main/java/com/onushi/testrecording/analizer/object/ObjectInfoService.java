@@ -5,12 +5,11 @@ import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
 // TODO IB In the future I need to implement generics
-// TODO IB !!!! rename to ObjectInfoService
 @Component
-public class ObjectInfoFactory {
+public class ObjectInfoService {
     private final ClassService classService;
 
-    public ObjectInfoFactory(ClassService classService) {
+    public ObjectInfoService(ClassService classService) {
         this.classService = classService;
     }
 

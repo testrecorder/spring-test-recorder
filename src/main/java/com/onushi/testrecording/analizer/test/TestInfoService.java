@@ -1,7 +1,7 @@
 package com.onushi.testrecording.analizer.test;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
-import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
+import com.onushi.testrecording.analizer.object.ObjectInfoService;
 import com.onushi.testrecording.analizer.utils.ClassService;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 @Component
 public class TestInfoService {
-    private final ObjectInfoFactory objectInfoFactory;
+    private final ObjectInfoService objectInfoService;
     private final ClassService classService;
 
-    public TestInfoService(ObjectInfoFactory objectInfoFactory, ClassService classService) {
-        this.objectInfoFactory = objectInfoFactory;
+    public TestInfoService(ObjectInfoService objectInfoService, ClassService classService) {
+        this.objectInfoService = objectInfoService;
         this.classService = classService;
     }
 
@@ -28,15 +28,15 @@ public class TestInfoService {
         testInfo.packageName = classService.getPackageName(methodInvocation.getTarget());
         testInfo.shortClassName = classService.getShortClassName(methodInvocation.getTarget());
 
-        testInfo.objectBeingTestedInfo = objectInfoFactory.getObjectInfo(methodInvocation.getTarget(), "testedObject");
+        testInfo.objectBeingTestedInfo = objectInfoService.getObjectInfo(methodInvocation.getTarget(), "testedObject");
         testInfo.methodName = methodInvocation.getSignature().getName();
 
         List<ObjectInfo> argumentObjectInfos = Arrays.stream(methodInvocation.getArgs())
-                .map(x -> objectInfoFactory.getObjectInfo(x, generateObjectName(testInfo, x)))
+                .map(x -> objectInfoService.getObjectInfo(x, generateObjectName(testInfo, x)))
                 .collect(Collectors.toList());
         testInfo.argumentObjectInfos = argumentObjectInfos;
 
-        ObjectInfo resultObjectInfo = objectInfoFactory.getObjectInfo(result, "expectedResult");
+        ObjectInfo resultObjectInfo = objectInfoService.getObjectInfo(result, "expectedResult");
         testInfo.resultObjectInfo = resultObjectInfo;
 
         List<String> requiredImports = new ArrayList<>();
