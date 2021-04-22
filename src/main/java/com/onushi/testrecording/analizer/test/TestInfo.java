@@ -2,7 +2,7 @@ package com.onushi.testrecording.analizer.test;
 
 import com.onushi.testrecording.analizer.object.ObjectInfo;
 import com.onushi.testrecording.analizer.object.ObjectInfoFactory;
-import com.onushi.testrecording.analizer.utils.ClassHelper;
+import com.onushi.testrecording.analizer.utils.ClassService;
 import lombok.Getter;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
@@ -33,13 +33,14 @@ public class TestInfo {
 
     public static TestInfo createTestRunInfo(MethodInvocationProceedingJoinPoint methodInvocation,
                                              Object result,
+                                             ClassService classService,
                                              ObjectNameService objectNameService,
                                              ObjectInfoFactory objectInfoFactory
     ) {
         TestInfo testInfo = new TestInfo();
 
-        testInfo.packageName = ClassHelper.getPackageName(methodInvocation.getTarget());
-        testInfo.shortClassName = ClassHelper.getShortClassName(methodInvocation.getTarget());
+        testInfo.packageName = classService.getPackageName(methodInvocation.getTarget());
+        testInfo.shortClassName = classService.getShortClassName(methodInvocation.getTarget());
 
         testInfo.objectBeingTestedInfo = objectInfoFactory.getObjectInfo(methodInvocation.getTarget(), "testedObject");
         testInfo.methodName = methodInvocation.getSignature().getName();
@@ -66,7 +67,7 @@ public class TestInfo {
         requiredHelperObjects.addAll(resultObjectInfo.getRequiredHelperObjects());
         testInfo.requiredHelperObjects = requiredHelperObjects.stream().distinct().collect(Collectors.toList());
 
-        testInfo.targetObjectName = ClassHelper.getObjectNameBase(methodInvocation.getTarget());
+        testInfo.targetObjectName = classService.getObjectNameBase(methodInvocation.getTarget());
 
         List<String> objectsInit = argumentObjectInfos.stream()
                 .map(ObjectInfo::getInit).collect(Collectors.toList());

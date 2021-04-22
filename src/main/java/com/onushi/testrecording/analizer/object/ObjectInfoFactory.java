@@ -1,14 +1,20 @@
 package com.onushi.testrecording.analizer.object;
 
-import com.onushi.testrecording.analizer.utils.ClassHelper;
+import com.onushi.testrecording.analizer.utils.ClassService;
 import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
 // TODO IB In the future I need to implement generics
 @Component
 public class ObjectInfoFactory {
+    private final ClassService classService;
+
+    public ObjectInfoFactory(ClassService classService) {
+        this.classService = classService;
+    }
+
     public ObjectInfo getObjectInfo(Object object, String objectName) {
-        String fullClassName = ClassHelper.getFullClassName(object);
+        String fullClassName = classService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
                 return new NullObjectInfo(objectName);

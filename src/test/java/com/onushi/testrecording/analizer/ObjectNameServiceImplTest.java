@@ -3,6 +3,7 @@ package com.onushi.testrecording.analizer;
 import com.onushi.testrecording.analizer.test.ObjectNameService;
 import com.onushi.testrecording.analizer.test.ObjectNameServiceImpl;
 import com.onushi.testrecording.analizer.test.TestInfo;
+import com.onushi.testrecording.analizer.utils.ClassService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -27,7 +28,8 @@ class ObjectNameServiceImplTest {
         when(testInfoMock.getObjectNames()).thenReturn(objectNames);
         when(testInfoMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
-        ObjectNameService objectNameService = new ObjectNameServiceImpl();
+        ClassService classService = new ClassService();
+        ObjectNameService objectNameService = new ObjectNameServiceImpl(classService);
         assertEquals(objectNameService.generateObjectName(testInfoMock, new Date()), "date1");
         Thread.sleep(1);
         assertEquals(objectNameService.generateObjectName(testInfoMock, new Date()), "date2");

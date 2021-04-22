@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
-// TODO IB !!!! maybe I can make this a service after all. ObjectNameServiceImpl is the trouble. Should be a service too
-public class ClassHelper {
+@Service
+public class ClassService {
 
-    public static String getFullClassName(Object object) {
+    public String getFullClassName(Object object) {
         if (object == null) {
             return "null";
         } else {
@@ -15,7 +15,7 @@ public class ClassHelper {
         }
     }
 
-    public static String getShortClassName(Object object) {
+    public String getShortClassName(Object object) {
         String fullClassName = getFullClassName(object);
         int lastPointIndex = fullClassName.lastIndexOf(".");
         if (lastPointIndex != -1) {
@@ -25,7 +25,7 @@ public class ClassHelper {
         }
     }
 
-    public static String getPackageName(Object object) {
+    public String getPackageName(Object object) {
         String fullClassName = getFullClassName(object);
         int lastPointIndex = fullClassName.lastIndexOf(".");
         if (lastPointIndex != -1) {
@@ -35,7 +35,7 @@ public class ClassHelper {
         }
     }
 
-    public static String getObjectNameBase(Object object) {
+    public String getObjectNameBase(Object object) {
         String getShortClassName = getShortClassName(object);
         return getShortClassName.substring(0,1).toLowerCase(Locale.ROOT) + getShortClassName.substring(1);
     }

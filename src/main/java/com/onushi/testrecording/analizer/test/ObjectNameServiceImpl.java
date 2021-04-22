@@ -1,10 +1,15 @@
 package com.onushi.testrecording.analizer.test;
 
-import com.onushi.testrecording.analizer.utils.ClassHelper;
+import com.onushi.testrecording.analizer.utils.ClassService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ObjectNameServiceImpl implements ObjectNameService {
+    private final ClassService classService;
+
+    public ObjectNameServiceImpl(ClassService classService) {
+        this.classService = classService;
+    }
 
     @Override
     public String generateObjectName(TestInfo testInfo, Object object) {
@@ -18,7 +23,7 @@ public class ObjectNameServiceImpl implements ObjectNameService {
     }
 
     private String getNewObjectName(TestInfo testInfo, Object object) {
-        String objectNameBase = ClassHelper.getObjectNameBase(object);
+        String objectNameBase = classService.getObjectNameBase(object);
         int newIndex;
         if (testInfo.getLastIndexForObjectName().containsKey(objectNameBase)) {
             newIndex = testInfo.getLastIndexForObjectName().get(objectNameBase) + 1;
