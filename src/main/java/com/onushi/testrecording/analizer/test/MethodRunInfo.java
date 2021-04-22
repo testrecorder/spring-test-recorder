@@ -10,7 +10,7 @@ import java.util.*;
 
 // TODO IB !!!! maybe these are 2 objects after all
 @Getter
-public class TestInfo {
+public class MethodRunInfo {
     protected String packageName;
     protected String shortClassName;
     protected ObjectInfo objectBeingTestedInfo;
@@ -25,7 +25,7 @@ public class TestInfo {
     protected final Map<Object, String> objectNames = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
-    protected TestInfo() {}
+    protected MethodRunInfo() {}
 
     protected Map<Object, String> getObjectNames() {
         return objectNames;
