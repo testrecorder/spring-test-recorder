@@ -2,7 +2,7 @@ package com.onushi.testrecording;
 
 import com.onushi.testrecording.analizer.test.TestInfo;
 import com.onushi.testrecording.analizer.test.TestInfoFactory;
-import com.onushi.testrecording.generator.TestGenerator;
+import com.onushi.testrecording.generator.TestGenService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecordTestAspect {
     private final TestInfoFactory testInfoFactory;
-    private final TestGenerator testGenerator;
+    private final TestGenService testGenService;
 
-    public RecordTestAspect(TestInfoFactory testInfoFactory, TestGenerator testGenerator) {
+    public RecordTestAspect(TestInfoFactory testInfoFactory, TestGenService testGenService) {
         this.testInfoFactory = testInfoFactory;
-        this.testGenerator = testGenerator;
+        this.testGenService = testGenService;
     }
 
     @Around("@annotation(com.onushi.testrecording.RecordTestForThis)")
@@ -25,7 +25,7 @@ public class RecordTestAspect {
         Object result = proceedingJoinPoint.proceed();
 
         TestInfo testInfo = testInfoFactory.createTestInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
-        String testString = testGenerator.getTestString(testInfo);
+        String testString = testGenService.getTestString(testInfo);
         System.out.println(testString);
 
         return result;

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 // TODO IB Write a test for this
 // TODO IB !!!! Create a TestGenInfo in this package
 @Service
-public class TestGenerator {
+public class TestGenService {
 
     public String getTestString(TestInfo testInfo) {
         return getBeginMarkerString() +
