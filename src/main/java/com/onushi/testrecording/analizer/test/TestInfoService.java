@@ -28,15 +28,15 @@ public class TestInfoService {
         testInfo.packageName = classService.getPackageName(methodInvocation.getTarget());
         testInfo.shortClassName = classService.getShortClassName(methodInvocation.getTarget());
 
-        testInfo.objectBeingTestedInfo = objectInfoService.getObjectInfo(methodInvocation.getTarget(), "testedObject");
+        testInfo.objectBeingTestedInfo = objectInfoService.createObjectInfo(methodInvocation.getTarget(), "testedObject");
         testInfo.methodName = methodInvocation.getSignature().getName();
 
         List<ObjectInfo> argumentObjectInfos = Arrays.stream(methodInvocation.getArgs())
-                .map(x -> objectInfoService.getObjectInfo(x, generateObjectName(testInfo, x)))
+                .map(x -> objectInfoService.createObjectInfo(x, generateObjectName(testInfo, x)))
                 .collect(Collectors.toList());
         testInfo.argumentObjectInfos = argumentObjectInfos;
 
-        ObjectInfo resultObjectInfo = objectInfoService.getObjectInfo(result, "expectedResult");
+        ObjectInfo resultObjectInfo = objectInfoService.createObjectInfo(result, "expectedResult");
         testInfo.resultObjectInfo = resultObjectInfo;
 
         List<String> requiredImports = new ArrayList<>();

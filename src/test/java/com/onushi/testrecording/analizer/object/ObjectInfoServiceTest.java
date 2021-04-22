@@ -12,7 +12,7 @@ class ObjectInfoServiceTest {
     @Test
     void testNullObjectInfo() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo(null, "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo(null, "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "null");
     }
@@ -20,7 +20,7 @@ class ObjectInfoServiceTest {
     @Test
     void testFloatObjectInfo() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo(1f, "testFloat");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo(1f, "testFloat");
         assertEquals(objectInfo.getObjectName(), "testFloat");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "1.0f");
@@ -32,7 +32,7 @@ class ObjectInfoServiceTest {
     @Test
     void testLongObjectInfo() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo(1L, "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo(1L, "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "1L");
     }
@@ -40,7 +40,7 @@ class ObjectInfoServiceTest {
     @Test
     void testByteObjectInfo() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo((byte)11, "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo((byte)11, "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "(byte)11");
     }
@@ -48,7 +48,7 @@ class ObjectInfoServiceTest {
     @Test
     void testShortObjectInfo() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo((short)100, "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo((short)100, "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "(short)100");
     }
@@ -56,7 +56,7 @@ class ObjectInfoServiceTest {
     @Test
     void testCharacterObjectInfo() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo('a', "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo('a', "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "'a'");
     }
@@ -64,7 +64,7 @@ class ObjectInfoServiceTest {
     @Test
     void testStringObjectInfo() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo("Hello World", "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo("Hello World", "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "\"Hello World\"");
     }
@@ -72,7 +72,7 @@ class ObjectInfoServiceTest {
     @Test
     void testBoolean() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo(true, "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo(true, "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "true");
     }
@@ -80,7 +80,7 @@ class ObjectInfoServiceTest {
     @Test
     void testInt() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo(2, "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo(2, "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "2");
     }
@@ -88,7 +88,7 @@ class ObjectInfoServiceTest {
     @Test
     void testDouble() {
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo(2.5, "test");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo(2.5, "test");
         assertTrue(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "2.5");
     }
@@ -99,7 +99,7 @@ class ObjectInfoServiceTest {
         Date date1 = simpleDateFormat.parse("2021-01-01");
 
         ObjectInfoService objectInfoService = getObjectInfoService();
-        ObjectInfo objectInfo = objectInfoService.getObjectInfo(date1, "date1");
+        ObjectInfo objectInfo = objectInfoService.createObjectInfo(date1, "date1");
         assertFalse(objectInfo.isOnlyInline());
         assertEquals(objectInfo.getInlineCode(), "date1");
         assertEquals(objectInfo.getRequiredHelperObjects().size(), 1);

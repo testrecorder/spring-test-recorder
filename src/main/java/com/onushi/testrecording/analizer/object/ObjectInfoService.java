@@ -13,7 +13,7 @@ public class ObjectInfoService {
         this.classService = classService;
     }
 
-    public ObjectInfo getObjectInfo(Object object, String objectName) {
+    public ObjectInfo createObjectInfo(Object object, String objectName) {
         String fullClassName = classService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
