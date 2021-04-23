@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-// TODO IB use a templating engine here. see https://www.baeldung.com/thymeleaf-generate-pdf
 @Service
 public class TestGenService {
     private final ClassInfoService classInfoService;
