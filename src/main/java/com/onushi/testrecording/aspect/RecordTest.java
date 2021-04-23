@@ -1,4 +1,4 @@
-package com.onushi.testrecording;
+package com.onushi.testrecording.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

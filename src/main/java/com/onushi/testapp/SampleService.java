@@ -1,6 +1,6 @@
 package com.onushi.testapp;
 
-import com.onushi.testrecording.RecordTest;
+import com.onushi.testrecording.aspect.RecordTest;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;

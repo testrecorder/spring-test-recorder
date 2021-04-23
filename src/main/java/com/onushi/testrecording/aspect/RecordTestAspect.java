@@ -1,4 +1,4 @@
-package com.onushi.testrecording;
+package com.onushi.testrecording.aspect;
 
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfoFactory;
@@ -24,7 +24,7 @@ public class RecordTestAspect {
         this.testGenService = testGenService;
     }
 
-    @Around("@annotation(com.onushi.testrecording.RecordTest)")
+    @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = proceedingJoinPoint.proceed();
 
