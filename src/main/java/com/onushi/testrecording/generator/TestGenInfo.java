@@ -1,6 +1,6 @@
 package com.onushi.testrecording.generator;
 
-import com.onushi.testrecording.analizer.object.ObjectInfo;
+import com.onushi.testrecording.generator.object.ObjectInfo;
 import lombok.Getter;
 
 import java.util.HashMap;

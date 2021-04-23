@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.object;
+package com.onushi.testrecording.generator.object;
 
 public class FloatObjectInfo extends ObjectInfo {
     public FloatObjectInfo(Object object, String objectName) {

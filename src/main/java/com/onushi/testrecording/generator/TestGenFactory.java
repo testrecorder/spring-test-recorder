@@ -2,8 +2,8 @@ package com.onushi.testrecording.generator;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
-import com.onushi.testrecording.analizer.object.ObjectInfo;
-import com.onushi.testrecording.analizer.object.ObjectInfoService;
+import com.onushi.testrecording.generator.object.ObjectInfo;
+import com.onushi.testrecording.generator.object.ObjectInfoService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

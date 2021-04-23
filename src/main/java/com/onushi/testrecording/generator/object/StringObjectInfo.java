@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.object;
+package com.onushi.testrecording.generator.object;
 
 public class StringObjectInfo extends ObjectInfo {
     public StringObjectInfo(Object object, String objectName) {

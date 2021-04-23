@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.object;
+package com.onushi.testrecording.generator.object;
 
 // TODO IB create a class analyzer to check object fields, setters and constructors
 // TODO IB I can use serialization to transform to Json and back

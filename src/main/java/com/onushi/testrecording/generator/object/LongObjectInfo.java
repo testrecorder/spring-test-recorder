@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.object;
+package com.onushi.testrecording.generator.object;
 
 public class LongObjectInfo extends ObjectInfo {
     public LongObjectInfo(Object object, String objectName) {
