@@ -14,7 +14,7 @@ public abstract class ObjectInfo {
     protected final String objectName;
     protected List<String> requiredImports = new ArrayList<>();
     protected List<String> requiredHelperObjects = new ArrayList<>();
-    protected String init = "";
+    protected String initCode = "";
     protected String inlineCode;
     protected boolean isOnlyInline;
 

@@ -26,7 +26,7 @@ class ObjectInfoServiceTest {
         assertEquals(objectInfo.getInlineCode(), "1.0f");
         assertEquals(objectInfo.getRequiredHelperObjects().size(), 0);
         assertEquals(objectInfo.getRequiredImports().size(), 0);
-        assertEquals(objectInfo.getInit(), "");
+        assertEquals(objectInfo.getInitCode(), "");
     }
 
     @Test
@@ -104,7 +104,7 @@ class ObjectInfoServiceTest {
         assertEquals(objectInfo.getInlineCode(), "date1");
         assertEquals(objectInfo.getRequiredHelperObjects().size(), 1);
         assertEquals(objectInfo.getRequiredImports().size(), 2);
-        assertNotEquals("", objectInfo.getInit());
+        assertNotEquals("", objectInfo.getInitCode());
     }
 
     private ObjectInfoService getObjectInfoService() {

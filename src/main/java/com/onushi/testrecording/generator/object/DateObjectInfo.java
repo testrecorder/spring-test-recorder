@@ -18,6 +18,6 @@ public class DateObjectInfo extends ObjectInfo {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String dateStr = simpleDateFormat.format(date);
 
-        this.init = String.format("Date %s = simpleDateFormat.parse(\"%s\");", this.objectName, dateStr);
+        this.initCode = String.format("Date %s = simpleDateFormat.parse(\"%s\");", this.objectName, dateStr);
     }
 }
