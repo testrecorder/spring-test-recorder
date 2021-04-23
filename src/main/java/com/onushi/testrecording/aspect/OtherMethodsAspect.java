@@ -11,6 +11,17 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class OtherMethodsAspect {
+    private boolean isMonitoring = false;
+
+    public boolean isMonitoring() {
+        return isMonitoring;
+    }
+
+    public OtherMethodsAspect setMonitoring(boolean monitoring) {
+        isMonitoring = monitoring;
+        return this;
+    }
+
     @Around("execution(* com.onushi.testapp..*(..))")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = proceedingJoinPoint.proceed();
