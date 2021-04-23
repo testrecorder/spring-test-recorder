@@ -17,16 +17,21 @@ public class RecordTestAspect {
     private final MethodRunInfoFactory methodRunInfoFactory;
     private final TestGenFactory testGenFactory;
     private final TestGenService testGenService;
+    private final MonitorMethodSemaphore monitorMethodSemaphore;
 
-    public RecordTestAspect(MethodRunInfoFactory methodRunInfoFactory, TestGenFactory testGenFactory, TestGenService testGenService) {
+    public RecordTestAspect(MethodRunInfoFactory methodRunInfoFactory, TestGenFactory testGenFactory,
+                            TestGenService testGenService, MonitorMethodSemaphore monitorMethodSemaphore) {
         this.methodRunInfoFactory = methodRunInfoFactory;
         this.testGenFactory = testGenFactory;
         this.testGenService = testGenService;
+        this.monitorMethodSemaphore = monitorMethodSemaphore;
     }
 
     @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        monitorMethodSemaphore.setMonitoring(true);
         Object result = proceedingJoinPoint.proceed();
+        monitorMethodSemaphore.setMonitoring(false);
 
         MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
         TestGenInfo testGenInfo = testGenFactory.createTestGenInfo(methodRunInfo);
