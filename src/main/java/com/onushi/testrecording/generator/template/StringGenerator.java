@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class StringGenerator {
     private String template;
-    private Map<String, String> context = new HashMap<>();
+    private final Map<String, String> context = new HashMap<>();
 
     public StringGenerator() {
     }

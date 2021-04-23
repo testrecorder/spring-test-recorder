@@ -1,6 +1,7 @@
 package com.onushi.testrecording.generator;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.generator.template.StringGenerator;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -37,40 +38,42 @@ public class TestGenService {
                 .collect(Collectors.joining(""));
     }
 
-    private StringBuilder getClassAndTestString(TestGenInfo testGenInfo) {
-        StringBuilder stringBuilder = new StringBuilder();
+    private String getClassAndTestString(TestGenInfo testGenInfo) {
+        StringGenerator stringGenerator = new StringGenerator();
+        stringGenerator.setTemplate(
+                "class {{testClassName}} {\n" +
+                "    @Test\n" +
+                "    void {{methodName}}() throws Exception {\n" +
+                "        // Arrange\n" +
+                        "{{requiredHelperObjects}}" +
+                        "{{objectsInit}}" +
+                "        {{className}} {{targetObjectName}} = new {{className}}();\n\n"+
 
-        stringBuilder.append(String.format("class %sTest {%n", testGenInfo.getShortClassName()));
-        stringBuilder.append(String.format("    @Test%n"));
-        stringBuilder.append(String.format("    void %s() throws Exception {%n", testGenInfo.getMethodName()));
+                "        // Act\n" +
+                "        {{resultClassName}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n" +
 
-        stringBuilder.append(String.format("        // Arrange%n"));
-        stringBuilder.append(testGenInfo.getRequiredHelperObjects().stream()
+                "        // Assert\n" +
+                        "{{resultInit}}" +
+                "        assertEquals(result, {{expectedResult}});\n" +
+                "    }\n" +
+                "}\n");
+        stringGenerator.addAttribute("testClassName", testGenInfo.getShortClassName() + "Test");
+        stringGenerator.addAttribute("methodName", testGenInfo.getMethodName());
+        stringGenerator.addAttribute("requiredHelperObjects", testGenInfo.getRequiredHelperObjects().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
-        stringBuilder.append(testGenInfo.getObjectsInit().stream()
+        stringGenerator.addAttribute("objectsInit", testGenInfo.getObjectsInit().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
-        stringBuilder.append(String.format("        %s %s = new %s();%n", testGenInfo.getShortClassName(),
-                testGenInfo.getTargetObjectInfo().getObjectName(), testGenInfo.getShortClassName()));
-        stringBuilder.append("\n");
-
-        stringBuilder.append(String.format("        // Act%n"));
-        stringBuilder.append(String.format("        %s result = %s.%s(%s);%n",
-                classInfoService.getShortClassName(testGenInfo.getResultObjectInfo().getObject()),
-                testGenInfo.getTargetObjectInfo().getObjectName(),
-                testGenInfo.getMethodName(),
-                String.join(", ", testGenInfo.getArgumentsInlineCode())));
-        stringBuilder.append("\n");
-
-        stringBuilder.append(String.format("        // Assert%n"));
+        stringGenerator.addAttribute("className", testGenInfo.getShortClassName());
+        stringGenerator.addAttribute("targetObjectName", testGenInfo.getTargetObjectInfo().getObjectName());
+        stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenInfo.getResultObjectInfo().getObject()));
+        stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenInfo.getArgumentsInlineCode()));
+        stringGenerator.addAttribute("resultInit", "");
         if (!testGenInfo.getResultInit().equals("")) {
-            stringBuilder.append(String.format("        %s%n", testGenInfo.getResultInit()));
+            stringGenerator.addAttribute("resultInit", String.format("        %s%n", testGenInfo.getResultInit()));
         }
-        stringBuilder.append(String.format("        assertEquals(result, %s);%n",
-                testGenInfo.getResultObjectInfo().getInlineCode()));
+        stringGenerator.addAttribute("expectedResult", testGenInfo.getResultObjectInfo().getInlineCode());
 
-        stringBuilder.append(String.format("    }%n"));
-        stringBuilder.append(String.format("}%n"));
-        return stringBuilder;
+        return stringGenerator.generate();
     }
 
     private String getEndMarkerString() {
