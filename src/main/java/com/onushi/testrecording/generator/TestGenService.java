@@ -73,8 +73,6 @@ public class TestGenService {
         return stringBuilder;
     }
 
-
-
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
     }
