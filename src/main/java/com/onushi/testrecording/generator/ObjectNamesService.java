@@ -3,7 +3,7 @@ package com.onushi.testrecording.generator;
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.springframework.stereotype.Service;
 
-// TODO IB !!!! There is another test recorder http://testrecorder.amygdalum.net/index.html
+// TODO IB There is another test recorder http://testrecorder.amygdalum.net/index.html
 @Service
 public class ObjectNamesService {
     private final ClassInfoService classInfoService;
