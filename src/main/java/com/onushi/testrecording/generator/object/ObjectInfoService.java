@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
 // TODO IB LATER generics
+// TODO IB some functions alter the arguments or the target object
 @Component
 public class ObjectInfoService {
     private final ClassInfoService classInfoService;

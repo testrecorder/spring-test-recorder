@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+// TODO IB create a class analyzer to check object fields, setters and constructors
 // TODO IB needed?
 @Getter
 public class ClassInfo {

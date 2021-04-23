@@ -40,8 +40,6 @@ public class TestGenService {
     private StringBuilder getClassAndTestString(TestGenInfo testGenInfo) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        // TODO IB move expectedResult at end
-
         stringBuilder.append(String.format("class %sTest {%n", testGenInfo.getShortClassName()));
         stringBuilder.append(String.format("    @Test%n"));
         stringBuilder.append(String.format("    void %s() throws Exception {%n", testGenInfo.getMethodName()));
