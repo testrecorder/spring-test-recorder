@@ -53,7 +53,7 @@ public class TestGenService {
                 "        {{resultClassName}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n" +
 
                 "        // Assert\n" +
-                        "{{resultInit}}" +
+                        "{{expectedResultInit}}" +
                 "        assertEquals(result, {{expectedResult}});\n" +
                 "    }\n" +
                 "}\n");
@@ -67,9 +67,9 @@ public class TestGenService {
         stringGenerator.addAttribute("targetObjectName", testGenInfo.getTargetObjectInfo().getObjectName());
         stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenInfo.getResultObjectInfo().getObject()));
         stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenInfo.getArgumentsInlineCode()));
-        stringGenerator.addAttribute("resultInit", "");
+        stringGenerator.addAttribute("expectedResultInit", "");
         if (!testGenInfo.getResultInit().equals("")) {
-            stringGenerator.addAttribute("resultInit", String.format("        %s%n", testGenInfo.getResultInit()));
+            stringGenerator.addAttribute("expectedResultInit", String.format("        %s%n", testGenInfo.getResultInit()));
         }
         stringGenerator.addAttribute("expectedResult", testGenInfo.getResultObjectInfo().getInlineCode());
 
