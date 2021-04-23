@@ -8,6 +8,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO IB if needed object initialisation code could be learned from github
 @Getter
 public abstract class ObjectInfo {
     protected final Object object;
