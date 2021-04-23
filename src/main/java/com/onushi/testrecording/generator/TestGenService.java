@@ -63,11 +63,12 @@ public class TestGenService {
                 String.join(", ", testGenInfo.getArgumentsInlineCode())));
         stringBuilder.append("\n");
 
-        // TODO IB !!!! sometimes this needs to be a single line
         stringBuilder.append(String.format("        // Assert%n"));
-        stringBuilder.append(String.format("        %s%n", testGenInfo.getResultInit()));
+        if (!testGenInfo.getResultInit().equals("")) {
+            stringBuilder.append(String.format("        %s%n", testGenInfo.getResultInit()));
+        }
         stringBuilder.append(String.format("        assertEquals(result, %s);%n",
-                testGenInfo.getResultObjectInfo().getObjectName()));
+                testGenInfo.getResultObjectInfo().getInlineCode()));
 
         stringBuilder.append(String.format("    }%n"));
         stringBuilder.append(String.format("}%n"));

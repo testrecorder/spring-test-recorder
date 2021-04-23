@@ -24,6 +24,7 @@ public class SampleService {
         return 0;
     }
 
+    @RecordTest
     public float addFloats(float x, float y) {
         return x + y;
     }
