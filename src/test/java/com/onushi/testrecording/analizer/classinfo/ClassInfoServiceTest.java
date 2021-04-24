@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.utils;
+package com.onushi.testrecording.analizer.classinfo;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
