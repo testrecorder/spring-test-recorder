@@ -1,15 +1,15 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analizer.classInfo.ClassNameService;
 import org.springframework.stereotype.Service;
 
 // TODO IB There is another test recorder http://testrecorder.amygdalum.net/index.html
 @Service
 public class ObjectNameGenerator {
-    private final ClassInfoService classInfoService;
+    private final ClassNameService classNameService;
 
-    public ObjectNameGenerator(ClassInfoService classInfoService) {
-        this.classInfoService = classInfoService;
+    public ObjectNameGenerator(ClassNameService classNameService) {
+        this.classNameService = classNameService;
     }
 
     public String generateObjectName(TestGenenerator testGenenerator, Object object) {
@@ -23,7 +23,7 @@ public class ObjectNameGenerator {
     }
 
     private String getNewObjectName(TestGenenerator testGenenerator, Object object) {
-        String objectNameBase = classInfoService.getObjectNameBase(object);
+        String objectNameBase = classNameService.getObjectNameBase(object);
         int newIndex;
         if (testGenenerator.getLastIndexForObjectName().containsKey(objectNameBase)) {
             newIndex = testGenenerator.getLastIndexForObjectName().get(objectNameBase) + 1;

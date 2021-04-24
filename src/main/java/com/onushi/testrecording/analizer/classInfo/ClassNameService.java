@@ -4,10 +4,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
-// TODO IB !!!! order in these classes
 @Service
-public class ClassInfoService {
-
+public class ClassNameService {
     public String getFullClassName(Object object) {
         if (object == null) {
             return "null";

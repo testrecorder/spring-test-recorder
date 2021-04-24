@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analizer.classInfo.ClassNameService;
 import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 // TODO IB some functions alter the arguments or the target object
 @Component
 public class ObjectCodeGeneratorFactory {
-    private final ClassInfoService classInfoService;
+    private final ClassNameService classNameService;
 
-    public ObjectCodeGeneratorFactory(ClassInfoService classInfoService) {
-        this.classInfoService = classInfoService;
+    public ObjectCodeGeneratorFactory(ClassNameService classNameService) {
+        this.classNameService = classNameService;
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
-        String fullClassName = classInfoService.getFullClassName(object);
+        String fullClassName = classNameService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
                 return new SimpleObjectCodeGenerator(object, objectName, "null");

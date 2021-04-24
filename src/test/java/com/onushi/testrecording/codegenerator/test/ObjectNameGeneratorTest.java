@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analizer.classInfo.ClassNameService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -24,8 +24,8 @@ class ObjectNameGeneratorTest {
         when(testGeneneratorMock.getObjectNames()).thenReturn(objectNames);
         when(testGeneneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
-        ClassInfoService classInfoService = new ClassInfoService();
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(classInfoService);
+        ClassNameService classNameService = new ClassNameService();
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(classNameService);
         assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, new Date()), "date1");
         Thread.sleep(1);
         assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, new Date()), "date2");

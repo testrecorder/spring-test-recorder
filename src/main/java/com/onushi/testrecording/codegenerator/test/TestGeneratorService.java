@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analizer.classInfo.ClassNameService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import org.springframework.stereotype.Service;
 
@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class TestGeneratorService {
-    private final ClassInfoService classInfoService;
+    private final ClassNameService classNameService;
 
-    public TestGeneratorService(ClassInfoService classInfoService) {
-        this.classInfoService = classInfoService;
+    public TestGeneratorService(ClassNameService classNameService) {
+        this.classNameService = classNameService;
     }
 
     public String generateTestCode(TestGenenerator testGenenerator) {
@@ -64,7 +64,7 @@ public class TestGeneratorService {
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
         stringGenerator.addAttribute("className", testGenenerator.getShortClassName());
         stringGenerator.addAttribute("targetObjectName", testGenenerator.getTargetObjectCodeGenerator().getObjectName());
-        stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenenerator.getResultObjectCodeGenerator().getObject()));
+        stringGenerator.addAttribute("resultClassName", classNameService.getShortClassName(testGenenerator.getResultObjectCodeGenerator().getObject()));
         stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenenerator.getArgumentsInlineCode()));
         stringGenerator.addAttribute("expectedResultInit", "");
         if (!testGenenerator.getResultInit().equals("")) {
