@@ -42,8 +42,8 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
-        assertEquals(ignoreLineSeparation(testString),
-                ignoreLineSeparation("BEGIN GENERATED TEST =========\n" +
+        assertEquals(trimAndIgnoreCRLF(testString),
+                trimAndIgnoreCRLF("BEGIN GENERATED TEST =========\n" +
                 "\n" +
                 "package com.onushi.sampleapp;\n" +
                 "\n" +
@@ -85,8 +85,8 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
-        assertEquals(ignoreLineSeparation(testString),
-                ignoreLineSeparation("BEGIN GENERATED TEST =========\n" +
+        assertEquals(trimAndIgnoreCRLF(testString),
+                trimAndIgnoreCRLF("BEGIN GENERATED TEST =========\n" +
                 "\n" +
                 "package com.onushi.sampleapp;\n" +
                 "\n" +
@@ -116,7 +116,7 @@ class TestGeneratorServiceTest {
                 "END GENERATED TEST ========="));
     }
 
-    private String ignoreLineSeparation(String input) {
+    private String trimAndIgnoreCRLF(String input) {
         return input.trim().replace("\n", "").replace("\r", "");
     }
 }
