@@ -18,7 +18,7 @@ public class MonitorMethodsAspect {
         this.monitorMethodSemaphore = monitorMethodSemaphore;
     }
 
-    @Around("execution(* com.onushi.testapp..*(..))")
+    @Around("execution(* com.onushi.sampleapp..*(..))")
     public Object monitorMethod(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodInvocationProceedingJoinPoint methodInvocation =
                 (MethodInvocationProceedingJoinPoint) proceedingJoinPoint;

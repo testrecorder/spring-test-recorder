@@ -1,4 +1,4 @@
-package com.onushi.testapp;
+package com.onushi.sampleapp;
 
 import org.junit.jupiter.api.Test;
 

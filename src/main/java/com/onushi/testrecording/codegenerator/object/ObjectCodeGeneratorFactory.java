@@ -38,7 +38,8 @@ public class ObjectCodeGeneratorFactory {
             case "java.util.Date":
                 return new DateObjectCodeGenerator(object, objectName);
             default:
-                return new ObjectCodeGenerator(object, objectName, true, object.toString());
+                // TODO IB !!!! test that builder is present
+                return new ObjectCodeGeneratorWithBuilder(object, objectName);
         }
     }
 }

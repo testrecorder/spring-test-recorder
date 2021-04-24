@@ -1,4 +1,4 @@
-package com.onushi.testapp;
+package com.onushi.sampleapp;
 
 import lombok.Builder;
 import lombok.Data;

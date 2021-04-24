@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testapp.SampleService;
+import com.onushi.sampleapp.SampleService;
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
@@ -42,10 +42,10 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
-        assertTrue(sameIgnoringCrLf(testString,
-                "BEGIN GENERATED TEST =========\n" +
+        assertEquals(ignoreLineSeparation(testString),
+                ignoreLineSeparation("BEGIN GENERATED TEST =========\n" +
                 "\n" +
-                "package com.onushi.testapp;\n" +
+                "package com.onushi.sampleapp;\n" +
                 "\n" +
                 "import org.junit.jupiter.api.Test;\n" +
                 "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -85,10 +85,10 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
-        assertTrue(sameIgnoringCrLf(testString,
-                "BEGIN GENERATED TEST =========\n" +
+        assertEquals(ignoreLineSeparation(testString),
+                ignoreLineSeparation("BEGIN GENERATED TEST =========\n" +
                 "\n" +
-                "package com.onushi.testapp;\n" +
+                "package com.onushi.sampleapp;\n" +
                 "\n" +
                 "import org.junit.jupiter.api.Test;\n" +
                 "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -114,10 +114,6 @@ class TestGeneratorServiceTest {
                 "}\n" +
                 "\n" +
                 "END GENERATED TEST ========="));
-    }
-
-    private boolean sameIgnoringCrLf(String str1, String str2) {
-        return ignoreLineSeparation(str1).equals(ignoreLineSeparation(str2));
     }
 
     private String ignoreLineSeparation(String input) {

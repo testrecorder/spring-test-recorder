@@ -1,17 +1,14 @@
-package com.onushi.testapp;
+package com.onushi.sampleapp;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Component
-public class TestAppRunner implements CommandLineRunner {
+public class SampleAppRunner implements CommandLineRunner {
     private final SampleService sampleService;
     private final PersonService personService;
 
-    public TestAppRunner(SampleService sampleService, PersonService personService) {
+    public SampleAppRunner(SampleService sampleService, PersonService personService) {
         this.sampleService = sampleService;
         this.personService = personService;
     }

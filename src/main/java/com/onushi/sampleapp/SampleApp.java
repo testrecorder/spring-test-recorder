@@ -1,4 +1,4 @@
-package com.onushi.testapp;
+package com.onushi.sampleapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.onushi")
-public class TestApp {
+public class SampleApp {
 	public static void main(String[] args) {
-		SpringApplication.run(TestApp.class, args);
+		SpringApplication.run(SampleApp.class, args);
 	}
 }

@@ -1,4 +1,4 @@
-package com.onushi.testapp;
+package com.onushi.sampleapp;
 
 import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
