@@ -14,7 +14,7 @@ public class TestGeneratorService {
         this.classInfoService = classInfoService;
     }
 
-    public String generateTestString(TestGenenerator testGenenerator) {
+    public String generateTestCode(TestGenenerator testGenenerator) {
         return getBeginMarkerString() +
                 getPackageString(testGenenerator) +
                 getImportsString(testGenenerator) +

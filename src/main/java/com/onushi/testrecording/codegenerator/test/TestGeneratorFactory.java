@@ -21,7 +21,7 @@ public class TestGeneratorFactory {
         this.classInfoService = classInfoService;
     }
 
-    public TestGenenerator createTestGenInfo(MethodRunInfo methodRunInfo) {
+    public TestGenenerator createTestGenerator(MethodRunInfo methodRunInfo) {
         TestGenenerator testGenenerator = new TestGenenerator();
 
         testGenenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),

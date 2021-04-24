@@ -36,10 +36,10 @@ class TestGeneratorServiceTest {
                 .arguments(Arrays.asList(2f, 3f))
                 .result(5f)
                 .build();
-        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenInfo(methodRunInfo);
+        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
         // Act
-        String testString = testGeneratorService.generateTestString(testGenenerator);
+        String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
         assertTrue(sameIgnoringCrLf(testString,
@@ -79,10 +79,10 @@ class TestGeneratorServiceTest {
                 .arguments(Arrays.asList(d1, d2))
                 .result(d1)
                 .build();
-        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenInfo(methodRunInfo);
+        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
         // Act
-        String testString = testGeneratorService.generateTestString(testGenenerator);
+        String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
         assertTrue(sameIgnoringCrLf(testString,

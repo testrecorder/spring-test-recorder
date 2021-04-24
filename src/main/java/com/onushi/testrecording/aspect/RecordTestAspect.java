@@ -34,9 +34,9 @@ public class RecordTestAspect {
         monitorMethodSemaphore.setMonitoring(false);
 
         MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
-        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenInfo(methodRunInfo);
-        String testString = testGeneratorService.generateTestString(testGenenerator);
-        System.out.println(testString);
+        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        String testCode = testGeneratorService.generateTestCode(testGenenerator);
+        System.out.println(testCode);
 
         return result;
     }
