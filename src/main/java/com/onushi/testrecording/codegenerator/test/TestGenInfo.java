@@ -1,4 +1,4 @@
-package com.onushi.testrecording.codegenerator;
+package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import lombok.Getter;

@@ -1,9 +1,13 @@
-package com.onushi.testrecording.codegenerator;
+package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testapp.SampleService;
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
+import com.onushi.testrecording.codegenerator.test.ObjectNamesService;
+import com.onushi.testrecording.codegenerator.test.TestGenFactory;
+import com.onushi.testrecording.codegenerator.test.TestGenInfo;
+import com.onushi.testrecording.codegenerator.test.TestGenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

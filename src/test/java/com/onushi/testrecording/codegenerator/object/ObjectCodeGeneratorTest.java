@@ -8,7 +8,7 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ObjectCodeGeneratorServiceTest {
+class ObjectCodeGeneratorTest {
     @Test
     void testNull() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService());

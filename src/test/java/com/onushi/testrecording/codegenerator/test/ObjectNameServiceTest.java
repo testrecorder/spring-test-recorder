@@ -1,6 +1,8 @@
-package com.onushi.testrecording.codegenerator;
+package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.codegenerator.test.ObjectNamesService;
+import com.onushi.testrecording.codegenerator.test.TestGenInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,7 +14,7 @@ import static org.mockito.Mockito.when;
 
 // TODO IB how to check test coverage?
 @ExtendWith(MockitoExtension.class)
-class MethodRunInfoServiceImplMethodRun {
+class ObjectNameServiceTest {
     @Mock
     TestGenInfo testGenInfoMock;
 
