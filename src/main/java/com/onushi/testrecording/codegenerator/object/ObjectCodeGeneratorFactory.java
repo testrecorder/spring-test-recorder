@@ -18,23 +18,23 @@ public class ObjectCodeGeneratorFactory {
         String fullClassName = classInfoService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
-                return new ObjectCodeGenerator(object, objectName, true, "null");
+                return new SimpleObjectCodeGenerator(object, objectName, "null");
             case "java.lang.Float":
-                return new ObjectCodeGenerator(object, objectName, true, object + "f");
+                return new SimpleObjectCodeGenerator(object, objectName, object + "f");
             case "java.lang.Long":
-                return new ObjectCodeGenerator(object, objectName, true, object + "L");
+                return new SimpleObjectCodeGenerator(object, objectName, object + "L");
             case "java.lang.Byte":
-                return new ObjectCodeGenerator(object, objectName, true, "(byte)" + object);
+                return new SimpleObjectCodeGenerator(object, objectName, "(byte)" + object);
             case "java.lang.Short":
-                return new ObjectCodeGenerator(object, objectName, true, "(short)" + object);
+                return new SimpleObjectCodeGenerator(object, objectName, "(short)" + object);
             case "java.lang.Character":
-                return new ObjectCodeGenerator(object, objectName, true, "'" + object + "'");
+                return new SimpleObjectCodeGenerator(object, objectName, "'" + object + "'");
             case "java.lang.String":
-                return new ObjectCodeGenerator(object, objectName, true, "\"" + object + "\"");
+                return new SimpleObjectCodeGenerator(object, objectName, "\"" + object + "\"");
             case "java.lang.Boolean":
             case "java.lang.Integer":
             case "java.lang.Double":
-                return new ObjectCodeGenerator(object, objectName, true, object.toString());
+                return new SimpleObjectCodeGenerator(object, objectName, object.toString());
             case "java.util.Date":
                 return new DateObjectCodeGenerator(object, objectName);
             default:
