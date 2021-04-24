@@ -4,21 +4,45 @@ import lombok.Getter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Optional;
 
-// TODO IB check object fields, setters, constructors etc
 @Getter
 public class ClassInfo {
-    private final Field[] fields;
-    private final Method[] methods;
-    private final boolean hasLombokBuilder;
+    private final Field[] publicFields;
+    private final Method[] publicMethods;
 
-    public ClassInfo(Object object) {
-        this.fields = object.getClass().getFields();
-        this.methods = object.getClass().getMethods();
-        this.hasLombokBuilder = false;
+    public ClassInfo(Class<?> clazz) {
+        publicFields = clazz.getFields();
+        publicMethods = clazz.getMethods();
         try {
-            object.getClass().getMethod("builder");
+            clazz.getMethod("builder");
         } catch(Exception ignored) {
         }
+    }
+
+    // TODO IB !!!! compute these
+    public boolean isSpringComponent() {
+        return false;
+    }
+
+    public boolean canBeCreatedWithNoArgsConstructor() {
+        return false;
+    }
+
+    public boolean canBeCreatedWithLombokBuilder() {
+        Optional<Method> builder = Arrays.stream(publicMethods)
+                .filter(method -> method.getName().equals("builder") &&
+                        Modifier.isStatic(method.getModifiers()))
+                .findFirst();
+        if (builder.isPresent()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean canBeCreatedWithSetters() {
+        return false;
     }
 }

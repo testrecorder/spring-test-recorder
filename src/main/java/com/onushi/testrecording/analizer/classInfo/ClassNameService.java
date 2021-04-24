@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
+// TODO IB !!!! should receive object or class?
 @Service
 public class ClassNameService {
     public String getFullClassName(Object object) {

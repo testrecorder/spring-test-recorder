@@ -13,7 +13,6 @@ public class PersonRepositoryImpl implements PersonRepository {
                     .firstName("Chuck")
                     .lastName("Norris")
                     .dateOfBirth(simpleDateFormat.parse("1940-03-10"))
-                    .isActor(true)
                     .build();
 
         } else if (id == 2) {
@@ -21,7 +20,6 @@ public class PersonRepositoryImpl implements PersonRepository {
                     .firstName("Bruce")
                     .lastName("Lee")
                     .dateOfBirth(simpleDateFormat.parse("1940-11-27"))
-                    .isActor(true)
                     .build();
         } else {
             return null;
