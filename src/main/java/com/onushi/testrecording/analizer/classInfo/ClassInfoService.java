@@ -2,11 +2,11 @@ package com.onushi.testrecording.analizer.classInfo;
 
 import org.springframework.stereotype.Service;
 
+import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ClassInfoService {
@@ -18,6 +18,7 @@ public class ClassInfoService {
         }
     }
 
+    // TODO IB !!!! object.getClass().getShortName();
     public String getShortClassName(Object object) {
         String fullClassName = getFullClassName(object);
         int lastPointIndex = fullClassName.lastIndexOf(".");
@@ -80,4 +81,23 @@ public class ClassInfoService {
         }
     }
 
+    public List<Method> getLombokBuilderSetters(Object object) {
+        List<Method> result = new ArrayList<>();
+        if (object != null) {
+            Class<?> clazz = object.getClass();
+            Method[] publicMethods = clazz.getMethods();
+            Optional<Method> builderMethod = Arrays.stream(publicMethods)
+                    .filter(method -> method.getName().equals("builder") &&
+                            Modifier.isStatic(method.getModifiers()))
+                    .findFirst();
+            if (builderMethod.isPresent()) {
+                Class<?> builderClass = builderMethod.get().getReturnType();
+                return Arrays.stream(builderClass.getMethods())
+                        .filter(method -> method.getReturnType() == builderClass)
+                        .sorted(Comparator.comparing(Method::getName))
+                        .collect(Collectors.toList());
+            }
+        }
+        return result;
+    }
 }

@@ -1,13 +1,14 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
 import com.onushi.testrecording.sampleclasses.StudentWithBuilder;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ObjectCodeGeneratorWithBuilderTest {
+class ObjectCodeGeneratorWithLombokBuilderTest {
     @Test
     void testCodeGeneratorWithBuilder() {
         StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()
@@ -16,14 +17,14 @@ class ObjectCodeGeneratorWithBuilderTest {
                 .age(35)
                 .build();
 
-        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService());
-        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(studentWithBuilder1, "personWithBuilder1");
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService(), new ObjectStateReaderService());
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(studentWithBuilder1, "studentWithBuilder1");
         assertEquals(StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()),
                 StringUtils.trimAndIgnoreCRDiffs(
-                        "PersonWithBuilder personWithBuilder1 = PersonWithBuilder.builder()\n" +
+                        "StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
+                        "    .age(35)\n" +
                         "    .firstName(\"John\")\n" +
                         "    .lastName(\"Michael\")\n" +
-                        "    .age(35)\n" +
                         "    .build();"));
 
     }

@@ -1,7 +1,12 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 // TODO IB handle also array and void
 // TODO IB LATER generics
@@ -9,9 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
+    private final ObjectStateReaderService objectStateReaderService;
 
-    public ObjectCodeGeneratorFactory(ClassInfoService classInfoService) {
+    public ObjectCodeGeneratorFactory(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService) {
         this.classInfoService = classInfoService;
+        this.objectStateReaderService = objectStateReaderService;
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
@@ -39,9 +46,12 @@ public class ObjectCodeGeneratorFactory {
                 return new DateObjectCodeGenerator(object, objectName);
             default:
                 if (classInfoService.canBeCreatedWithLombokBuilder(object)) {
-                    return new ObjectCodeGeneratorWithBuilder(object, objectName,
+                    List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object);
+                    Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
+                    return new ObjectCodeGeneratorWithLombokBuilder(object, objectName,
                             classInfoService.getPackageName(object),
-                            classInfoService.getShortClassName(object));
+                            classInfoService.getShortClassName(object),
+                            lombokBuilderSetters, objectState, this);
                 } else {
                     return new SimpleObjectCodeGenerator(object, objectName, object.toString());
                 }
