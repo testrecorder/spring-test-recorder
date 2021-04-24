@@ -43,7 +43,7 @@ public class ClassInfoService {
         return getShortClassName.substring(0,1).toLowerCase(Locale.ROOT) + getShortClassName.substring(1);
     }
 
-    // TODO IB !!!! compute these
+    // TODO IB compute these
     public boolean isSpringComponent() {
         return false;
     }

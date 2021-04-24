@@ -2,7 +2,6 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-// TODO IB !!!! with builder
 public class ObjectCodeGeneratorWithBuilder extends ObjectCodeGenerator {
     protected ObjectCodeGeneratorWithBuilder(Object object, String objectName,
                                              String packageName, String shortClassName) {
@@ -10,6 +9,8 @@ public class ObjectCodeGeneratorWithBuilder extends ObjectCodeGenerator {
 
         this.requiredImports.add(packageName);
 
+        // TODO IB !!!! set all fields that have a setter and getter
+        // personWithBuilder1.getFirstName();
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate(
                 "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +

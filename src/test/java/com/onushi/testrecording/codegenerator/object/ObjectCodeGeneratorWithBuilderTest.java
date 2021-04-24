@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO IB !!!! finish here
 class ObjectCodeGeneratorWithBuilderTest {
     @Test
     void testCodeGeneratorWithBuilder() {
@@ -16,8 +15,6 @@ class ObjectCodeGeneratorWithBuilderTest {
                 .lastName("Michael")
                 .age(35)
                 .build();
-
-        // personWithBuilder1.getFirstName();
 
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService());
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(personWithBuilder1, "personWithBuilder1");
