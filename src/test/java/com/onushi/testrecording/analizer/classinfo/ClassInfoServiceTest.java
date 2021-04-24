@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.classinfo;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.testrecording.sampleclasses.Person;
-import com.onushi.testrecording.sampleclasses.PersonWithBuilder;
+import com.onushi.testrecording.sampleclasses.Student;
+import com.onushi.testrecording.sampleclasses.StudentWithBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,8 +52,8 @@ class ClassInfoServiceTest {
     @Test
     void canBeCreatedWithLombokBuilder() {
         ClassInfoService classInfoService = new ClassInfoService();
-        assertTrue(classInfoService.canBeCreatedWithLombokBuilder(new PersonWithBuilder("f", "l", 25)));
-        assertFalse(classInfoService.canBeCreatedWithLombokBuilder(new Person()));
+        assertTrue(classInfoService.canBeCreatedWithLombokBuilder(new StudentWithBuilder("f", "l", 25)));
+        assertFalse(classInfoService.canBeCreatedWithLombokBuilder(new Student()));
     }
 }
 
