@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.testrecording.analizer.classInfo.ClassNameService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.sampleclasses.PersonWithBuilder;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class ObjectCodeGeneratorWithBuilderTest {
 
         // personWithBuilder1.getFirstName();
 
-        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassNameService());
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService());
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(personWithBuilder1, "personWithBuilder1");
         assertEquals(StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()),
                 StringUtils.trimAndIgnoreCRDiffs(

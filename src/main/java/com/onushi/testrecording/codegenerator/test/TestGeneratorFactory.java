@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analizer.classInfo.ClassNameService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
@@ -13,21 +13,21 @@ import java.util.stream.Collectors;
 public class TestGeneratorFactory {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
     private final ObjectNameGenerator objectNameGenerator;
-    private final ClassNameService classNameService;
+    private final ClassInfoService classInfoService;
 
-    public TestGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory, ObjectNameGenerator objectNameGenerator, ClassNameService classNameService) {
+    public TestGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory, ObjectNameGenerator objectNameGenerator, ClassInfoService classInfoService) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
         this.objectNameGenerator = objectNameGenerator;
-        this.classNameService = classNameService;
+        this.classInfoService = classInfoService;
     }
 
     public TestGenenerator createTestGenerator(MethodRunInfo methodRunInfo) {
         TestGenenerator testGenenerator = new TestGenenerator();
 
         testGenenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),
-                classNameService.getObjectNameBase(methodRunInfo.getTarget()));
-        testGenenerator.packageName = classNameService.getPackageName(methodRunInfo.getTarget());
-        testGenenerator.shortClassName = classNameService.getShortClassName(methodRunInfo.getTarget());
+                classInfoService.getObjectNameBase(methodRunInfo.getTarget()));
+        testGenenerator.packageName = classInfoService.getPackageName(methodRunInfo.getTarget());
+        testGenenerator.shortClassName = classInfoService.getShortClassName(methodRunInfo.getTarget());
         testGenenerator.methodName = methodRunInfo.getMethodName();
 
         testGenenerator.argumentObjectCodeGenerators = methodRunInfo.getArguments().stream()

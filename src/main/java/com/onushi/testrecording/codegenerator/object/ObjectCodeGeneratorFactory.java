@@ -1,7 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfo;
-import com.onushi.testrecording.analizer.classInfo.ClassNameService;
+import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.springframework.stereotype.Component;
 
 // TODO IB handle also array and void
@@ -9,14 +8,14 @@ import org.springframework.stereotype.Component;
 // TODO IB some functions alter the arguments or the target object
 @Component
 public class ObjectCodeGeneratorFactory {
-    private final ClassNameService classNameService;
+    private final ClassInfoService classInfoService;
 
-    public ObjectCodeGeneratorFactory(ClassNameService classNameService) {
-        this.classNameService = classNameService;
+    public ObjectCodeGeneratorFactory(ClassInfoService classInfoService) {
+        this.classInfoService = classInfoService;
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
-        String fullClassName = classNameService.getFullClassName(object);
+        String fullClassName = classInfoService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
                 return new SimpleObjectCodeGenerator(object, objectName, "null");
@@ -39,11 +38,10 @@ public class ObjectCodeGeneratorFactory {
             case "java.util.Date":
                 return new DateObjectCodeGenerator(object, objectName);
             default:
-                ClassInfo classInfo = new ClassInfo(object.getClass());
-                if (classInfo.canBeCreatedWithLombokBuilder()) {
+                if (classInfoService.canBeCreatedWithLombokBuilder(object)) {
                     return new ObjectCodeGeneratorWithBuilder(object, objectName,
-                            classNameService.getPackageName(object),
-                            classNameService.getShortClassName(object));
+                            classInfoService.getPackageName(object),
+                            classInfoService.getShortClassName(object));
                 } else {
                     return new SimpleObjectCodeGenerator(object, objectName, object.toString());
                 }
