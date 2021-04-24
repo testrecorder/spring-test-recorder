@@ -10,10 +10,12 @@ import java.util.Optional;
 
 @Getter
 public class ClassInfo {
+    private final Class<?> clazz;
     private final Field[] publicFields;
     private final Method[] publicMethods;
 
     public ClassInfo(Class<?> clazz) {
+        this.clazz = clazz;
         publicFields = clazz.getFields();
         publicMethods = clazz.getMethods();
         try {
@@ -32,12 +34,18 @@ public class ClassInfo {
     }
 
     public boolean canBeCreatedWithLombokBuilder() {
-        Optional<Method> builder = Arrays.stream(publicMethods)
+        Optional<Method> builderMethod = Arrays.stream(publicMethods)
                 .filter(method -> method.getName().equals("builder") &&
                         Modifier.isStatic(method.getModifiers()))
                 .findFirst();
-        if (builder.isPresent()) {
-            return true;
+        if (builderMethod.isPresent()) {
+            Class<?> builderClass = builderMethod.get().getReturnType();
+            Optional<Method> buildMethod = Arrays.stream(builderClass.getMethods())
+                    .filter(method -> method.getName().equals("build"))
+                    .findFirst();
+            if (buildMethod.isPresent()) {
+                return buildMethod.get().getReturnType() == this.clazz;
+            }
         }
         return false;
     }
