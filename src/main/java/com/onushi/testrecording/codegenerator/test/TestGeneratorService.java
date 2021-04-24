@@ -7,19 +7,19 @@ import org.springframework.stereotype.Service;
 import java.util.stream.Collectors;
 
 @Service
-public class TestGenService {
+public class TestGeneratorService {
     private final ClassInfoService classInfoService;
 
-    public TestGenService(ClassInfoService classInfoService) {
+    public TestGeneratorService(ClassInfoService classInfoService) {
         this.classInfoService = classInfoService;
     }
 
-    public String generateTestString(TestGenInfo testGenInfo) {
+    public String generateTestString(TestGenenerator testGenenerator) {
         return getBeginMarkerString() +
-                getPackageString(testGenInfo) +
-                getImportsString(testGenInfo) +
+                getPackageString(testGenenerator) +
+                getImportsString(testGenenerator) +
                 "\n" +
-                getClassAndTestString(testGenInfo) +
+                getClassAndTestString(testGenenerator) +
                 getEndMarkerString();
     }
 
@@ -27,17 +27,17 @@ public class TestGenService {
         return String.format("%nBEGIN GENERATED TEST =========%n%n");
     }
 
-    private String getPackageString(TestGenInfo testGenInfo) {
-        return String.format("package %s;%n%n", testGenInfo.getPackageName());
+    private String getPackageString(TestGenenerator testGenenerator) {
+        return String.format("package %s;%n%n", testGenenerator.getPackageName());
     }
 
-    private String getImportsString(TestGenInfo testGenInfo) {
-        return testGenInfo.getRequiredImports().stream()
+    private String getImportsString(TestGenenerator testGenenerator) {
+        return testGenenerator.getRequiredImports().stream()
                 .map(x -> String.format("import %s;%n", x))
                 .collect(Collectors.joining(""));
     }
 
-    private String getClassAndTestString(TestGenInfo testGenInfo) {
+    private String getClassAndTestString(TestGenenerator testGenenerator) {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate(
                 "class {{testClassName}} {\n" +
@@ -56,21 +56,21 @@ public class TestGenService {
                 "        assertEquals(result, {{expectedResult}});\n" +
                 "    }\n" +
                 "}\n");
-        stringGenerator.addAttribute("testClassName", testGenInfo.getShortClassName() + "Test");
-        stringGenerator.addAttribute("methodName", testGenInfo.getMethodName());
-        stringGenerator.addAttribute("requiredHelperObjects", testGenInfo.getRequiredHelperObjects().stream()
+        stringGenerator.addAttribute("testClassName", testGenenerator.getShortClassName() + "Test");
+        stringGenerator.addAttribute("methodName", testGenenerator.getMethodName());
+        stringGenerator.addAttribute("requiredHelperObjects", testGenenerator.getRequiredHelperObjects().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
-        stringGenerator.addAttribute("objectsInit", testGenInfo.getObjectsInit().stream()
+        stringGenerator.addAttribute("objectsInit", testGenenerator.getObjectsInit().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
-        stringGenerator.addAttribute("className", testGenInfo.getShortClassName());
-        stringGenerator.addAttribute("targetObjectName", testGenInfo.getTargetObjectCodeGenerator().getObjectName());
-        stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenInfo.getResultObjectCodeGenerator().getObject()));
-        stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenInfo.getArgumentsInlineCode()));
+        stringGenerator.addAttribute("className", testGenenerator.getShortClassName());
+        stringGenerator.addAttribute("targetObjectName", testGenenerator.getTargetObjectCodeGenerator().getObjectName());
+        stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenenerator.getResultObjectCodeGenerator().getObject()));
+        stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenenerator.getArgumentsInlineCode()));
         stringGenerator.addAttribute("expectedResultInit", "");
-        if (!testGenInfo.getResultInit().equals("")) {
-            stringGenerator.addAttribute("expectedResultInit", String.format("        %s%n", testGenInfo.getResultInit()));
+        if (!testGenenerator.getResultInit().equals("")) {
+            stringGenerator.addAttribute("expectedResultInit", String.format("        %s%n", testGenenerator.getResultInit()));
         }
-        stringGenerator.addAttribute("expectedResult", testGenInfo.getResultObjectCodeGenerator().getInlineCode());
+        stringGenerator.addAttribute("expectedResult", testGenenerator.getResultObjectCodeGenerator().getInlineCode());
 
         return stringGenerator.generate();
     }

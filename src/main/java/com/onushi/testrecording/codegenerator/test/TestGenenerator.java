@@ -9,7 +9,7 @@ import java.util.Map;
 
 // TODO IB !!!! Write tests for all the code
 @Getter
-public class TestGenInfo {
+public class TestGenenerator {
     protected ObjectCodeGenerator targetObjectCodeGenerator;
     protected String packageName;
     protected String shortClassName;
@@ -26,7 +26,7 @@ public class TestGenInfo {
     protected final Map<Object, String> objectNames = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
-    protected TestGenInfo() {}
+    protected TestGenenerator() {}
 
     protected Map<Object, String> getObjectNames() {
         return objectNames;

@@ -4,10 +4,6 @@ import com.onushi.testapp.SampleService;
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
-import com.onushi.testrecording.codegenerator.test.ObjectNamesService;
-import com.onushi.testrecording.codegenerator.test.TestGenFactory;
-import com.onushi.testrecording.codegenerator.test.TestGenInfo;
-import com.onushi.testrecording.codegenerator.test.TestGenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,17 +14,17 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestGenServiceTest {
-    TestGenFactory testGenFactory;
-    TestGenService testGenService;
+class TestGeneratorServiceTest {
+    TestGeneratorFactory testGeneratorFactory;
+    TestGeneratorService testGeneratorService;
 
     @BeforeEach
     void setUp() {
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService);
-        ObjectNamesService objectNamesService = new ObjectNamesService(classInfoService);
-        testGenFactory = new TestGenFactory(objectCodeGeneratorFactory, objectNamesService, classInfoService);
-        testGenService = new TestGenService(classInfoService);
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(classInfoService);
+        testGeneratorFactory = new TestGeneratorFactory(objectCodeGeneratorFactory, objectNameGenerator, classInfoService);
+        testGeneratorService = new TestGeneratorService(classInfoService);
     }
 
     @Test
@@ -40,10 +36,10 @@ class TestGenServiceTest {
                 .arguments(Arrays.asList(2f, 3f))
                 .result(5f)
                 .build();
-        TestGenInfo testGenInfo = testGenFactory.createTestGenInfo(methodRunInfo);
+        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenInfo(methodRunInfo);
 
         // Act
-        String testString = testGenService.generateTestString(testGenInfo);
+        String testString = testGeneratorService.generateTestString(testGenenerator);
 
         // Assert
         assertTrue(sameIgnoringCrLf(testString,
@@ -83,10 +79,10 @@ class TestGenServiceTest {
                 .arguments(Arrays.asList(d1, d2))
                 .result(d1)
                 .build();
-        TestGenInfo testGenInfo = testGenFactory.createTestGenInfo(methodRunInfo);
+        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenInfo(methodRunInfo);
 
         // Act
-        String testString = testGenService.generateTestString(testGenInfo);
+        String testString = testGeneratorService.generateTestString(testGenenerator);
 
         // Assert
         assertTrue(sameIgnoringCrLf(testString,

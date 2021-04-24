@@ -2,9 +2,9 @@ package com.onushi.testrecording.aspect;
 
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfoFactory;
-import com.onushi.testrecording.codegenerator.test.TestGenFactory;
-import com.onushi.testrecording.codegenerator.test.TestGenInfo;
-import com.onushi.testrecording.codegenerator.test.TestGenService;
+import com.onushi.testrecording.codegenerator.test.TestGeneratorFactory;
+import com.onushi.testrecording.codegenerator.test.TestGenenerator;
+import com.onushi.testrecording.codegenerator.test.TestGeneratorService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,15 +15,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecordTestAspect {
     private final MethodRunInfoFactory methodRunInfoFactory;
-    private final TestGenFactory testGenFactory;
-    private final TestGenService testGenService;
+    private final TestGeneratorFactory testGeneratorFactory;
+    private final TestGeneratorService testGeneratorService;
     private final MonitorMethodSemaphore monitorMethodSemaphore;
 
-    public RecordTestAspect(MethodRunInfoFactory methodRunInfoFactory, TestGenFactory testGenFactory,
-                            TestGenService testGenService, MonitorMethodSemaphore monitorMethodSemaphore) {
+    public RecordTestAspect(MethodRunInfoFactory methodRunInfoFactory, TestGeneratorFactory testGeneratorFactory,
+                            TestGeneratorService testGeneratorService, MonitorMethodSemaphore monitorMethodSemaphore) {
         this.methodRunInfoFactory = methodRunInfoFactory;
-        this.testGenFactory = testGenFactory;
-        this.testGenService = testGenService;
+        this.testGeneratorFactory = testGeneratorFactory;
+        this.testGeneratorService = testGeneratorService;
         this.monitorMethodSemaphore = monitorMethodSemaphore;
     }
 
@@ -34,8 +34,8 @@ public class RecordTestAspect {
         monitorMethodSemaphore.setMonitoring(false);
 
         MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
-        TestGenInfo testGenInfo = testGenFactory.createTestGenInfo(methodRunInfo);
-        String testString = testGenService.generateTestString(testGenInfo);
+        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenInfo(methodRunInfo);
+        String testString = testGeneratorService.generateTestString(testGenenerator);
         System.out.println(testString);
 
         return result;
