@@ -1,4 +1,4 @@
-package com.onushi.testrecording.generator;
+package com.onushi.testrecording.codegenerator;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.springframework.stereotype.Service;

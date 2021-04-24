@@ -1,4 +1,4 @@
-package com.onushi.testrecording.generator.object;
+package com.onushi.testrecording.codegenerator.object;
 
 public class GenericObjectCodeGenerator extends ObjectCodeGenerator {
     protected GenericObjectCodeGenerator(Object object, String objectName) {

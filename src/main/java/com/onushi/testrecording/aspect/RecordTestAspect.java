@@ -2,9 +2,9 @@ package com.onushi.testrecording.aspect;
 
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfoFactory;
-import com.onushi.testrecording.generator.TestGenFactory;
-import com.onushi.testrecording.generator.TestGenInfo;
-import com.onushi.testrecording.generator.TestGenService;
+import com.onushi.testrecording.codegenerator.TestGenFactory;
+import com.onushi.testrecording.codegenerator.TestGenInfo;
+import com.onushi.testrecording.codegenerator.TestGenService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

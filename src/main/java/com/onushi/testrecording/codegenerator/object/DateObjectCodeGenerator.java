@@ -1,4 +1,4 @@
-package com.onushi.testrecording.generator.object;
+package com.onushi.testrecording.codegenerator.object;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

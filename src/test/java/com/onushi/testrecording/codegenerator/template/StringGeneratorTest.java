@@ -1,4 +1,4 @@
-package com.onushi.testrecording.generator.template;
+package com.onushi.testrecording.codegenerator.template;
 
 import org.junit.jupiter.api.Test;
 

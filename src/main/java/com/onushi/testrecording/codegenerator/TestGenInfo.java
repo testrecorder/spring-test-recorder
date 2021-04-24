@@ -1,6 +1,6 @@
-package com.onushi.testrecording.generator;
+package com.onushi.testrecording.codegenerator;
 
-import com.onushi.testrecording.generator.object.ObjectCodeGenerator;
+import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import lombok.Getter;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.onushi.testrecording.generator.object;
+package com.onushi.testrecording.codegenerator.object;
 
 
 // TODO IB https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
