@@ -11,12 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ObjectStateReaderServiceTest {
 
     @Test
-    void readObjectState() {
-//        StudentWithBuilder student = StudentWithBuilder.builder()
-//                .firstName("John")
-//                .lastName("Aris")
-//                .age(30)
-//                .build();
+    void readObjectStateFromPublicFields() {
         StudentWithPublicFields student = new StudentWithPublicFields();
         student.firstName = "John";
         student.lastName = "Aris";
@@ -28,4 +23,20 @@ class ObjectStateReaderServiceTest {
         assertEquals(objectState.get("lastName"), "Aris");
         assertEquals(objectState.get("age"), 30);
     }
+
+    @Test
+    void readObjectStateFromGetters() {
+        StudentWithBuilder student = StudentWithBuilder.builder()
+                .firstName("John")
+                .lastName("Aris")
+                .age(30)
+                .build();
+
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
+        Map<String, Object> objectState = objectStateReaderService.readObjectState(student);
+        assertEquals(objectState.get("firstName"), "John");
+        assertEquals(objectState.get("lastName"), "Aris");
+        assertEquals(objectState.get("age"), 30);
+    }
+
 }
