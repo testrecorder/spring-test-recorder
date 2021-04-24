@@ -10,6 +10,7 @@ public class ObjectCodeGeneratorWithBuilder extends ObjectCodeGenerator {
         this.requiredImports.add(packageName);
 
         // TODO IB !!!! set all fields that have a setter and getter
+        // TODO IB !!!! Create a HashMap with all the attributes that can be red from an object
         // personWithBuilder1.getFirstName();
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate(
