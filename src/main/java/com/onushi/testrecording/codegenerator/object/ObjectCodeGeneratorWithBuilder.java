@@ -21,8 +21,5 @@ public class ObjectCodeGeneratorWithBuilder extends ObjectCodeGenerator {
         stringGenerator.addAttribute("objectName", objectName);
 
         this.initCode = stringGenerator.generate();
-
-
-
     }
 }

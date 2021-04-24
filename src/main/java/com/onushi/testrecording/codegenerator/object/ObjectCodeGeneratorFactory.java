@@ -41,9 +41,7 @@ public class ObjectCodeGeneratorFactory {
             default:
                 ClassInfo classInfo = new ClassInfo(object.getClass());
                 if (classInfo.canBeCreatedWithLombokBuilder()) {
-                    return new ObjectCodeGeneratorWithBuilder(
-                            object,
-                            objectName,
+                    return new ObjectCodeGeneratorWithBuilder(object, objectName,
                             classNameService.getPackageName(object),
                             classNameService.getShortClassName(object));
                 } else {
