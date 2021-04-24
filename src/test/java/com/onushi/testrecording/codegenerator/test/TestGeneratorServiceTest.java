@@ -4,6 +4,7 @@ import com.onushi.sampleapp.SampleService;
 import com.onushi.testrecording.analizer.classInfo.ClassNameService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
+import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,8 +43,8 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
-        assertEquals(trimAndIgnoreCRLF(testString),
-                trimAndIgnoreCRLF("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs(testString),
+                StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                 "\n" +
                 "package com.onushi.sampleapp;\n" +
                 "\n" +
@@ -85,8 +86,8 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenenerator);
 
         // Assert
-        assertEquals(trimAndIgnoreCRLF(testString),
-                trimAndIgnoreCRLF("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs(testString),
+                StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                 "\n" +
                 "package com.onushi.sampleapp;\n" +
                 "\n" +
@@ -114,9 +115,5 @@ class TestGeneratorServiceTest {
                 "}\n" +
                 "\n" +
                 "END GENERATED TEST ========="));
-    }
-
-    private String trimAndIgnoreCRLF(String input) {
-        return input.trim().replace("\n", "").replace("\r", "");
     }
 }

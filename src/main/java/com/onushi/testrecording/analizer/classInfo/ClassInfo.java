@@ -18,10 +18,6 @@ public class ClassInfo {
         this.clazz = clazz;
         publicFields = clazz.getFields();
         publicMethods = clazz.getMethods();
-        try {
-            clazz.getMethod("builder");
-        } catch(Exception ignored) {
-        }
     }
 
     // TODO IB !!!! compute these

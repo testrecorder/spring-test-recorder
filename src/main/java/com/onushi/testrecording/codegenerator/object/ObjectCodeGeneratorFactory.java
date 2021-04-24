@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
+import com.onushi.testrecording.analizer.classInfo.ClassInfo;
 import com.onushi.testrecording.analizer.classInfo.ClassNameService;
 import org.springframework.stereotype.Component;
 
@@ -38,8 +39,16 @@ public class ObjectCodeGeneratorFactory {
             case "java.util.Date":
                 return new DateObjectCodeGenerator(object, objectName);
             default:
-                // TODO IB !!!! test that builder is present
-                return new ObjectCodeGeneratorWithBuilder(object, objectName);
+                ClassInfo classInfo = new ClassInfo(object.getClass());
+                if (classInfo.canBeCreatedWithLombokBuilder()) {
+                    return new ObjectCodeGeneratorWithBuilder(
+                            object,
+                            objectName,
+                            classNameService.getPackageName(object),
+                            classNameService.getShortClassName(object));
+                } else {
+                    return new SimpleObjectCodeGenerator(object, objectName, object.toString());
+                }
         }
     }
 }
