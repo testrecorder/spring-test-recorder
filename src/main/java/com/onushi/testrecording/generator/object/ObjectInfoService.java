@@ -18,26 +18,27 @@ public class ObjectInfoService {
         String fullClassName = classInfoService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
-                return new NullObjectInfo(objectName);
+                return new ObjectInfo(object, objectName, true, "null");
             case "java.lang.Float":
-                return new FloatObjectInfo(object, objectName);
+                return new ObjectInfo(object, objectName, true, object + "f");
             case "java.lang.Long":
-                return new LongObjectInfo(object, objectName);
+                return new ObjectInfo(object, objectName, true, object + "L");
             case "java.lang.Byte":
-                return new ByteObjectInfo(object, objectName);
+                return new ObjectInfo(object, objectName, true, "(byte)" + object);
             case "java.lang.Short":
-                return new ShortObjectInfo(object, objectName);
+                return new ObjectInfo(object, objectName, true, "(short)" + object);
             case "java.lang.Character":
-                return new CharacterObjectInfo(object, objectName);
+                return new ObjectInfo(object, objectName, true, "'" + object + "'");
             case "java.lang.String":
-                return new StringObjectInfo(object, objectName);
-            case "java.util.Date":
-                return new DateObjectInfo(object, objectName);
+                return new ObjectInfo(object, objectName, true, "\"" + object + "\"");
             case "java.lang.Boolean":
             case "java.lang.Integer":
             case "java.lang.Double":
+                return new ObjectInfo(object, objectName, true, object.toString());
+            case "java.util.Date":
+                return new DateObjectInfo(object, objectName);
             default:
-                return new GenericObjectInfo(object, objectName);
+                return new ObjectInfo(object, objectName, true, object.toString());
         }
     }
 }

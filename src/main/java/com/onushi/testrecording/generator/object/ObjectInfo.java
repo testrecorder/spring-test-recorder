@@ -10,7 +10,7 @@ import java.util.List;
 
 // TODO IB if needed object initialisation code could be learned from github
 @Getter
-public abstract class ObjectInfo {
+public class ObjectInfo {
     protected final Object object;
     protected final String objectName;
     protected List<String> requiredImports = new ArrayList<>();
