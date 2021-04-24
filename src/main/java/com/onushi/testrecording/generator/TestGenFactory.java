@@ -2,8 +2,8 @@ package com.onushi.testrecording.generator;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
-import com.onushi.testrecording.generator.object.ObjectInfo;
-import com.onushi.testrecording.generator.object.ObjectInfoService;
+import com.onushi.testrecording.generator.object.ObjectCodeGenerator;
+import com.onushi.testrecording.generator.object.ObjectCodeGeneratorFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class TestGenFactory {
-    private final ObjectInfoService objectInfoService;
+    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
     private final ObjectNamesService objectNamesService;
     private final ClassInfoService classInfoService;
 
-    public TestGenFactory(ObjectInfoService objectInfoService, ObjectNamesService objectNamesService, ClassInfoService classInfoService) {
-        this.objectInfoService = objectInfoService;
+    public TestGenFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory, ObjectNamesService objectNamesService, ClassInfoService classInfoService) {
+        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
         this.objectNamesService = objectNamesService;
         this.classInfoService = classInfoService;
     }
@@ -24,17 +24,17 @@ public class TestGenFactory {
     public TestGenInfo createTestGenInfo(MethodRunInfo methodRunInfo) {
         TestGenInfo testGenInfo = new TestGenInfo();
 
-        testGenInfo.targetObjectInfo = objectInfoService.createObjectInfo(methodRunInfo.getTarget(),
+        testGenInfo.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),
                 classInfoService.getObjectNameBase(methodRunInfo.getTarget()));
         testGenInfo.packageName = classInfoService.getPackageName(methodRunInfo.getTarget());
         testGenInfo.shortClassName = classInfoService.getShortClassName(methodRunInfo.getTarget());
         testGenInfo.methodName = methodRunInfo.getMethodName();
 
-        testGenInfo.argumentObjectInfos = methodRunInfo.getArguments().stream()
-                .map(x -> objectInfoService.createObjectInfo(x, objectNamesService.generateObjectName(testGenInfo, x)))
+        testGenInfo.argumentObjectCodeGenerators = methodRunInfo.getArguments().stream()
+                .map(x -> objectCodeGeneratorFactory.createObjectCodeGenerator(x, objectNamesService.generateObjectName(testGenInfo, x)))
                 .collect(Collectors.toList());
 
-        testGenInfo.resultObjectInfo = objectInfoService.createObjectInfo(methodRunInfo.getResult(), "expectedResult");
+        testGenInfo.resultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");
 
 
         setRequiredImports(testGenInfo);
@@ -45,7 +45,7 @@ public class TestGenFactory {
 
         setArgumentsInlineCode(testGenInfo);
 
-        testGenInfo.resultInit = testGenInfo.resultObjectInfo.getInitCode();
+        testGenInfo.resultInit = testGenInfo.resultObjectCodeGenerator.getInitCode();
 
         return testGenInfo;
     }
@@ -54,23 +54,23 @@ public class TestGenFactory {
         testGenInfo.requiredImports = new ArrayList<>();
         testGenInfo.requiredImports.add("org.junit.jupiter.api.Test");
         testGenInfo.requiredImports.add("static org.junit.jupiter.api.Assertions.*");
-        testGenInfo.requiredImports.addAll(testGenInfo.argumentObjectInfos.stream()
+        testGenInfo.requiredImports.addAll(testGenInfo.argumentObjectCodeGenerators.stream()
                 .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
-        testGenInfo.requiredImports.addAll(testGenInfo.resultObjectInfo.getRequiredImports());
+        testGenInfo.requiredImports.addAll(testGenInfo.resultObjectCodeGenerator.getRequiredImports());
         testGenInfo.requiredImports = testGenInfo.requiredImports.stream().distinct().collect(Collectors.toList());
     }
 
     private void setRequiredHelperObjects(TestGenInfo testGenInfo) {
-        testGenInfo.requiredHelperObjects = testGenInfo.argumentObjectInfos.stream()
+        testGenInfo.requiredHelperObjects = testGenInfo.argumentObjectCodeGenerators.stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
                 .collect(Collectors.toList());
-        testGenInfo.requiredHelperObjects.addAll(testGenInfo.resultObjectInfo.getRequiredHelperObjects());
+        testGenInfo.requiredHelperObjects.addAll(testGenInfo.resultObjectCodeGenerator.getRequiredHelperObjects());
         testGenInfo.requiredHelperObjects = testGenInfo.requiredHelperObjects.stream().distinct().collect(Collectors.toList());
     }
 
     private void setObjectsInit(TestGenInfo testGenInfo) {
-        testGenInfo.objectsInit = testGenInfo.argumentObjectInfos.stream()
-                .map(ObjectInfo::getInitCode).collect(Collectors.toList());
+        testGenInfo.objectsInit = testGenInfo.argumentObjectCodeGenerators.stream()
+                .map(ObjectCodeGenerator::getInitCode).collect(Collectors.toList());
         testGenInfo.objectsInit = testGenInfo.objectsInit.stream()
                 .filter(x -> !x.equals(""))
                 .distinct()
@@ -78,8 +78,8 @@ public class TestGenFactory {
     }
 
     private void setArgumentsInlineCode(TestGenInfo testGenInfo) {
-        testGenInfo.argumentsInlineCode = testGenInfo.argumentObjectInfos.stream()
-                .map(ObjectInfo::getInlineCode)
+        testGenInfo.argumentsInlineCode = testGenInfo.argumentObjectCodeGenerators.stream()
+                .map(ObjectCodeGenerator::getInlineCode)
                 .collect(Collectors.toList());
     }
 }

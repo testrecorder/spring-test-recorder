@@ -63,14 +63,14 @@ public class TestGenService {
         stringGenerator.addAttribute("objectsInit", testGenInfo.getObjectsInit().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
         stringGenerator.addAttribute("className", testGenInfo.getShortClassName());
-        stringGenerator.addAttribute("targetObjectName", testGenInfo.getTargetObjectInfo().getObjectName());
-        stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenInfo.getResultObjectInfo().getObject()));
+        stringGenerator.addAttribute("targetObjectName", testGenInfo.getTargetObjectCodeGenerator().getObjectName());
+        stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenInfo.getResultObjectCodeGenerator().getObject()));
         stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenInfo.getArgumentsInlineCode()));
         stringGenerator.addAttribute("expectedResultInit", "");
         if (!testGenInfo.getResultInit().equals("")) {
             stringGenerator.addAttribute("expectedResultInit", String.format("        %s%n", testGenInfo.getResultInit()));
         }
-        stringGenerator.addAttribute("expectedResult", testGenInfo.getResultObjectInfo().getInlineCode());
+        stringGenerator.addAttribute("expectedResult", testGenInfo.getResultObjectCodeGenerator().getInlineCode());
 
         return stringGenerator.generate();
     }

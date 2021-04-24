@@ -1,6 +1,6 @@
 package com.onushi.testrecording.generator;
 
-import com.onushi.testrecording.generator.object.ObjectInfo;
+import com.onushi.testrecording.generator.object.ObjectCodeGenerator;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -10,12 +10,12 @@ import java.util.Map;
 // TODO IB !!!! Write tests for all the code
 @Getter
 public class TestGenInfo {
-    protected ObjectInfo targetObjectInfo;
+    protected ObjectCodeGenerator targetObjectCodeGenerator;
     protected String packageName;
     protected String shortClassName;
     protected String methodName;
-    protected List<ObjectInfo> argumentObjectInfos;
-    protected ObjectInfo resultObjectInfo;
+    protected List<ObjectCodeGenerator> argumentObjectCodeGenerators;
+    protected ObjectCodeGenerator resultObjectCodeGenerator;
 
     protected List<String> requiredImports;
     protected List<String> requiredHelperObjects;

@@ -3,7 +3,7 @@ package com.onushi.testrecording.generator;
 import com.onushi.testapp.SampleService;
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
-import com.onushi.testrecording.generator.object.ObjectInfoService;
+import com.onushi.testrecording.generator.object.ObjectCodeGeneratorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,9 +21,9 @@ class TestGenServiceTest {
     @BeforeEach
     void setUp() {
         ClassInfoService classInfoService = new ClassInfoService();
-        ObjectInfoService objectInfoService = new ObjectInfoService(classInfoService);
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService);
         ObjectNamesService objectNamesService = new ObjectNamesService(classInfoService);
-        testGenFactory = new TestGenFactory(objectInfoService, objectNamesService, classInfoService);
+        testGenFactory = new TestGenFactory(objectCodeGeneratorFactory, objectNamesService, classInfoService);
         testGenService = new TestGenService(classInfoService);
     }
 

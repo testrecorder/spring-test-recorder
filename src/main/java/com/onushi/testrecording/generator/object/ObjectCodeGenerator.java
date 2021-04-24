@@ -10,7 +10,7 @@ import java.util.List;
 
 // TODO IB if needed object initialisation code could be learned from github
 @Getter
-public class ObjectInfo {
+public class ObjectCodeGenerator {
     protected final Object object;
     protected final String objectName;
     protected List<String> requiredImports = new ArrayList<>();
@@ -19,7 +19,7 @@ public class ObjectInfo {
     protected String inlineCode;
     protected boolean isOnlyInline;
 
-    protected ObjectInfo(Object object, String objectName, boolean isOnlyInline, String inlineCode) {
+    protected ObjectCodeGenerator(Object object, String objectName, boolean isOnlyInline, String inlineCode) {
         this.object = object;
         this.objectName = objectName;
         this.isOnlyInline = isOnlyInline;
