@@ -15,33 +15,35 @@ import java.util.Map;
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
+    private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
 
     public ObjectCodeGeneratorFactory(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
+        this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
         String fullClassName = classInfoService.getFullClassName(object);
         switch (fullClassName) {
             case "null":
-                return new SimpleObjectCodeGenerator(object, objectName, "null");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "null");
             case "java.lang.Float":
-                return new SimpleObjectCodeGenerator(object, objectName, object + "f");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "f");
             case "java.lang.Long":
-                return new SimpleObjectCodeGenerator(object, objectName, object + "L");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "L");
             case "java.lang.Byte":
-                return new SimpleObjectCodeGenerator(object, objectName, "(byte)" + object);
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(byte)" + object);
             case "java.lang.Short":
-                return new SimpleObjectCodeGenerator(object, objectName, "(short)" + object);
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(short)" + object);
             case "java.lang.Character":
-                return new SimpleObjectCodeGenerator(object, objectName, "'" + object + "'");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "'" + object + "'");
             case "java.lang.String":
-                return new SimpleObjectCodeGenerator(object, objectName, "\"" + object + "\"");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "\"" + object + "\"");
             case "java.lang.Boolean":
             case "java.lang.Integer":
             case "java.lang.Double":
-                return new SimpleObjectCodeGenerator(object, objectName, object.toString());
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
             case "java.util.Date":
                 return new DateObjectCodeGenerator(object, objectName);
             default:
@@ -53,7 +55,7 @@ public class ObjectCodeGeneratorFactory {
                             classInfoService.getShortClassName(object),
                             lombokBuilderSetters, objectState, this);
                 } else {
-                    return new SimpleObjectCodeGenerator(object, objectName, object.toString());
+                    return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
                 }
         }
     }
