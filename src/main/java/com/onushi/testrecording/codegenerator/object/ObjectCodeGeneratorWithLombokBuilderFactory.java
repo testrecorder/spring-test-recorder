@@ -24,7 +24,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, false, objectName);
 
-        objectCodeGenerator.requiredImports.add(object.getClass().getPackage().getName());
+        objectCodeGenerator.requiredImports.add(object.getClass().getName());
 
         setInitCode(objectCodeGenerator, object, objectName);
         return objectCodeGenerator;
@@ -32,10 +32,11 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
 
     private void setInitCode(ObjectCodeGenerator objectCodeGenerator, Object object, String objectName) {
         StringGenerator stringGenerator = new StringGenerator();
+        // TODO IB !!!! indentation improvement
         stringGenerator.setTemplate(
                 "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
                 getSettersCodeForInit(object) +
-                "    .build();");
+                "        .build();");
         stringGenerator.addAttribute("shortClassName", object.getClass().getSimpleName());
         stringGenerator.addAttribute("objectName", objectName);
 
@@ -51,7 +52,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
         for (Method setter: lombokBuilderSetters) {
             String fieldName = setter.getName();
             StringGenerator stringGenerator = new StringGenerator();
-            stringGenerator.setTemplate("    .{{fieldName}}({{fieldValue}})\n");
+            stringGenerator.setTemplate("        .{{fieldName}}({{fieldValue}})\n");
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
                 // TODO IB !!!! we should also use the initCode for all the objects

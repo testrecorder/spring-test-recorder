@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.sampleapp.Person;
 import com.onushi.sampleapp.SampleService;
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
@@ -163,4 +164,57 @@ class TestGeneratorServiceTest {
                 StringUtils.trimAndIgnoreCRDiffs(testString));
 
     }
+
+    @Test
+    void generateTestForWhenHavingObjectAsArgument() throws Exception {
+        // Arrange
+        Person person = Person.builder()
+                .firstName("Mary")
+                .lastName("Poe")
+                .build();
+        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("getFirstName")
+                .arguments(Collections.singletonList(person))
+                .result("Mary")
+                .resultType(String.class)
+                .build();
+        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import com.onushi.sampleapp.Person;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void getFirstName() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        Person person1 = Person.builder()\n" +
+                        "        .dateOfBirth(null)\n" +
+                        "        .firstName(\"Mary\")\n" +
+                        "        .lastName(\"Poe\")\n" +
+                        "        .build();\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        String result = sampleService.getFirstName(person1);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(\"Mary\", result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
+
 }

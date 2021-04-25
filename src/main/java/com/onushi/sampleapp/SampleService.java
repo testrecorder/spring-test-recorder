@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+// TODO IB all tests included in the testrecording package should be on included classes
 @Component
 public class SampleService {
     public final int testField = 5;
@@ -61,5 +62,9 @@ public class SampleService {
 
     public Date minDate(Date date1, Date date2) {
         return date1.before(date2) ? date1 : date2;
+    }
+
+    public String getFirstName(Person person) {
+        return person.getFirstName();
     }
 }
