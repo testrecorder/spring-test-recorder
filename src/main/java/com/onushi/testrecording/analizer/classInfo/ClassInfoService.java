@@ -9,15 +9,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClassInfoService {
-    // TODO IB !!!! remove this too
-    public String getFullClassName(Object object) {
-        if (object == null) {
-            return "null";
-        } else {
-            return object.getClass().getName();
-        }
-    }
-
     // TODO IB compute these
     public boolean isSpringComponent() {
         return false;
