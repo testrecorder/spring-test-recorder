@@ -16,19 +16,19 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(null, "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "null");
+        assertEquals("null", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testFloat() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(1f, "testFloat");
-        assertEquals(objectCodeGenerator.getObjectName(), "testFloat");
+        assertEquals("testFloat", objectCodeGenerator.getObjectName());
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "1.0f");
-        assertEquals(objectCodeGenerator.getRequiredHelperObjects().size(), 0);
-        assertEquals(objectCodeGenerator.getRequiredImports().size(), 0);
-        assertEquals(objectCodeGenerator.getInitCode(), "");
+        assertEquals("1.0f", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(0, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("", objectCodeGenerator.getInitCode());
     }
 
     @Test
@@ -36,7 +36,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(1L, "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "1L");
+        assertEquals("1L", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -44,7 +44,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator((byte)11, "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "(byte)11");
+        assertEquals("(byte)11", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -52,7 +52,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator((short)100, "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "(short)100");
+        assertEquals("(short)100", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -60,7 +60,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator('a', "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "'a'");
+        assertEquals("'a'", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -68,7 +68,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator("Hello World", "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "\"Hello World\"");
+        assertEquals("\"Hello World\"", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -76,7 +76,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(true, "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "true");
+        assertEquals("true", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -84,7 +84,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(2, "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "2");
+        assertEquals("2", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -92,7 +92,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(2.5, "test");
         assertTrue(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "2.5");
+        assertEquals("2.5", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -103,9 +103,10 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(date1, "date1");
         assertFalse(objectCodeGenerator.isOnlyInline());
-        assertEquals(objectCodeGenerator.getInlineCode(), "date1");
-        assertEquals(objectCodeGenerator.getRequiredHelperObjects().size(), 1);
-        assertEquals(objectCodeGenerator.getRequiredImports().size(), 2);
+        assertEquals("date1", objectCodeGenerator.getInlineCode());
+        assertEquals(1, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(2, objectCodeGenerator.getRequiredImports().size());
+        // TODO IB !!!! check also assertNotEquals
         assertNotEquals("", objectCodeGenerator.getInitCode());
     }
 

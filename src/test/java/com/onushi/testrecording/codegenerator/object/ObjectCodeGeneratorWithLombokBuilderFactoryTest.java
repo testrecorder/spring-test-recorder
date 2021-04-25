@@ -21,13 +21,13 @@ class ObjectCodeGeneratorWithLombokBuilderTest {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService(), new ObjectStateReaderService(objectNameGenerator));
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(studentWithBuilder1, "studentWithBuilder1");
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()),
-                StringUtils.trimAndIgnoreCRDiffs(
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs(
                         "StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
                         "    .age(35)\n" +
                         "    .firstName(\"John\")\n" +
                         "    .lastName(\"Michael\")\n" +
-                        "    .build();"));
+                        "    .build();"),
+                StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
 
     }
 }

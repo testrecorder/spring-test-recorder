@@ -17,6 +17,6 @@ class StringGeneratorTest {
         String result = stringGenerator.generate();
 
         // Assert
-        assertEquals(result, "Hello World!");
+        assertEquals("Hello World!", result);
     }
 }

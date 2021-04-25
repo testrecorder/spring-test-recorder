@@ -25,19 +25,19 @@ class ObjectNameGeneratorTest {
         when(testGeneneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
-        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date1");
+        assertEquals("date1", objectNameGenerator.getObjectName(testGeneneratorMock, new Date()));
         Thread.sleep(1);
-        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date2");
+        assertEquals("date2", objectNameGenerator.getObjectName(testGeneneratorMock, new Date()));
         Thread.sleep(1);
-        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date3");
+        assertEquals("date3", objectNameGenerator.getObjectName(testGeneneratorMock, new Date()));
         Thread.sleep(1);
         Date sameDate = new Date();
-        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, sameDate), "date4");
-        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, sameDate), "date4");
+        assertEquals("date4", objectNameGenerator.getObjectName(testGeneneratorMock, sameDate));
+        assertEquals("date4", objectNameGenerator.getObjectName(testGeneneratorMock, sameDate));
 
         List<String> list = new ArrayList<>();
-        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, list), "arrayList1");
-        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, list), "arrayList1");
+        assertEquals("arrayList1", objectNameGenerator.getObjectName(testGeneneratorMock, list));
+        assertEquals("arrayList1", objectNameGenerator.getObjectName(testGeneneratorMock, list));
     }
 
     @Test
