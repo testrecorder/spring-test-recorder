@@ -1,12 +1,18 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
+import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 @Service
 public class TestGeneratorService {
+    private final StringService stringService;
+    public TestGeneratorService(StringService stringService) {
+        this.stringService = stringService;
+    }
+
     public String generateTestCode(TestGenerator testGenerator) {
         return getBeginMarkerString() +
                 getPackageString(testGenerator) +
@@ -52,9 +58,9 @@ public class TestGeneratorService {
         stringGenerator.addAttribute("testClassName", testGenerator.getShortClassName() + "Test");
         stringGenerator.addAttribute("methodName", testGenerator.getMethodName());
         stringGenerator.addAttribute("requiredHelperObjects", testGenerator.getRequiredHelperObjects().stream()
-                .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
+                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
         stringGenerator.addAttribute("objectsInit", testGenerator.getObjectsInit().stream()
-                .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
+                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
         stringGenerator.addAttribute("className", testGenerator.getShortClassName());
         stringGenerator.addAttribute("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 

@@ -7,14 +7,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class StringService {
-    public String addSuffixOnAllLines(String input, String suffix) {
-        boolean endsWithCR = input.endsWith("\n");
-        String result = Arrays.stream(input.split("\n"))
+    public String addPrefixOnAllLines(String input, String suffix) {
+        return Arrays.stream(input.split("\n"))
                 .map(x -> suffix + x)
                 .collect(Collectors.joining("\n"));
-        if (endsWithCR) {
-            result += "\n";
-        }
-        return result;
     }
 }

@@ -7,14 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class StringServiceTest {
 
     @Test
-    void addSuffixOnAllLines() {
+    void addPrefixOnAllLines() {
         // Arrange
         StringService stringService = new StringService();
 
         // Act
-        String result = stringService.addSuffixOnAllLines("line1\nline2\n", "    ");
+        String result = stringService.addPrefixOnAllLines("line1\nline2", "    ");
 
         // Assert
-        assertEquals("    line1\n    line2\n", result);
+        assertEquals("    line1\n    line2", result);
     }
 }
