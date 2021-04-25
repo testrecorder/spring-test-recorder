@@ -29,7 +29,7 @@ class TestGeneratorServiceTest {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService, new ObjectStateReaderService(objectNameGenerator));
         testGeneratorFactory = new TestGeneratorFactory(objectCodeGeneratorFactory, objectNameGenerator, classInfoService);
-        testGeneratorService = new TestGeneratorService(classInfoService);
+        testGeneratorService = new TestGeneratorService();
     }
 
     @Test
@@ -198,10 +198,10 @@ class TestGeneratorServiceTest {
                         "    void getFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        Person person1 = Person.builder()\n" +
-                        "        .dateOfBirth(null)\n" +
-                        "        .firstName(\"Mary\")\n" +
-                        "        .lastName(\"Poe\")\n" +
-                        "        .build();\n" +
+                        "            .dateOfBirth(null)\n" +
+                        "            .firstName(\"Mary\")\n" +
+                        "            .lastName(\"Poe\")\n" +
+                        "            .build();\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +

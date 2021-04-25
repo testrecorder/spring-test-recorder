@@ -36,7 +36,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
         stringGenerator.setTemplate(
                 "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
                 getSettersCodeForInit(object) +
-                "        .build();");
+                "    .build();");
         stringGenerator.addAttribute("shortClassName", object.getClass().getSimpleName());
         stringGenerator.addAttribute("objectName", objectName);
 
@@ -52,7 +52,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
         for (Method setter: lombokBuilderSetters) {
             String fieldName = setter.getName();
             StringGenerator stringGenerator = new StringGenerator();
-            stringGenerator.setTemplate("        .{{fieldName}}({{fieldValue}})\n");
+            stringGenerator.setTemplate("    .{{fieldName}}({{fieldValue}})\n");
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
                 // TODO IB !!!! we should also use the initCode for all the objects

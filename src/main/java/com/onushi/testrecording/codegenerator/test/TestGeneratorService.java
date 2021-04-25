@@ -8,12 +8,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class TestGeneratorService {
-    private final ClassInfoService classInfoService;
-
-    public TestGeneratorService(ClassInfoService classInfoService) {
-        this.classInfoService = classInfoService;
-    }
-
     public String generateTestCode(TestGenenerator testGenenerator) {
         return getBeginMarkerString() +
                 getPackageString(testGenenerator) +
