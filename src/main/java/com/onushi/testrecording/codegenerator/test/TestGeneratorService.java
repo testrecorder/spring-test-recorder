@@ -45,17 +45,9 @@ public class TestGeneratorService {
                 "class {{testClassName}} {\n" +
                 "    @Test\n" +
                 "    void {{methodName}}() throws Exception {\n" +
-                "        // Arrange\n" +
-                        "{{requiredHelperObjects}}" +
-                        "{{objectsInit}}" +
-                "        {{className}} {{targetObjectName}} = new {{className}}();\n\n"+
-
-                "        // Act\n" +
-                "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n" +
-
-                "        // Assert\n" +
-                        "{{expectedResultInit}}" +
-                "        assertEquals({{expectedResult}}, result);\n" +
+                        getArrangeCode(attributes) +
+                        getActCode(attributes) +
+                        getAssertCode(attributes) +
                 "    }\n" +
                 "}\n");
         stringGenerator.addAttributes(attributes);
@@ -90,6 +82,42 @@ public class TestGeneratorService {
         attributes.put("expectedResult", testGenerator.getResultObjectCodeGenerator().getInlineCode());
         return attributes;
     }
+
+    private String getArrangeCode(Map<String, String> attributes) {
+        StringGenerator stringGenerator = new StringGenerator();
+        stringGenerator.addAttributes(attributes);
+        stringGenerator.setTemplate(
+            "        // Arrange\n" +
+                    "{{requiredHelperObjects}}" +
+                    "{{objectsInit}}" +
+            "        {{className}} {{targetObjectName}} = new {{className}}();\n\n"
+        );
+        return stringGenerator.generate();
+
+    }
+
+    private String getActCode(Map<String, String> attributes) {
+        StringGenerator stringGenerator = new StringGenerator();
+        stringGenerator.addAttributes(attributes);
+        stringGenerator.setTemplate(
+            "        // Act\n" +
+            "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n"
+        );
+
+        return stringGenerator.generate();
+    }
+
+    private String getAssertCode(Map<String, String> attributes) {
+        StringGenerator stringGenerator = new StringGenerator();
+        stringGenerator.addAttributes(attributes);
+        stringGenerator.setTemplate(
+            "        // Assert\n" +
+                    "{{expectedResultInit}}" +
+            "        assertEquals({{expectedResult}}, result);\n");
+
+        return stringGenerator.generate();
+    }
+
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
