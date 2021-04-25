@@ -3,6 +3,8 @@ package com.onushi.sampleapp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class SampleAppRunner implements CommandLineRunner {
     private final SampleService sampleService;

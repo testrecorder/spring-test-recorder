@@ -2,6 +2,7 @@ package com.onushi.testrecording.analizer.classInfo;
 
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -14,6 +15,11 @@ public class ClassInfoService {
         return false;
     }
 
+    public boolean hasEquals(Class<?> clazz) {
+        return Arrays.stream(clazz.getMethods()).anyMatch(method -> method.getName().equals("equals") &&
+                method.getDeclaringClass() == clazz);
+    }
+
     public boolean canBeCreatedWithNoArgsConstructor() {
         return false;
     }
@@ -22,6 +28,7 @@ public class ClassInfoService {
         return false;
     }
 
+    // TODO IB !!!! should work on classes
     public boolean canBeCreatedWithLombokBuilder(Object object) {
         if (object == null) {
             return false;
@@ -45,6 +52,7 @@ public class ClassInfoService {
         }
     }
 
+    // TODO IB !!!! should work on classes
     public List<Method> getLombokBuilderSetters(Object object) {
         List<Method> result = new ArrayList<>();
         if (object != null) {
