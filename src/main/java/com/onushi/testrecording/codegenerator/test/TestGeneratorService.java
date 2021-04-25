@@ -1,6 +1,5 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +7,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class TestGeneratorService {
-    public String generateTestCode(TestGenenerator testGenenerator) {
+    public String generateTestCode(TestGenerator testGenerator) {
         return getBeginMarkerString() +
-                getPackageString(testGenenerator) +
-                getImportsString(testGenenerator) +
+                getPackageString(testGenerator) +
+                getImportsString(testGenerator) +
                 "\n" +
-                getClassAndTestString(testGenenerator) +
+                getClassAndTestString(testGenerator) +
                 getEndMarkerString();
     }
 
@@ -21,17 +20,17 @@ public class TestGeneratorService {
         return String.format("%nBEGIN GENERATED TEST =========%n%n");
     }
 
-    private String getPackageString(TestGenenerator testGenenerator) {
-        return String.format("package %s;%n%n", testGenenerator.getPackageName());
+    private String getPackageString(TestGenerator testGenerator) {
+        return String.format("package %s;%n%n", testGenerator.getPackageName());
     }
 
-    private String getImportsString(TestGenenerator testGenenerator) {
-        return testGenenerator.getRequiredImports().stream()
+    private String getImportsString(TestGenerator testGenerator) {
+        return testGenerator.getRequiredImports().stream()
                 .map(x -> String.format("import %s;%n", x))
                 .collect(Collectors.joining(""));
     }
 
-    private String getClassAndTestString(TestGenenerator testGenenerator) {
+    private String getClassAndTestString(TestGenerator testGenerator) {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate(
                 "class {{testClassName}} {\n" +
@@ -50,29 +49,29 @@ public class TestGeneratorService {
                 "        assertEquals({{expectedResult}}, result);\n" +
                 "    }\n" +
                 "}\n");
-        stringGenerator.addAttribute("testClassName", testGenenerator.getShortClassName() + "Test");
-        stringGenerator.addAttribute("methodName", testGenenerator.getMethodName());
-        stringGenerator.addAttribute("requiredHelperObjects", testGenenerator.getRequiredHelperObjects().stream()
+        stringGenerator.addAttribute("testClassName", testGenerator.getShortClassName() + "Test");
+        stringGenerator.addAttribute("methodName", testGenerator.getMethodName());
+        stringGenerator.addAttribute("requiredHelperObjects", testGenerator.getRequiredHelperObjects().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
-        stringGenerator.addAttribute("objectsInit", testGenenerator.getObjectsInit().stream()
+        stringGenerator.addAttribute("objectsInit", testGenerator.getObjectsInit().stream()
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
-        stringGenerator.addAttribute("className", testGenenerator.getShortClassName());
-        stringGenerator.addAttribute("targetObjectName", testGenenerator.getTargetObjectCodeGenerator().getObjectName());
+        stringGenerator.addAttribute("className", testGenerator.getShortClassName());
+        stringGenerator.addAttribute("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 
         // TODO IB result can be asserted like this only when equals exists
         // TODO IB if return is void we don't assert the result, but we assert the changes on the target and arguments
-        if (testGenenerator.getResultType().isPrimitive()) {
-            stringGenerator.addAttribute("resultType", testGenenerator.getResultType().getCanonicalName());
+        if (testGenerator.getResultType().isPrimitive()) {
+            stringGenerator.addAttribute("resultType", testGenerator.getResultType().getCanonicalName());
         } else {
-            stringGenerator.addAttribute("resultType", testGenenerator.getResultType().getSimpleName());
+            stringGenerator.addAttribute("resultType", testGenerator.getResultType().getSimpleName());
         }
 
-        stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenenerator.getArgumentsInlineCode()));
+        stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenerator.getArgumentsInlineCode()));
         stringGenerator.addAttribute("expectedResultInit", "");
-        if (!testGenenerator.getResultInit().equals("")) {
-            stringGenerator.addAttribute("expectedResultInit", String.format("        %s%n", testGenenerator.getResultInit()));
+        if (!testGenerator.getResultInit().equals("")) {
+            stringGenerator.addAttribute("expectedResultInit", String.format("        %s%n", testGenerator.getResultInit()));
         }
-        stringGenerator.addAttribute("expectedResult", testGenenerator.getResultObjectCodeGenerator().getInlineCode());
+        stringGenerator.addAttribute("expectedResult", testGenerator.getResultObjectCodeGenerator().getInlineCode());
 
         return stringGenerator.generate();
     }

@@ -21,8 +21,8 @@ public class TestGeneratorFactory {
         this.classInfoService = classInfoService;
     }
 
-    public TestGenenerator createTestGenerator(MethodRunInfo methodRunInfo) throws Exception {
-        TestGenenerator testGenenerator = new TestGenenerator();
+    public TestGenerator createTestGenerator(MethodRunInfo methodRunInfo) throws Exception {
+        TestGenerator testGenerator = new TestGenerator();
 
         if (methodRunInfo.getArguments() == null) {
             throw new IllegalArgumentException("arguments");
@@ -31,61 +31,61 @@ public class TestGeneratorFactory {
             throw new IllegalArgumentException("target");
         }
 
-        testGenenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),
+        testGenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(methodRunInfo.getTarget()));
-        testGenenerator.packageName = methodRunInfo.getTarget().getClass().getPackage().getName();
-        testGenenerator.shortClassName = methodRunInfo.getTarget().getClass().getSimpleName();
-        testGenenerator.methodName = methodRunInfo.getMethodName();
+        testGenerator.packageName = methodRunInfo.getTarget().getClass().getPackage().getName();
+        testGenerator.shortClassName = methodRunInfo.getTarget().getClass().getSimpleName();
+        testGenerator.methodName = methodRunInfo.getMethodName();
 
-        testGenenerator.argumentObjectCodeGenerators = methodRunInfo.getArguments().stream()
-                .map(x -> objectCodeGeneratorFactory.createObjectCodeGenerator(x, objectNameGenerator.getObjectName(testGenenerator, x)))
+        testGenerator.argumentObjectCodeGenerators = methodRunInfo.getArguments().stream()
+                .map(x -> objectCodeGeneratorFactory.createObjectCodeGenerator(x, objectNameGenerator.getObjectName(testGenerator, x)))
                 .collect(Collectors.toList());
 
-        testGenenerator.resultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");
-        testGenenerator.resultType = methodRunInfo.getResultType();
+        testGenerator.resultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");
+        testGenerator.resultType = methodRunInfo.getResultType();
 
-        setRequiredImports(testGenenerator);
+        setRequiredImports(testGenerator);
 
-        setRequiredHelperObjects(testGenenerator);
+        setRequiredHelperObjects(testGenerator);
 
-        setObjectsInit(testGenenerator);
+        setObjectsInit(testGenerator);
 
-        setArgumentsInlineCode(testGenenerator);
+        setArgumentsInlineCode(testGenerator);
 
-        testGenenerator.resultInit = testGenenerator.resultObjectCodeGenerator.getInitCode();
+        testGenerator.resultInit = testGenerator.resultObjectCodeGenerator.getInitCode();
 
-        return testGenenerator;
+        return testGenerator;
     }
 
-    private void setRequiredImports(TestGenenerator testGenenerator) {
-        testGenenerator.requiredImports = new ArrayList<>();
-        testGenenerator.requiredImports.add("org.junit.jupiter.api.Test");
-        testGenenerator.requiredImports.add("static org.junit.jupiter.api.Assertions.*");
-        testGenenerator.requiredImports.addAll(testGenenerator.argumentObjectCodeGenerators.stream()
+    private void setRequiredImports(TestGenerator testGenerator) {
+        testGenerator.requiredImports = new ArrayList<>();
+        testGenerator.requiredImports.add("org.junit.jupiter.api.Test");
+        testGenerator.requiredImports.add("static org.junit.jupiter.api.Assertions.*");
+        testGenerator.requiredImports.addAll(testGenerator.argumentObjectCodeGenerators.stream()
                 .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
-        testGenenerator.requiredImports.addAll(testGenenerator.resultObjectCodeGenerator.getRequiredImports());
-        testGenenerator.requiredImports = testGenenerator.requiredImports.stream().distinct().collect(Collectors.toList());
+        testGenerator.requiredImports.addAll(testGenerator.resultObjectCodeGenerator.getRequiredImports());
+        testGenerator.requiredImports = testGenerator.requiredImports.stream().distinct().collect(Collectors.toList());
     }
 
-    private void setRequiredHelperObjects(TestGenenerator testGenenerator) {
-        testGenenerator.requiredHelperObjects = testGenenerator.argumentObjectCodeGenerators.stream()
+    private void setRequiredHelperObjects(TestGenerator testGenerator) {
+        testGenerator.requiredHelperObjects = testGenerator.argumentObjectCodeGenerators.stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
                 .collect(Collectors.toList());
-        testGenenerator.requiredHelperObjects.addAll(testGenenerator.resultObjectCodeGenerator.getRequiredHelperObjects());
-        testGenenerator.requiredHelperObjects = testGenenerator.requiredHelperObjects.stream().distinct().collect(Collectors.toList());
+        testGenerator.requiredHelperObjects.addAll(testGenerator.resultObjectCodeGenerator.getRequiredHelperObjects());
+        testGenerator.requiredHelperObjects = testGenerator.requiredHelperObjects.stream().distinct().collect(Collectors.toList());
     }
 
-    private void setObjectsInit(TestGenenerator testGenenerator) {
-        testGenenerator.objectsInit = testGenenerator.argumentObjectCodeGenerators.stream()
+    private void setObjectsInit(TestGenerator testGenerator) {
+        testGenerator.objectsInit = testGenerator.argumentObjectCodeGenerators.stream()
                 .map(ObjectCodeGenerator::getInitCode).collect(Collectors.toList());
-        testGenenerator.objectsInit = testGenenerator.objectsInit.stream()
+        testGenerator.objectsInit = testGenerator.objectsInit.stream()
                 .filter(x -> !x.equals(""))
                 .distinct()
                 .collect(Collectors.toList());
     }
 
-    private void setArgumentsInlineCode(TestGenenerator testGenenerator) {
-        testGenenerator.argumentsInlineCode = testGenenerator.argumentObjectCodeGenerators.stream()
+    private void setArgumentsInlineCode(TestGenerator testGenerator) {
+        testGenerator.argumentsInlineCode = testGenerator.argumentObjectCodeGenerators.stream()
                 .map(ObjectCodeGenerator::getInlineCode)
                 .collect(Collectors.toList());
     }

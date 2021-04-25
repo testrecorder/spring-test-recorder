@@ -10,7 +10,7 @@ import java.util.Map;
 // TODO IB !!!! Write tests for all the code
 // TODO IB http://tutorials.jenkov.com/java-reflection/private-fields-and-methods.html
 @Getter
-public class TestGenenerator {
+public class TestGenerator {
     protected ObjectCodeGenerator targetObjectCodeGenerator;
     protected String packageName;
     protected String shortClassName;
@@ -28,7 +28,7 @@ public class TestGenenerator {
     protected final Map<Object, String> objectNames = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
-    protected TestGenenerator() {}
+    protected TestGenerator() {}
 
     protected Map<Object, String> getObjectNames() {
         return objectNames;

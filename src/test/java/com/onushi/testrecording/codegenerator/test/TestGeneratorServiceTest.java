@@ -11,7 +11,6 @@ import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,10 +41,10 @@ class TestGeneratorServiceTest {
                 .result(5f)
                 .resultType(float.class)
                 .build();
-        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenenerator);
+        String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
@@ -86,10 +85,10 @@ class TestGeneratorServiceTest {
                 .result(d1)
                 .resultType(Date.class)
                 .build();
-        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenenerator);
+        String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
@@ -133,10 +132,10 @@ class TestGeneratorServiceTest {
                 .result(null)
                 .resultType(Student.class)
                 .build();
-        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenenerator);
+        String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
@@ -179,10 +178,10 @@ class TestGeneratorServiceTest {
                 .result("Mary")
                 .resultType(String.class)
                 .build();
-        TestGenenerator testGenenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenenerator);
+        String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +

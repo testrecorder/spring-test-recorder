@@ -7,12 +7,12 @@ import java.util.Locale;
 // TODO IB There is another test recorder http://testrecorder.amygdalum.net/index.html
 @Service
 public class ObjectNameGenerator {
-    public String getObjectName(TestGenenerator testGenenerator, Object object) {
-        if (testGenenerator.getObjectNames().containsKey(object)) {
-            return testGenenerator.getObjectNames().get(object);
+    public String getObjectName(TestGenerator testGenerator, Object object) {
+        if (testGenerator.getObjectNames().containsKey(object)) {
+            return testGenerator.getObjectNames().get(object);
         } else {
-            String newObjectName = getNewObjectName(testGenenerator, object);
-            testGenenerator.getObjectNames().put(object, newObjectName);
+            String newObjectName = getNewObjectName(testGenerator, object);
+            testGenerator.getObjectNames().put(object, newObjectName);
             return newObjectName;
         }
     }
@@ -32,15 +32,15 @@ public class ObjectNameGenerator {
         return varName.substring(0,1).toLowerCase(Locale.ROOT) + varName.substring(1);
     }
 
-    private String getNewObjectName(TestGenenerator testGenenerator, Object object) {
+    private String getNewObjectName(TestGenerator testGenerator, Object object) {
         String objectNameBase = getBaseObjectName(object);
         int newIndex;
-        if (testGenenerator.getLastIndexForObjectName().containsKey(objectNameBase)) {
-            newIndex = testGenenerator.getLastIndexForObjectName().get(objectNameBase) + 1;
+        if (testGenerator.getLastIndexForObjectName().containsKey(objectNameBase)) {
+            newIndex = testGenerator.getLastIndexForObjectName().get(objectNameBase) + 1;
         } else {
             newIndex = 1;
         }
-        testGenenerator.getLastIndexForObjectName().put(objectNameBase, newIndex);
+        testGenerator.getLastIndexForObjectName().put(objectNameBase, newIndex);
         return objectNameBase + newIndex;
     }
 }
