@@ -27,7 +27,7 @@ public class ObjectStateReaderService {
                     .collect(Collectors.toList());
             for (Method getter: getters) {
                 String fieldName = getter.getName().substring(3);
-                fieldName = objectNameGenerator.getCamelCaseVarName(fieldName);
+                fieldName = objectNameGenerator.lowerCaseFirstLetter(fieldName);
                 try {
                     result.put(fieldName, getter.invoke(object));
                 } catch (IllegalAccessException | InvocationTargetException ignored) {

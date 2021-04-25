@@ -21,12 +21,14 @@ public class ObjectNameGenerator {
         if (object == null) {
             return "null";
         } else {
-            return getCamelCaseVarName(object.getClass().getSimpleName());
+            return lowerCaseFirstLetter(object.getClass().getSimpleName());
         }
     }
 
-    public String getCamelCaseVarName(String varName) {
-        // TODO IB !!!! what if too short?
+    public String lowerCaseFirstLetter(String varName) {
+        if (varName == null || varName.length() == 0) {
+            throw new IllegalArgumentException("varName");
+        }
         return varName.substring(0,1).toLowerCase(Locale.ROOT) + varName.substring(1);
     }
 

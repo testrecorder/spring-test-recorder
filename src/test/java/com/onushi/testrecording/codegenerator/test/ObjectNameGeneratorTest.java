@@ -1,6 +1,5 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -45,5 +44,14 @@ class ObjectNameGeneratorTest {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         assertEquals("float", objectNameGenerator.getBaseObjectName(1f));
         assertEquals("null", objectNameGenerator.getBaseObjectName(null));
+    }
+
+    @Test
+    void lowerCaseFirstLetter() {
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        assertEquals("date", objectNameGenerator.lowerCaseFirstLetter("Date"));
+        assertEquals("personRepository", objectNameGenerator.lowerCaseFirstLetter("PersonRepository"));
+        assertEquals("d", objectNameGenerator.lowerCaseFirstLetter("D"));
+        assertThrows(IllegalArgumentException.class, () -> objectNameGenerator.lowerCaseFirstLetter(""));
     }
 }

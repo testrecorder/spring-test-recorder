@@ -106,7 +106,6 @@ class ObjectCodeGeneratorTest {
         assertEquals("date1", objectCodeGenerator.getInlineCode());
         assertEquals(1, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(2, objectCodeGenerator.getRequiredImports().size());
-        // TODO IB !!!! check also assertNotEquals
         assertNotEquals("", objectCodeGenerator.getInitCode());
     }
 

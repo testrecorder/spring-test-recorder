@@ -25,10 +25,10 @@ public class TestGeneratorFactory {
         TestGenenerator testGenenerator = new TestGenenerator();
 
         if (methodRunInfo.getArguments() == null) {
-            throw new Exception("Invalid input");
+            throw new IllegalArgumentException("arguments");
         }
         if (methodRunInfo.getTarget() == null) {
-            throw new Exception("Invalid input");
+            throw new IllegalArgumentException("target");
         }
 
         testGenenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),
