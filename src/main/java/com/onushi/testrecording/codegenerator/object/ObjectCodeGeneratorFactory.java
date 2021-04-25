@@ -16,11 +16,13 @@ public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
+    private final DateObjectCodeGeneratorFactory dateObjectCodeGeneratorFactory;
 
     public ObjectCodeGeneratorFactory(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
+        this.dateObjectCodeGeneratorFactory = new DateObjectCodeGeneratorFactory();
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
@@ -45,7 +47,7 @@ public class ObjectCodeGeneratorFactory {
             case "java.lang.Double":
                 return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
             case "java.util.Date":
-                return new DateObjectCodeGenerator(object, objectName);
+                return dateObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
             default:
                 if (classInfoService.canBeCreatedWithLombokBuilder(object)) {
                     List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object);
