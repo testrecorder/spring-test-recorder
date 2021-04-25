@@ -34,12 +34,6 @@ public class ClassInfoService {
         }
     }
 
-    public String getObjectNameBase(Object object) {
-        String getShortClassName = getShortClassName(object);
-        // TODO IB !!!! extract function
-        return getShortClassName.substring(0,1).toLowerCase(Locale.ROOT) + getShortClassName.substring(1);
-    }
-
     // TODO IB compute these
     public boolean isSpringComponent() {
         return false;

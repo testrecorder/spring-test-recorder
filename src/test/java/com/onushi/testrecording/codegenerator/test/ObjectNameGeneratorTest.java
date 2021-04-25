@@ -17,7 +17,7 @@ class ObjectNameGeneratorTest {
     TestGenenerator testGeneneratorMock;
 
     @Test
-    void generateObjectName() throws InterruptedException {
+    void getObjectName() throws InterruptedException {
         Map<Object, String> objectNames = new HashMap<>();
         Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
@@ -26,18 +26,26 @@ class ObjectNameGeneratorTest {
 
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(classInfoService);
-        assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, new Date()), "date1");
+        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date1");
         Thread.sleep(1);
-        assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, new Date()), "date2");
+        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date2");
         Thread.sleep(1);
-        assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, new Date()), "date3");
+        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date3");
         Thread.sleep(1);
         Date sameDate = new Date();
-        assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, sameDate), "date4");
-        assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, sameDate), "date4");
+        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, sameDate), "date4");
+        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, sameDate), "date4");
 
         List<String> list = new ArrayList<>();
-        assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, list), "arrayList1");
-        assertEquals(objectNameGenerator.generateObjectName(testGeneneratorMock, list), "arrayList1");
+        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, list), "arrayList1");
+        assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, list), "arrayList1");
+    }
+
+    @Test
+    void getBaseObjectName() {
+        ClassInfoService classInfoService = new ClassInfoService();
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(classInfoService);
+        assertEquals(objectNameGenerator.getBaseObjectName(1f), "float");
+        assertEquals(objectNameGenerator.getBaseObjectName(null), "null");
     }
 }

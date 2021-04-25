@@ -25,13 +25,13 @@ public class TestGeneratorFactory {
         TestGenenerator testGenenerator = new TestGenenerator();
 
         testGenenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),
-                classInfoService.getObjectNameBase(methodRunInfo.getTarget()));
+                objectNameGenerator.getBaseObjectName(methodRunInfo.getTarget()));
         testGenenerator.packageName = classInfoService.getPackageName(methodRunInfo.getTarget());
         testGenenerator.shortClassName = classInfoService.getShortClassName(methodRunInfo.getTarget());
         testGenenerator.methodName = methodRunInfo.getMethodName();
 
         testGenenerator.argumentObjectCodeGenerators = methodRunInfo.getArguments().stream()
-                .map(x -> objectCodeGeneratorFactory.createObjectCodeGenerator(x, objectNameGenerator.generateObjectName(testGenenerator, x)))
+                .map(x -> objectCodeGeneratorFactory.createObjectCodeGenerator(x, objectNameGenerator.getObjectName(testGenenerator, x)))
                 .collect(Collectors.toList());
 
         testGenenerator.resultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");

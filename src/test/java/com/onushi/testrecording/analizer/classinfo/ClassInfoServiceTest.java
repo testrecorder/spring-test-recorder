@@ -31,13 +31,6 @@ class ClassInfoServiceTest {
     }
 
     @Test
-    void getObjectNameBase() {
-        ClassInfoService classInfoService = new ClassInfoService();
-        assertEquals(classInfoService.getObjectNameBase(1f), "float");
-        assertEquals(classInfoService.getObjectNameBase(null), "null");
-    }
-
-    @Test
     void isSpringComponent() {
     }
 
