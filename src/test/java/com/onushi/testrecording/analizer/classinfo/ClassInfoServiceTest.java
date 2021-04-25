@@ -17,13 +17,6 @@ class ClassInfoServiceTest {
     }
 
     @Test
-    void getShortClassName() {
-        ClassInfoService classInfoService = new ClassInfoService();
-        assertEquals(classInfoService.getShortClassName(1f), "Float");
-        assertEquals(classInfoService.getShortClassName(null), "null");
-    }
-
-    @Test
     void isSpringComponent() {
     }
 

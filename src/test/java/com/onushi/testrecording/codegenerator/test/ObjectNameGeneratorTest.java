@@ -24,8 +24,7 @@ class ObjectNameGeneratorTest {
         when(testGeneneratorMock.getObjectNames()).thenReturn(objectNames);
         when(testGeneneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
-        ClassInfoService classInfoService = new ClassInfoService();
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(classInfoService);
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date1");
         Thread.sleep(1);
         assertEquals(objectNameGenerator.getObjectName(testGeneneratorMock, new Date()), "date2");
@@ -43,8 +42,7 @@ class ObjectNameGeneratorTest {
 
     @Test
     void getBaseObjectName() {
-        ClassInfoService classInfoService = new ClassInfoService();
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(classInfoService);
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         assertEquals(objectNameGenerator.getBaseObjectName(1f), "float");
         assertEquals(objectNameGenerator.getBaseObjectName(null), "null");
     }

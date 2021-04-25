@@ -9,20 +9,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClassInfoService {
+    // TODO IB !!!! remove this too
     public String getFullClassName(Object object) {
         if (object == null) {
             return "null";
         } else {
             return object.getClass().getName();
-        }
-    }
-
-    // TODO IB !!!! a little fishy here with this null
-    public String getShortClassName(Object object) {
-        if (object == null) {
-            return "null";
-        } else {
-            return object.getClass().getSimpleName();
         }
     }
 
