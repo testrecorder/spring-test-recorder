@@ -65,7 +65,8 @@ public class TestGeneratorService {
         stringGenerator.addAttribute("className", testGenenerator.getShortClassName());
         stringGenerator.addAttribute("targetObjectName", testGenenerator.getTargetObjectCodeGenerator().getObjectName());
 
-        // TODO IB !!!! what if return is void?
+        // TODO IB result can be asserted like this only when equals exists
+        // TODO IB if return is void we don't assert the result, but we assert the changes on the target and arguments
         if (testGenenerator.getResultType().isPrimitive()) {
             stringGenerator.addAttribute("resultType", testGenenerator.getResultType().getCanonicalName());
         } else {

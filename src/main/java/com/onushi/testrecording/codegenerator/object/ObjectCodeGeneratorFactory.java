@@ -25,16 +25,12 @@ public class ObjectCodeGeneratorFactory {
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
-        // TODO IB !!!! fishy. Maybe I can get the type for null objects
-        String fullClassName;
         if (object == null) {
-            fullClassName = "null";
-        } else {
-            fullClassName = object.getClass().getName();
+            return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null");
         }
+
+        String fullClassName = object.getClass().getName();
         switch (fullClassName) {
-            case "null":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "null");
             case "java.lang.Float":
                 return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "f");
             case "java.lang.Long":
