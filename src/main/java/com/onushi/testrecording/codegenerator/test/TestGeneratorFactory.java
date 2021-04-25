@@ -21,13 +21,20 @@ public class TestGeneratorFactory {
         this.classInfoService = classInfoService;
     }
 
-    public TestGenenerator createTestGenerator(MethodRunInfo methodRunInfo) {
+    public TestGenenerator createTestGenerator(MethodRunInfo methodRunInfo) throws Exception {
         TestGenenerator testGenenerator = new TestGenenerator();
+
+        if (methodRunInfo.getArguments() == null) {
+            throw new Exception("Invalid input");
+        }
+        if (methodRunInfo.getTarget() == null) {
+            throw new Exception("Invalid input");
+        }
 
         testGenenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(methodRunInfo.getTarget()));
-        testGenenerator.packageName = classInfoService.getPackageName(methodRunInfo.getTarget());
-        testGenenerator.shortClassName = classInfoService.getShortClassName(methodRunInfo.getTarget());
+        testGenenerator.packageName = methodRunInfo.getTarget().getClass().getPackage().getName();
+        testGenenerator.shortClassName = methodRunInfo.getTarget().getClass().getSimpleName();
         testGenenerator.methodName = methodRunInfo.getMethodName();
 
         testGenenerator.argumentObjectCodeGenerators = methodRunInfo.getArguments().stream()
@@ -35,7 +42,7 @@ public class TestGeneratorFactory {
                 .collect(Collectors.toList());
 
         testGenenerator.resultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");
-
+        testGenenerator.resultType = methodRunInfo.getResultType();
 
         setRequiredImports(testGenenerator);
 

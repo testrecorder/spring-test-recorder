@@ -14,14 +14,16 @@ public class MethodRunInfo {
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;
+    protected Class<?> resultType;
     protected Object result;
 
     protected MethodRunInfo() {}
 
-    protected MethodRunInfo(Object target, String methodName, List<Object> arguments, Object result) {
+    public MethodRunInfo(Object target, String methodName, List<Object> arguments, Class<?> resultType, Object result) {
         this.target = target;
         this.methodName = methodName;
         this.arguments = arguments;
+        this.resultType = resultType;
         this.result = result;
     }
 }

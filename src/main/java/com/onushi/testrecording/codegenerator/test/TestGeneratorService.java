@@ -49,11 +49,11 @@ public class TestGeneratorService {
                 "        {{className}} {{targetObjectName}} = new {{className}}();\n\n"+
 
                 "        // Act\n" +
-                "        {{resultClassName}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n" +
+                "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n" +
 
                 "        // Assert\n" +
                         "{{expectedResultInit}}" +
-                "        assertEquals(result, {{expectedResult}});\n" +
+                "        assertEquals({{expectedResult}}, result);\n" +
                 "    }\n" +
                 "}\n");
         stringGenerator.addAttribute("testClassName", testGenenerator.getShortClassName() + "Test");
@@ -64,7 +64,14 @@ public class TestGeneratorService {
                 .map(x -> String.format("        %s%n", x)).collect(Collectors.joining("")));
         stringGenerator.addAttribute("className", testGenenerator.getShortClassName());
         stringGenerator.addAttribute("targetObjectName", testGenenerator.getTargetObjectCodeGenerator().getObjectName());
-        stringGenerator.addAttribute("resultClassName", classInfoService.getShortClassName(testGenenerator.getResultObjectCodeGenerator().getObject()));
+
+        // TODO IB !!!! what if return is void?
+        if (testGenenerator.getResultType().isPrimitive()) {
+            stringGenerator.addAttribute("resultType", testGenenerator.getResultType().getCanonicalName());
+        } else {
+            stringGenerator.addAttribute("resultType", testGenenerator.getResultType().getSimpleName());
+        }
+
         stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenenerator.getArgumentsInlineCode()));
         stringGenerator.addAttribute("expectedResultInit", "");
         if (!testGenenerator.getResultInit().equals("")) {

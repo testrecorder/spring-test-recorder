@@ -17,6 +17,7 @@ public class TestGenenerator {
     protected String methodName;
     protected List<ObjectCodeGenerator> argumentObjectCodeGenerators;
     protected ObjectCodeGenerator resultObjectCodeGenerator;
+    protected Class<?> resultType;
 
     protected List<String> requiredImports;
     protected List<String> requiredHelperObjects;

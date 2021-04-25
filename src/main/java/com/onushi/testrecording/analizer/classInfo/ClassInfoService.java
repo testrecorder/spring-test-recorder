@@ -26,14 +26,6 @@ public class ClassInfoService {
         }
     }
 
-    public String getPackageName(Object object) {
-        if (object == null) {
-            return "";
-        } else {
-            return object.getClass().getPackage().getName();
-        }
-    }
-
     // TODO IB compute these
     public boolean isSpringComponent() {
         return false;

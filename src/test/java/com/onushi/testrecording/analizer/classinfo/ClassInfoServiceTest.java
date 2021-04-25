@@ -24,13 +24,6 @@ class ClassInfoServiceTest {
     }
 
     @Test
-    void getPackageName() {
-        ClassInfoService classInfoService = new ClassInfoService();
-        assertEquals(classInfoService.getPackageName(1f), "java.lang");
-        assertEquals(classInfoService.getPackageName(null), "");
-    }
-
-    @Test
     void isSpringComponent() {
     }
 

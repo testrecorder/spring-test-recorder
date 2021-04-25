@@ -12,7 +12,7 @@ import java.util.TimeZone;
 public class SampleService {
     public final int testField = 5;
 
-    @RecordTest
+
     public int add(int x, int y) {
         return addInternal(x, y);
     }
@@ -27,6 +27,12 @@ public class SampleService {
 
     public int returnZero() {
         return 0;
+    }
+
+    // TODO !!!! also returns void
+    @RecordTest
+    public Person returnNull() {
+        return null;
     }
 
 
