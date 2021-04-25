@@ -1,5 +1,6 @@
 package com.onushi.testrecording.analizer.object;
 
+import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -11,6 +12,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class ObjectStateReaderService {
+    private final ObjectNameGenerator objectNameGenerator;
+
+    public ObjectStateReaderService(ObjectNameGenerator objectNameGenerator) {
+        this.objectNameGenerator = objectNameGenerator;
+    }
+
     public Map<String, Object> readObjectState(Object object) {
         Map<String, Object> result = new HashMap<>();
         if (object != null) {
@@ -20,7 +27,7 @@ public class ObjectStateReaderService {
                     .collect(Collectors.toList());
             for (Method getter: getters) {
                 String fieldName = getter.getName().substring(3);
-                fieldName = fieldName.substring(0,1).toLowerCase(Locale.ROOT) + fieldName.substring(1);
+                fieldName = objectNameGenerator.getCamelCaseVarName(fieldName);
                 try {
                     result.put(fieldName, getter.invoke(object));
                 } catch (IllegalAccessException | InvocationTargetException ignored) {

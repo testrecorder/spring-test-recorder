@@ -1,5 +1,6 @@
 package com.onushi.testrecording.analizer.object;
 
+import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.sampleclasses.StudentWithBuilder;
 import com.onushi.testrecording.sampleclasses.StudentWithPublicFields;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,8 @@ class ObjectStateReaderServiceTest {
         student.lastName = "Aris";
         student.age = 30;
 
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
         Map<String, Object> objectState = objectStateReaderService.readObjectState(student);
         assertEquals(objectState.get("firstName"), "John");
         assertEquals(objectState.get("lastName"), "Aris");
@@ -32,7 +34,8 @@ class ObjectStateReaderServiceTest {
                 .age(30)
                 .build();
 
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
         Map<String, Object> objectState = objectStateReaderService.readObjectState(student);
         assertEquals(objectState.get("firstName"), "John");
         assertEquals(objectState.get("lastName"), "Aris");

@@ -25,8 +25,8 @@ class TestGeneratorServiceTest {
     @BeforeEach
     void setUp() {
         ClassInfoService classInfoService = new ClassInfoService();
-        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService, new ObjectStateReaderService());
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService, new ObjectStateReaderService(objectNameGenerator));
         testGeneratorFactory = new TestGeneratorFactory(objectCodeGeneratorFactory, objectNameGenerator, classInfoService);
         testGeneratorService = new TestGeneratorService(classInfoService);
     }

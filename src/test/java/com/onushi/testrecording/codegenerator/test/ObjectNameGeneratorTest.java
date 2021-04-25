@@ -43,7 +43,7 @@ class ObjectNameGeneratorTest {
     @Test
     void getBaseObjectName() {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
-        assertEquals(objectNameGenerator.getBaseObjectName(1f), "float");
-        assertEquals(objectNameGenerator.getBaseObjectName(null), "null");
+        assertEquals("float", objectNameGenerator.getBaseObjectName(1f));
+        assertEquals("null", objectNameGenerator.getBaseObjectName(null));
     }
 }

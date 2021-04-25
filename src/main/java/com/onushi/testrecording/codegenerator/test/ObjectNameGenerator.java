@@ -21,10 +21,13 @@ public class ObjectNameGenerator {
         if (object == null) {
             return "null";
         } else {
-            String getShortClassName = object.getClass().getSimpleName();
-            // TODO IB !!!! extract function
-            return getShortClassName.substring(0,1).toLowerCase(Locale.ROOT) + getShortClassName.substring(1);
+            return getCamelCaseVarName(object.getClass().getSimpleName());
         }
+    }
+
+    public String getCamelCaseVarName(String varName) {
+        // TODO IB !!!! what if too short?
+        return varName.substring(0,1).toLowerCase(Locale.ROOT) + varName.substring(1);
     }
 
     private String getNewObjectName(TestGenenerator testGenenerator, Object object) {

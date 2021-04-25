@@ -2,6 +2,7 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
+import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.sampleclasses.StudentWithBuilder;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,8 @@ class ObjectCodeGeneratorWithLombokBuilderTest {
                 .age(35)
                 .build();
 
-        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService(), new ObjectStateReaderService());
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(new ClassInfoService(), new ObjectStateReaderService(objectNameGenerator));
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(studentWithBuilder1, "studentWithBuilder1");
         assertEquals(StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()),
                 StringUtils.trimAndIgnoreCRDiffs(
