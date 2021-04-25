@@ -4,25 +4,24 @@ import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-
 // TODO IB handle also array and void
 // TODO IB LATER generics
 // TODO IB some functions alter the arguments or the target object
 @Component
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
-    private final ObjectStateReaderService objectStateReaderService;
     private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
     private final DateObjectCodeGeneratorFactory dateObjectCodeGeneratorFactory;
+    private final ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory;
 
     public ObjectCodeGeneratorFactory(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService) {
         this.classInfoService = classInfoService;
-        this.objectStateReaderService = objectStateReaderService;
+        // TODO IB is it ok to have new here?
         this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
         this.dateObjectCodeGeneratorFactory = new DateObjectCodeGeneratorFactory();
+        this.objectCodeGeneratorWithLombokBuilderFactory = new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
+                objectStateReaderService,
+                this);
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
@@ -50,12 +49,7 @@ public class ObjectCodeGeneratorFactory {
                 return dateObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
             default:
                 if (classInfoService.canBeCreatedWithLombokBuilder(object)) {
-                    List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object);
-                    Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
-                    return new ObjectCodeGeneratorWithLombokBuilder(object, objectName,
-                            classInfoService.getPackageName(object),
-                            classInfoService.getShortClassName(object),
-                            lombokBuilderSetters, objectState, this);
+                    return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(object, objectName);
                 } else {
                     return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
                 }
