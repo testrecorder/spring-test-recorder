@@ -24,7 +24,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, false, objectName);
 
-        objectCodeGenerator.requiredImports.add(classInfoService.getPackageName(object));
+        objectCodeGenerator.requiredImports.add(object.getClass().getPackage().getName());
 
         setInitCode(objectCodeGenerator, object, objectName);
         return objectCodeGenerator;
@@ -36,7 +36,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
                 "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
                 getSettersCodeForInit(object) +
                 "    .build();");
-        stringGenerator.addAttribute("shortClassName", classInfoService.getShortClassName(object));
+        stringGenerator.addAttribute("shortClassName", object.getClass().getSimpleName());
         stringGenerator.addAttribute("objectName", objectName);
 
         objectCodeGenerator.initCode = stringGenerator.generate();

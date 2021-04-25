@@ -2,7 +2,6 @@ package com.onushi.testrecording.analizer.classInfo;
 
 import org.springframework.stereotype.Service;
 
-import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -18,24 +17,20 @@ public class ClassInfoService {
         }
     }
 
-    // TODO IB !!!! object.getClass().getShortName();
+    // TODO IB !!!! a little fishy here with this null
     public String getShortClassName(Object object) {
-        String fullClassName = getFullClassName(object);
-        int lastPointIndex = fullClassName.lastIndexOf(".");
-        if (lastPointIndex != -1) {
-            return fullClassName.substring(lastPointIndex + 1);
+        if (object == null) {
+            return "null";
         } else {
-            return fullClassName;
+            return object.getClass().getSimpleName();
         }
     }
 
     public String getPackageName(Object object) {
-        String fullClassName = getFullClassName(object);
-        int lastPointIndex = fullClassName.lastIndexOf(".");
-        if (lastPointIndex != -1) {
-            return fullClassName.substring(0, lastPointIndex);
-        } else {
+        if (object == null) {
             return "";
+        } else {
+            return object.getClass().getPackage().getName();
         }
     }
 
