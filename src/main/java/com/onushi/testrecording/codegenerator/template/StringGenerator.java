@@ -19,6 +19,11 @@ public class StringGenerator {
         context.put(name, value);
     }
 
+    public void addAttributes(Map<String, String> attributes) {
+        context.putAll(attributes);
+    }
+
+
     // TODO IB LATER improve if slow
     public String generate() {
         String result = template;
