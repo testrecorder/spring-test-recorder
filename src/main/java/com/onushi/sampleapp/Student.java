@@ -1,4 +1,4 @@
-package com.onushi.testrecording.sampleclasses;
+package com.onushi.sampleapp;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

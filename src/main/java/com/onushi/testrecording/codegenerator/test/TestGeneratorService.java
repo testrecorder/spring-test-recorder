@@ -75,7 +75,8 @@ public class TestGeneratorService {
         stringGenerator.addAttribute("argumentsInlineCode", String.join(", ", testGenerator.getArgumentsInlineCode()));
         stringGenerator.addAttribute("expectedResultInit", "");
         if (!testGenerator.getResultInit().equals("")) {
-            stringGenerator.addAttribute("expectedResultInit", String.format("        %s%n", testGenerator.getResultInit()));
+            stringGenerator.addAttribute("expectedResultInit",
+                    stringService.addPrefixOnAllLines(testGenerator.getResultInit(), "        ") + "\n");
         }
         stringGenerator.addAttribute("expectedResult", testGenerator.getResultObjectCodeGenerator().getInlineCode());
 

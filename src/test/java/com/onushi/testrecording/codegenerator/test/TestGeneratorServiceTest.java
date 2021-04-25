@@ -7,7 +7,7 @@ import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import com.onushi.testrecording.codegenerator.template.StringService;
-import com.onushi.testrecording.sampleclasses.Student;
+import com.onushi.sampleapp.Student;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -216,5 +216,31 @@ class TestGeneratorServiceTest {
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
-
+    // TODO IB activate later
+//    @Test
+//    void generateTestForResultCreatedWithBuilder() throws Exception {
+//        // Arrange
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Person person = Person.builder()
+//                .firstName("Chuck")
+//                .lastName("Norris")
+//                .dateOfBirth(simpleDateFormat.parse("1940-03-10"))
+//                .build();
+//        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+//                .target(new PersonService(new PersonRepositoryImpl()))
+//                .methodName("loadPerson")
+//                .arguments(Collections.singletonList(1))
+//                .result(person)
+//                .resultType(Person.class)
+//                .build();
+//
+//        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+//
+//        // Act
+//        String testString = testGeneratorService.generateTestCode(testGenerator);
+//
+//        // Assert
+//        assertEquals(StringUtils.trimAndIgnoreCRDiffs(""),
+//                StringUtils.trimAndIgnoreCRDiffs(testString));
+//    }
 }

@@ -32,7 +32,6 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
 
     private void setInitCode(ObjectCodeGenerator objectCodeGenerator, Object object, String objectName) {
         StringGenerator stringGenerator = new StringGenerator();
-        // TODO IB !!!! indentation improvement
         stringGenerator.setTemplate(
                 "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
                 getSettersCodeForInit(object) +

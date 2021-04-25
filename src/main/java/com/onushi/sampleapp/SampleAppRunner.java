@@ -33,7 +33,7 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // personService.loadPerson(1);
 
-        sampleService.returnNull();
+        // sampleService.returnNull();
 
         // TODO IB can I see the name of the params in the constructor?
 //        Person person = Person.builder()

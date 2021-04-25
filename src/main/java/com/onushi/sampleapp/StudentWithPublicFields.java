@@ -1,5 +1,5 @@
 
-package com.onushi.testrecording.sampleclasses;
+package com.onushi.sampleapp;
 
 public class StudentWithPublicFields {
     public String firstName;

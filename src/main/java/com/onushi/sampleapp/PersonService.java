@@ -12,7 +12,6 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    @RecordTest
     Person loadPerson(int id) throws Exception {
         return personRepository.getPerson(id);
     }

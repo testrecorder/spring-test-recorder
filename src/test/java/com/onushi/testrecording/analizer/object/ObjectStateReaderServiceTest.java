@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.object;
 
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
-import com.onushi.testrecording.sampleclasses.StudentWithBuilder;
-import com.onushi.testrecording.sampleclasses.StudentWithPublicFields;
+import com.onushi.sampleapp.StudentWithBuilder;
+import com.onushi.sampleapp.StudentWithPublicFields;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

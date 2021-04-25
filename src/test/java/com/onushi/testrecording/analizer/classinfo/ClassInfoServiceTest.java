@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analizer.classinfo;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.testrecording.sampleclasses.Student;
-import com.onushi.testrecording.sampleclasses.StudentWithBuilder;
+import com.onushi.sampleapp.Student;
+import com.onushi.sampleapp.StudentWithBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
