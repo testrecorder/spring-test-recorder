@@ -4,7 +4,8 @@ import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
 import org.springframework.stereotype.Component;
 
-// TODO IB handle also array and void
+// TODO IB !!!! handle array
+// TODO IB handle void
 // TODO IB LATER generics
 // TODO IB some functions alter the arguments or the target object
 @Component

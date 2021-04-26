@@ -8,6 +8,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+// TODO IB !!!! Plan
+//      To create an object we must know
+//          if it's @Component or not
+//          the objects it depends on (from builder, setters, constructor)
+//          also dependencies of dependencies. etc
+//          keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
+//          n objects can have common dependencies
+//              we need a dependency sorter
+//              LATER - there will be a case when the dependencies are circular
+//      Target dependencies @components will be mocked
+//          Intercept calls to all dependent components and create when() calls
+//      If target.method returns void or there is no equals
+//          skip assertEquals(expectedResult, result)
+//      If any property changed on target or target dependencies
+//          create assertEquals() for all the new values
+
+
 @Service
 public class TestGeneratorService {
     private final StringService stringService;
@@ -66,7 +83,7 @@ public class TestGeneratorService {
         attributes.put("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 
         // TODO IB result can be asserted like this only when equals exists
-        // TODO IB if return is void we don't assert the result, but we assert the changes on the target and arguments
+        // TODO IB if return is void we don't assert the result, but we assert the changes on the target and non-component dependencies
         if (testGenerator.getResultType().isPrimitive()) {
             attributes.put("resultType", testGenerator.getResultType().getCanonicalName());
         } else {
@@ -107,7 +124,6 @@ public class TestGeneratorService {
         return stringGenerator.generate();
     }
 
-    // TODO IB you can check the side effects with Mock too
     private String getAssertCode(Map<String, String> attributes) {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.addAttributes(attributes);

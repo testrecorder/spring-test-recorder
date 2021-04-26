@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.*;
 
-// TODO IB mock is simpler to implement like this
 class ObjectNameGeneratorTest {
 
     @Test
