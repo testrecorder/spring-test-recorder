@@ -49,7 +49,6 @@ public class ClassInfoService {
         return false;
     }
 
-    // TODO IB !!!! should work on classes
     public List<Method> getLombokBuilderSetters(Class<?> clazz) {
         Method[] publicMethods = clazz.getMethods();
         Optional<Method> builderMethod = Arrays.stream(publicMethods)
