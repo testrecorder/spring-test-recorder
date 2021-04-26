@@ -31,28 +31,22 @@ public class ClassInfoService {
         return false;
     }
 
-    // TODO IB !!!! should work on classes
-    public boolean canBeCreatedWithLombokBuilder(Object object) {
-        if (object == null) {
-            return false;
-        } else {
-            Class<?> clazz = object.getClass();
-            Method[] publicMethods = clazz.getMethods();
-            Optional<Method> builderMethod = Arrays.stream(publicMethods)
-                    .filter(method -> method.getName().equals("builder") &&
-                            Modifier.isStatic(method.getModifiers()))
+    public boolean canBeCreatedWithLombokBuilder(Class<?> clazz) {
+        Method[] publicMethods = clazz.getMethods();
+        Optional<Method> builderMethod = Arrays.stream(publicMethods)
+                .filter(method -> method.getName().equals("builder") &&
+                        Modifier.isStatic(method.getModifiers()))
+                .findFirst();
+        if (builderMethod.isPresent()) {
+            Class<?> builderClass = builderMethod.get().getReturnType();
+            Optional<Method> buildMethod = Arrays.stream(builderClass.getMethods())
+                    .filter(method -> method.getName().equals("build"))
                     .findFirst();
-            if (builderMethod.isPresent()) {
-                Class<?> builderClass = builderMethod.get().getReturnType();
-                Optional<Method> buildMethod = Arrays.stream(builderClass.getMethods())
-                        .filter(method -> method.getName().equals("build"))
-                        .findFirst();
-                if (buildMethod.isPresent()) {
-                    return buildMethod.get().getReturnType() == clazz;
-                }
+            if (buildMethod.isPresent()) {
+                return buildMethod.get().getReturnType() == clazz;
             }
-            return false;
         }
+        return false;
     }
 
     // TODO IB !!!! should work on classes

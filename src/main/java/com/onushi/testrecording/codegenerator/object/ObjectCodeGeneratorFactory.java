@@ -51,7 +51,7 @@ public class ObjectCodeGeneratorFactory {
             case "java.util.Date":
                 return dateObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
             default:
-                if (classInfoService.canBeCreatedWithLombokBuilder(object)) {
+                if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
                     return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(object, objectName);
                 } else {
                     return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());

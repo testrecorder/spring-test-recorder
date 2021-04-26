@@ -27,8 +27,8 @@ class ClassInfoServiceTest {
     @Test
     void canBeCreatedWithLombokBuilder() {
         ClassInfoService classInfoService = new ClassInfoService();
-        assertTrue(classInfoService.canBeCreatedWithLombokBuilder(new StudentWithBuilder("f", "l", 25)));
-        assertFalse(classInfoService.canBeCreatedWithLombokBuilder(new Student()));
+        assertTrue(classInfoService.canBeCreatedWithLombokBuilder(StudentWithBuilder.class));
+        assertFalse(classInfoService.canBeCreatedWithLombokBuilder(Student.class));
     }
 
     @Test
