@@ -50,23 +50,19 @@ public class ClassInfoService {
     }
 
     // TODO IB !!!! should work on classes
-    public List<Method> getLombokBuilderSetters(Object object) {
-        List<Method> result = new ArrayList<>();
-        if (object != null) {
-            Class<?> clazz = object.getClass();
-            Method[] publicMethods = clazz.getMethods();
-            Optional<Method> builderMethod = Arrays.stream(publicMethods)
-                    .filter(method -> method.getName().equals("builder") &&
-                            Modifier.isStatic(method.getModifiers()))
-                    .findFirst();
-            if (builderMethod.isPresent()) {
-                Class<?> builderClass = builderMethod.get().getReturnType();
-                return Arrays.stream(builderClass.getMethods())
-                        .filter(method -> method.getReturnType() == builderClass)
-                        .sorted(Comparator.comparing(Method::getName))
-                        .collect(Collectors.toList());
-            }
+    public List<Method> getLombokBuilderSetters(Class<?> clazz) {
+        Method[] publicMethods = clazz.getMethods();
+        Optional<Method> builderMethod = Arrays.stream(publicMethods)
+                .filter(method -> method.getName().equals("builder") &&
+                        Modifier.isStatic(method.getModifiers()))
+                .findFirst();
+        if (builderMethod.isPresent()) {
+            Class<?> builderClass = builderMethod.get().getReturnType();
+            return Arrays.stream(builderClass.getMethods())
+                    .filter(method -> method.getReturnType() == builderClass)
+                    .sorted(Comparator.comparing(Method::getName))
+                    .collect(Collectors.toList());
         }
-        return result;
+        return new ArrayList<>();
     }
 }

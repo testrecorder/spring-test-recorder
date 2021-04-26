@@ -43,8 +43,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
     }
 
     private String getSettersCodeForInit(Object object) {
-
-        List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object);
+        List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object.getClass());
         Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
 
         StringBuilder settersCode = new StringBuilder();
