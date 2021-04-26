@@ -2,7 +2,6 @@ package com.onushi.testrecording.analizer.classInfo;
 
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -10,9 +9,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClassInfoService {
-    // TODO IB compute these
-    public boolean isSpringComponent() {
-        return false;
+    public boolean isSpringComponent(Class<?> clazz) {
+        return Arrays.stream(clazz.getAnnotations()).anyMatch(x ->
+                x.annotationType().getName().equals("org.springframework.stereotype.Component") ||
+                x.annotationType().getName().equals("org.springframework.stereotype.Service") ||
+                x.annotationType().getName().equals("org.springframework.stereotype.Repository") ||
+                x.annotationType().getName().equals("org.springframework.stereotype.Controller"));
     }
 
     public boolean hasEquals(Class<?> clazz) {
@@ -20,6 +22,7 @@ public class ClassInfoService {
                 method.getDeclaringClass() == clazz);
     }
 
+    // TODO IB compute these
     public boolean canBeCreatedWithNoArgsConstructor() {
         return false;
     }

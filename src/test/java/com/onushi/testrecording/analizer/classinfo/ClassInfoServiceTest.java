@@ -1,9 +1,7 @@
 package com.onushi.testrecording.analizer.classinfo;
 
-import com.onushi.sampleapp.StudentWithPublicFields;
+import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.sampleapp.Student;
-import com.onushi.sampleapp.StudentWithBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -13,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ClassInfoServiceTest {
     @Test
     void isSpringComponent() {
+        ClassInfoService classInfoService = new ClassInfoService();
+        assertTrue(classInfoService.isSpringComponent(PersonRepositoryImpl.class));
+        assertFalse(classInfoService.isSpringComponent(Person.class));
     }
 
     @Test

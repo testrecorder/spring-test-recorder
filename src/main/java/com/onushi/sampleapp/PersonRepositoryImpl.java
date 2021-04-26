@@ -1,9 +1,10 @@
 package com.onushi.sampleapp;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import java.text.SimpleDateFormat;
 
-@Component
+@Repository
 public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Person getPerson(int id) throws Exception {
