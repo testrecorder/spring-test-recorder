@@ -107,6 +107,7 @@ public class TestGeneratorService {
         return stringGenerator.generate();
     }
 
+    // TODO IB you can check the side effects with Mock too
     private String getAssertCode(Map<String, String> attributes) {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.addAttributes(attributes);

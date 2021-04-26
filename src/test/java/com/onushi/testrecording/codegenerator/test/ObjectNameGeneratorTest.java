@@ -1,25 +1,21 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.*;
 import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-// TODO IB how to check test coverage?
-@ExtendWith(MockitoExtension.class)
+// TODO IB mock is simpler to implement like this
 class ObjectNameGeneratorTest {
-    @Mock
-    TestGenerator testGeneratorMock;
 
     @Test
     void getObjectName() throws InterruptedException {
         Map<Object, String> objectNames = new HashMap<>();
         Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
+        TestGenerator testGeneratorMock = mock(TestGenerator.class);
         when(testGeneratorMock.getObjectNames()).thenReturn(objectNames);
         when(testGeneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
