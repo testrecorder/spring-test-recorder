@@ -31,7 +31,6 @@ public class SampleService {
     }
 
     // TODO !!!! also returns void
-    @RecordTest
     public Person returnNull() {
         return null;
     }
@@ -66,5 +65,10 @@ public class SampleService {
 
     public String getFirstName(Person person) {
         return person.getFirstName();
+    }
+
+    @RecordTest
+    public String testException(int x) {
+        throw new IllegalArgumentException("x");
     }
 }

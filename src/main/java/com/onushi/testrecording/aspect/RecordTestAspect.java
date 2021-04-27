@@ -27,17 +27,28 @@ public class RecordTestAspect {
         this.monitorMethodSemaphore = monitorMethodSemaphore;
     }
 
+    // TODO IB !!!! test that I did not break the original method
     @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         monitorMethodSemaphore.setMonitoring(true);
-        Object result = proceedingJoinPoint.proceed();
-        monitorMethodSemaphore.setMonitoring(false);
+        Object result;
+        try {
+            result = proceedingJoinPoint.proceed();
+        } catch(Exception ex) {
+            monitorMethodSemaphore.setMonitoring(false);
+            generateTestCode((MethodInvocationProceedingJoinPoint) proceedingJoinPoint, null, ex);
+            throw ex;
+        }
 
-        MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo((MethodInvocationProceedingJoinPoint)proceedingJoinPoint, result);
+        monitorMethodSemaphore.setMonitoring(false);
+        generateTestCode((MethodInvocationProceedingJoinPoint) proceedingJoinPoint, result, null);
+        return result;
+    }
+
+    private void generateTestCode(MethodInvocationProceedingJoinPoint proceedingJoinPoint, Object result, Exception exception) throws Exception {
+        MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo(proceedingJoinPoint, result, exception);
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
         String testCode = testGeneratorService.generateTestCode(testGenerator);
         System.out.println(testCode);
-
-        return result;
     }
 }

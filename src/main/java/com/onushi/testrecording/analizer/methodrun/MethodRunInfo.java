@@ -16,14 +16,16 @@ public class MethodRunInfo {
     protected List<Object> arguments;
     protected Class<?> resultType;
     protected Object result;
+    protected Exception exception;
 
     protected MethodRunInfo() {}
 
-    public MethodRunInfo(Object target, String methodName, List<Object> arguments, Class<?> resultType, Object result) {
+    public MethodRunInfo(Object target, String methodName, List<Object> arguments, Class<?> resultType, Object result, Exception exception) {
         this.target = target;
         this.methodName = methodName;
         this.arguments = arguments;
         this.resultType = resultType;
         this.result = result;
+        this.exception = exception;
     }
 }

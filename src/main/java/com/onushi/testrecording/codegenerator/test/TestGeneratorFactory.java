@@ -43,6 +43,7 @@ public class TestGeneratorFactory {
 
         testGenerator.resultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");
         testGenerator.resultType = methodRunInfo.getResultType();
+        testGenerator.expectedException = methodRunInfo.getException();
 
         setRequiredImports(testGenerator);
 

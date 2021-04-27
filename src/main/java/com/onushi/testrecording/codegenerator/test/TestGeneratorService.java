@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 // TODO IB !!!! Plan
 //      To create an object we must know
-//          if it's @Component or not
+//          OK - if it's @Component or not
 //          the objects it depends on (from builder, setters, constructor)
 //          also dependencies of dependencies. etc
 //          keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
@@ -23,11 +23,10 @@ import java.util.stream.Collectors;
 //          skip assertEquals(expectedResult, result)
 //      If any property changed on target or target dependencies
 //          create assertEquals() for all the new values
+//      OK - Handle also exceptions thrown by act
+//          assertThrows(IllegalArgumentException.class, () -> new SampleService().testException(5));
 
 // TODO IB !!!! Explore
-//      Generate a test with mocking
-//      Dependencies of dependencies of dependencies
-//      Exception thrown
 //      Generics
 
 
@@ -68,9 +67,9 @@ public class TestGeneratorService {
                 "class {{testClassName}} {\n" +
                 "    @Test\n" +
                 "    void {{methodName}}() throws Exception {\n" +
-                        getArrangeCode(attributes) +
-                        getActCode(attributes) +
-                        getAssertCode(attributes) +
+                        getArrangeCode(testGenerator, attributes) +
+                        getActCode(testGenerator, attributes) +
+                        getAssertCode(testGenerator, attributes) +
                 "    }\n" +
                 "}\n");
         stringGenerator.addAttributes(attributes);
@@ -103,10 +102,13 @@ public class TestGeneratorService {
                     stringService.addPrefixOnAllLines(testGenerator.getResultInit(), "        ") + "\n");
         }
         attributes.put("expectedResult", testGenerator.getResultObjectCodeGenerator().getInlineCode());
+        if (testGenerator.getExpectedException() != null) {
+            attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
+        }
         return attributes;
     }
 
-    private String getArrangeCode(Map<String, String> attributes) {
+    private String getArrangeCode(TestGenerator testGenerator, Map<String, String> attributes) {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.addAttributes(attributes);
         stringGenerator.setTemplate(
@@ -119,26 +121,35 @@ public class TestGeneratorService {
 
     }
 
-    private String getActCode(Map<String, String> attributes) {
+    private String getActCode(TestGenerator testGenerator, Map<String, String> attributes) {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.addAttributes(attributes);
-        stringGenerator.setTemplate(
-            "        // Act\n" +
-            "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n"
-        );
+        if (testGenerator.getExpectedException() == null) {
+            stringGenerator.setTemplate(
+                "        // Act\n" +
+                "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
+        } else {
+            stringGenerator.setTemplate(
+                "        // Act & Assert\n" +
+                "        assertThrows({{expectedExceptionClassName}}.class, () -> {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}}));\n");
+
+        }
 
         return stringGenerator.generate();
     }
 
-    private String getAssertCode(Map<String, String> attributes) {
-        StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.addAttributes(attributes);
-        stringGenerator.setTemplate(
-            "        // Assert\n" +
-                    "{{expectedResultInit}}" +
-            "        assertEquals({{expectedResult}}, result);\n");
-
-        return stringGenerator.generate();
+    private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) {
+        if (testGenerator.getExpectedException() == null) {
+            StringGenerator stringGenerator = new StringGenerator();
+            stringGenerator.addAttributes(attributes);
+            stringGenerator.setTemplate(
+                "        // Assert\n" +
+                        "{{expectedResultInit}}" +
+                "        assertEquals({{expectedResult}}, result);\n");
+            return stringGenerator.generate();
+        } else {
+            return "";
+        }
     }
 
 

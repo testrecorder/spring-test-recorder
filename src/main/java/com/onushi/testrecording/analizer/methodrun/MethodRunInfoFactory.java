@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 @Service
 public class MethodRunInfoFactory {
-    public MethodRunInfo createMethodRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result) {
+    public MethodRunInfo createMethodRunInfo(MethodInvocationProceedingJoinPoint methodInvocation, Object result, Exception exception) {
         MethodRunInfo methodRunInfo = new MethodRunInfo();
 
         MethodSignature methodSignature = (MethodSignature)methodInvocation.getSignature();
@@ -17,6 +17,7 @@ public class MethodRunInfoFactory {
         methodRunInfo.arguments = Arrays.asList(methodInvocation.getArgs());
         methodRunInfo.resultType = methodSignature.getReturnType();
         methodRunInfo.result = result;
+        methodRunInfo.exception = exception;
 
         return methodRunInfo;
     }

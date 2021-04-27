@@ -16,13 +16,16 @@ public class TestGenerator {
     protected String shortClassName;
     protected String methodName;
     protected List<ObjectCodeGenerator> argumentObjectCodeGenerators;
+    // TODO IB !!!! I think this should be called expectedResult
     protected ObjectCodeGenerator resultObjectCodeGenerator;
     protected Class<?> resultType;
+    protected Exception expectedException;
 
     protected List<String> requiredImports;
     protected List<String> requiredHelperObjects;
     protected List<String> objectsInit;
     protected List<String> argumentsInlineCode;
+    // TODO IB !!!! I think this should be called expectedResultInit
     protected String resultInit;
 
     protected final Map<Object, String> objectNames = new HashMap<>();
