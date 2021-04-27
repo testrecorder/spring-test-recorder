@@ -8,12 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-// TODO IB !!!! move all these classes in tests?
 @Component
 public class SampleService {
     public final int testField = 5;
 
-    @RecordTest
     public int add(int x, int y) {
         return addInternal(x, y);
     }
@@ -69,5 +67,10 @@ public class SampleService {
 
     public String testException(int x) {
         throw new IllegalArgumentException("x");
+    }
+
+    @RecordTest
+    public void doNothing() {
+
     }
 }

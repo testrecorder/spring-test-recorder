@@ -1,10 +1,11 @@
 
-INFO =============
+INFO ==========================
 	There is another test recorder 
 		http://testrecorder.amygdalum.net/index.html
 		Get from github and try to see what tests are generated
 		
 
+DONE ==========================
 	OK - Handle also exceptions thrown by act
 		assertThrows(IllegalArgumentException.class, () -> new SampleService().testException(5));
 	OK - if it's @Component or not
@@ -12,20 +13,19 @@ INFO =============
 	OK - if the class has equals or not
 
 
-TODO =============
+TODO ==========================
 	ObjectCodeGenerators
 		To create an object we must know
-			Add an enum specifying the destination of an object
+			Enum specifying the destination of an object
 				Target - this should not be mocked
 				MethodArgument - argument of the method call
 				ExpectedResult
 				Dependency - dependency of the target, arguments or expected result
 				Warning: An object can be MethodArgument + Dependency, or ExpectedResult + Argument
 		
-			the objects it depends on (from builder, setters, constructor)
-			also dependencies of dependencies. etc
-			keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
-			n objects can have common dependencies
+			the dependencies (also dependencies of dependencies ...)
+				keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
+			different objects can have common dependencies
 				we need a dependency sorter
 				
 			Non-@Component object creation priority
@@ -46,7 +46,7 @@ TODO =============
 			@Component dependencies will be mocked
 				Intercept calls to all dependent components and create when() calls
 			
-    Test Code Generation
+	Test Code Generation
 		Check expected result
 			if returnType != void
 				if has equals
@@ -56,14 +56,16 @@ TODO =============
 						test with getters
 					if public fields exist
 						test with public fields
-			if returnType == void
-				skip checking the equals
+			OK - if returnType == void
+				skip checking the equals and skip collecting the result
 
 		Check side effects on target, arguments, any dependencies
 			create assertEquals() for all the new values
      
 	
-LATER =============
+	Move all the test classes with in the testrecording package
+	
+LATER ==========================
 	if needed object initialisation code could be learned from github	
 	
 	http://tutorials.jenkov.com/java-reflection/private-fields-and-methods.html

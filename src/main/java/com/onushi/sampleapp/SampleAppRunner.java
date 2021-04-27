@@ -27,7 +27,7 @@ public class SampleAppRunner implements CommandLineRunner {
 //        Date min1 = sampleService.minDate(d3, d4);
 //
 //        sampleService.addInternal(5, 6);
-          sampleService.add(5, 6);
+//        sampleService.add(5, 6);
 //        sampleService.addFloats(2f, 3f);
 //        sampleService.logicalAnd(true, true);
 //        sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date(), new Date());
@@ -40,5 +40,7 @@ public class SampleAppRunner implements CommandLineRunner {
 //        Person person = Person.builder()
 //                .isActor(true)
 //                .build();
+
+        sampleService.doNothing();
     }
 }

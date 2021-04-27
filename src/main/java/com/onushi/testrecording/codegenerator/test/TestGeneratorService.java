@@ -103,9 +103,15 @@ public class TestGeneratorService {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.addAttributes(attributes);
         if (testGenerator.getExpectedException() == null) {
-            stringGenerator.setTemplate(
-                "        // Act\n" +
-                "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
+            if (testGenerator.getResultType() == void.class) {
+                stringGenerator.setTemplate(
+                    "        // Act\n" +
+                    "        {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
+            } else {
+                stringGenerator.setTemplate(
+                    "        // Act\n" +
+                    "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
+            }
         } else {
             stringGenerator.setTemplate(
                 "        // Act & Assert\n" +
@@ -117,7 +123,7 @@ public class TestGeneratorService {
     }
 
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) {
-        if (testGenerator.getExpectedException() == null) {
+        if (testGenerator.getExpectedException() == null && testGenerator.getResultType() != void.class) {
             StringGenerator stringGenerator = new StringGenerator();
             stringGenerator.addAttributes(attributes);
             stringGenerator.setTemplate(
