@@ -24,6 +24,12 @@ import java.util.stream.Collectors;
 //      If any property changed on target or target dependencies
 //          create assertEquals() for all the new values
 
+// TODO IB !!!! Explore
+//      Generate a test with mocking
+//      Dependencies of dependencies of dependencies
+//      Exception thrown
+//      Generics
+
 
 @Service
 public class TestGeneratorService {
