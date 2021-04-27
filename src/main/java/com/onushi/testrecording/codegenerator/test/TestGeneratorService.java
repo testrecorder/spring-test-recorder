@@ -66,7 +66,6 @@ public class TestGeneratorService {
         attributes.put("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 
         // TODO IB result can be asserted like this only when equals exists
-        // TODO IB if return is void we don't assert the result, but we assert the changes on the target and non-component dependencies
         if (testGenerator.getResultType().isPrimitive()) {
             attributes.put("resultType", testGenerator.getResultType().getCanonicalName());
         } else {
