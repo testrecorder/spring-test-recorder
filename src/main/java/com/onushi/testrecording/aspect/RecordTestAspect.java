@@ -27,7 +27,6 @@ public class RecordTestAspect {
         this.monitorMethodSemaphore = monitorMethodSemaphore;
     }
 
-    // TODO IB !!!! test that I did not break the original method
     @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         monitorMethodSemaphore.setMonitoring(true);

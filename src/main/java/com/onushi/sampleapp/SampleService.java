@@ -13,7 +13,7 @@ import java.util.TimeZone;
 public class SampleService {
     public final int testField = 5;
 
-
+    @RecordTest
     public int add(int x, int y) {
         return addInternal(x, y);
     }
@@ -67,7 +67,6 @@ public class SampleService {
         return person.getFirstName();
     }
 
-    @RecordTest
     public String testException(int x) {
         throw new IllegalArgumentException("x");
     }

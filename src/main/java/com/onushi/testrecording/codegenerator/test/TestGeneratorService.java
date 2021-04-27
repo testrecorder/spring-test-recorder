@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 //          create assertEquals() for all the new values
 //      OK - Handle also exceptions thrown by act
 //          assertThrows(IllegalArgumentException.class, () -> new SampleService().testException(5));
-//      Handle Generics everywhere
+//      Handle Generics
 
 
 @Service
