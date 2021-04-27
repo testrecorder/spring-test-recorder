@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO IB !!!! Write tests for all the code
+// TODO IB Write tests for all the code
 // TODO IB http://tutorials.jenkov.com/java-reflection/private-fields-and-methods.html
 @Getter
 public class TestGenerator {
