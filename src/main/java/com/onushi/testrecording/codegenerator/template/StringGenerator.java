@@ -24,7 +24,6 @@ public class StringGenerator {
     }
 
 
-    // TODO IB LATER improve if slow
     public String generate() {
         String result = template;
         for (String key: context.keySet()) {

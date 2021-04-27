@@ -65,7 +65,6 @@ public class TestGeneratorService {
         attributes.put("className", testGenerator.getShortClassName());
         attributes.put("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 
-        // TODO IB result can be asserted like this only when equals exists
         if (testGenerator.getResultType().isPrimitive()) {
             attributes.put("resultType", testGenerator.getResultType().getCanonicalName());
         } else {

@@ -16,7 +16,10 @@ DONE ==========================
 TODO ==========================
 	ObjectCodeGenerators
 		To create an object we must know
-			Enum specifying the destination of an object
+			!!!! Get fields to set from getters and public fields
+			!!!! Get constructors and their arguments
+
+			Enum specifying the destination of an object?
 				Target - this should not be mocked
 				MethodArgument - argument of the method call
 				ExpectedResult
@@ -31,17 +34,24 @@ TODO ==========================
 			Non-@Component object creation priority
 					Known object like primitives and utils first
 						https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
-						add arrays
-						add ArrayList<>
-						add HashMap<>
-						add Map<>
-					Get fields to set from getters and public fields
-						Create with NoArgs constructor if NoArgs constructor exists and no fields to be set
-						OK - Create with Lombok builder
-						Create with args constructor if there is a identifiable constructor covering all the fields
-						Create with setters if there is a NoArg constructor + all setters
-						Create with fields if there is a NoArg constructor + public fields
-						Cannot create => write some comments explaining and write in the comments the fields values to set
+						handle arrays
+						handle ArrayList<>
+						handle HashMap<>
+						handle Map<>
+					Unknown objects
+						Creation priority
+							if NoArgs constructor exists and no fields to be set
+								Create with NoArgs constructor 
+							OK - if Lombok builder exists
+								OK - Create with Lombok builder
+							if there is a identifiable constructor covering all the fields
+								Create with args constructor 
+							if there is a NoArg constructor + all setters
+								Create with setters 
+							if there is a NoArg constructor + public fields
+								Create with fields 
+							else
+								Cannot create => write some comments explaining fields values to be set
 					
 			@Component dependencies will be mocked
 				Intercept calls to all dependent components and create when() calls
@@ -63,7 +73,10 @@ TODO ==========================
 			create assertEquals() for all the new values
      
 	
-	Move all the test classes with in the testrecording package
+	Move all the test classes within the testrecording package
+	
+	!!!! Write tests for all the code
+		check coverage again
 	
 LATER ==========================
 	if needed object initialisation code could be learned from github	
@@ -75,6 +88,8 @@ LATER ==========================
 	there will be a case when the dependencies are circular
 
 	create non-components with factory
+	
+	improve StringGenerator if slow
 
 
 	

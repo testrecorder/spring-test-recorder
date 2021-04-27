@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO IB Write tests for all the code
-// TODO IB I need to differentiate objects: target, argument, expectedResult, dependency
 @Getter
 public class TestGenerator {
     protected ObjectCodeGenerator targetObjectCodeGenerator;

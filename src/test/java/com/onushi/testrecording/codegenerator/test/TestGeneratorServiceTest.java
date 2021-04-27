@@ -298,7 +298,7 @@ class TestGeneratorServiceTest {
 
 
 
-    // TODO IB activate after we implemented mocking
+// TODO IB activate after we implemented mocking
 //    @Test
 //    void generateTestForResultCreatedWithBuilder() throws Exception {
 //        // Arrange

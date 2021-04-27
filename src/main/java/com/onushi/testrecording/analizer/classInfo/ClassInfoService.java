@@ -22,7 +22,6 @@ public class ClassInfoService {
                 method.getDeclaringClass() == clazz);
     }
 
-    // TODO IB compute these
     public boolean canBeCreatedWithNoArgsConstructor() {
         return false;
     }

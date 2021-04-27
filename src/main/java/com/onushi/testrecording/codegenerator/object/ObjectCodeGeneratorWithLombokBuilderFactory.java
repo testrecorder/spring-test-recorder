@@ -53,7 +53,6 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             stringGenerator.setTemplate("    .{{fieldName}}({{fieldValue}})\n");
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
-                // TODO IB we should also use the initCode for all the objects
                 ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(objectState.get(fieldName), "ignored");
                 stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
             } else {
