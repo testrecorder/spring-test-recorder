@@ -37,7 +37,6 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // sampleService.testException(5);
 
-        // TODO IB can I see the name of the params in the constructor?
 //        Person person = Person.builder()
 //                .isActor(true)
 //                .build();

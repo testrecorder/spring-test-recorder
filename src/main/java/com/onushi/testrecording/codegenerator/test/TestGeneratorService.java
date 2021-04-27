@@ -8,26 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! Plan
-//      To create an object we must know
-//          OK - if it's @Component or not
-//          the objects it depends on (from builder, setters, constructor)
-//          also dependencies of dependencies. etc
-//          keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
-//          n objects can have common dependencies
-//              we need a dependency sorter
-//              LATER - there will be a case when the dependencies are circular
-//      Target dependencies @components will be mocked
-//          Intercept calls to all dependent components and create when() calls
-//      If target.method returns void or there is no equals
-//          skip assertEquals(expectedResult, result)
-//      If any property changed on target or target dependencies
-//          create assertEquals() for all the new values
-//      OK - Handle also exceptions thrown by act
-//          assertThrows(IllegalArgumentException.class, () -> new SampleService().testException(5));
-//      Handle Generics
-
-
 @Service
 public class TestGeneratorService {
     private final StringService stringService;

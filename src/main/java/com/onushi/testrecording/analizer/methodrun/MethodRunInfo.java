@@ -5,8 +5,6 @@ import lombok.Getter;
 
 import java.util.*;
 
-// TODO IB Do I need to differentiate objects tested / sent as params / being the result?
-// TODO IB handle exceptions being thrown
 
 @Getter
 @Builder

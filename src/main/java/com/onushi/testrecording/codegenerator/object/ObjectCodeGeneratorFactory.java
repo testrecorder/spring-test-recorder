@@ -5,9 +5,6 @@ import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
 import org.springframework.stereotype.Component;
 
 // TODO IB !!!! handle array
-// TODO IB handle void as a result of target.method
-// TODO IB LATER generics
-// TODO IB some functions alter the arguments or the target object
 @Component
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;

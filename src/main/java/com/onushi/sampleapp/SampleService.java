@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-// TODO IB all tests included in the testrecording package should be on included classes
+// TODO IB !!!! move all these classes in tests?
 @Component
 public class SampleService {
     public final int testField = 5;

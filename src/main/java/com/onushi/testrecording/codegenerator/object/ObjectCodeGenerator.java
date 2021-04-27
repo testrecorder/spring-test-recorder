@@ -1,20 +1,16 @@
 package com.onushi.testrecording.codegenerator.object;
 
-
-// TODO IB https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
-
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO IB if needed object initialisation code could be learned from github
 @Getter
 public class ObjectCodeGenerator {
     protected final Object object;
     protected final String objectName;
     // TODO IB use this
-    protected List<ObjectCodeGenerator> dependsOn = new ArrayList<>();
+    protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();
     protected List<String> requiredImports = new ArrayList<>();
     protected List<String> requiredHelperObjects = new ArrayList<>();
     protected String initCode = "";

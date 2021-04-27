@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
-// TODO IB There is another test recorder http://testrecorder.amygdalum.net/index.html
+
 @Service
 public class ObjectNameGenerator {
     public String getObjectName(TestGenerator testGenerator, Object object) {
