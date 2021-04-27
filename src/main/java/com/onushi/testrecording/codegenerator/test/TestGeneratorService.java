@@ -97,11 +97,11 @@ public class TestGeneratorService {
 
         attributes.put("argumentsInlineCode", String.join(", ", testGenerator.getArgumentsInlineCode()));
         attributes.put("expectedResultInit", "");
-        if (!testGenerator.getResultInit().equals("")) {
+        if (!testGenerator.getExpectedResultInit().equals("")) {
             attributes.put("expectedResultInit",
-                    stringService.addPrefixOnAllLines(testGenerator.getResultInit(), "        ") + "\n");
+                    stringService.addPrefixOnAllLines(testGenerator.getExpectedResultInit(), "        ") + "\n");
         }
-        attributes.put("expectedResult", testGenerator.getResultObjectCodeGenerator().getInlineCode());
+        attributes.put("expectedResult", testGenerator.getExpectedResultObjectCodeGenerator().getInlineCode());
         if (testGenerator.getExpectedException() != null) {
             attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
         }

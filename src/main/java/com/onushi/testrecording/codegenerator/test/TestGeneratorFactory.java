@@ -41,7 +41,7 @@ public class TestGeneratorFactory {
                 .map(x -> objectCodeGeneratorFactory.createObjectCodeGenerator(x, objectNameGenerator.getObjectName(testGenerator, x)))
                 .collect(Collectors.toList());
 
-        testGenerator.resultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");
+        testGenerator.expectedResultObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(methodRunInfo.getResult(), "expectedResult");
         testGenerator.resultType = methodRunInfo.getResultType();
         testGenerator.expectedException = methodRunInfo.getException();
 
@@ -53,7 +53,7 @@ public class TestGeneratorFactory {
 
         setArgumentsInlineCode(testGenerator);
 
-        testGenerator.resultInit = testGenerator.resultObjectCodeGenerator.getInitCode();
+        testGenerator.expectedResultInit = testGenerator.expectedResultObjectCodeGenerator.getInitCode();
 
         return testGenerator;
     }
@@ -64,7 +64,7 @@ public class TestGeneratorFactory {
         testGenerator.requiredImports.add("static org.junit.jupiter.api.Assertions.*");
         testGenerator.requiredImports.addAll(testGenerator.argumentObjectCodeGenerators.stream()
                 .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
-        testGenerator.requiredImports.addAll(testGenerator.resultObjectCodeGenerator.getRequiredImports());
+        testGenerator.requiredImports.addAll(testGenerator.expectedResultObjectCodeGenerator.getRequiredImports());
         testGenerator.requiredImports = testGenerator.requiredImports.stream().distinct().collect(Collectors.toList());
     }
 
@@ -72,7 +72,7 @@ public class TestGeneratorFactory {
         testGenerator.requiredHelperObjects = testGenerator.argumentObjectCodeGenerators.stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
                 .collect(Collectors.toList());
-        testGenerator.requiredHelperObjects.addAll(testGenerator.resultObjectCodeGenerator.getRequiredHelperObjects());
+        testGenerator.requiredHelperObjects.addAll(testGenerator.expectedResultObjectCodeGenerator.getRequiredHelperObjects());
         testGenerator.requiredHelperObjects = testGenerator.requiredHelperObjects.stream().distinct().collect(Collectors.toList());
     }
 

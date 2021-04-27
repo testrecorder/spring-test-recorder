@@ -16,8 +16,7 @@ public class TestGenerator {
     protected String shortClassName;
     protected String methodName;
     protected List<ObjectCodeGenerator> argumentObjectCodeGenerators;
-    // TODO IB !!!! I think this should be called expectedResult
-    protected ObjectCodeGenerator resultObjectCodeGenerator;
+    protected ObjectCodeGenerator expectedResultObjectCodeGenerator;
     protected Class<?> resultType;
     protected Exception expectedException;
 
@@ -25,8 +24,7 @@ public class TestGenerator {
     protected List<String> requiredHelperObjects;
     protected List<String> objectsInit;
     protected List<String> argumentsInlineCode;
-    // TODO IB !!!! I think this should be called expectedResultInit
-    protected String resultInit;
+    protected String expectedResultInit;
 
     protected final Map<Object, String> objectNames = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
