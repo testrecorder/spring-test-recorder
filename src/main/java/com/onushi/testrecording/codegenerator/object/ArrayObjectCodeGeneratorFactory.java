@@ -39,7 +39,7 @@ public class ArrayObjectCodeGeneratorFactory {
 
 
 
-        // extract method
+        // TODO IB !!!! extract method
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};\n");
 

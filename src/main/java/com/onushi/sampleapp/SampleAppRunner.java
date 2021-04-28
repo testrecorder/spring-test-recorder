@@ -3,6 +3,9 @@ package com.onushi.sampleapp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class SampleAppRunner implements CommandLineRunner {
     private final SampleService sampleService;
@@ -39,17 +42,20 @@ public class SampleAppRunner implements CommandLineRunner {
 //                .isActor(true)
 //                .build();
 
-        boolean[] boolArray = {true, false};
-        byte[] byteArray = {1, 2};
-        char[] charArray = {'a', 'z'};
-        double[] doubleArray = {1.0, 2.0};
-        float[] floatArray = {1.0f, 2.0f};
-        int[] intArray = {3, 4};
-        long[] longArray = {3L, 4L};
-        short[] shortArray = {3, 4};
-        String[] stringArray = {"a", "z"};
-        Object[] objectArray = {"a", 2};
-        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
+//        boolean[] boolArray = {true, false};
+//        byte[] byteArray = {1, 2};
+//        char[] charArray = {'a', 'z'};
+//        double[] doubleArray = {1.0, 2.0};
+//        float[] floatArray = {1.0f, 2.0f};
+//        int[] intArray = {3, 4};
+//        long[] longArray = {3L, 4L};
+//        short[] shortArray = {3, 4};
+//        String[] stringArray = {"a", "z"};
+//        Object[] objectArray = {"a", 2};
+//        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
 
+        List<String> stringList = Arrays.asList("a", "b");
+        List<Object> objectList = Arrays.asList(1, "b", null);
+        sampleService.processLists(stringList, objectList);
     }
 }

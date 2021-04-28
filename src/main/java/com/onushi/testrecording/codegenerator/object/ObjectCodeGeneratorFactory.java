@@ -2,9 +2,11 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+import java.util.List;
+
+@Service
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
@@ -46,8 +48,9 @@ public class ObjectCodeGeneratorFactory {
                 if (fullClassName.startsWith("[")) {
                     ArrayObjectCodeGeneratorFactory arrayObjectCodeGeneratorFactory = new ArrayObjectCodeGeneratorFactory(this);
                     return arrayObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
-                }
-                else if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
+                } else if (object instanceof List<?> ) {
+                    return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(object, objectName);
+                } else if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
                     ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
                             new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
                             this.objectStateReaderService,

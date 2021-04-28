@@ -1,6 +1,10 @@
 package com.onushi.sampleapp;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SampleServiceTest {
@@ -38,6 +42,20 @@ class SampleServiceTest {
 
         // Act
         int result = sampleService.processArrays(array1, array2, array3, array4, array5, array6, array7, array8, array9, array10);
+
+        // Assert
+        assertEquals(42, result);
+    }
+
+    @Test
+    void processLists() throws Exception {
+        // Arrange
+        List<String> arrayList1 =  Arrays.asList("a", "b");
+        List<Object> arrayList2 =  Arrays.asList(1, "b", null);
+        SampleService sampleService = new SampleService();
+
+        // Act
+        int result = sampleService.processLists(arrayList1, arrayList2);
 
         // Assert
         assertEquals(42, result);

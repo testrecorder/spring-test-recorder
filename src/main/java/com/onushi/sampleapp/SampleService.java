@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 @Component
@@ -69,16 +70,19 @@ public class SampleService {
         throw new IllegalArgumentException("x");
     }
 
-    @RecordTest
     public void doNothing() {
 
     }
 
-    @RecordTest
     public int processArrays(boolean[] boolArray, byte[] byteArray, char[] charArray,
                              double[] doubleArray, float[] floatArray, int[] intArray,
                              long[] longArray, short[] shortArray, String[] stringArray,
                              Object[] objectArray) {
+        return 42;
+    }
+
+    @RecordTest
+    public int processLists(List<String> list, List<Object> objectList) {
         return 42;
     }
 }
