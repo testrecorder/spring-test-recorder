@@ -7,19 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
+    private final ObjectStateReaderService objectStateReaderService;
     private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
-    private final DateObjectCodeGeneratorFactory dateObjectCodeGeneratorFactory;
-    private final ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory;
 
     public ObjectCodeGeneratorFactory(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService) {
         this.classInfoService = classInfoService;
+        this.objectStateReaderService = objectStateReaderService;
         // TODO IB is it ok to have new here?
         this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
-        // TODO IB !!!! init when needed
-        this.dateObjectCodeGeneratorFactory = new DateObjectCodeGeneratorFactory();
-        this.objectCodeGeneratorWithLombokBuilderFactory = new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
-                objectStateReaderService,
-                this);
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
@@ -46,13 +41,18 @@ public class ObjectCodeGeneratorFactory {
             case "java.lang.Double":
                 return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
             case "java.util.Date":
-                return dateObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
+                return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(object, objectName);
             default:
                 if (fullClassName.startsWith("[")) {
                     ArrayObjectCodeGeneratorFactory arrayObjectCodeGeneratorFactory = new ArrayObjectCodeGeneratorFactory(this);
                     return arrayObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
                 }
-                if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
+                else if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
+                    ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
+                            new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
+                            this.objectStateReaderService,
+                            this);
+
                     return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(object, objectName);
                 } else {
                     return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
