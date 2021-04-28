@@ -36,7 +36,7 @@ TODO ==========================
 					Known object like primitives and utils first
 						https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
 						OK - handle arrays
-						!!!! handle ArrayList<>
+						OK - handle ArrayList<>
 						handle HashMap<>
 						handle Map<>
 					Unknown objects

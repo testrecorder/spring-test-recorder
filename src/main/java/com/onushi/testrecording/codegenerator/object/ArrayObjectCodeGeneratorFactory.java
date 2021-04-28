@@ -29,26 +29,27 @@ public class ArrayObjectCodeGeneratorFactory {
 
         ArrayAsList arrayAsList = getElementList(object);
 
-        List<ObjectCodeGenerator> elementObjectCodeGenerators = new ArrayList<>();
-        for(Object element: arrayAsList.list) {
-            ObjectCodeGenerator elementObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(element, "ignored");
-            elementObjectCodeGenerators.add(elementObjectCodeGenerator);
-        }
-        String elementsInlineCode = elementObjectCodeGenerators.stream()
-                .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
-
-
-
-        // TODO IB !!!! extract method
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};\n");
 
         stringGenerator.addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName());
         stringGenerator.addAttribute("objectName", objectName);
-        stringGenerator.addAttribute("elementsInlineCode", elementsInlineCode);
+        stringGenerator.addAttribute("elementsInlineCode", getElementsInlineCode(arrayAsList.list));
 
         objectCodeGenerator.initCode = stringGenerator.generate();
         return objectCodeGenerator;
+    }
+
+    // TODO IB this part seems to be repeated in multiple factories
+    private String getElementsInlineCode(List<?> list) {
+        List<ObjectCodeGenerator> elementObjectCodeGenerators = new ArrayList<>();
+        for(Object element: list) {
+            ObjectCodeGenerator elementObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(element, "ignored");
+            elementObjectCodeGenerators.add(elementObjectCodeGenerator);
+        }
+        String elementsInlineCode = elementObjectCodeGenerators.stream()
+                .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
+        return elementsInlineCode;
     }
 
     private ArrayAsList getElementList(Object arrayObject) {
