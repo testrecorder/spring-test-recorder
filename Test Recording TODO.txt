@@ -12,6 +12,10 @@ DONE ==========================
 
 	OK - if the class has equals or not
 
+	OK - handle arrays
+	
+	OK - handle ArrayList<>
+
 
 TODO ==========================
 	ObjectCodeGenerators
@@ -35,8 +39,6 @@ TODO ==========================
 			Non-@Component object creation priority
 					Known object like primitives and utils first
 						https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
-						OK - handle arrays
-						OK - handle ArrayList<>
 						handle HashMap<>
 						handle Map<>
 					Unknown objects
@@ -93,7 +95,7 @@ LATER ==========================
 	improve StringGenerator if slow
 	
 	arrays of arrays
-
-
 	
+	Sa citesc de la rus cum sa pregatesc cod pt Git
+
 	

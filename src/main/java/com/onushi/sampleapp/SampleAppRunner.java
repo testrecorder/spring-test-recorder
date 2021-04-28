@@ -54,8 +54,21 @@ public class SampleAppRunner implements CommandLineRunner {
 //        Object[] objectArray = {"a", 2};
 //        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
 
-        List<String> stringList = Arrays.asList("a", "b");
-        List<Object> objectList = Arrays.asList(1, "b", null);
-        sampleService.processLists(stringList, objectList);
+        List<String> stringList = Arrays.asList("Maldive", "Tenerife", "Bahamas");
+        StudentWithBuilder student = StudentWithBuilder.builder()
+                .firstName("Paul")
+                .lastName("Marculescu")
+                .age(35)
+                .build();
+
+        someInternalFunction(stringList, student);
+    }
+
+    private void someInternalFunction(List<String> stringList, StudentWithBuilder student) throws Exception {
+        //
+        // ...
+        int[] array = {1, 2, 3};
+        this.sampleService.someFunction(stringList, student, array);
+        // ...
     }
 }

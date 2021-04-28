@@ -4,6 +4,7 @@ import com.onushi.testrecording.aspect.RecordTest;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +83,10 @@ public class SampleService {
     }
 
     @RecordTest
-    public int processLists(List<String> list, List<Object> objectList) {
-        return 42;
+    public Date someFunction(List<String> list, StudentWithBuilder student, int[] array) throws ParseException {
+        // ....
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        // ...
+        return simpleDateFormat.parse("2022-01-01");
     }
 }
