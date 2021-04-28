@@ -41,6 +41,7 @@ public class SampleAppRunner implements CommandLineRunner {
 //                .isActor(true)
 //                .build();
 
-        sampleService.doNothing();
+        Object[] array1 = {"1", "2"};
+        sampleService.getArrayLength(array1);
     }
 }

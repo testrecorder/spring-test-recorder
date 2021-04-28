@@ -2,7 +2,6 @@ package com.onushi.sampleapp;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import com.onushi.sampleapp.Person;
 
 class SampleServiceTest {
     @Test
@@ -21,4 +20,19 @@ class SampleServiceTest {
         // Assert
         assertEquals("Mary", result);
     }
+
+    @Test
+    void getArrayLength() throws Exception {
+        // Arrange
+        Object[] array1 = {"1", "2"};
+        SampleService sampleService = new SampleService();
+
+        // Act
+        int result = sampleService.getArrayLength(array1);
+
+        // Assert
+        assertEquals(2, result);
+    }
+
+
 }

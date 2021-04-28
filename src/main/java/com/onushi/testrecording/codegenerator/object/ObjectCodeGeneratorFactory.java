@@ -15,6 +15,7 @@ public class ObjectCodeGeneratorFactory {
         this.classInfoService = classInfoService;
         // TODO IB is it ok to have new here?
         this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
+        // TODO IB !!!! init when needed
         this.dateObjectCodeGeneratorFactory = new DateObjectCodeGeneratorFactory();
         this.objectCodeGeneratorWithLombokBuilderFactory = new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
                 objectStateReaderService,
@@ -47,6 +48,10 @@ public class ObjectCodeGeneratorFactory {
             case "java.util.Date":
                 return dateObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
             default:
+                if (fullClassName.startsWith("[")) {
+                    ArrayObjectCodeGeneratorFactory arrayObjectCodeGeneratorFactory = new ArrayObjectCodeGeneratorFactory(this);
+                    return arrayObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
+                }
                 if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
                     return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(object, objectName);
                 } else {

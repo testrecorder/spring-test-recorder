@@ -73,4 +73,9 @@ public class SampleService {
     public void doNothing() {
 
     }
+
+    @RecordTest
+    public int getArrayLength(Object[] elements) {
+        return elements.length;
+    }
 }

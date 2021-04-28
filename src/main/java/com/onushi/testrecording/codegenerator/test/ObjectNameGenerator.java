@@ -21,7 +21,12 @@ public class ObjectNameGenerator {
         if (object == null) {
             return "null";
         } else {
-            return lowerCaseFirstLetter(object.getClass().getSimpleName());
+            String classSimpleName = object.getClass().getSimpleName();
+            if (classSimpleName.contains("[")) {
+                return "array";
+            } else {
+                return lowerCaseFirstLetter(object.getClass().getSimpleName());
+            }
         }
     }
 

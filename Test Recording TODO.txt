@@ -17,6 +17,7 @@ TODO ==========================
 	ObjectCodeGenerators
 		To create an object we must know
 			!!!! Get fields to set from getters and public fields
+				map from name to class. this way we eliminate the problem with null
 			!!!! Get constructors and their arguments
 
 			Enum specifying the destination of an object?
@@ -34,7 +35,7 @@ TODO ==========================
 			Non-@Component object creation priority
 					Known object like primitives and utils first
 						https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
-						handle arrays
+						OK - handle arrays
 						handle ArrayList<>
 						handle HashMap<>
 						handle Map<>
