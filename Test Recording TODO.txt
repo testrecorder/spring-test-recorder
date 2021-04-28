@@ -91,6 +91,8 @@ LATER ==========================
 	create non-components with factory
 	
 	improve StringGenerator if slow
+	
+	arrays of arrays
 
 
 	

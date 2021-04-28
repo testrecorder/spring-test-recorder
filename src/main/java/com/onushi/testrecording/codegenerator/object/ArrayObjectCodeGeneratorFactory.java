@@ -100,6 +100,7 @@ public class ArrayObjectCodeGeneratorFactory {
                 return new ArrayAsList(short.class, shortList);
             default:
                 try {
+                    // arrays of arrays have double L here "[LL..."
                     String elementClassName = arrayClassName.substring(2, arrayClassName.length() - 1);
                     Class<?> clazz = Class.forName(elementClassName);
                     return new ArrayAsList(clazz, Arrays.stream((Object[]) arrayObject).map(clazz::cast).collect(Collectors.toList()));
