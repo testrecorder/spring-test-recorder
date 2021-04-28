@@ -1,9 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
