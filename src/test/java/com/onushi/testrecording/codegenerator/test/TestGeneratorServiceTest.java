@@ -295,7 +295,68 @@ class TestGeneratorServiceTest {
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
+    @Test
+    void generateTestForArrays() throws Exception {
+        // Arrange
+        boolean[] boolArray = {true, false};
+        byte[] byteArray = {1, 2};
+        char[] charArray = {'a', 'z'};
+        double[] doubleArray = {1.0, 2.0};
+        float[] floatArray = {1.0f, 2.0f};
+        int[] intArray = {3, 4};
+        long[] longArray = {3L, 4L};
+        short[] shortArray = {3, 4};
+        String[] stringArray = {"a", "z"};
+        Object[] objectArray = {"a", 2};
+        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("processArrays")
+                .arguments(Arrays.asList(boolArray, byteArray, charArray, doubleArray,
+                        floatArray, intArray, longArray, shortArray, stringArray, objectArray))
+                .result(42)
+                .resultType(int.class)
+                .exception(null)
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void processArrays() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        boolean[] array1 = {true, false};\n" +
+                        "        byte[] array2 = {(byte)1, (byte)2};\n" +
+                        "        char[] array3 = {'a', 'z'};\n" +
+                        "        double[] array4 = {1.0, 2.0};\n" +
+                        "        float[] array5 = {1.0f, 2.0f};\n" +
+                        "        int[] array6 = {3, 4};\n" +
+                        "        long[] array7 = {3L, 4L};\n" +
+                        "        short[] array8 = {(short)3, (short)4};\n" +
+                        "        String[] array9 = {\"a\", \"z\"};\n" +
+                        "        Object[] array10 = {\"a\", 2};\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        int result = sampleService.processArrays(array1, array2, array3, array4, array5, array6, array7, array8, array9, array10);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(42, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
 
 
 // TODO IB activate after we implemented mocking

@@ -3,8 +3,6 @@ package com.onushi.sampleapp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 @Component
 public class SampleAppRunner implements CommandLineRunner {
     private final SampleService sampleService;
@@ -41,7 +39,17 @@ public class SampleAppRunner implements CommandLineRunner {
 //                .isActor(true)
 //                .build();
 
-        Object[] array1 = {"1", "2"};
-        sampleService.getArrayLength(array1);
+        boolean[] boolArray = {true, false};
+        byte[] byteArray = {1, 2};
+        char[] charArray = {'a', 'z'};
+        double[] doubleArray = {1.0, 2.0};
+        float[] floatArray = {1.0f, 2.0f};
+        int[] intArray = {3, 4};
+        long[] longArray = {3L, 4L};
+        short[] shortArray = {3, 4};
+        String[] stringArray = {"a", "z"};
+        Object[] objectArray = {"a", 2};
+        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
+
     }
 }

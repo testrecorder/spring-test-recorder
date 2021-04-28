@@ -75,7 +75,10 @@ public class SampleService {
     }
 
     @RecordTest
-    public int getArrayLength(Object[] elements) {
-        return elements.length;
+    public int processArrays(boolean[] boolArray, byte[] byteArray, char[] charArray,
+                             double[] doubleArray, float[] floatArray, int[] intArray,
+                             long[] longArray, short[] shortArray, String[] stringArray,
+                             Object[] objectArray) {
+        return 42;
     }
 }
