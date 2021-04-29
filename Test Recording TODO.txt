@@ -20,9 +20,9 @@ DONE ==========================
 TODO ==========================
 	ObjectCodeGenerators
 		To create an object we must know
-			!!!! Get fields to set from getters and public fields
+			Get fields to set from getters and public fields
 				map from name to class. this way we eliminate the problem with null
-			!!!! Get constructors and their arguments
+			Get constructors and their arguments
 
 			Enum specifying the destination of an object?
 				Target - this should not be mocked
@@ -31,14 +31,15 @@ TODO ==========================
 				Dependency - dependency of the target, arguments or expected result
 				Warning: An object can be MethodArgument + Dependency, or ExpectedResult + Argument
 		
-			the dependencies (also dependencies of dependencies ...)
+			!!!! the dependencies (also dependencies of dependencies ...)
 				keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
-			different objects can have common dependencies
+			!!!! different objects can have common dependencies
 				we need a dependency sorter
 				
 			Non-@Component object creation priority
 					Known object like primitives and utils first
 						https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
+						Enum
 						handle HashMap<>
 						handle Map<>
 					Unknown objects
@@ -78,8 +79,11 @@ TODO ==========================
 	
 	Move all the test classes within the testrecording package
 	
-	!!!! Write tests for all the code
+	Write tests for all the code
 		check coverage again
+
+	Sa citesc de la rus cum sa pregatesc cod pt Git
+
 	
 LATER ==========================
 	if needed object initialisation code could be learned from github	
@@ -96,6 +100,5 @@ LATER ==========================
 	
 	arrays of arrays
 	
-	Sa citesc de la rus cum sa pregatesc cod pt Git
 
 	

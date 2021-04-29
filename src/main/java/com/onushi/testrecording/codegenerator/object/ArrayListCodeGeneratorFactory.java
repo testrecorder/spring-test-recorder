@@ -3,10 +3,10 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ArrayListCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
@@ -18,16 +18,18 @@ public class ArrayListCodeGeneratorFactory {
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, false, objectName);
 
-        objectCodeGenerator.requiredImports.add("java.util.ArrayList;");
-        objectCodeGenerator.requiredImports.add("java.util.List");
-        objectCodeGenerator.requiredImports.add("java.util.Arrays");
+        objectCodeGenerator.requiredImports = Arrays.asList("java.util.ArrayList;", "java.util.List", "java.util.Arrays");
+
+        objectCodeGenerator.dependencies = getObjectCodeGeneratorElements((List<Object>) object);
+        String elementsInlineCode = objectCodeGenerator.dependencies.stream()
+                .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate("List<{{getElementClassSimpleName}}> {{objectName}} =  Arrays.asList({{elementsInlineCode}});\n");
 
         stringGenerator.addAttribute("getElementClassSimpleName", getElementClassSimpleName((List<Object>) object));
         stringGenerator.addAttribute("objectName", objectName);
-        stringGenerator.addAttribute("elementsInlineCode", getElementsInlineCode((List<Object>) object));
+        stringGenerator.addAttribute("elementsInlineCode", elementsInlineCode);
 
         objectCodeGenerator.initCode = stringGenerator.generate();
         return objectCodeGenerator;
@@ -46,14 +48,14 @@ public class ArrayListCodeGeneratorFactory {
         }
     }
 
-    private String getElementsInlineCode(List<Object> list) {
-        List<ObjectCodeGenerator> elementObjectCodeGenerators = new ArrayList<>();
-        for(Object element: list) {
+    private List<ObjectCodeGenerator> getObjectCodeGeneratorElements(List<Object> list) {
+        List<ObjectCodeGenerator> result = new ArrayList<>();
+        for (Object element: list) {
+            // TODO IB !!!! not ignored
+            // TODO IB !!!! use stream
             ObjectCodeGenerator elementObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(element, "ignored");
-            elementObjectCodeGenerators.add(elementObjectCodeGenerator);
+            result.add(elementObjectCodeGenerator);
         }
-        String elementsInlineCode = elementObjectCodeGenerators.stream()
-                .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
-        return elementsInlineCode;
+        return result;
     }
 }
