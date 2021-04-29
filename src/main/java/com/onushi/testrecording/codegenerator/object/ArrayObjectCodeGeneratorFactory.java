@@ -38,14 +38,13 @@ public class ArrayObjectCodeGeneratorFactory {
 
         objectCodeGenerator.declareClassName = "TODO IB !!!!";
 
-        StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};\n");
+        objectCodeGenerator.initCode = new StringGenerator()
+                .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};\n")
+                .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
+                .addAttribute("objectName", objectName)
+                .addAttribute("elementsInlineCode", getElementsInlineCode(objectCodeGenerator.dependencies))
+                .generate();
 
-        stringGenerator.addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName());
-        stringGenerator.addAttribute("objectName", objectName);
-        stringGenerator.addAttribute("elementsInlineCode", getElementsInlineCode(objectCodeGenerator.dependencies));
-
-        objectCodeGenerator.initCode = stringGenerator.generate();
         return objectCodeGenerator;
     }
 

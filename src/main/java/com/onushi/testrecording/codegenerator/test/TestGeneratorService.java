@@ -1,6 +1,5 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -79,16 +78,14 @@ public class TestGeneratorService {
     }
 
     private String getArrangeCode(TestGenerator testGenerator, Map<String, String> attributes) {
-        StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.addAttributes(attributes);
-        stringGenerator.setTemplate(
-            "        // Arrange\n" +
-                    "{{requiredHelperObjects}}" +
-                    "{{objectsInit}}" +
-            "        {{className}} {{targetObjectName}} = new {{className}}();\n\n"
-        );
-        return stringGenerator.generate();
-
+        return new StringGenerator()
+            .addAttributes(attributes)
+            .setTemplate(
+                "        // Arrange\n" +
+                        "{{requiredHelperObjects}}" +
+                        "{{objectsInit}}" +
+                "        {{className}} {{targetObjectName}} = new {{className}}();\n\n"
+            ).generate();
     }
 
     private String getActCode(TestGenerator testGenerator, Map<String, String> attributes) {
@@ -116,13 +113,13 @@ public class TestGeneratorService {
 
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) {
         if (testGenerator.getExpectedException() == null && !testGenerator.getResultDeclareClassName().equals("void")) {
-            StringGenerator stringGenerator = new StringGenerator();
-            stringGenerator.addAttributes(attributes);
-            stringGenerator.setTemplate(
-                "        // Assert\n" +
-                        "{{expectedResultInit}}" +
-                "        assertEquals({{expectedResult}}, result);\n");
-            return stringGenerator.generate();
+            return new StringGenerator()
+                .addAttributes(attributes)
+                .setTemplate(
+                    "        // Assert\n" +
+                            "{{expectedResultInit}}" +
+                    "        assertEquals({{expectedResult}}, result);\n")
+                .generate();
         } else {
             return "";
         }

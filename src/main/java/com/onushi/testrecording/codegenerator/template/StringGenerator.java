@@ -15,12 +15,14 @@ public class StringGenerator {
         return this;
     }
 
-    public void addAttribute(String name, String value) {
+    public StringGenerator addAttribute(String name, String value) {
         context.put(name, value);
+        return this;
     }
 
-    public void addAttributes(Map<String, String> attributes) {
+    public StringGenerator addAttributes(Map<String, String> attributes) {
         context.putAll(attributes);
+        return this;
     }
 
 

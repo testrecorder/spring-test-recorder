@@ -83,9 +83,9 @@ public class SampleService {
     }
 
     @RecordTest
-    public List<Person> someFunction(List<Person> personList, Person[] dateArray) throws ParseException {
+    public Person someFunction(List<Person> personList, Person[] dateArray) throws ParseException {
         // ....
         // ...
-        return personList;
+        return personList.get(0);
     }
 }

@@ -487,45 +487,49 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("package com.onushi.sampleapp;\n" +
-                    "\n" +
-                    "import org.junit.jupiter.api.Test;\n" +
-                    "import static org.junit.jupiter.api.Assertions.*;\n" +
-                    "import java.text.SimpleDateFormat;\n" +
-                    "import java.util.Date;\n" +
-                    "import java.util.List;\n" +
-                    "import java.util.Arrays;\n" +
-                    "import com.onushi.sampleapp.Person;\n" +
-                    "\n" +
-                    "class SampleServiceTest {\n" +
-                    "    @Test\n" +
-                    "    void someFunction() throws Exception {\n" +
-                    "        // Arrange\n" +
-                    "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
-                    "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
-                    "        Person person1 = Person.builder()\n" +
-                    "            .dateOfBirth(date1)\n" +
-                    "            .firstName(\"Paul\")\n" +
-                    "            .lastName(\"Marculescu\")\n" +
-                    "            .build();\n" +
-                    "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
-                    "        Person person2 = Person.builder()\n" +
-                    "            .dateOfBirth(date2)\n" +
-                    "            .firstName(\"Gica\")\n" +
-                    "            .lastName(\"Fulgerica\")\n" +
-                    "            .build();\n" +
-                    "        List<Person> arrayList1 =  Arrays.asList(person1, person2);\n" +
-                    "        Person[] array1 = {person1, person2};\n" +
-                    "        SampleService sampleService = new SampleService();\n" +
-                    "\n" +
-                    "        // Act\n" +
-                    "        List<Person> result = sampleService.someFunction(arrayList1, array1);\n" +
-                    "\n" +
-                    "        // Assert\n" +
-                    "        List<Person> expectedResult =  Arrays.asList(person1, person2);\n" +
-                    "        assertEquals(expectedResult, result);\n" +
-                    "    }\n" +
-                    "}"),
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Date;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.Arrays;\n" +
+                        "import com.onushi.sampleapp.Person;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void someFunction() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
+                        "        Person person1 = Person.builder()\n" +
+                        "            .dateOfBirth(date1)\n" +
+                        "            .firstName(\"Paul\")\n" +
+                        "            .lastName(\"Marculescu\")\n" +
+                        "            .build();\n" +
+                        "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
+                        "        Person person2 = Person.builder()\n" +
+                        "            .dateOfBirth(date2)\n" +
+                        "            .firstName(\"Gica\")\n" +
+                        "            .lastName(\"Fulgerica\")\n" +
+                        "            .build();\n" +
+                        "        List<Person> arrayList1 =  Arrays.asList(person1, person2);\n" +
+                        "        Person[] array1 = {person1, person2};\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        List<Person> result = sampleService.someFunction(arrayList1, array1);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        List<Person> expectedResult =  Arrays.asList(person1, person2);\n" +
+                        "        assertEquals(expectedResult, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 

@@ -27,11 +27,10 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
+        // TODO IB !!!! test result type
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName, object.getClass().getSimpleName());
 
         objectCodeGenerator.requiredImports.add(object.getClass().getName());
-
-        objectCodeGenerator.declareClassName = "TODO IB !!!!";
 
         Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
         objectCodeGenerator.dependencies = objectState.values().stream()
@@ -43,15 +42,14 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
     }
 
     private String getInitCode(TestGenerator testGenerator, Object object, String objectName, Map<String, Object> objectState) {
-        StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.setTemplate(
-                "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
-                getSettersCodeForInit(testGenerator, object, objectState) +
-                "    .build();");
-        stringGenerator.addAttribute("shortClassName", object.getClass().getSimpleName());
-        stringGenerator.addAttribute("objectName", objectName);
-
-        return stringGenerator.generate();
+        return new StringGenerator()
+            .setTemplate(
+                    "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
+                    getSettersCodeForInit(testGenerator, object, objectState) +
+                    "    .build();")
+            .addAttribute("shortClassName", object.getClass().getSimpleName())
+            .addAttribute("objectName", objectName)
+            .generate();
     }
 
     private String getSettersCodeForInit(TestGenerator testGenerator, Object object, Map<String, Object> objectState) {

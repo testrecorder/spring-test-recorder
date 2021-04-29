@@ -8,13 +8,11 @@ class StringGeneratorTest {
 
     @Test
     void generate() {
-        // Arrange
-        StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.setTemplate("Hello {{name}}!");
-        stringGenerator.addAttribute("name", "World");
-
-        // Act
-        String result = stringGenerator.generate();
+        // Arrange + Act
+        String result = new StringGenerator()
+                .setTemplate("Hello {{name}}!")
+                .addAttribute("name", "World")
+                .generate();
 
         // Assert
         assertEquals("Hello World!", result);

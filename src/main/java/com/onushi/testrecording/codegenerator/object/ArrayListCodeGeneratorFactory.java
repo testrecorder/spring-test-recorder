@@ -26,19 +26,24 @@ public class ArrayListCodeGeneratorFactory {
                 .map(element -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, element))
                 .collect(Collectors.toList());
 
-        objectCodeGenerator.declareClassName = "TODO IB !!!!";
+        String elementClassSimpleName = getElementClassSimpleName((List<Object>) object);
 
         String elementsInlineCode = objectCodeGenerator.dependencies.stream()
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
         StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.setTemplate("List<{{getElementClassSimpleName}}> {{objectName}} =  Arrays.asList({{elementsInlineCode}});\n");
-
-        stringGenerator.addAttribute("getElementClassSimpleName", getElementClassSimpleName((List<Object>) object));
-        stringGenerator.addAttribute("objectName", objectName);
-        stringGenerator.addAttribute("elementsInlineCode", elementsInlineCode);
+        stringGenerator.setTemplate("List<{{elementClassSimpleName}}> {{objectName}} =  Arrays.asList({{elementsInlineCode}});\n")
+                .addAttribute("elementClassSimpleName", elementClassSimpleName)
+                .addAttribute("objectName", objectName)
+                .addAttribute("elementsInlineCode", elementsInlineCode);
 
         objectCodeGenerator.initCode = stringGenerator.generate();
+
+        objectCodeGenerator.declareClassName =  new StringGenerator()
+                .setTemplate("List<{{elementClassSimpleName}}>")
+                .addAttribute("elementClassSimpleName", elementClassSimpleName)
+                .generate();
+
         return objectCodeGenerator;
     }
 
