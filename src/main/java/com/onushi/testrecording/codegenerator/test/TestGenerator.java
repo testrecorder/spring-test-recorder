@@ -33,7 +33,7 @@ public class TestGenerator {
         return lastIndexForObjectName;
     }
 
-    protected Map<Object, ObjectCodeGenerator> getObjectObjectCodeGeneratorCache() {
+    public Map<Object, ObjectCodeGenerator> getObjectObjectCodeGeneratorCache() {
         return objectObjectCodeGeneratorCache;
     }
 }

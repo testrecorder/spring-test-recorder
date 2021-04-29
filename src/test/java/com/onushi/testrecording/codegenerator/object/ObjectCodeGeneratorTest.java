@@ -121,9 +121,8 @@ class ObjectCodeGeneratorTest {
 
     private ObjectCodeGeneratorFactory getObjectCodeGeneratorFactory() {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
-        TestObjectsManagerService testObjectsManagerService = mock(TestObjectsManagerService.class);
         return new ObjectCodeGeneratorFactory(new ClassInfoService(),
                 new ObjectStateReaderService(objectNameGenerator),
-                testObjectsManagerService);
+                objectNameGenerator);
     }
 }

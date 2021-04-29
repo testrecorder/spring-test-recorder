@@ -2,6 +2,7 @@ package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
+import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,12 +11,12 @@ import java.util.stream.Collectors;
 @Service
 public class TestGeneratorFactory {
     private final ObjectNameGenerator objectNameGenerator;
-    private final TestObjectsManagerService testObjectsManagerService;
+    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
     public TestGeneratorFactory(ObjectNameGenerator objectNameGenerator,
-                                TestObjectsManagerService testObjectsManagerService) {
+                                ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
         this.objectNameGenerator = objectNameGenerator;
-        this.testObjectsManagerService = testObjectsManagerService;
+        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 
     public TestGenerator createTestGenerator(MethodRunInfo methodRunInfo) throws Exception {
@@ -28,7 +29,7 @@ public class TestGeneratorFactory {
             throw new IllegalArgumentException("target");
         }
 
-        testGenerator.targetObjectCodeGenerator = testObjectsManagerService.getNamedObjectCodeGenerator(testGenerator,
+        testGenerator.targetObjectCodeGenerator = objectCodeGeneratorFactory.getNamedObjectCodeGenerator(testGenerator,
                 methodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(methodRunInfo.getTarget()));
         testGenerator.packageName = methodRunInfo.getTarget().getClass().getPackage().getName();
@@ -36,10 +37,10 @@ public class TestGeneratorFactory {
         testGenerator.methodName = methodRunInfo.getMethodName();
 
         testGenerator.argumentObjectCodeGenerators = methodRunInfo.getArguments().stream()
-                .map(x -> testObjectsManagerService.getCommonObjectCodeGenerator(testGenerator, x))
+                .map(x -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, x))
                 .collect(Collectors.toList());
 
-        testGenerator.expectedResultObjectCodeGenerator = testObjectsManagerService.getNamedObjectCodeGenerator(testGenerator,
+        testGenerator.expectedResultObjectCodeGenerator = objectCodeGeneratorFactory.getNamedObjectCodeGenerator(testGenerator,
                 methodRunInfo.getResult(), "expectedResult");
         testGenerator.resultType = methodRunInfo.getResultType();
         testGenerator.expectedException = methodRunInfo.getException();

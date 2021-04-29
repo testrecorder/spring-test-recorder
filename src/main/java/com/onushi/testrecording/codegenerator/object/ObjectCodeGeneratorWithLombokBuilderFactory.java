@@ -4,7 +4,6 @@ import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
-import com.onushi.testrecording.codegenerator.test.TestObjectsManagerService;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
@@ -15,13 +14,14 @@ import java.util.Map;
 public class ObjectCodeGeneratorWithLombokBuilderFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
-    private final TestObjectsManagerService testObjectsManagerService;
+    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ObjectCodeGeneratorWithLombokBuilderFactory(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService,
-                                                       TestObjectsManagerService testObjectsManagerService) {
+    public ObjectCodeGeneratorWithLombokBuilderFactory(ClassInfoService classInfoService,
+                                                       ObjectStateReaderService objectStateReaderService,
+                                                       ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
-        this.testObjectsManagerService = testObjectsManagerService;
+        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
@@ -57,7 +57,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
                 // TODO IB !!!! add in dependencies
-                ObjectCodeGenerator objectCodeGenerator = testObjectsManagerService.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName));
+                ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName));
                 stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
             } else {
                 stringGenerator.addAttribute("fieldValue", "???");

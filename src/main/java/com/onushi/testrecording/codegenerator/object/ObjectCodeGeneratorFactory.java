@@ -2,30 +2,48 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
+import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
-import com.onushi.testrecording.codegenerator.test.TestObjectsManagerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
-    private final TestObjectsManagerService testObjectsManagerService;
+    private final ObjectNameGenerator objectNameGenerator;
 
     public ObjectCodeGeneratorFactory(ClassInfoService classInfoService,
                                       ObjectStateReaderService objectStateReaderService,
-                                      TestObjectsManagerService testObjectsManagerService) {
+                                      ObjectNameGenerator objectNameGenerator) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
-        this.testObjectsManagerService = testObjectsManagerService;
+        this.objectNameGenerator = objectNameGenerator;
         // TODO IB is it ok to have new here?
         this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
     }
 
-    public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
+    public ObjectCodeGenerator getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
+        return createObjectCodeGenerator(testGenerator, object, preferredName);
+    }
+
+    public ObjectCodeGenerator getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
+        Map<Object, ObjectCodeGenerator> objectCache = testGenerator.getObjectObjectCodeGeneratorCache();
+        ObjectCodeGenerator existingObject = objectCache.get(object);
+        if (existingObject != null) {
+            return existingObject;
+        } else {
+            String objectName = objectNameGenerator.getNewObjectName(testGenerator, object);
+            ObjectCodeGenerator objectCodeGenerator = createObjectCodeGenerator(testGenerator, object, objectName);
+            objectCache.put(object, objectCodeGenerator);
+            return objectCodeGenerator;
+        }
+    }
+
+    protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         if (object == null) {
             return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null");
         }
@@ -52,14 +70,14 @@ public class ObjectCodeGeneratorFactory {
                 return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(object, objectName);
             default:
                 if (fullClassName.startsWith("[")) {
-                    return new ArrayObjectCodeGeneratorFactory(testObjectsManagerService).createObjectCodeGenerator(testGenerator, object, objectName);
+                    return new ArrayObjectCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
                 } else if (object instanceof List<?> ) {
-                    return new ArrayListCodeGeneratorFactory(testObjectsManagerService).createObjectCodeGenerator(testGenerator, object, objectName);
+                    return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
                 } else if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
                     ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
                             new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
                             objectStateReaderService,
-                            testObjectsManagerService);
+                            this);
 
                     return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(testGenerator, object, objectName);
                 } else {

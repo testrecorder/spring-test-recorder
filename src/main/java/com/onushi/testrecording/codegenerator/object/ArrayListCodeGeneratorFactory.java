@@ -2,19 +2,17 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
-import com.onushi.testrecording.codegenerator.test.TestObjectsManagerService;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ArrayListCodeGeneratorFactory {
-    private final TestObjectsManagerService testObjectsManagerService;
+    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ArrayListCodeGeneratorFactory(TestObjectsManagerService testObjectsManagerService) {
-        this.testObjectsManagerService = testObjectsManagerService;
+    public ArrayListCodeGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
@@ -23,7 +21,7 @@ public class ArrayListCodeGeneratorFactory {
         objectCodeGenerator.requiredImports = Arrays.asList("java.util.ArrayList;", "java.util.List", "java.util.Arrays");
 
         objectCodeGenerator.dependencies = ((List<Object>) object).stream()
-                .map(element -> testObjectsManagerService.getCommonObjectCodeGenerator(testGenerator, element))
+                .map(element -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, element))
                 .collect(Collectors.toList());
 
         String elementsInlineCode = objectCodeGenerator.dependencies.stream()

@@ -2,7 +2,6 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
-import com.onushi.testrecording.codegenerator.test.TestObjectsManagerService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,12 +9,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArrayObjectCodeGeneratorFactory {
-    private final TestObjectsManagerService testObjectsManagerService;
+    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ArrayObjectCodeGeneratorFactory(TestObjectsManagerService testObjectsManagerService) {
-        this.testObjectsManagerService = testObjectsManagerService;
+    public ArrayObjectCodeGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
-
 
     private class ArrayAsList {
         public Class<?> elementClass;
@@ -47,7 +45,7 @@ public class ArrayObjectCodeGeneratorFactory {
     private String getElementsInlineCode(TestGenerator testGenerator, List<?> list) {
         List<ObjectCodeGenerator> elementObjectCodeGenerators = new ArrayList<>();
         for(Object element: list) {
-            ObjectCodeGenerator elementObjectCodeGenerator = testObjectsManagerService.getCommonObjectCodeGenerator(testGenerator, element);
+            ObjectCodeGenerator elementObjectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, element);
             elementObjectCodeGenerators.add(elementObjectCodeGenerator);
         }
         String elementsInlineCode = elementObjectCodeGenerators.stream()
