@@ -30,27 +30,26 @@ public class ArrayObjectCodeGeneratorFactory {
 
         ArrayAsList arrayAsList = getElementList(object);
 
+        objectCodeGenerator.dependencies = arrayAsList.list
+                .stream()
+                .distinct()
+                .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
+                .collect(Collectors.toList());
+
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};\n");
 
         stringGenerator.addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName());
         stringGenerator.addAttribute("objectName", objectName);
-        stringGenerator.addAttribute("elementsInlineCode", getElementsInlineCode(testGenerator, arrayAsList.list));
+        stringGenerator.addAttribute("elementsInlineCode", getElementsInlineCode(objectCodeGenerator.dependencies));
 
         objectCodeGenerator.initCode = stringGenerator.generate();
         return objectCodeGenerator;
     }
 
-    // TODO IB this part seems to be repeated in multiple factories
-    private String getElementsInlineCode(TestGenerator testGenerator, List<?> list) {
-        List<ObjectCodeGenerator> elementObjectCodeGenerators = new ArrayList<>();
-        for(Object element: list) {
-            ObjectCodeGenerator elementObjectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, element);
-            elementObjectCodeGenerators.add(elementObjectCodeGenerator);
-        }
-        String elementsInlineCode = elementObjectCodeGenerators.stream()
+    private String getElementsInlineCode(List<ObjectCodeGenerator> dependencies) {
+        return dependencies.stream()
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
-        return elementsInlineCode;
     }
 
     private ArrayAsList getElementList(Object arrayObject) {

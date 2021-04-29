@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ObjectCodeGeneratorWithLombokBuilderFactory {
@@ -29,25 +31,29 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
 
         objectCodeGenerator.requiredImports.add(object.getClass().getName());
 
-        setInitCode(testGenerator, objectCodeGenerator, object, objectName);
+        Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
+        objectCodeGenerator.dependencies = objectState.values().stream()
+                .distinct()
+                .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
+                .collect(Collectors.toList());
+        objectCodeGenerator.initCode = getInitCode(testGenerator, object, objectName, objectState);
         return objectCodeGenerator;
     }
 
-    private void setInitCode(TestGenerator testGenerator, ObjectCodeGenerator objectCodeGenerator, Object object, String objectName) {
+    private String getInitCode(TestGenerator testGenerator, Object object, String objectName, Map<String, Object> objectState) {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.setTemplate(
                 "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
-                getSettersCodeForInit(testGenerator, object) +
+                getSettersCodeForInit(testGenerator, object, objectState) +
                 "    .build();");
         stringGenerator.addAttribute("shortClassName", object.getClass().getSimpleName());
         stringGenerator.addAttribute("objectName", objectName);
 
-        objectCodeGenerator.initCode = stringGenerator.generate();
+        return stringGenerator.generate();
     }
 
-    private String getSettersCodeForInit(TestGenerator testGenerator, Object object) {
+    private String getSettersCodeForInit(TestGenerator testGenerator, Object object, Map<String, Object> objectState) {
         List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object.getClass());
-        Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
 
         StringBuilder settersCode = new StringBuilder();
         for (Method setter: lombokBuilderSetters) {
@@ -56,7 +62,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             stringGenerator.setTemplate("    .{{fieldName}}({{fieldValue}})\n");
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
-                // TODO IB !!!! add in dependencies
+                // this will be found in the cache since dependencies were calculated
                 ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName));
                 stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
             } else {

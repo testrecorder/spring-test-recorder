@@ -20,7 +20,9 @@ public class ArrayListCodeGeneratorFactory {
 
         objectCodeGenerator.requiredImports = Arrays.asList("java.util.ArrayList;", "java.util.List", "java.util.Arrays");
 
+        // TODO IB !!!! this part is repeated
         objectCodeGenerator.dependencies = ((List<Object>) object).stream()
+                .distinct()
                 .map(element -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, element))
                 .collect(Collectors.toList());
 
