@@ -576,21 +576,76 @@ class TestGeneratorServiceTest {
     }
 
 
-
-
-    // TODO IB !!!! solve equality when there is no equals defined
     @Test
-    void returnIntArray() throws Exception {
+    void generateTestForMethodThatReturnsPerson() throws Exception {
         // Arrange
-        SampleService sampleService = new SampleService();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth = simpleDateFormat.parse("2021-01-01");
+
+        Person person = Person.builder()
+                .firstName("Gica")
+                .lastName("Fulgerica")
+                .dateOfBirth(dateOfBirth)
+                .build();
+        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("returnPerson")
+                .arguments(Collections.emptyList())
+                .result(person)
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
         // Act
-        int[] result = sampleService.returnIntArray();
+        String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        int[] expectedResult = {3, 4};
-        assertEquals(expectedResult, result);
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Date;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void returnPerson() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        Person result = sampleService.returnPerson();\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
+                        "        Person expectedResult = Person.builder()\n" +
+                        "            .dateOfBirth(date1)\n" +
+                        "            .firstName(\"Gica\")\n" +
+                        "            .lastName(\"Fulgerica\")\n" +
+                        "            .build();\n" +
+                        "        assertEquals(expectedResult, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
     }
+
+    // TODO IB solve equality when there is no equals defined
+//    @Test
+//    void returnIntArray() throws Exception {
+//        // Arrange
+//        SampleService sampleService = new SampleService();
+//
+//        // Act
+//        int[] result = sampleService.returnIntArray();
+//
+//        // Assert
+//        int[] expectedResult = {3, 4};
+//        assertEquals(expectedResult, result);
+//    }
 
 // TODO IB activate after we implemented mocking
 //    @Test

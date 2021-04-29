@@ -27,7 +27,6 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
-        // TODO IB !!!! test result type
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName, object.getClass().getSimpleName());
 
         objectCodeGenerator.requiredImports.add(object.getClass().getName());

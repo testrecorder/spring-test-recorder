@@ -88,9 +88,22 @@ public class SampleService {
         return dateArray;
     }
 
-    @RecordTest
     public int[] returnIntArray() {
         int[] intArray = {3, 4};
         return intArray;
     }
+
+    @RecordTest
+    public Person returnPerson() throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth = simpleDateFormat.parse("2021-01-01");
+
+        return Person.builder()
+                .firstName("Gica")
+                .lastName("Fulgerica")
+                .dateOfBirth(dateOfBirth)
+                .build();
+
+    }
+
 }
