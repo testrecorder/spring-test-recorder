@@ -16,6 +16,16 @@ DONE ==========================
 	
 	OK - handle ArrayList<>
 
+	OK - the dependencies (also dependencies of dependencies ...)
+		keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
+	OK - different objects can have common dependencies
+		we need a dependency sorter
+	OK - why args types are generated as 
+			List<Person> arrayList1 and 
+		but results as
+			List result?
+	OK - problem with repeated args
+
 
 TODO ==========================
 	ObjectCodeGenerators
@@ -32,15 +42,6 @@ TODO ==========================
 				sometimes I know the name of the new object. Ex: result
 				sometimes I want the name to be generated. Ex: date1
 				
-				OK - the dependencies (also dependencies of dependencies ...)
-					keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
-				OK - different objects can have common dependencies
-					we need a dependency sorter
-				OK - why args types are generated as 
-						List<Person> arrayList1 and 
-					but results as
-						List result?
-				!!!! problem with repeated args
 				!!!! test cyclic dependencies
 				!!!! how to differenciate between Float and float?
 			
@@ -55,8 +56,7 @@ TODO ==========================
 						Creation priority
 							if NoArgs constructor exists and no fields to be set
 								Create with NoArgs constructor 
-							OK - if Lombok builder exists
-								OK - Create with Lombok builder
+							OK - if Lombok builder exists Create with Lombok builder
 							if there is a identifiable constructor covering all the fields
 								Create with args constructor 
 							if there is a NoArg constructor + all setters

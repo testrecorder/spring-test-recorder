@@ -1,7 +1,7 @@
 package com.onushi.testrecording.aspect;
 
-import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
-import com.onushi.testrecording.analizer.methodrun.MethodRunInfoFactory;
+import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
+import com.onushi.testrecording.analyzer.methodrun.MethodRunInfoFactory;
 import com.onushi.testrecording.codegenerator.test.TestGeneratorFactory;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGeneratorService;

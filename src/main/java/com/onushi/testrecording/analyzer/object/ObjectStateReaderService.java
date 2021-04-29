@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.object;
+package com.onushi.testrecording.analyzer.object;
 
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import org.springframework.stereotype.Service;

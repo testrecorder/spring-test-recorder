@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service

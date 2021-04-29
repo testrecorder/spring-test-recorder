@@ -1,7 +1,7 @@
-package com.onushi.testrecording.analizer.classinfo;
+package com.onushi.testrecording.analyzer.classinfo;
 
 import com.onushi.sampleapp.*;
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;

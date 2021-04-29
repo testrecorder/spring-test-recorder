@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.methodrun;
+package com.onushi.testrecording.analyzer.methodrun;
 
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;

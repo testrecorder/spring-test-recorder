@@ -1,8 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
-import com.onushi.testrecording.codegenerator.template.StringService;
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

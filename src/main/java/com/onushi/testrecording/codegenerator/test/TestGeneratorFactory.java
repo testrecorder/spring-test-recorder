@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
+import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import org.springframework.stereotype.Service;

@@ -94,6 +94,10 @@ public class SampleService {
     }
 
     @RecordTest
+    public int repeatedArgs(int[] intArray, List<Float> floatList) {
+        return 42;
+    }
+
     public Person returnPerson() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth = simpleDateFormat.parse("2021-01-01");

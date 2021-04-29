@@ -55,8 +55,19 @@ public class SampleAppRunner implements CommandLineRunner {
 //        Object[] objectArray = {"a", 2};
 //        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
 
-        sampleService.returnPerson();
+        // sampleService.returnPerson();
 
+        List<Float> floatList = Arrays.asList(3.0f, 3.0f);
+        int[] intArray = {3, 4, 3};
+        sampleService.repeatedArgs(intArray, floatList);
+
+        // demo();
+    }
+
+    private void demo() throws Exception {
+        //
+        // ...
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
         Person paul = Person.builder()
@@ -74,14 +85,10 @@ public class SampleAppRunner implements CommandLineRunner {
         List<Person> personlList = Arrays.asList(paul, gica);
         Person[] personArray = {paul, gica};
 
-        someInternalFunction(personlList, personArray);
-    }
-
-    private void someInternalFunction(List<Person> personList, Person[] personArray) throws Exception {
+        this.sampleService.someFunction(personlList, personArray);
+        // ...
         //
-        // ...
-        int[] array = {1, 2, 3};
-        this.sampleService.someFunction(personList, personArray);
-        // ...
+        //
+        //
     }
 }

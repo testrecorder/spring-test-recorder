@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.sampleapp.StudentWithBuilder;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;

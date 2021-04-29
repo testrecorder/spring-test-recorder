@@ -1,4 +1,4 @@
-package com.onushi.testrecording.analizer.methodrun;
+package com.onushi.testrecording.analyzer.methodrun;
 
 import lombok.Builder;
 import lombok.Getter;

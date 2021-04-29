@@ -21,14 +21,17 @@ public class ArrayListCodeGeneratorFactory {
         objectCodeGenerator.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
         // TODO IB this part is repeated
-        objectCodeGenerator.dependencies = ((List<Object>) object).stream()
-                .distinct()
+        List<ObjectCodeGenerator> elements = ((List<Object>) object).stream()
                 .map(element -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, element))
+                .collect(Collectors.toList());
+
+        objectCodeGenerator.dependencies = elements.stream()
+                .distinct()
                 .collect(Collectors.toList());
 
         String elementClassSimpleName = getElementClassSimpleName((List<Object>) object);
 
-        String elementsInlineCode = objectCodeGenerator.dependencies.stream()
+        String elementsInlineCode = elements.stream()
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
         StringGenerator stringGenerator = new StringGenerator();

@@ -2,9 +2,9 @@ package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.sampleapp.Person;
 import com.onushi.sampleapp.SampleService;
-import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analizer.methodrun.MethodRunInfo;
-import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
+import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.sampleapp.Student;
@@ -630,6 +630,53 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
+
+    @Test
+    void generateTestWithRepeatedArgs() throws Exception {
+        // Arrange
+        int[] intArray = {3, 4, 3};
+        List<Float> floatList = Arrays.asList(3.0f, 3.0f);
+        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("repeatedArgs")
+                .arguments(Arrays.asList(intArray, floatList))
+                .result(42)
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.Arrays;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void repeatedArgs() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        int[] array1 = {3, 4, 3};\n" +
+                        "        List<Float> arrayList1 =  Arrays.asList(3.0f, 3.0f);\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        int result = sampleService.repeatedArgs(array1, arrayList1);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(42, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST =========\n"),
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
