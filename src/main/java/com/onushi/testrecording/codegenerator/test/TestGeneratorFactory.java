@@ -5,10 +5,7 @@ import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,55 +45,70 @@ public class TestGeneratorFactory {
         testGenerator.resultType = methodRunInfo.getResultType();
         testGenerator.expectedException = methodRunInfo.getException();
 
-        setRequiredImports(testGenerator);
+        testGenerator.requiredImports = getRequiredImports(testGenerator);
 
-        setRequiredHelperObjects(testGenerator);
+        testGenerator.requiredHelperObjects = getRequiredHelperObjects(testGenerator);
 
-        setObjectsInit(testGenerator);
+        testGenerator.objectsInit = getObjectsInit(testGenerator.argumentObjectCodeGenerators);
 
-        setArgumentsInlineCode(testGenerator);
+        testGenerator.argumentsInlineCode = getArgumentsInlineCode(testGenerator);
 
-        // TODO IB !!!! also dependencies
-        testGenerator.expectedResultInit = testGenerator.expectedResultObjectCodeGenerator.getInitCode();
+        testGenerator.expectedResultInit = getObjectsInit(Collections.singletonList(testGenerator.expectedResultObjectCodeGenerator));
 
         return testGenerator;
     }
 
-    private void setRequiredImports(TestGenerator testGenerator) {
-        testGenerator.requiredImports = new ArrayList<>();
-        testGenerator.requiredImports.add("org.junit.jupiter.api.Test");
-        testGenerator.requiredImports.add("static org.junit.jupiter.api.Assertions.*");
-        testGenerator.requiredImports.addAll(testGenerator.argumentObjectCodeGenerators.stream()
-                .flatMap(x -> x.getRequiredImports().stream()).collect(Collectors.toList()));
-        testGenerator.requiredImports.addAll(testGenerator.expectedResultObjectCodeGenerator.getRequiredImports());
-        testGenerator.requiredImports = testGenerator.requiredImports.stream().distinct().collect(Collectors.toList());
+    private List<String> getRequiredImports(TestGenerator testGenerator) {
+        List<String> result = new ArrayList<>();
+        result.add("org.junit.jupiter.api.Test");
+        result.add("static org.junit.jupiter.api.Assertions.*");
+        result.addAll(testGenerator.getObjectCodeGeneratorCache().values().stream()
+                .flatMap(x -> x.getRequiredImports().stream())
+                .collect(Collectors.toList()));
+        return result.stream().distinct().collect(Collectors.toList());
     }
 
-    private void setRequiredHelperObjects(TestGenerator testGenerator) {
-        testGenerator.requiredHelperObjects = testGenerator.argumentObjectCodeGenerators.stream()
+    private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {
+        return testGenerator.getObjectCodeGeneratorCache().values().stream()
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
+                .distinct()
                 .collect(Collectors.toList());
-        testGenerator.requiredHelperObjects.addAll(testGenerator.expectedResultObjectCodeGenerator.getRequiredHelperObjects());
-        testGenerator.requiredHelperObjects = testGenerator.requiredHelperObjects.stream().distinct().collect(Collectors.toList());
     }
 
-    private void setObjectsInit(TestGenerator testGenerator) {
-        Set<String> uniqueValues = new HashSet<>();
+    private List<String> getObjectsInit(List<ObjectCodeGenerator> objectCodeGenerators) {
+        Set<String> objectInitsAlreadyAdded = new HashSet<>();
 
-        List<String> objectsInit = new ArrayList<>();
-        for (ObjectCodeGenerator argumentObjectCodeGenerator : testGenerator.argumentObjectCodeGenerators) {
-            String initCode = argumentObjectCodeGenerator.getInitCode();
-            if (!initCode.equals("")) {
-                if (uniqueValues.add(initCode)) {
-                    objectsInit.add(initCode);
+        List<String> allObjectsInit = new ArrayList<>();
+        for (ObjectCodeGenerator argumentObjectCodeGenerator : objectCodeGenerators) {
+            List<String> objectsInit = getObjectsInit(argumentObjectCodeGenerator);
+            for (String objectInit : objectsInit) {
+                if (objectInitsAlreadyAdded.add(objectInit)) {
+                    allObjectsInit.add(objectInit);
                 }
             }
         }
-        testGenerator.objectsInit = objectsInit;
+        return allObjectsInit;
     }
 
-    private void setArgumentsInlineCode(TestGenerator testGenerator) {
-        testGenerator.argumentsInlineCode = testGenerator.argumentObjectCodeGenerators.stream()
+    private List<String> getObjectsInit(ObjectCodeGenerator objectCodeGenerator) {
+        if (objectCodeGenerator.isInitPrepared() || objectCodeGenerator.isInitDone()) {
+            // to avoid cyclic traversal
+            return new ArrayList<>();
+        }
+        objectCodeGenerator.setInitPrepared(true);
+        List<String> allObjectsInit = new ArrayList<>();
+        for (ObjectCodeGenerator dependency : objectCodeGenerator.getDependencies()) {
+            allObjectsInit.addAll(getObjectsInit(dependency));
+        }
+        if (!objectCodeGenerator.getInitCode().equals("")) {
+            allObjectsInit.add(objectCodeGenerator.getInitCode());
+        }
+        objectCodeGenerator.setInitDone(true);
+        return allObjectsInit;
+    }
+
+    private List<String> getArgumentsInlineCode(TestGenerator testGenerator) {
+        return testGenerator.argumentObjectCodeGenerators.stream()
                 .map(ObjectCodeGenerator::getInlineCode)
                 .collect(Collectors.toList());
     }

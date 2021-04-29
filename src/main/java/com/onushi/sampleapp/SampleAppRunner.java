@@ -55,21 +55,31 @@ public class SampleAppRunner implements CommandLineRunner {
 //        Object[] objectArray = {"a", 2};
 //        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
 
-        List<String> stringList = Arrays.asList("Maldive", "Tenerife", "Bahamas");
-        StudentWithBuilder student = StudentWithBuilder.builder()
+        Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
+        Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
+        Person paul = Person.builder()
                 .firstName("Paul")
                 .lastName("Marculescu")
-                .age(35)
+                .dateOfBirth(dateOfBirth1)
                 .build();
 
-        someInternalFunction(stringList, student);
+        Person gica = Person.builder()
+                .firstName("Gica")
+                .lastName("Fulgerica")
+                .dateOfBirth(dateOfBirth2)
+                .build();
+
+        List<Person> personlList = Arrays.asList(paul, gica);
+        Person[] personArray = {paul, gica};
+
+        someInternalFunction(personlList, personArray);
     }
 
-    private void someInternalFunction(List<String> stringList, StudentWithBuilder student) throws Exception {
+    private void someInternalFunction(List<Person> personList, Person[] personArray) throws Exception {
         //
         // ...
         int[] array = {1, 2, 3};
-        this.sampleService.someFunction(stringList, student, array);
+        this.sampleService.someFunction(personList, personArray);
         // ...
     }
 }

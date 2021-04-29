@@ -31,10 +31,17 @@ TODO ==========================
 				Dependency - dependency of the target, arguments or expected result
 				Warning: An object can be MethodArgument + Dependency, or ExpectedResult + Argument
 		
-			!!!! the dependencies (also dependencies of dependencies ...)
-				keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
-			!!!! different objects can have common dependencies
-				we need a dependency sorter
+			Object creation 
+				cache objects per TestGenerator
+				sometimes I know the name of the new object. Ex: result
+				sometimes I want the name to be generated. Ex: date1
+				
+				OK - the dependencies (also dependencies of dependencies ...)
+					keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
+				OK - different objects can have common dependencies
+					we need a dependency sorter
+				!!!! problem with repeated args
+				!!!! test cyclic dependencies
 				
 			Non-@Component object creation priority
 					Known object like primitives and utils first

@@ -18,7 +18,7 @@ public class ArrayListCodeGeneratorFactory {
     public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
 
-        objectCodeGenerator.requiredImports = Arrays.asList("java.util.ArrayList;", "java.util.List", "java.util.Arrays");
+        objectCodeGenerator.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
         // TODO IB this part is repeated
         objectCodeGenerator.dependencies = ((List<Object>) object).stream()

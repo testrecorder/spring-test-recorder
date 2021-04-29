@@ -12,6 +12,7 @@ public class MethodRunInfo {
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;
+    // TODO IB !!!! rename to fallBackResultType
     protected Class<?> resultType;
     protected Object result;
     protected Exception exception;

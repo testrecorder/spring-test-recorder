@@ -22,7 +22,7 @@ public class TestGenerator {
     protected List<String> requiredHelperObjects;
     protected List<String> objectsInit;
     protected List<String> argumentsInlineCode;
-    protected String expectedResultInit;
+    protected List<String> expectedResultInit;
 
     protected final Map<Object, ObjectCodeGenerator> objectCodeGeneratorCache = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();

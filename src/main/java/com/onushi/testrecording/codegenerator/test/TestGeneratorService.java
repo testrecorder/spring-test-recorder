@@ -72,11 +72,8 @@ public class TestGeneratorService {
         }
 
         attributes.put("argumentsInlineCode", String.join(", ", testGenerator.getArgumentsInlineCode()));
-        attributes.put("expectedResultInit", "");
-        if (!testGenerator.getExpectedResultInit().equals("")) {
-            attributes.put("expectedResultInit",
-                    stringService.addPrefixOnAllLines(testGenerator.getExpectedResultInit(), "        ") + "\n");
-        }
+        attributes.put("expectedResultInit", testGenerator.getExpectedResultInit().stream()
+                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
         attributes.put("expectedResult", testGenerator.getExpectedResultObjectCodeGenerator().getInlineCode());
         if (testGenerator.getExpectedException() != null) {
             attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
