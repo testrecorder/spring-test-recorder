@@ -42,8 +42,9 @@ TODO ==========================
 				sometimes I know the name of the new object. Ex: result
 				sometimes I want the name to be generated. Ex: date1
 				
-				!!!! test cyclic dependencies
-				how to differenciate between Float and float for different objects?
+				test cyclic dependencies when
+					I tried with Lombok, but Lombok could not handle it
+				how to differentiate between Float and float for different objects?
 			
 				
 			Non-@Component object creation priority
