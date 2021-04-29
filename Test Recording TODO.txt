@@ -34,7 +34,7 @@ TODO ==========================
 				map from name to class. this way we eliminate the problem with null
 			Get constructors and their arguments
 
-			!!!! solve equality when there is no equals
+			solve equality when there is no equals
 				Ex: int[] == int[]
 		
 			Object creation 
@@ -43,20 +43,21 @@ TODO ==========================
 				sometimes I want the name to be generated. Ex: date1
 				
 				!!!! test cyclic dependencies
-				!!!! how to differenciate between Float and float?
+				how to differenciate between Float and float for different objects?
 			
 				
 			Non-@Component object creation priority
 					Known object like primitives and utils first
 						https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
-						Enum
+						handle Enum
 						handle HashMap<>
 						handle Map<>
 					Unknown objects
 						Creation priority
 							if NoArgs constructor exists and no fields to be set
 								Create with NoArgs constructor 
-							OK - if Lombok builder exists Create with Lombok builder
+							OK - if Lombok builder exists
+								Create with Lombok builder
 							if there is a identifiable constructor covering all the fields
 								Create with args constructor 
 							if there is a NoArg constructor + all setters
