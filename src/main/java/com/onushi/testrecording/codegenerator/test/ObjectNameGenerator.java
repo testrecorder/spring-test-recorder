@@ -7,16 +7,6 @@ import java.util.Locale;
 
 @Service
 public class ObjectNameGenerator {
-    public String getObjectName(TestGenerator testGenerator, Object object) {
-        if (testGenerator.getObjectNames().containsKey(object)) {
-            return testGenerator.getObjectNames().get(object);
-        } else {
-            String newObjectName = getNewObjectName(testGenerator, object);
-            testGenerator.getObjectNames().put(object, newObjectName);
-            return newObjectName;
-        }
-    }
-
     public String getBaseObjectName(Object object) {
         if (object == null) {
             return "null";
@@ -37,7 +27,7 @@ public class ObjectNameGenerator {
         return varName.substring(0,1).toLowerCase(Locale.ROOT) + varName.substring(1);
     }
 
-    private String getNewObjectName(TestGenerator testGenerator, Object object) {
+    public String getNewObjectName(TestGenerator testGenerator, Object object) {
         String objectNameBase = getBaseObjectName(object);
         int newIndex;
         if (testGenerator.getLastIndexForObjectName().containsKey(objectNameBase)) {

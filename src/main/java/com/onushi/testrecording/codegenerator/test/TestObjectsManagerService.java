@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+// TODO IB !!!! write unit test for this
 @Service
 public class TestObjectsManagerService {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
@@ -28,7 +29,7 @@ public class TestObjectsManagerService {
         if (existingObject != null) {
             return existingObject;
         } else {
-            String objectName = objectNameGenerator.getObjectName(testGenerator, object);
+            String objectName = objectNameGenerator.getNewObjectName(testGenerator, object);
             ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
             objectCache.put(object, objectCodeGenerator);
             return objectCodeGenerator;
