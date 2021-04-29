@@ -6,6 +6,9 @@ import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +56,7 @@ public class TestGeneratorFactory {
 
         setArgumentsInlineCode(testGenerator);
 
+        // TODO IB !!!! also dependencies
         testGenerator.expectedResultInit = testGenerator.expectedResultObjectCodeGenerator.getInitCode();
 
         return testGenerator;
@@ -77,11 +81,18 @@ public class TestGeneratorFactory {
     }
 
     private void setObjectsInit(TestGenerator testGenerator) {
-        testGenerator.objectsInit = testGenerator.argumentObjectCodeGenerators.stream()
-                .map(ObjectCodeGenerator::getInitCode)
-                .filter(x -> !x.equals(""))
-                .distinct()
-                .collect(Collectors.toList());
+        Set<String> uniqueValues = new HashSet<>();
+
+        List<String> objectsInit = new ArrayList<>();
+        for (ObjectCodeGenerator argumentObjectCodeGenerator : testGenerator.argumentObjectCodeGenerators) {
+            String initCode = argumentObjectCodeGenerator.getInitCode();
+            if (!initCode.equals("")) {
+                if (uniqueValues.add(initCode)) {
+                    objectsInit.add(initCode);
+                }
+            }
+        }
+        testGenerator.objectsInit = objectsInit;
     }
 
     private void setArgumentsInlineCode(TestGenerator testGenerator) {
