@@ -78,8 +78,7 @@ public class TestGeneratorFactory {
 
     private void setObjectsInit(TestGenerator testGenerator) {
         testGenerator.objectsInit = testGenerator.argumentObjectCodeGenerators.stream()
-                .map(ObjectCodeGenerator::getInitCode).collect(Collectors.toList());
-        testGenerator.objectsInit = testGenerator.objectsInit.stream()
+                .map(ObjectCodeGenerator::getInitCode)
                 .filter(x -> !x.equals(""))
                 .distinct()
                 .collect(Collectors.toList());
