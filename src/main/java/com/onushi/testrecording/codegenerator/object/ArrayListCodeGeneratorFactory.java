@@ -1,6 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
+import com.onushi.testrecording.codegenerator.test.TestGenerator;
+import com.onushi.testrecording.codegenerator.test.TestObjectsManagerService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,18 +11,21 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ArrayListCodeGeneratorFactory {
-    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+    private final TestObjectsManagerService testObjectsManagerService;
 
-    public ArrayListCodeGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
-        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+    public ArrayListCodeGeneratorFactory(TestObjectsManagerService testObjectsManagerService) {
+        this.testObjectsManagerService = testObjectsManagerService;
     }
 
-    public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
+    public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, false, objectName);
 
         objectCodeGenerator.requiredImports = Arrays.asList("java.util.ArrayList;", "java.util.List", "java.util.Arrays");
 
-        objectCodeGenerator.dependencies = getObjectCodeGeneratorElements((List<Object>) object);
+        objectCodeGenerator.dependencies = ((List<Object>) object).stream()
+                .map(element -> testObjectsManagerService.getCommonObjectCodeGenerator(testGenerator, element))
+                .collect(Collectors.toList());
+
         String elementsInlineCode = objectCodeGenerator.dependencies.stream()
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
@@ -46,16 +51,5 @@ public class ArrayListCodeGeneratorFactory {
         } else {
             return "Object";
         }
-    }
-
-    private List<ObjectCodeGenerator> getObjectCodeGeneratorElements(List<Object> list) {
-        List<ObjectCodeGenerator> result = new ArrayList<>();
-        for (Object element: list) {
-            // TODO IB !!!! not ignored
-            // TODO IB !!!! use stream
-            ObjectCodeGenerator elementObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(element, "ignored");
-            result.add(elementObjectCodeGenerator);
-        }
-        return result;
     }
 }

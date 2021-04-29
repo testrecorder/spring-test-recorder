@@ -28,8 +28,12 @@ class TestGeneratorServiceTest {
     void setUp() {
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
-        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService, new ObjectStateReaderService(objectNameGenerator));
-        TestObjectsManagerService testObjectsManagerService = new TestObjectsManagerService(objectCodeGeneratorFactory, objectNameGenerator);
+        TestObjectsManagerService testObjectsManagerService = new TestObjectsManagerService();
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService,
+                new ObjectStateReaderService(objectNameGenerator),
+                testObjectsManagerService);
+        testObjectsManagerService.setObjectCodeGeneratorFactory(objectCodeGeneratorFactory);
+        testObjectsManagerService.setObjectNameGenerator(objectNameGenerator);
         testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, testObjectsManagerService);
         testGeneratorService = new TestGeneratorService(new StringService());
     }

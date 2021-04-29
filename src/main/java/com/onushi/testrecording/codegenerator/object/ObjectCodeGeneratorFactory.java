@@ -2,6 +2,8 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analizer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analizer.object.ObjectStateReaderService;
+import com.onushi.testrecording.codegenerator.test.TestGenerator;
+import com.onushi.testrecording.codegenerator.test.TestObjectsManagerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,15 +13,19 @@ public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
+    private final TestObjectsManagerService testObjectsManagerService;
 
-    public ObjectCodeGeneratorFactory(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService) {
+    public ObjectCodeGeneratorFactory(ClassInfoService classInfoService,
+                                      ObjectStateReaderService objectStateReaderService,
+                                      TestObjectsManagerService testObjectsManagerService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
+        this.testObjectsManagerService = testObjectsManagerService;
         // TODO IB is it ok to have new here?
         this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
     }
 
-    public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
+    public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         if (object == null) {
             return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null");
         }
@@ -46,17 +52,16 @@ public class ObjectCodeGeneratorFactory {
                 return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(object, objectName);
             default:
                 if (fullClassName.startsWith("[")) {
-                    ArrayObjectCodeGeneratorFactory arrayObjectCodeGeneratorFactory = new ArrayObjectCodeGeneratorFactory(this);
-                    return arrayObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName);
+                    return new ArrayObjectCodeGeneratorFactory(testObjectsManagerService).createObjectCodeGenerator(testGenerator, object, objectName);
                 } else if (object instanceof List<?> ) {
-                    return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(object, objectName);
+                    return new ArrayListCodeGeneratorFactory(testObjectsManagerService).createObjectCodeGenerator(testGenerator, object, objectName);
                 } else if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
                     ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
                             new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
-                            this.objectStateReaderService,
-                            this);
+                            objectStateReaderService,
+                            testObjectsManagerService);
 
-                    return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(object, objectName);
+                    return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(testGenerator, object, objectName);
                 } else {
                     return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
                 }

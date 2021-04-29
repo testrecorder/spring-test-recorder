@@ -1,6 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
+import com.onushi.testrecording.codegenerator.test.TestGenerator;
+import com.onushi.testrecording.codegenerator.test.TestObjectsManagerService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,11 +10,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArrayObjectCodeGeneratorFactory {
-    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+    private final TestObjectsManagerService testObjectsManagerService;
 
-    public ArrayObjectCodeGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
-        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+    public ArrayObjectCodeGeneratorFactory(TestObjectsManagerService testObjectsManagerService) {
+        this.testObjectsManagerService = testObjectsManagerService;
     }
+
 
     private class ArrayAsList {
         public Class<?> elementClass;
@@ -24,7 +27,7 @@ public class ArrayObjectCodeGeneratorFactory {
         }
     }
 
-    public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
+    public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, false, objectName);
 
         ArrayAsList arrayAsList = getElementList(object);
@@ -34,17 +37,17 @@ public class ArrayObjectCodeGeneratorFactory {
 
         stringGenerator.addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName());
         stringGenerator.addAttribute("objectName", objectName);
-        stringGenerator.addAttribute("elementsInlineCode", getElementsInlineCode(arrayAsList.list));
+        stringGenerator.addAttribute("elementsInlineCode", getElementsInlineCode(testGenerator, arrayAsList.list));
 
         objectCodeGenerator.initCode = stringGenerator.generate();
         return objectCodeGenerator;
     }
 
     // TODO IB this part seems to be repeated in multiple factories
-    private String getElementsInlineCode(List<?> list) {
+    private String getElementsInlineCode(TestGenerator testGenerator, List<?> list) {
         List<ObjectCodeGenerator> elementObjectCodeGenerators = new ArrayList<>();
         for(Object element: list) {
-            ObjectCodeGenerator elementObjectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(element, "ignored");
+            ObjectCodeGenerator elementObjectCodeGenerator = testObjectsManagerService.getCommonObjectCodeGenerator(testGenerator, element);
             elementObjectCodeGenerators.add(elementObjectCodeGenerator);
         }
         String elementsInlineCode = elementObjectCodeGenerators.stream()
