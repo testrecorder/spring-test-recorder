@@ -42,7 +42,6 @@ public class TestGeneratorFactory {
 
         testGenerator.expectedResultObjectCodeGenerator = objectCodeGeneratorFactory.getNamedObjectCodeGenerator(testGenerator,
                 methodRunInfo.getResult(), "expectedResult");
-        testGenerator.resultType = methodRunInfo.getResultType();
         testGenerator.expectedException = methodRunInfo.getException();
 
         testGenerator.requiredImports = getRequiredImports(testGenerator);
@@ -55,7 +54,23 @@ public class TestGeneratorFactory {
 
         testGenerator.expectedResultInit = getObjectsInit(Collections.singletonList(testGenerator.expectedResultObjectCodeGenerator));
 
+        testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectCodeGenerator, methodRunInfo.getFallBackResultType());
+
         return testGenerator;
+    }
+
+    private String getResultDeclareClassName(ObjectCodeGenerator expectedResultObjectCodeGenerator, Class<?> fallBackResultType) {
+        if (expectedResultObjectCodeGenerator.getObject() != null) {
+            return expectedResultObjectCodeGenerator.getDeclareClassName();
+        }
+        if (fallBackResultType != null) {
+            if (fallBackResultType.isPrimitive()) {
+                return fallBackResultType.getCanonicalName();
+            } else {
+                return fallBackResultType.getSimpleName();
+            }
+        }
+        return "Object";
     }
 
     private List<String> getRequiredImports(TestGenerator testGenerator) {

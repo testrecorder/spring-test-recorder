@@ -40,8 +40,13 @@ TODO ==========================
 					keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
 				OK - different objects can have common dependencies
 					we need a dependency sorter
+				!!!! why args types are generated as 
+						List<Person> arrayList1 and 
+					but results as
+						List result?
 				!!!! problem with repeated args
 				!!!! test cyclic dependencies
+				!!!! how to differenciate between Float and float?
 				
 			Non-@Component object creation priority
 					Known object like primitives and utils first

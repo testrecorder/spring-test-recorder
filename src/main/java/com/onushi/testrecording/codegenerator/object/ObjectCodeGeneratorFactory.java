@@ -45,27 +45,29 @@ public class ObjectCodeGeneratorFactory {
 
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         if (object == null) {
-            return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null");
+            return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null", "null");
         }
 
         String fullClassName = object.getClass().getName();
         switch (fullClassName) {
             case "java.lang.Float":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "f");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "f", "float");
             case "java.lang.Long":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "L");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "L", "long");
             case "java.lang.Byte":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(byte)" + object);
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(byte)" + object, "byte");
             case "java.lang.Short":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(short)" + object);
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(short)" + object, "short");
             case "java.lang.Character":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "'" + object + "'");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "'" + object + "'", "char");
             case "java.lang.String":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "\"" + object + "\"");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "\"" + object + "\"", "String");
             case "java.lang.Boolean":
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "boolean");
             case "java.lang.Integer":
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "int");
             case "java.lang.Double":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "double");
             case "java.util.Date":
                 return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(object, objectName);
             default:
@@ -81,7 +83,7 @@ public class ObjectCodeGeneratorFactory {
 
                     return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(testGenerator, object, objectName);
                 } else {
-                    return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString());
+                    return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "Object");
                 }
         }
     }

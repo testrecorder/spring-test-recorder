@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DateObjectCodeGeneratorFactory {
     public ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName) {
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName, "Date");
 
         objectCodeGenerator.requiredImports.add("java.text.SimpleDateFormat");
         objectCodeGenerator.requiredImports.add("java.util.Date");

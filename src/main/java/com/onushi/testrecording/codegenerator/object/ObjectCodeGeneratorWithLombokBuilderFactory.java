@@ -31,6 +31,8 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
 
         objectCodeGenerator.requiredImports.add(object.getClass().getName());
 
+        objectCodeGenerator.declareClassName = "TODO IB !!!!";
+
         Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
         objectCodeGenerator.dependencies = objectState.values().stream()
                 .distinct()

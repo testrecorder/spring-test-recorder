@@ -26,6 +26,8 @@ public class ArrayListCodeGeneratorFactory {
                 .map(element -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, element))
                 .collect(Collectors.toList());
 
+        objectCodeGenerator.declareClassName = "TODO IB !!!!";
+
         String elementsInlineCode = objectCodeGenerator.dependencies.stream()
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 

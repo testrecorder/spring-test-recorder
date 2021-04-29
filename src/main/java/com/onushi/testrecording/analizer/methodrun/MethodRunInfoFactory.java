@@ -15,7 +15,7 @@ public class MethodRunInfoFactory {
         methodRunInfo.target = methodInvocation.getTarget();
         methodRunInfo.methodName = methodSignature.getName();
         methodRunInfo.arguments = Arrays.asList(methodInvocation.getArgs());
-        methodRunInfo.resultType = methodSignature.getReturnType();
+        methodRunInfo.fallBackResultType = methodSignature.getReturnType();
         methodRunInfo.result = result;
         methodRunInfo.exception = exception;
 

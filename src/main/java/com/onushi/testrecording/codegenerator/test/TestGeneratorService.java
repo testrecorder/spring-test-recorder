@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -65,11 +66,7 @@ public class TestGeneratorService {
         attributes.put("className", testGenerator.getShortClassName());
         attributes.put("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 
-        if (testGenerator.getResultType().isPrimitive()) {
-            attributes.put("resultType", testGenerator.getResultType().getCanonicalName());
-        } else {
-            attributes.put("resultType", testGenerator.getResultType().getSimpleName());
-        }
+        attributes.put("resultDeclareClassName", testGenerator.getResultDeclareClassName());
 
         attributes.put("argumentsInlineCode", String.join(", ", testGenerator.getArgumentsInlineCode()));
         attributes.put("expectedResultInit", testGenerator.getExpectedResultInit().stream()
@@ -98,14 +95,14 @@ public class TestGeneratorService {
         StringGenerator stringGenerator = new StringGenerator();
         stringGenerator.addAttributes(attributes);
         if (testGenerator.getExpectedException() == null) {
-            if (testGenerator.getResultType() == void.class) {
+            if (testGenerator.getResultDeclareClassName().equals("void")) {
                 stringGenerator.setTemplate(
                     "        // Act\n" +
                     "        {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
             } else {
                 stringGenerator.setTemplate(
                     "        // Act\n" +
-                    "        {{resultType}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
+                    "        {{resultDeclareClassName}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
             }
         } else {
             stringGenerator.setTemplate(
@@ -118,7 +115,7 @@ public class TestGeneratorService {
     }
 
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) {
-        if (testGenerator.getExpectedException() == null && testGenerator.getResultType() != void.class) {
+        if (testGenerator.getExpectedException() == null && !testGenerator.getResultDeclareClassName().equals("void")) {
             StringGenerator stringGenerator = new StringGenerator();
             stringGenerator.addAttributes(attributes);
             stringGenerator.setTemplate(

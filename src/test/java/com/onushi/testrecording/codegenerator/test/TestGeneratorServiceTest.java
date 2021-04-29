@@ -43,7 +43,6 @@ class TestGeneratorServiceTest {
                 .methodName("addFloats")
                 .arguments(Arrays.asList(2f, 3f))
                 .result(5f)
-                .resultType(float.class)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
@@ -87,7 +86,6 @@ class TestGeneratorServiceTest {
                 .methodName("minDate")
                 .arguments(Arrays.asList(d1, d2))
                 .result(d1)
-                .resultType(Date.class)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
@@ -134,7 +132,7 @@ class TestGeneratorServiceTest {
                 .methodName("returnNull")
                 .arguments(Collections.emptyList())
                 .result(null)
-                .resultType(Student.class)
+                .fallBackResultType(Student.class)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
@@ -180,7 +178,6 @@ class TestGeneratorServiceTest {
                 .methodName("getFirstName")
                 .arguments(Collections.singletonList(person))
                 .result("Mary")
-                .resultType(String.class)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
@@ -227,7 +224,7 @@ class TestGeneratorServiceTest {
                 .methodName("testException")
                 .arguments(Collections.singletonList(5))
                 .result(null)
-                .resultType(String.class)
+                .fallBackResultType(String.class)
                 .exception(new IllegalArgumentException("x"))
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
@@ -266,7 +263,7 @@ class TestGeneratorServiceTest {
                 .methodName("doNothing")
                 .arguments(Collections.emptyList())
                 .result(null)
-                .resultType(void.class)
+                .fallBackResultType(void.class)
                 .exception(null)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
@@ -317,7 +314,6 @@ class TestGeneratorServiceTest {
                 .arguments(Arrays.asList(boolArray, byteArray, charArray, doubleArray,
                         floatArray, intArray, longArray, shortArray, stringArray, objectArray))
                 .result(42)
-                .resultType(int.class)
                 .exception(null)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
@@ -371,7 +367,6 @@ class TestGeneratorServiceTest {
                 .methodName("processLists")
                 .arguments(Arrays.asList(stringList, objectList))
                 .result(42)
-                .resultType(int.class)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
@@ -422,7 +417,6 @@ class TestGeneratorServiceTest {
                 .methodName("minDate")
                 .arguments(Arrays.asList(d1, d1))
                 .result(d1)
-                .resultType(Date.class)
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
@@ -486,7 +480,6 @@ class TestGeneratorServiceTest {
                 .methodName("someFunction")
                 .arguments(Arrays.asList(personList, personArray))
                 .result(personList)
-                .resultType(personList.getClass())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 

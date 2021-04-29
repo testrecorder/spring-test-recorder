@@ -10,6 +10,7 @@ public class ObjectCodeGenerator {
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
+    protected String declareClassName;
     protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();
     protected List<String> requiredImports = new ArrayList<>();
     protected List<String> requiredHelperObjects = new ArrayList<>();
@@ -40,6 +41,13 @@ public class ObjectCodeGenerator {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
+    }
+
+    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, String declareClassName) {
+        this.object = object;
+        this.objectName = objectName;
+        this.inlineCode = inlineCode;
+        this.declareClassName = declareClassName;
     }
 }
 

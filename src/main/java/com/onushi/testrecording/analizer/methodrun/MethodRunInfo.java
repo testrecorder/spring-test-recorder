@@ -12,18 +12,17 @@ public class MethodRunInfo {
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;
-    // TODO IB !!!! rename to fallBackResultType
-    protected Class<?> resultType;
+    protected Class<?> fallBackResultType;
     protected Object result;
     protected Exception exception;
 
     protected MethodRunInfo() {}
 
-    public MethodRunInfo(Object target, String methodName, List<Object> arguments, Class<?> resultType, Object result, Exception exception) {
+    public MethodRunInfo(Object target, String methodName, List<Object> arguments, Class<?> fallBackResultType, Object result, Exception exception) {
         this.target = target;
         this.methodName = methodName;
         this.arguments = arguments;
-        this.resultType = resultType;
+        this.fallBackResultType = fallBackResultType;
         this.result = result;
         this.exception = exception;
     }
