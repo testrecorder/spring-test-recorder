@@ -25,15 +25,21 @@ public class TestGenerator {
     protected String expectedResultInit;
 
     protected final Map<Object, String> objectNames = new HashMap<>();
+    protected final Map<Object, ObjectCodeGenerator> objectObjectCodeGeneratorCache = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
     protected TestGenerator() {}
 
+    // TODO IB !!!! remove this and use getObjectObjectCodeGeneratorCache
     protected Map<Object, String> getObjectNames() {
         return objectNames;
     }
 
     protected Map<String, Integer> getLastIndexForObjectName() {
         return lastIndexForObjectName;
+    }
+
+    protected Map<Object, ObjectCodeGenerator> getObjectObjectCodeGeneratorCache() {
+        return objectObjectCodeGeneratorCache;
     }
 }

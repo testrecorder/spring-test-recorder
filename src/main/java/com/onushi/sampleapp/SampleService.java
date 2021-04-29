@@ -59,6 +59,7 @@ public class SampleService {
         return 5;
     }
 
+    @RecordTest
     public Date minDate(Date date1, Date date2) {
         return date1.before(date2) ? date1 : date2;
     }
@@ -82,7 +83,6 @@ public class SampleService {
         return 42;
     }
 
-    @RecordTest
     public Date someFunction(List<String> list, StudentWithBuilder student, int[] array) throws ParseException {
         // ....
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

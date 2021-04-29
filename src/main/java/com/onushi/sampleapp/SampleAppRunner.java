@@ -3,7 +3,9 @@ package com.onushi.sampleapp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -18,10 +20,9 @@ public class SampleAppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        Date d1 = simpleDateFormat.parse("2021-01-01");
-//        Date d2 = simpleDateFormat.parse("2021-02-02");
-//        Date min = sampleService.minDate(d1, d2);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = simpleDateFormat.parse("2021-01-01");
+        Date min = sampleService.minDate(d1, d1);
 //
 //        Date d3 = simpleDateFormat.parse("2021-01-02");
 //        Date d4 = simpleDateFormat.parse("2021-02-03");

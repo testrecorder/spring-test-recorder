@@ -29,7 +29,8 @@ class TestGeneratorServiceTest {
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService, new ObjectStateReaderService(objectNameGenerator));
-        testGeneratorFactory = new TestGeneratorFactory(objectCodeGeneratorFactory, objectNameGenerator, classInfoService);
+        TestObjectsManagerService testObjectsManagerService = new TestObjectsManagerService(objectCodeGeneratorFactory, objectNameGenerator);
+        testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, testObjectsManagerService);
         testGeneratorService = new TestGeneratorService(new StringService());
     }
 
@@ -406,6 +407,60 @@ class TestGeneratorServiceTest {
                         "END GENERATED TEST =========\n"),
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
+
+
+
+
+
+    @Test
+    void generateTestObjectCaching() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = simpleDateFormat.parse("2021-01-01");
+        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("minDate")
+                .arguments(Arrays.asList(d1, d1))
+                .result(d1)
+                .resultType(Date.class)
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Date;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void minDate() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        Date result = sampleService.minDate(date1, date1);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        Date expectedResult = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
+                        "        assertEquals(expectedResult, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
+
 
 
 // TODO IB activate after we implemented mocking
