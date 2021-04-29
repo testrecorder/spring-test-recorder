@@ -25,7 +25,6 @@ class ObjectCodeGeneratorTest {
     void testNull() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator,null, "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("null", objectCodeGenerator.getInlineCode());
     }
 
@@ -34,7 +33,6 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator,1f, "testFloat");
         assertEquals("testFloat", objectCodeGenerator.getObjectName());
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("1.0f", objectCodeGenerator.getInlineCode());
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(0, objectCodeGenerator.getRequiredImports().size());
@@ -45,7 +43,6 @@ class ObjectCodeGeneratorTest {
     void testLong() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, 1L, "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("1L", objectCodeGenerator.getInlineCode());
     }
 
@@ -53,7 +50,6 @@ class ObjectCodeGeneratorTest {
     void testByte() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, (byte)11, "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("(byte)11", objectCodeGenerator.getInlineCode());
     }
 
@@ -61,7 +57,6 @@ class ObjectCodeGeneratorTest {
     void testShort() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, (short)100, "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("(short)100", objectCodeGenerator.getInlineCode());
     }
 
@@ -69,7 +64,6 @@ class ObjectCodeGeneratorTest {
     void testCharacter() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, 'a', "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("'a'", objectCodeGenerator.getInlineCode());
     }
 
@@ -77,7 +71,6 @@ class ObjectCodeGeneratorTest {
     void testString() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, "Hello World", "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("\"Hello World\"", objectCodeGenerator.getInlineCode());
     }
 
@@ -85,7 +78,6 @@ class ObjectCodeGeneratorTest {
     void testBoolean() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, true, "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("true", objectCodeGenerator.getInlineCode());
     }
 
@@ -93,7 +85,6 @@ class ObjectCodeGeneratorTest {
     void testInt() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, 2, "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("2", objectCodeGenerator.getInlineCode());
     }
 
@@ -101,7 +92,6 @@ class ObjectCodeGeneratorTest {
     void testDouble() {
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, 2.5, "test");
-        assertTrue(objectCodeGenerator.isOnlyInline());
         assertEquals("2.5", objectCodeGenerator.getInlineCode());
     }
 
@@ -112,7 +102,6 @@ class ObjectCodeGeneratorTest {
 
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, date1, "date1");
-        assertFalse(objectCodeGenerator.isOnlyInline());
         assertEquals("date1", objectCodeGenerator.getInlineCode());
         assertEquals(1, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(2, objectCodeGenerator.getRequiredImports().size());

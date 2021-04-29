@@ -26,7 +26,7 @@ public class ArrayObjectCodeGeneratorFactory {
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, false, objectName);
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
 
         ArrayAsList arrayAsList = getElementList(object);
 

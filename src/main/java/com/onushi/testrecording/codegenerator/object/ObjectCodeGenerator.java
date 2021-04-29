@@ -14,12 +14,10 @@ public class ObjectCodeGenerator {
     protected List<String> requiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     protected String inlineCode;
-    protected boolean isOnlyInline;
 
-    protected ObjectCodeGenerator(Object object, String objectName, boolean isOnlyInline, String inlineCode) {
+    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode) {
         this.object = object;
         this.objectName = objectName;
-        this.isOnlyInline = isOnlyInline;
         this.inlineCode = inlineCode;
     }
 }
