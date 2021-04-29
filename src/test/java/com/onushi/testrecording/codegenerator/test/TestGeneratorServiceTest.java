@@ -533,7 +533,64 @@ class TestGeneratorServiceTest {
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
+    @Test
+    void generateTestForMethodThatReturnsArray() throws Exception {
+        // Arrange
+        int[] expectedResult = {3, 4};
+        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("returnIntArray")
+                .arguments(Collections.emptyList())
+                .result(expectedResult)
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
 
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void returnIntArray() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        int[] result = sampleService.returnIntArray();\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        int[] expectedResult = {3, 4};\n" +
+                        "        assertEquals(expectedResult, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
+
+
+
+    // TODO IB !!!! solve equality when there is no equals defined
+    @Test
+    void returnIntArray() throws Exception {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act
+        int[] result = sampleService.returnIntArray();
+
+        // Assert
+        int[] expectedResult = {3, 4};
+        assertEquals(expectedResult, result);
+    }
 
 // TODO IB activate after we implemented mocking
 //    @Test

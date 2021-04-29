@@ -55,6 +55,8 @@ public class SampleAppRunner implements CommandLineRunner {
 //        Object[] objectArray = {"a", 2};
 //        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
 
+        sampleService.returnIntArray();
+
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
         Person paul = Person.builder()

@@ -24,12 +24,8 @@ TODO ==========================
 				map from name to class. this way we eliminate the problem with null
 			Get constructors and their arguments
 
-			Enum specifying the destination of an object?
-				Target - this should not be mocked
-				MethodArgument - argument of the method call
-				ExpectedResult
-				Dependency - dependency of the target, arguments or expected result
-				Warning: An object can be MethodArgument + Dependency, or ExpectedResult + Argument
+			!!!! solve equality when there is no equals
+				Ex: int[] == int[]
 		
 			Object creation 
 				cache objects per TestGenerator
@@ -40,13 +36,14 @@ TODO ==========================
 					keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
 				OK - different objects can have common dependencies
 					we need a dependency sorter
-				!!!! why args types are generated as 
+				OK - why args types are generated as 
 						List<Person> arrayList1 and 
 					but results as
 						List result?
 				!!!! problem with repeated args
 				!!!! test cyclic dependencies
 				!!!! how to differenciate between Float and float?
+			
 				
 			Non-@Component object creation priority
 					Known object like primitives and utils first

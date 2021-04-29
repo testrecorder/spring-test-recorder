@@ -36,7 +36,10 @@ public class ArrayObjectCodeGeneratorFactory {
                 .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
                 .collect(Collectors.toList());
 
-        objectCodeGenerator.declareClassName = "TODO IB !!!!";
+        objectCodeGenerator.declareClassName = new StringGenerator()
+                .setTemplate("{{elementClassShort}}[]")
+                .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
+                .generate();
 
         objectCodeGenerator.initCode = new StringGenerator()
                 .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};\n")
