@@ -31,7 +31,7 @@ public class ObjectCodeGeneratorFactory {
     }
 
     public ObjectCodeGenerator getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
-        Map<Object, ObjectCodeGenerator> objectCache = testGenerator.getObjectObjectCodeGeneratorCache();
+        Map<Object, ObjectCodeGenerator> objectCache = testGenerator.getObjectCodeGeneratorCache();
         ObjectCodeGenerator existingObject = objectCache.get(object);
         if (existingObject != null) {
             return existingObject;

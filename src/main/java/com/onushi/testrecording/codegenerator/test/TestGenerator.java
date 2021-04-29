@@ -24,7 +24,7 @@ public class TestGenerator {
     protected List<String> argumentsInlineCode;
     protected String expectedResultInit;
 
-    protected final Map<Object, ObjectCodeGenerator> objectObjectCodeGeneratorCache = new HashMap<>();
+    protected final Map<Object, ObjectCodeGenerator> objectCodeGeneratorCache = new HashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
     protected TestGenerator() {}
@@ -33,7 +33,7 @@ public class TestGenerator {
         return lastIndexForObjectName;
     }
 
-    public Map<Object, ObjectCodeGenerator> getObjectObjectCodeGeneratorCache() {
-        return objectObjectCodeGeneratorCache;
+    public Map<Object, ObjectCodeGenerator> getObjectCodeGeneratorCache() {
+        return objectCodeGeneratorCache;
     }
 }
