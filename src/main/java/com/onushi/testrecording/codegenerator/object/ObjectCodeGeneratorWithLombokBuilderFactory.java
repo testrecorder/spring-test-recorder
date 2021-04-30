@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,16 +31,17 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
 
         objectCodeGenerator.requiredImports.add(object.getClass().getName());
 
-        Map<String, Object> objectState = objectStateReaderService.getObjectState(object);
+        Map<String, Optional<Object>> objectState = objectStateReaderService.getObjectState(object);
         objectCodeGenerator.dependencies = objectState.values().stream()
                 .distinct()
+                .map(fieldValue -> fieldValue.orElse(null))
                 .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
                 .collect(Collectors.toList());
         objectCodeGenerator.initCode = getInitCode(testGenerator, object, objectName, objectState);
         return objectCodeGenerator;
     }
 
-    private String getInitCode(TestGenerator testGenerator, Object object, String objectName, Map<String, Object> objectState) {
+    private String getInitCode(TestGenerator testGenerator, Object object, String objectName, Map<String, Optional<Object>> objectState) {
         return new StringGenerator()
             .setTemplate(
                     "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
@@ -50,7 +52,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             .generate();
     }
 
-    private String getSettersCodeForInit(TestGenerator testGenerator, Object object, Map<String, Object> objectState) {
+    private String getSettersCodeForInit(TestGenerator testGenerator, Object object, Map<String, Optional<Object>> objectState) {
         List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object.getClass());
 
         StringBuilder settersCode = new StringBuilder();
@@ -61,7 +63,8 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
                 // this will be found in the cache since dependencies were calculated
-                ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName));
+                // TODO IB !!!! handle Optional<> here
+                ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).orElse(null));
                 stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
             } else {
                 stringGenerator.addAttribute("fieldValue", "???");

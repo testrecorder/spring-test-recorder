@@ -18,8 +18,8 @@ public class ObjectStateReaderService {
         this.objectNameGenerator = objectNameGenerator;
     }
 
-    public Map<String, Object> getObjectState(Object object) {
-        Map<String, Object> result = new HashMap<>();
+    public Map<String, Optional<Object>> getObjectState(Object object) {
+        Map<String, Optional<Object>> result = new HashMap<>();
         if (object != null) {
             getFromPublicGetters(object, result);
             getFromPublicFields(object, result);
@@ -27,7 +27,7 @@ public class ObjectStateReaderService {
         return result;
     }
 
-    private void getFromPublicGetters(Object object, Map<String, Object> result) {
+    private void getFromPublicGetters(Object object, Map<String, Optional<Object>> result) {
         List<Method> getters = Arrays.stream(object.getClass().getMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
                 .filter(method -> method.getName().startsWith("get"))
@@ -36,19 +36,19 @@ public class ObjectStateReaderService {
             String fieldName = getter.getName().substring(3);
             fieldName = objectNameGenerator.lowerCaseFirstLetter(fieldName);
             try {
-                result.put(fieldName, getter.invoke(object));
+                result.put(fieldName, Optional.ofNullable(getter.invoke(object)));
             } catch (IllegalAccessException | InvocationTargetException ignored) {
             }
         }
     }
 
-    private void getFromPublicFields(Object object, Map<String, Object> result) {
+    private void getFromPublicFields(Object object, Map<String, Optional<Object>> result) {
         List<Field> fields = Arrays.stream(object.getClass().getFields())
                 .filter(field -> Modifier.isPublic(field.getModifiers()))
                 .collect(Collectors.toList());
         for (Field field: fields) {
             try {
-                result.put(field.getName(), field.get(object));
+                result.put(field.getName(), Optional.ofNullable(field.get(object)));
             } catch (IllegalAccessException ignored) {
             }
         }
