@@ -24,6 +24,11 @@ public class ClassInfoService {
                 .collect(Collectors.toList());
     }
 
+    public boolean hasPublicNoArgsConstructor(Class<?> clazz) {
+        List<Constructor<?>> publicConstructors = getPublicConstructors(clazz);
+        return publicConstructors.stream()
+                .anyMatch(x -> x.getParameterTypes().length == 0);
+    }
 
     public boolean hasEquals(Class<?> clazz) {
         return Arrays.stream(clazz.getMethods()).anyMatch(method -> method.getName().equals("equals") &&

@@ -20,10 +20,17 @@ class ClassInfoServiceTest {
     }
 
     @Test
-    void getConstructors() {
+    void getPublicConstructors() {
         ClassInfoService classInfoService = new ClassInfoService();
         List<Constructor<?>> publicConstructors = classInfoService.getPublicConstructors(Person.class);
         assertEquals(2, publicConstructors.size());
+    }
+
+    @Test
+    void hasPublicNoArgsConstructor() {
+        ClassInfoService classInfoService = new ClassInfoService();
+        assertTrue(classInfoService.hasPublicNoArgsConstructor(Person.class));
+        assertFalse(classInfoService.hasPublicNoArgsConstructor(StudentWithBuilder.class));
     }
 
     @Test
