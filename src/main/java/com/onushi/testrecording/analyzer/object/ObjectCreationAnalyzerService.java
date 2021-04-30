@@ -3,7 +3,6 @@ package com.onushi.testrecording.analyzer.object;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,13 +28,44 @@ public class ObjectCreationAnalyzerService {
         if (object == null) {
             return false;
         } else {
-            // a object with an int == 0 will say it cannot be initialized this way
             Map<String, Optional<Object>> objectState = objectStateReaderService.getObjectState(object);
-            long notNullValuesToSet = objectState.values().stream()
-                    .filter(Optional::isPresent)
-                    .count();
+
+            long notDefaultValuesToSet = 0;
+            for (Optional<Object> value : objectState.values()) {
+                if (!value.isPresent()) {
+                    continue;
+                }
+                if (isDefaultValueForItsClass(value.get())){
+                    continue;
+                }
+
+                notDefaultValuesToSet++;
+            }
             return classInfoService.hasPublicNoArgsConstructor(object.getClass()) &&
-                    notNullValuesToSet == 0;
+                    notDefaultValuesToSet == 0;
+        }
+    }
+
+    public boolean isDefaultValueForItsClass(Object object) {
+        if (object == null) {
+            return true;
+        }
+
+        String fullClassName = object.getClass().getName();
+        switch (fullClassName) {
+            case "java.lang.Boolean":
+                return Boolean.FALSE.equals(object);
+            case "java.lang.Byte":
+            case "java.lang.Short":
+            case "java.lang.Integer":
+            case "java.lang.Long":
+            case "java.lang.Float":
+            case "java.lang.Double":
+                return (((Number) object)).doubleValue() == 0;
+            case "java.lang.Character":
+                return (Character) object == 0;
+            default:
+                return false;
         }
     }
 

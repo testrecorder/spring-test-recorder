@@ -37,19 +37,19 @@ public class ObjectStateReaderService {
             fieldName = objectNameGenerator.lowerCaseFirstLetter(fieldName);
             try {
                 result.put(fieldName, Optional.ofNullable(getter.invoke(object)));
-            } catch (IllegalAccessException | InvocationTargetException ignored) {
+            } catch (Exception ignored) {
             }
         }
     }
 
     private void getFromPublicFields(Object object, Map<String, Optional<Object>> result) {
-        List<Field> fields = Arrays.stream(object.getClass().getFields())
+        List<Field> fields = Arrays.stream(object.getClass().getDeclaredFields())
                 .filter(field -> Modifier.isPublic(field.getModifiers()))
                 .collect(Collectors.toList());
         for (Field field: fields) {
             try {
                 result.put(field.getName(), Optional.ofNullable(field.get(object)));
-            } catch (IllegalAccessException ignored) {
+            } catch (Exception ignored) {
             }
         }
     }

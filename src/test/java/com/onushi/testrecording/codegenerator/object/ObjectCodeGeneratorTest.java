@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
+import com.onushi.sampleapp.Person;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
@@ -134,7 +135,18 @@ class ObjectCodeGeneratorTest {
         assertEquals("List<String> list1 = Arrays.asList(\"1\", \"2\", \"3\");", objectCodeGenerator.getInitCode());
     }
 
-    // TODO IB !!!! test construction with no args
+    @Test
+    void testNoArgsConstruction() {
+        Person person = new Person();
+
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, person, "person1");
+        assertEquals("new Person()", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.Person", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("", objectCodeGenerator.getInitCode());
+    }
 
     // TODO IB !!!! test construction if there is a identifiable constructor covering all the fields
 

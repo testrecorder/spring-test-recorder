@@ -3,6 +3,7 @@ package com.onushi.testrecording.analyzer.object;
 import com.onushi.sampleapp.Person;
 import com.onushi.sampleapp.StudentWithBuilder;
 import com.onushi.sampleapp.StudentWithPublicFields;
+import com.onushi.sampleapp.StudentWithDefaultInitFields;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,9 @@ class ObjectCreationAnalyzerServiceTest {
 
         Person person = new Person();
         assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person));
+
+        StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithDefaultInitFields));
     }
 
     private ObjectCreationAnalyzerService getObjectCreationAnalyzerService() {
