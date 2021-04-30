@@ -30,7 +30,7 @@ public class ObjectCreationAnalyzerService {
         } else {
             Map<String, Optional<Object>> objectState = objectStateReaderService.getObjectState(object);
 
-            long notDefaultValuesToSet = 0;
+            long valuesDifferentThanDefaults = 0;
             for (Optional<Object> value : objectState.values()) {
                 if (!value.isPresent()) {
                     continue;
@@ -39,10 +39,10 @@ public class ObjectCreationAnalyzerService {
                     continue;
                 }
 
-                notDefaultValuesToSet++;
+                valuesDifferentThanDefaults++;
             }
             return classInfoService.hasPublicNoArgsConstructor(object.getClass()) &&
-                    notDefaultValuesToSet == 0;
+                    valuesDifferentThanDefaults == 0;
         }
     }
 

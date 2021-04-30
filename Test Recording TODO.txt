@@ -31,6 +31,8 @@ DONE ==========================
 	OK - Get fields to set from getters and public fields to Optional<>
 	
 	OK Get constructors and their arguments
+	
+	OK - a object with an int == 0 will be initialized with NoArgs
 
 TODO ==========================
 	ObjectCodeGenerators
@@ -51,7 +53,7 @@ TODO ==========================
 					handle Map<>
 				Unknown objects
 					!!!! Creation priority
-						if NoArgs constructor exists and no fields to be set
+						TEST - if NoArgs constructor exists and no fields to be set
 							Create with NoArgs constructor 
 						OK - if Lombok builder exists
 							Create with Lombok builder
@@ -110,7 +112,7 @@ LATER ==========================
 	
 	arrays of arrays
 	
-	a abject with an int == 0 will not be initialized with NoArgs
+	
 	
 
 	
