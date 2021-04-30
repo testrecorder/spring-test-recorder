@@ -2,6 +2,7 @@ package com.onushi.testrecording.analyzer.classInfo;
 
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -17,17 +18,16 @@ public class ClassInfoService {
                 x.annotationType().getName().equals("org.springframework.stereotype.Controller"));
     }
 
+    public List<Constructor<?>> getPublicConstructors(Class<?> clazz) {
+        return Arrays.stream(clazz.getConstructors())
+                .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
+                .collect(Collectors.toList());
+    }
+
+
     public boolean hasEquals(Class<?> clazz) {
         return Arrays.stream(clazz.getMethods()).anyMatch(method -> method.getName().equals("equals") &&
                 method.getDeclaringClass() == clazz);
-    }
-
-    public boolean canBeCreatedWithNoArgsConstructor() {
-        return false;
-    }
-
-    public boolean canBeCreatedWithSetters() {
-        return false;
     }
 
     public boolean canBeCreatedWithLombokBuilder(Class<?> clazz) {
@@ -63,4 +63,5 @@ public class ClassInfoService {
         }
         return new ArrayList<>();
     }
+
 }

@@ -4,6 +4,7 @@ import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
@@ -19,11 +20,10 @@ class ClassInfoServiceTest {
     }
 
     @Test
-    void canBeCreatedWithNoArgsConstructor() {
-    }
-
-    @Test
-    void canBeCreatedWithSetters() {
+    void getConstructors() {
+        ClassInfoService classInfoService = new ClassInfoService();
+        List<Constructor<?>> publicConstructors = classInfoService.getPublicConstructors(Person.class);
+        assertEquals(2, publicConstructors.size());
     }
 
     @Test
