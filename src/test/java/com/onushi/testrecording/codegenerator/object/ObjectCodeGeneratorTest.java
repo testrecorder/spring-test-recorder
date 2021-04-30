@@ -7,7 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -106,6 +108,38 @@ class ObjectCodeGeneratorTest {
         assertEquals(2, objectCodeGenerator.getRequiredImports().size());
         assertNotEquals("", objectCodeGenerator.getInitCode());
     }
+
+    @Test
+    void testArray() {
+        int[] array = {1, 2, 4};
+
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, array, "array1");
+        assertEquals("array1", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(0, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("int[] array1 = {1, 2, 4};", objectCodeGenerator.getInitCode());
+    }
+
+    @Test
+    void testList() {
+        List<String> list = Arrays.asList("1", "2", "3");
+
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, list, "list1");
+        assertEquals("list1", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(2, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("List<String> list1 = Arrays.asList(\"1\", \"2\", \"3\");", objectCodeGenerator.getInitCode());
+    }
+
+    // TODO IB !!!! test construction with no args
+
+    // TODO IB !!!! test construction if there is a identifiable constructor covering all the fields
+
+    // TODO IB !!!! test construction with no args + setters
+
+    // TODO IB !!!! test construction with no args + public fields
 
     private ObjectCodeGeneratorFactory getObjectCodeGeneratorFactory() {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();

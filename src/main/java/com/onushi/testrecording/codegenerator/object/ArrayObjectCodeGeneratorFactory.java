@@ -45,7 +45,7 @@ public class ArrayObjectCodeGeneratorFactory {
                 .generate();
 
         objectCodeGenerator.initCode = new StringGenerator()
-                .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};\n")
+                .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};")
                 .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
                 .addAttribute("objectName", objectName)
                 .addAttribute("elementsInlineCode", getElementsInlineCode(elements))

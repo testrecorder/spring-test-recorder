@@ -387,8 +387,8 @@ class TestGeneratorServiceTest {
                         "    @Test\n" +
                         "    void processLists() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        List<String> arrayList1 =  Arrays.asList(\"a\", \"b\");\n" +
-                        "        List<Object> arrayList2 =  Arrays.asList(1, \"b\", null);\n" +
+                        "        List<String> arrayList1 = Arrays.asList(\"a\", \"b\");\n" +
+                        "        List<Object> arrayList2 = Arrays.asList(1, \"b\", null);\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -516,7 +516,7 @@ class TestGeneratorServiceTest {
                         "            .firstName(\"Gica\")\n" +
                         "            .lastName(\"Fulgerica\")\n" +
                         "            .build();\n" +
-                        "        List<Person> arrayList1 =  Arrays.asList(person1, person2);\n" +
+                        "        List<Person> arrayList1 = Arrays.asList(person1, person2);\n" +
                         "        Person[] array1 = {person1, person2};\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
@@ -524,7 +524,7 @@ class TestGeneratorServiceTest {
                         "        List<Person> result = sampleService.someFunction(arrayList1, array1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        List<Person> expectedResult =  Arrays.asList(person1, person2);\n" +
+                        "        List<Person> expectedResult = Arrays.asList(person1, person2);\n" +
                         "        assertEquals(expectedResult, result);\n" +
                         "    }\n" +
                         "}\n" +
@@ -665,7 +665,7 @@ class TestGeneratorServiceTest {
                         "    void repeatedArgs() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        int[] array1 = {3, 4, 3};\n" +
-                        "        List<Float> arrayList1 =  Arrays.asList(3.0f, 3.0f);\n" +
+                        "        List<Float> arrayList1 = Arrays.asList(3.0f, 3.0f);\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +

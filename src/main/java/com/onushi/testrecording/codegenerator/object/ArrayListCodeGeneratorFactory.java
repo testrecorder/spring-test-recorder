@@ -35,7 +35,7 @@ public class ArrayListCodeGeneratorFactory {
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
         StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.setTemplate("List<{{elementClassSimpleName}}> {{objectName}} =  Arrays.asList({{elementsInlineCode}});\n")
+        stringGenerator.setTemplate("List<{{elementClassSimpleName}}> {{objectName}} = Arrays.asList({{elementsInlineCode}});")
                 .addAttribute("elementClassSimpleName", elementClassSimpleName)
                 .addAttribute("objectName", objectName)
                 .addAttribute("elementsInlineCode", elementsInlineCode);

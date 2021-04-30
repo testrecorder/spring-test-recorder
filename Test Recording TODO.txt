@@ -29,47 +29,46 @@ DONE ==========================
 	OK - cache objects per TestGenerator
 
 	OK - Get fields to set from getters and public fields to Optional<>
+	
+	OK Get constructors and their arguments
 
 TODO ==========================
 	ObjectCodeGenerators
-		To create an object we must know
-			!!!! Get constructors and their arguments
-
-			solve equality when there is no equals
-				Ex: int[] == int[]
+		solve equality when there is no equals
+			Ex: int[] == int[]
+	
+		Object creation 
+			test cyclic dependencies after I have other ways of object creation
+				I tried with Lombok, but Lombok could not handle it
+			how to differentiate between Float and float for different objects?
 		
-			Object creation 
-				test cyclic dependencies after I have other ways of object creation
-					I tried with Lombok, but Lombok could not handle it
-				how to differentiate between Float and float for different objects?
 			
+		Non-@Component object creation priority
+				Known object like primitives and utils first
+					https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
+					handle Enum
+					handle HashMap<>
+					handle Map<>
+				Unknown objects
+					!!!! Creation priority
+						if NoArgs constructor exists and no fields to be set
+							Create with NoArgs constructor 
+						OK - if Lombok builder exists
+							Create with Lombok builder
+						if there is a identifiable constructor covering all the fields
+							Create with args constructor 
+						if there is a NoArg constructor + all setters
+							Create with setters 
+						if there is a NoArg constructor + public fields
+							Create with fields 
+						else
+							Cannot create => write some comments explaining fields values to be set
 				
-			Non-@Component object creation priority
-					Known object like primitives and utils first
-						https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
-						handle Enum
-						handle HashMap<>
-						handle Map<>
-					Unknown objects
-						!!!! Creation priority
-							if NoArgs constructor exists and no fields to be set
-								Create with NoArgs constructor 
-							OK - if Lombok builder exists
-								Create with Lombok builder
-							if there is a identifiable constructor covering all the fields
-								Create with args constructor 
-							if there is a NoArg constructor + all setters
-								Create with setters 
-							if there is a NoArg constructor + public fields
-								Create with fields 
-							else
-								Cannot create => write some comments explaining fields values to be set
-					
-					!!!! Object creation for the target object
-					
-					
-			@Component dependencies will be mocked
-				Intercept calls to all dependent components and create when() calls
+				!!!! Object creation for the target object
+				
+				
+		@Component dependencies will be mocked
+			Intercept calls to all dependent components and create when() calls
 			
 	Test Code Generation
 		Check expected result
