@@ -30,7 +30,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
 
         objectCodeGenerator.requiredImports.add(object.getClass().getName());
 
-        Map<String, Object> objectState = objectStateReaderService.readObjectState(object);
+        Map<String, Object> objectState = objectStateReaderService.getObjectState(object);
         objectCodeGenerator.dependencies = objectState.values().stream()
                 .distinct()
                 .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))

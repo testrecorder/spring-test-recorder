@@ -26,23 +26,21 @@ DONE ==========================
 			List result?
 	OK - problem with repeated args
 
+	OK - cache objects per TestGenerator
+
 
 TODO ==========================
 	ObjectCodeGenerators
 		To create an object we must know
-			Get fields to set from getters and public fields
+			!!!! Get fields to set from getters and public fields
 				map from name to class. this way we eliminate the problem with null
-			Get constructors and their arguments
+			!!!! Get constructors and their arguments
 
 			solve equality when there is no equals
 				Ex: int[] == int[]
 		
 			Object creation 
-				cache objects per TestGenerator
-				sometimes I know the name of the new object. Ex: result
-				sometimes I want the name to be generated. Ex: date1
-				
-				test cyclic dependencies when
+				test cyclic dependencies after I have other ways of object creation
 					I tried with Lombok, but Lombok could not handle it
 				how to differentiate between Float and float for different objects?
 			
@@ -54,7 +52,7 @@ TODO ==========================
 						handle HashMap<>
 						handle Map<>
 					Unknown objects
-						Creation priority
+						!!!! Creation priority
 							if NoArgs constructor exists and no fields to be set
 								Create with NoArgs constructor 
 							OK - if Lombok builder exists
@@ -67,6 +65,9 @@ TODO ==========================
 								Create with fields 
 							else
 								Cannot create => write some comments explaining fields values to be set
+					
+					Object creation for the target object
+					
 					
 			@Component dependencies will be mocked
 				Intercept calls to all dependent components and create when() calls

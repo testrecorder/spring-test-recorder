@@ -20,7 +20,7 @@ class ObjectStateReaderServiceTest {
 
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
-        Map<String, Object> objectState = objectStateReaderService.readObjectState(student);
+        Map<String, Object> objectState = objectStateReaderService.getObjectState(student);
         assertEquals("John", objectState.get("firstName"));
         assertEquals("Aris", objectState.get("lastName"));
         assertEquals(30, objectState.get("age"));
@@ -36,7 +36,7 @@ class ObjectStateReaderServiceTest {
 
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
-        Map<String, Object> objectState = objectStateReaderService.readObjectState(student);
+        Map<String, Object> objectState = objectStateReaderService.getObjectState(student);
         assertEquals("John", objectState.get("firstName"));
         assertEquals("Aris", objectState.get("lastName"));
         assertEquals(30, objectState.get("age"));
