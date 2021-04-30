@@ -110,5 +110,7 @@ LATER ==========================
 	
 	arrays of arrays
 	
+	a abject with an int == 0 will not be initialized with NoArgs
+	
 
 	

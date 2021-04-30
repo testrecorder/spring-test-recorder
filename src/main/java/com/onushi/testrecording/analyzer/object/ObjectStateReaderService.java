@@ -30,7 +30,7 @@ public class ObjectStateReaderService {
     private void getFromPublicGetters(Object object, Map<String, Optional<Object>> result) {
         List<Method> getters = Arrays.stream(object.getClass().getMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
-                .filter(method -> method.getName().startsWith("get"))
+                .filter(method -> method.getName().startsWith("get") && !method.getName().equals("getClass"))
                 .collect(Collectors.toList());
         for (Method getter: getters) {
             String fieldName = getter.getName().substring(3);

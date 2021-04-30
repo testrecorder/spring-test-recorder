@@ -145,9 +145,10 @@ class ObjectCodeGeneratorTest {
     private ObjectCodeGeneratorFactory getObjectCodeGeneratorFactory() {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ClassInfoService classInfoService = new ClassInfoService();
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
         return new ObjectCodeGeneratorFactory(classInfoService,
                 new ObjectStateReaderService(objectNameGenerator),
                 objectNameGenerator,
-                new ObjectCreationAnalyzerService(classInfoService));
+                new ObjectCreationAnalyzerService(classInfoService, objectStateReaderService));
     }
 }
