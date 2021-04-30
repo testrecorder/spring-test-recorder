@@ -63,7 +63,6 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
                 // this will be found in the cache since dependencies were calculated
-                // TODO IB !!!! handle Optional<> here
                 ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).orElse(null));
                 stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
             } else {

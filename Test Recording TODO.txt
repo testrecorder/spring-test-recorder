@@ -28,12 +28,11 @@ DONE ==========================
 
 	OK - cache objects per TestGenerator
 
+	OK - Get fields to set from getters and public fields to Optional<>
 
 TODO ==========================
 	ObjectCodeGenerators
 		To create an object we must know
-			!!!! Get fields to set from getters and public fields
-				map from name to class. this way we eliminate the problem with null
 			!!!! Get constructors and their arguments
 
 			solve equality when there is no equals
@@ -66,7 +65,7 @@ TODO ==========================
 							else
 								Cannot create => write some comments explaining fields values to be set
 					
-					Object creation for the target object
+					!!!! Object creation for the target object
 					
 					
 			@Component dependencies will be mocked
