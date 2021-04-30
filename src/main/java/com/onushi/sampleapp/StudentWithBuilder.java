@@ -12,4 +12,7 @@ public class StudentWithBuilder {
     private String firstName;
     private String lastName;
     private int age;
+
+    private StudentWithBuilder() {
+    }
 }

@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.sampleapp.StudentWithBuilder;
@@ -22,10 +23,12 @@ class ObjectCodeGeneratorWithLombokBuilderTest {
 
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         TestGenerator testGenerator = mock(TestGenerator.class);
+        ClassInfoService classInfoService = new ClassInfoService();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(
-                new ClassInfoService(),
+                classInfoService,
                 new ObjectStateReaderService(objectNameGenerator),
-                objectNameGenerator);
+                objectNameGenerator,
+                new ObjectCreationAnalyzerService(classInfoService));
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
         assertEquals(StringUtils.trimAndIgnoreCRDiffs(
                         "StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +

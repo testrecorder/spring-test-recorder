@@ -4,6 +4,7 @@ import com.onushi.sampleapp.Person;
 import com.onushi.sampleapp.SampleService;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
+import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import com.onushi.testrecording.codegenerator.template.StringService;
@@ -30,7 +31,8 @@ class TestGeneratorServiceTest {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService,
                 new ObjectStateReaderService(objectNameGenerator),
-                objectNameGenerator);
+                objectNameGenerator,
+                new ObjectCreationAnalyzerService(classInfoService));
         testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, objectCodeGeneratorFactory);
         testGeneratorService = new TestGeneratorService(new StringService());
     }

@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
@@ -15,13 +16,16 @@ public class ObjectCodeGeneratorFactory {
     private final ObjectStateReaderService objectStateReaderService;
     private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
     private final ObjectNameGenerator objectNameGenerator;
+    private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
     public ObjectCodeGeneratorFactory(ClassInfoService classInfoService,
                                       ObjectStateReaderService objectStateReaderService,
-                                      ObjectNameGenerator objectNameGenerator) {
+                                      ObjectNameGenerator objectNameGenerator,
+                                      ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.objectNameGenerator = objectNameGenerator;
+        this.objectCreationAnalyzerService = objectCreationAnalyzerService;
         // TODO IB is it ok to have new here?
         this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
     }
@@ -75,7 +79,8 @@ public class ObjectCodeGeneratorFactory {
                     return new ArrayObjectCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
                 } else if (object instanceof List<?> ) {
                     return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
-                } else if (classInfoService.canBeCreatedWithLombokBuilder(object.getClass())) {
+                // } else if (classInfoService.hasPublicNoArgsConstructor(object.getClass()) )
+                } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
                     ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
                             new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
                             objectStateReaderService,
