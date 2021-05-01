@@ -12,7 +12,16 @@ import java.util.TimeZone;
 
 @Component
 public class SampleService {
-    public final int testField = 5;
+    public int testField = 0;
+
+    public int getTestField() {
+        return testField;
+    }
+
+    public SampleService setTestField(int testField) {
+        this.testField = testField;
+        return this;
+    }
 
     public int add(int x, int y) {
         return addInternal(x, y);
@@ -36,6 +45,7 @@ public class SampleService {
     }
 
 
+    @RecordTest
     public float addFloats(float x, float y) {
         return x + y;
     }
@@ -110,8 +120,8 @@ public class SampleService {
 
     }
 
-
-    @RecordTest
     public void processStudents(StudentWithDefaultInitFields student1, StudentWithBuilder student2) {
     }
+
+
 }

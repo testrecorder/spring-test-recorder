@@ -21,8 +21,8 @@ public class SampleAppRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = simpleDateFormat.parse("2021-01-01");
-        Date min = sampleService.minDate(d1, d1);
+//        Date d1 = simpleDateFormat.parse("2021-01-01");
+//        Date min = sampleService.minDate(d1, d1);
 //
 //        Date d3 = simpleDateFormat.parse("2021-01-02");
 //        Date d4 = simpleDateFormat.parse("2021-02-03");
@@ -61,14 +61,16 @@ public class SampleAppRunner implements CommandLineRunner {
 //        int[] intArray = {3, 4, 3};
 //        sampleService.repeatedArgs(intArray, floatList);
 
-        StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
-        StudentWithBuilder student2 = StudentWithBuilder.builder()
-                .firstName("John")
-                .lastName("Wayne")
-                .age(60)
-                .build();
-        sampleService.processStudents(student1, student2);
+//        StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
+//        StudentWithBuilder student2 = StudentWithBuilder.builder()
+//                .firstName("John")
+//                .lastName("Wayne")
+//                .age(60)
+//                .build();
+//        sampleService.processStudents(student1, student2);
 
+//        sampleService.setTestField(5);
+//        float result = sampleService.addFloats(1.0f, 2.0f);
 
         // demo();
     }
