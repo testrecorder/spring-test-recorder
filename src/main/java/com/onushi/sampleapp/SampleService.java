@@ -93,7 +93,7 @@ public class SampleService {
         return intArray;
     }
 
-    @RecordTest
+
     public int repeatedArgs(int[] intArray, List<Float> floatList) {
         return 42;
     }
@@ -110,4 +110,8 @@ public class SampleService {
 
     }
 
+
+    @RecordTest
+    public void processStudents(StudentWithDefaultInitFields student1, StudentWithBuilder student2) {
+    }
 }

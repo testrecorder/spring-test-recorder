@@ -35,6 +35,11 @@ DONE ==========================
 	OK - a object with an int == 0 will be initialized with NoArgs
 
 TODO ==========================
+	What if the objects do not have public fields or getters?
+		We could do like Lombok does and inject some method to give us info about the dependencies
+		http://notatube.blogspot.com/2010/12/project-lombok-creating-custom.html
+		https://blog.frankel.ch/lombok-reduces-your-boilerplate-code/
+
 	ObjectCodeGenerators
 		solve equality when there is no equals
 			Ex: int[] == int[]
@@ -53,7 +58,7 @@ TODO ==========================
 					handle Map<>
 				Unknown objects
 					!!!! Creation priority
-						TEST - if NoArgs constructor exists and no fields to be set
+						OK - if NoArgs constructor exists and no fields to be set
 							Create with NoArgs constructor 
 						OK - if Lombok builder exists
 							Create with Lombok builder
@@ -111,6 +116,8 @@ LATER ==========================
 	improve StringGenerator if slow
 	
 	arrays of arrays
+	
+	global variables changed - but this is not ok
 	
 	
 	

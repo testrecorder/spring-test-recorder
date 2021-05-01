@@ -57,9 +57,18 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // sampleService.returnPerson();
 
-        List<Float> floatList = Arrays.asList(3.0f, 3.0f);
-        int[] intArray = {3, 4, 3};
-        sampleService.repeatedArgs(intArray, floatList);
+//        List<Float> floatList = Arrays.asList(3.0f, 3.0f);
+//        int[] intArray = {3, 4, 3};
+//        sampleService.repeatedArgs(intArray, floatList);
+
+        StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
+        StudentWithBuilder student2 = StudentWithBuilder.builder()
+                .firstName("John")
+                .lastName("Wayne")
+                .age(60)
+                .build();
+        sampleService.processStudents(student1, student2);
+
 
         // demo();
     }

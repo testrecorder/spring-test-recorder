@@ -1,14 +1,12 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.sampleapp.Person;
-import com.onushi.sampleapp.SampleService;
+import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
 import com.onushi.testrecording.codegenerator.template.StringService;
-import com.onushi.sampleapp.Student;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -680,6 +678,59 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST =========\n"),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
+    @Test
+    void generateTestForNoArgsConstructor() throws Exception {
+        // Arrange
+        StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
+        StudentWithBuilder student2 = StudentWithBuilder.builder()
+                .firstName("John")
+                .lastName("Wayne")
+                .age(60)
+                .build();
+        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("processStudents")
+                .arguments(Arrays.asList(student1, student2))
+                .result(null)
+                .fallBackResultType(void.class)
+                .exception(null)
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import com.onushi.sampleapp.StudentWithDefaultInitFields;\n" +
+                        "import com.onushi.sampleapp.StudentWithBuilder;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void processStudents() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
+                        "            .age(60)\n" +
+                        "            .firstName(\"John\")\n" +
+                        "            .lastName(\"Wayne\")\n" +
+                        "            .build();\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        sampleService.processStudents(new StudentWithDefaultInitFields(), studentWithBuilder1);\n" +
+                        "\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
