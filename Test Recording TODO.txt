@@ -35,11 +35,6 @@ DONE ==========================
 	OK - a object with an int == 0 will be initialized with NoArgs
 
 TODO ==========================
-	What if the objects do not have public fields or getters?
-		We could do like Lombok does and inject some method to give us info about the dependencies
-		http://notatube.blogspot.com/2010/12/project-lombok-creating-custom.html
-		https://blog.frankel.ch/lombok-reduces-your-boilerplate-code/
-
 	ObjectCodeGenerators
 		solve equality when there is no equals
 			Ex: int[] == int[]
@@ -73,6 +68,10 @@ TODO ==========================
 				
 				!!!! Object creation for the target object
 				
+				Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
+				
+		Use JavaPoet to generate java code instead of my library
+
 				
 		@Component dependencies will be mocked
 			Intercept calls to all dependent components and create when() calls
@@ -93,6 +92,23 @@ TODO ==========================
 		Check side effects on target, arguments, any dependencies
 			create assertEquals() for all the new values
      
+	
+	PROBLEM - What if the objects do not have public fields or getters?
+		I need just a visitor inserted in all args and all dependencies of args
+			will return objectState + name of params for all methods and constructors
+		Easy solution - adnotate each class that I want to get the state with an Annotation
+	
+		We could do like Lombok does and inject some method to give us info about the dependencies
+		http://notatube.blogspot.com/2010/12/project-lombok-creating-custom.html
+		https://blog.frankel.ch/lombok-reduces-your-boilerplate-code/
+		https://www.baeldung.com/java-annotation-processing-builder
+		https://blog.frankel.ch/introductory-guide-annotation-processor/
+			you can use a maven plugin to run such annotations
+		Good Example of generating a class from annotations
+			https://iammert.medium.com/annotation-processing-dont-repeat-yourself-generate-your-code-8425e60c6657
+		Instrumentation example
+			This is how mockito 2 can extend final classes
+			https://www.developer.com/design/what-is-java-agent/
 	
 	Move all the test classes within the testrecording package
 	
