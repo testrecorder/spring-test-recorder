@@ -39,11 +39,9 @@ public class SampleService {
         return 0;
     }
 
-    // TODO !!!! also returns void
     public Person returnNull() {
         return null;
     }
-
 
     @RecordTest
     public float addFloats(float x, float y) {

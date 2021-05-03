@@ -65,6 +65,12 @@ TODO ==========================
 							Create with fields 
 						else
 							Cannot create => write some comments explaining fields values to be set
+								Person person = new Person();
+									.firstName = "firstName";
+									.lastName = "lastName"
+									.age = 35;
+								
+									
 				
 				!!!! Object creation for the target object
 				
