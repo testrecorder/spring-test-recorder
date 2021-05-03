@@ -148,6 +148,8 @@ LATER ==========================
 	
 	global variables changed - but this is not ok
 	
+	static fields are not handled yet
+	
 	
 	
 
