@@ -4,6 +4,26 @@ INFO ==========================
 		http://testrecorder.amygdalum.net/index.html
 		Get from github and try to see what tests are generated
 		
+	How to write custom annotations - in case I need
+		What if the objects do not have public fields or getters?
+		I need just a visitor inserted in all args and all dependencies of args
+			will return objectState + name of params for all methods and constructors
+		Easy solution - adnotate each class that I want to get the state with an Annotation
+	
+		We could do like Lombok does and inject some method to give us info about the dependencies
+		http://notatube.blogspot.com/2010/12/project-lombok-creating-custom.html
+		https://blog.frankel.ch/lombok-reduces-your-boilerplate-code/
+		https://www.baeldung.com/java-annotation-processing-builder
+		https://blog.frankel.ch/introductory-guide-annotation-processor/
+			you can use a maven plugin to run such annotations
+		Good Example of generating a class from annotations
+			https://iammert.medium.com/annotation-processing-dont-repeat-yourself-generate-your-code-8425e60c6657
+		Instrumentation example
+			This is how mockito 2 can extend final classes
+			https://www.developer.com/design/what-is-java-agent/
+		See the sources of Lombok	
+			https://github.com/projectlombok/lombok
+		
 
 DONE ==========================
 	OK - Handle also exceptions thrown by act
@@ -33,6 +53,9 @@ DONE ==========================
 	OK Get constructors and their arguments
 	
 	OK - a object with an int == 0 will be initialized with NoArgs
+
+	OK - see what happens when the fields are from superclass
+
 
 TODO ==========================
 	ObjectCodeGenerators
@@ -69,8 +92,8 @@ TODO ==========================
 									.firstName = "firstName";
 									.lastName = "lastName"
 									.age = 35;
-								
-									
+				
+				!!!! see what happens when the fields static
 				
 				!!!! Object creation for the target object
 				
@@ -100,27 +123,9 @@ TODO ==========================
 			create assertEquals() for all the new values
      
 	
-	PROBLEM - What if the objects do not have public fields or getters?
-		I need just a visitor inserted in all args and all dependencies of args
-			will return objectState + name of params for all methods and constructors
-		Easy solution - adnotate each class that I want to get the state with an Annotation
-	
-		We could do like Lombok does and inject some method to give us info about the dependencies
-		http://notatube.blogspot.com/2010/12/project-lombok-creating-custom.html
-		https://blog.frankel.ch/lombok-reduces-your-boilerplate-code/
-		https://www.baeldung.com/java-annotation-processing-builder
-		https://blog.frankel.ch/introductory-guide-annotation-processor/
-			you can use a maven plugin to run such annotations
-		Good Example of generating a class from annotations
-			https://iammert.medium.com/annotation-processing-dont-repeat-yourself-generate-your-code-8425e60c6657
-		Instrumentation example
-			This is how mockito 2 can extend final classes
-			https://www.developer.com/design/what-is-java-agent/
-		See the sources of Lombok	
-			https://github.com/projectlombok/lombok
+
 			
-		Something like @FieldNameConstants could help
-	
+
 	Move all the test classes within the testrecording package
 	
 	Write tests for all the code
@@ -132,15 +137,12 @@ TODO ==========================
 LATER ==========================
 	if needed object initialisation code could be learned from github	
 	
-	http://tutorials.jenkov.com/java-reflection/private-fields-and-methods.html
-	
 	Handle Generics
 
 	there will be a case when the dependencies are circular
 
 	create non-components with factory
 	
-	improve StringGenerator if slow
 	
 	arrays of arrays
 	

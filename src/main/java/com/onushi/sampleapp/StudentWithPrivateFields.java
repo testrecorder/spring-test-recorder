@@ -1,9 +1,6 @@
 package com.onushi.sampleapp;
 
-import lombok.experimental.FieldNameConstants;
-
-public class StudentWithPrivateFields {
-    private String firstName;
+public class StudentWithPrivateFields extends StudentWithPrivateField {
     private String lastName;
 
     public StudentWithPrivateFields(String firstName, String lastName) {

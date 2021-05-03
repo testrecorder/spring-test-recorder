@@ -14,17 +14,29 @@ public class ObjectStateReaderService {
             return new HashMap<>();
         }
         Map<String, FieldValue> result = new HashMap<>();
-        List<Field> fields = Arrays.stream(object.getClass().getDeclaredFields())
+        Class<?> clazz = object.getClass();
+        do {
+            result.putAll(addFieldsForClass(object, clazz));
+            clazz = clazz.getSuperclass();
+        } while(clazz != null);
+        return result;
+    }
+
+    private Map<String, FieldValue> addFieldsForClass(Object object, Class<?> clazz) {
+        Map<String, FieldValue> result = new HashMap<>();
+
+        List<Field> fields = Arrays.stream(clazz.getDeclaredFields())
                 .filter(field -> !Modifier.isTransient(field.getModifiers()))
                 .collect(Collectors.toList());
         for (Field field : fields) {
+            String fieldName = field.getName();
             try {
                 if (!Modifier.isPublic(field.getModifiers())) {
                     field.setAccessible(true);
                 }
-                result.put(field.getName(), new FieldValue(field.get(object), FieldValueType.VALUE_READ));
+                result.put(fieldName, new FieldValue(field.get(object), FieldValueType.VALUE_READ));
             } catch (Exception ignored) {
-                result.put(field.getName(), new FieldValue(null, FieldValueType.COULD_NOT_READ));
+                result.put(fieldName, new FieldValue(null, FieldValueType.COULD_NOT_READ));
             }
         }
         return result;
