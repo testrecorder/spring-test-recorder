@@ -31,8 +31,8 @@ public class ClassInfoService {
     }
 
     public boolean hasEquals(Class<?> clazz) {
-        return Arrays.stream(clazz.getMethods()).anyMatch(method -> method.getName().equals("equals") &&
-                method.getDeclaringClass() == clazz);
+        return Arrays.stream(clazz.getMethods())
+                .anyMatch(method -> method.getName().equals("equals") && method.getDeclaringClass() == clazz);
     }
 
     public boolean canBeCreatedWithLombokBuilder(Class<?> clazz) {

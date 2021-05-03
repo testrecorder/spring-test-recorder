@@ -28,15 +28,17 @@ public class ObjectCreationAnalyzerService {
         if (object == null) {
             return false;
         } else {
-            Map<String, Optional<Object>> objectState = objectStateReaderService.getObjectState(object);
+            Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
 
             long valuesDifferentThanDefaults = 0;
-            for (Optional<Object> value : objectState.values()) {
-                if (!value.isPresent()) {
+            for (FieldValue fieldValue : objectState.values()) {
+                if (fieldValue.getFieldValueType() == FieldValueType.COULD_NOT_READ) {
                     continue;
                 }
-                if (isDefaultValueForItsClass(value.get())){
-                    continue;
+                if (fieldValue.getFieldValueType() == FieldValueType.VALUE_READ) {
+                    if (isDefaultValueForItsClass(fieldValue.getValue())) {
+                        continue;
+                    }
                 }
 
                 valuesDifferentThanDefaults++;

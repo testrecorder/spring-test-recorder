@@ -27,9 +27,9 @@ class TestGeneratorServiceTest {
     void setUp() {
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService,
-                new ObjectStateReaderService(objectNameGenerator),
+                objectStateReaderService,
                 objectNameGenerator,
                 new ObjectCreationAnalyzerService(classInfoService, objectStateReaderService));
         testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, objectCodeGeneratorFactory);

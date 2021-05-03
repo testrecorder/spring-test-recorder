@@ -1,6 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.object.FieldValue;
+import com.onushi.testrecording.analyzer.object.FieldValueType;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
@@ -31,17 +33,18 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
 
         objectCodeGenerator.requiredImports.add(object.getClass().getName());
 
-        Map<String, Optional<Object>> objectState = objectStateReaderService.getObjectState(object);
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
         objectCodeGenerator.dependencies = objectState.values().stream()
                 .distinct()
-                .map(fieldValue -> fieldValue.orElse(null))
+                .filter(fieldValue -> fieldValue.getFieldValueType() != FieldValueType.COULD_NOT_READ)
+                .map(FieldValue::getValue)
                 .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
                 .collect(Collectors.toList());
         objectCodeGenerator.initCode = getInitCode(testGenerator, object, objectName, objectState);
         return objectCodeGenerator;
     }
 
-    private String getInitCode(TestGenerator testGenerator, Object object, String objectName, Map<String, Optional<Object>> objectState) {
+    private String getInitCode(TestGenerator testGenerator, Object object, String objectName, Map<String, FieldValue> objectState) {
         return new StringGenerator()
             .setTemplate(
                     "{{shortClassName}} {{objectName}} = {{shortClassName}}.builder()\n" +
@@ -52,7 +55,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             .generate();
     }
 
-    private String getSettersCodeForInit(TestGenerator testGenerator, Object object, Map<String, Optional<Object>> objectState) {
+    private String getSettersCodeForInit(TestGenerator testGenerator, Object object, Map<String, FieldValue> objectState) {
         List<Method> lombokBuilderSetters = classInfoService.getLombokBuilderSetters(object.getClass());
 
         StringBuilder settersCode = new StringBuilder();
@@ -63,10 +66,16 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
                 // this will be found in the cache since dependencies were calculated
-                ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).orElse(null));
-                stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
+                FieldValue fieldValue = objectState.get(fieldName);
+                if (fieldValue.getFieldValueType() == FieldValueType.VALUE_READ) {
+                    ObjectCodeGenerator objectCodeGenerator =
+                            objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
+                    stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
+                } else {
+                    stringGenerator.addAttribute("fieldValue", "??? could not read field");
+                }
             } else {
-                stringGenerator.addAttribute("fieldValue", "???");
+                stringGenerator.addAttribute("fieldValue", "??? could not find field");
             }
             settersCode.append(stringGenerator.generate());
         }

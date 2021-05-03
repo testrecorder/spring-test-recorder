@@ -73,6 +73,7 @@ public class SampleAppRunner implements CommandLineRunner {
 //        float result = sampleService.addFloats(1.0f, 2.0f);
 
         // demo();
+
     }
 
     private void demo() throws Exception {

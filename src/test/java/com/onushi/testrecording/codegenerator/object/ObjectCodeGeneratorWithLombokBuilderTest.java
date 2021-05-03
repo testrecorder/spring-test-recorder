@@ -24,7 +24,7 @@ class ObjectCodeGeneratorWithLombokBuilderTest {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         TestGenerator testGenerator = mock(TestGenerator.class);
         ClassInfoService classInfoService = new ClassInfoService();
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(
                 classInfoService,
                 objectStateReaderService,

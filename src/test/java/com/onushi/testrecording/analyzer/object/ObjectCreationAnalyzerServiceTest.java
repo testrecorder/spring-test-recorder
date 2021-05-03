@@ -50,7 +50,7 @@ class ObjectCreationAnalyzerServiceTest {
     private ObjectCreationAnalyzerService getObjectCreationAnalyzerService() {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ClassInfoService classInfoService = new ClassInfoService();
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService(objectNameGenerator);
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
         return new ObjectCreationAnalyzerService(classInfoService, objectStateReaderService);
     }
 }

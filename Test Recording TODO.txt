@@ -69,6 +69,7 @@ TODO ==========================
 				!!!! Object creation for the target object
 				
 				Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
+					@Getter(lazy=true) private final double[] cached = expensive();
 				
 		Use JavaPoet to generate java code instead of my library
 
@@ -109,6 +110,10 @@ TODO ==========================
 		Instrumentation example
 			This is how mockito 2 can extend final classes
 			https://www.developer.com/design/what-is-java-agent/
+		See the sources of Lombok	
+			https://github.com/projectlombok/lombok
+			
+		Something like @FieldNameConstants could help
 	
 	Move all the test classes within the testrecording package
 	
