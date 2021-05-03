@@ -27,6 +27,7 @@ public class ObjectStateReaderService {
 
         List<Field> fields = Arrays.stream(clazz.getDeclaredFields())
                 .filter(field -> !Modifier.isTransient(field.getModifiers()))
+                .filter(field -> !Modifier.isStatic(field.getModifiers()))
                 .collect(Collectors.toList());
         for (Field field : fields) {
             String fieldName = field.getName();
