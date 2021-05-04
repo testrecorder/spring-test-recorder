@@ -23,18 +23,20 @@ class ObjectStateReaderServiceTest {
 
         FieldValue firstName = objectState.get("firstName");
         assertNotNull(firstName);
-        assertEquals("John", firstName.getValue());
         assertEquals(FieldValueType.VALUE_READ, firstName.getFieldValueType());
+        assertEquals("John", firstName.getValue());
 
         FieldValue lastName = objectState.get("lastName");
         assertNotNull(lastName);
-        assertEquals("Aris", lastName.getValue());
         assertEquals(FieldValueType.VALUE_READ, lastName.getFieldValueType());
+        assertEquals("Aris", lastName.getValue());
+        assertEquals(String.class, lastName.getClazz());
 
         FieldValue age = objectState.get("age");
         assertNotNull(age);
-        assertEquals(30, age.getValue());
         assertEquals(FieldValueType.VALUE_READ, age.getFieldValueType());
+        assertEquals(30, age.getValue());
+        assertEquals(int.class, age.getClazz());
 
         assertNull(objectState.get(""));
         assertNull(objectState.get("age1"));

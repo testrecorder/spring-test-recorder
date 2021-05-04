@@ -7,5 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class FieldValue {
     private Object value;
+    private Class<?> clazz;
     private FieldValueType fieldValueType;
 }

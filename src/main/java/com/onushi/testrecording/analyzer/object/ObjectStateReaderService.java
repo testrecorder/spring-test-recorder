@@ -35,9 +35,9 @@ public class ObjectStateReaderService {
                 if (!Modifier.isPublic(field.getModifiers())) {
                     field.setAccessible(true);
                 }
-                result.put(fieldName, new FieldValue(field.get(object), FieldValueType.VALUE_READ));
+                result.put(fieldName, new FieldValue(field.get(object), field.getType(), FieldValueType.VALUE_READ));
             } catch (Exception ignored) {
-                result.put(fieldName, new FieldValue(null, FieldValueType.COULD_NOT_READ));
+                result.put(fieldName, new FieldValue(null, null, FieldValueType.COULD_NOT_READ));
             }
         }
         return result;
