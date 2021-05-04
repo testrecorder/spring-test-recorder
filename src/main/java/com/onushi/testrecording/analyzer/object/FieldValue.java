@@ -8,5 +8,6 @@ import lombok.Data;
 public class FieldValue {
     private Object value;
     private Class<?> clazz;
+    // TODO IB !!!! rename this to avoid confusions
     private FieldValueType fieldValueType;
 }

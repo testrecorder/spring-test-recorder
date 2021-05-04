@@ -1,5 +1,7 @@
 package com.onushi.testrecording.analyzer.classInfo;
 
+import com.onushi.testrecording.analyzer.object.FieldValue;
+import com.onushi.testrecording.analyzer.object.FieldValueType;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
@@ -68,5 +70,59 @@ public class ClassInfoService {
         }
         return new ArrayList<>();
     }
+
+    public List<MatchingConstructor> getMatchingConstructorsWithAllFields(Class<?> clazz, Map<String, FieldValue> fieldValuesMap) {
+        if (fieldValuesMap == null) {
+            return new ArrayList<>();
+        }
+        Collection<FieldValue> fieldValues = fieldValuesMap.values();
+        if (fieldValues.stream().anyMatch(x -> x.getFieldValueType() == FieldValueType.COULD_NOT_READ)) {
+            return new ArrayList<>();
+        }
+
+        List<Constructor<?>> publicConstructorsWithCorrectSize = getPublicConstructors(clazz)
+                .stream()
+                .filter(x -> x.getParameterTypes().length == fieldValues.size())
+                .collect(Collectors.toList());
+
+        List<MatchingConstructor> matchingConstructors = new ArrayList<>();
+        for (Constructor<?> constructor : publicConstructorsWithCorrectSize) {
+            matchingConstructors.addAll(getMatchingConstructorsWithAllFields(constructor, fieldValues));
+        }
+        return matchingConstructors;
+    }
+
+    // TODO this algorithm can be improved to produce better matches
+    private List<MatchingConstructor> getMatchingConstructorsWithAllFields(Constructor<?> constructor, Collection<FieldValue> fieldValues) {
+        boolean fieldsCouldHaveDifferentOrder = false;
+        List<FieldValue> orderOfFields = new ArrayList<>();
+        List<FieldValue> fieldsToMatch = new ArrayList<>(fieldValues);
+        for (Class<?> constructorParameterType : constructor.getParameterTypes()) {
+            List<FieldValue> matchingFields = fieldsToMatch.stream()
+                    .filter(x -> constructorParameterType.isAssignableFrom(x.getClazz()))
+                    .collect(Collectors.toList());
+            if (matchingFields.size() == 0) {
+                break;
+            }
+            if (matchingFields.size() > 1) {
+                fieldsCouldHaveDifferentOrder = true;
+            }
+            if (matchingFields.size() > 0) {
+                orderOfFields.add(matchingFields.get(0));
+                fieldsToMatch.remove(matchingFields.get(0));
+            }
+        }
+        if (fieldsToMatch.size() == 0) {
+            return Collections.singletonList(MatchingConstructor.builder()
+                    .constructor(constructor)
+                    .orderOfFields(orderOfFields)
+                    .fieldsCouldHaveDifferentOrder(fieldsCouldHaveDifferentOrder)
+                    .build());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+
 
 }

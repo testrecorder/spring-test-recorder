@@ -75,12 +75,12 @@ TODO ==========================
 					handle HashMap<>
 					handle Map<>
 				Unknown objects
-					!!!! Creation priority
+					Creation priority
 						OK - if NoArgs constructor exists and no fields to be set
 							Create with NoArgs constructor 
 						OK - if Lombok builder exists
 							Create with Lombok builder
-						if there is a identifiable constructor covering all the fields
+						!!!! if there is a identifiable constructor covering all the fields
 							Create with args constructor 
 						if there is a NoArg constructor + all setters
 							Create with setters 
@@ -93,7 +93,7 @@ TODO ==========================
 									.lastName = "lastName"
 									.age = 35;
 				
-				!!!! see what happens when the fields static
+				see what happens with the fields static
 				
 				!!!! Object creation for the target object
 				
