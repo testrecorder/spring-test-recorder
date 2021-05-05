@@ -1,6 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.sampleapp.Person;
+import com.onushi.sampleapp.PersonRepositoryImpl;
+import com.onushi.sampleapp.PersonService;
 import com.onushi.sampleapp.StudentWithPublicFields;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
@@ -168,7 +170,19 @@ class ObjectCodeGeneratorTest {
         assertEquals("", objectCodeGenerator.getInitCode());
     }
 
-    // TODO IB !!!! also test PersonService personService = new PersonService(new PersonRepositoryImpl());
+    @Test
+    void testAllArgsConstruction2() {
+        PersonService personService = new PersonService(new PersonRepositoryImpl());
+
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, personService, "person1");
+        assertEquals("new PersonService(new PersonRepositoryImpl())", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals(1, objectCodeGenerator.getDependencies().size());
+        assertEquals("com.onushi.sampleapp.PersonService", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("", objectCodeGenerator.getInitCode());
+    }
 
 
 
