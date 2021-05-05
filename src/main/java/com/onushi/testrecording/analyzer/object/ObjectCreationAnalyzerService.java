@@ -34,10 +34,10 @@ public class ObjectCreationAnalyzerService {
 
             long valuesDifferentThanDefaults = 0;
             for (FieldValue fieldValue : objectState.values()) {
-                if (fieldValue.getFieldValueType() == FieldValueType.COULD_NOT_READ) {
+                if (fieldValue.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ) {
                     continue;
                 }
-                if (fieldValue.getFieldValueType() == FieldValueType.VALUE_READ) {
+                if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
                     if (isDefaultValueForItsClass(fieldValue.getValue())) {
                         continue;
                     }
@@ -83,7 +83,7 @@ public class ObjectCreationAnalyzerService {
             return new ArrayList<>();
         }
         Collection<FieldValue> fieldValues = objectState.values();
-        if (fieldValues.stream().anyMatch(x -> x.getFieldValueType() == FieldValueType.COULD_NOT_READ)) {
+        if (fieldValues.stream().anyMatch(x -> x.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ)) {
             return new ArrayList<>();
         }
 

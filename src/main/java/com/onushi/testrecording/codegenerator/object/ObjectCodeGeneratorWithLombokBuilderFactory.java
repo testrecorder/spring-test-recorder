@@ -2,7 +2,7 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.FieldValue;
-import com.onushi.testrecording.analyzer.object.FieldValueType;
+import com.onushi.testrecording.analyzer.object.FieldValueStatus;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +35,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
         Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
         objectCodeGenerator.dependencies = objectState.values().stream()
                 .distinct()
-                .filter(fieldValue -> fieldValue.getFieldValueType() != FieldValueType.COULD_NOT_READ)
+                .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
                 .map(FieldValue::getValue)
                 .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
                 .collect(Collectors.toList());
@@ -67,7 +66,7 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
             if (objectState.containsKey(fieldName)) {
                 // this will be found in the cache since dependencies were calculated
                 FieldValue fieldValue = objectState.get(fieldName);
-                if (fieldValue.getFieldValueType() == FieldValueType.VALUE_READ) {
+                if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
                     ObjectCodeGenerator objectCodeGenerator =
                             objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
                     stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);

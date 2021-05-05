@@ -5,7 +5,6 @@ import com.onushi.sampleapp.StudentWithPublicFields;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,18 +22,18 @@ class ObjectStateReaderServiceTest {
 
         FieldValue firstName = objectState.get("firstName");
         assertNotNull(firstName);
-        assertEquals(FieldValueType.VALUE_READ, firstName.getFieldValueType());
+        assertEquals(FieldValueStatus.VALUE_READ, firstName.getFieldValueStatus());
         assertEquals("John", firstName.getValue());
 
         FieldValue lastName = objectState.get("lastName");
         assertNotNull(lastName);
-        assertEquals(FieldValueType.VALUE_READ, lastName.getFieldValueType());
+        assertEquals(FieldValueStatus.VALUE_READ, lastName.getFieldValueStatus());
         assertEquals("Aris", lastName.getValue());
         assertEquals(String.class, lastName.getClazz());
 
         FieldValue age = objectState.get("age");
         assertNotNull(age);
-        assertEquals(FieldValueType.VALUE_READ, age.getFieldValueType());
+        assertEquals(FieldValueStatus.VALUE_READ, age.getFieldValueStatus());
         assertEquals(30, age.getValue());
         assertEquals(int.class, age.getClazz());
 
@@ -52,11 +51,11 @@ class ObjectStateReaderServiceTest {
         FieldValue firstName = objectState.get("firstName");
         assertNotNull(firstName);
         assertEquals("fn", firstName.getValue());
-        assertEquals(FieldValueType.VALUE_READ, firstName.getFieldValueType());
+        assertEquals(FieldValueStatus.VALUE_READ, firstName.getFieldValueStatus());
 
         FieldValue lastName = objectState.get("lastName");
         assertNotNull(lastName);
         assertEquals("ln", lastName.getValue());
-        assertEquals(FieldValueType.VALUE_READ, lastName.getFieldValueType());
+        assertEquals(FieldValueStatus.VALUE_READ, lastName.getFieldValueStatus());
     }
 }

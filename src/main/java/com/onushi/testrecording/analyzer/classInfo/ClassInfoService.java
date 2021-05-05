@@ -1,7 +1,5 @@
 package com.onushi.testrecording.analyzer.classInfo;
 
-import com.onushi.testrecording.analyzer.object.FieldValue;
-import com.onushi.testrecording.analyzer.object.FieldValueType;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
