@@ -4,6 +4,7 @@ import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.analyzer.object.FieldValue;
+import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import org.junit.jupiter.api.Test;
 
@@ -68,12 +69,10 @@ class ClassInfoServiceTest {
         student.lastName = "Aris";
         student.age = 30;
 
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(student);
-
-        ClassInfoService classInfoService = new ClassInfoService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService =
+                new ObjectCreationAnalyzerService(new ClassInfoService(), new ObjectStateReaderService());
         List<MatchingConstructor> matchingConstructors =
-                classInfoService.getMatchingConstructorsWithAllFields(StudentWithPublicFields.class, objectState);
+                objectCreationAnalyzerService.getMatchingConstructorsWithAllFields(student);
         assertEquals(1, matchingConstructors.size());
         assertTrue(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
 
@@ -82,13 +81,10 @@ class ClassInfoServiceTest {
     @Test
     void getMatchingConstructors2() {
         PersonService personService = new PersonService(new PersonRepositoryImpl());
-
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(personService);
-
-        ClassInfoService classInfoService = new ClassInfoService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService =
+                new ObjectCreationAnalyzerService(new ClassInfoService(), new ObjectStateReaderService());
         List<MatchingConstructor> matchingConstructors =
-                classInfoService.getMatchingConstructorsWithAllFields(PersonService.class, objectState);
+                objectCreationAnalyzerService.getMatchingConstructorsWithAllFields(personService);
         assertEquals(1, matchingConstructors.size());
         assertFalse(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
     }
