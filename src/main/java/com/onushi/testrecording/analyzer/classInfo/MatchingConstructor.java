@@ -11,6 +11,6 @@ import java.util.List;
 @Builder
 public class MatchingConstructor {
     private Constructor<?> constructor;
-    private List<FieldValue> orderOfFields;
+    private List<FieldValue> argsInOrder;
     private boolean fieldsCouldHaveDifferentOrder;
 }

@@ -94,8 +94,8 @@ public class ObjectCodeGeneratorFactory {
                     if (matchingAllArgsConstructors.size() > 0) {
                         MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
                         boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
-                        // TODO IB !!!! !!!!
-                        return null;
+                        return new ObjectCodeGeneratorWithAllArgsConstructorFactory(this).createObjectCodeGenerator(
+                                object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
                     } else {
                         return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "Object");
                     }

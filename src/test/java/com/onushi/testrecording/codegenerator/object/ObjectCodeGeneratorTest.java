@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.sampleapp.Person;
+import com.onushi.sampleapp.StudentWithPublicFields;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
@@ -148,7 +149,28 @@ class ObjectCodeGeneratorTest {
         assertEquals("", objectCodeGenerator.getInitCode());
     }
 
-    // TODO IB !!!! test construction if there is a identifiable constructor covering all the fields
+    @Test
+    void testAllArgsConstruction() {
+        StudentWithPublicFields student = new StudentWithPublicFields();
+        student.firstName = "John";
+        student.lastName = "Aris";
+        student.age = 30;
+
+        // TODO IB !!!! add // TODO check this since more constructors are available
+        // TODO IB !!!! move creation with constructor on separate lines
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, student, "student1");
+        assertEquals("new StudentWithPublicFields(\"John\", \"Aris\", 30)", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals(3, objectCodeGenerator.getDependencies().size());
+        assertEquals("com.onushi.sampleapp.StudentWithPublicFields", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("", objectCodeGenerator.getInitCode());
+    }
+
+    // TODO IB !!!! also test PersonService personService = new PersonService(new PersonRepositoryImpl());
+
+
 
     // TODO IB !!!! test construction with no args + setters
 

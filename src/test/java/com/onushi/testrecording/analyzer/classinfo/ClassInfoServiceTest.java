@@ -59,31 +59,4 @@ class ClassInfoServiceTest {
         assertEquals("firstName", setters.get(1).getName());
         assertEquals("lastName", setters.get(2).getName());
     }
-
-    @Test
-    void getMatchingConstructors() {
-        StudentWithPublicFields student = new StudentWithPublicFields();
-        student.firstName = "John";
-        student.lastName = "Aris";
-        student.age = 30;
-
-        ObjectCreationAnalyzerService objectCreationAnalyzerService =
-                new ObjectCreationAnalyzerService(new ClassInfoService(), new ObjectStateReaderService());
-        List<MatchingConstructor> matchingConstructors =
-                objectCreationAnalyzerService.getMatchingAllArgsConstructors(student);
-        assertEquals(1, matchingConstructors.size());
-        assertTrue(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
-
-    }
-
-    @Test
-    void getMatchingConstructors2() {
-        PersonService personService = new PersonService(new PersonRepositoryImpl());
-        ObjectCreationAnalyzerService objectCreationAnalyzerService =
-                new ObjectCreationAnalyzerService(new ClassInfoService(), new ObjectStateReaderService());
-        List<MatchingConstructor> matchingConstructors =
-                objectCreationAnalyzerService.getMatchingAllArgsConstructors(personService);
-        assertEquals(1, matchingConstructors.size());
-        assertFalse(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
-    }
 }

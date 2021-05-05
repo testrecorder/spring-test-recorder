@@ -1,12 +1,12 @@
 package com.onushi.testrecording.analyzer.object;
 
-import com.onushi.sampleapp.Person;
-import com.onushi.sampleapp.StudentWithBuilder;
-import com.onushi.sampleapp.StudentWithPublicFields;
-import com.onushi.sampleapp.StudentWithDefaultInitFields;
+import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,6 +45,31 @@ class ObjectCreationAnalyzerServiceTest {
 
         StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
         assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithDefaultInitFields));
+    }
+
+    @Test
+    void getMatchingConstructors() {
+        StudentWithPublicFields student = new StudentWithPublicFields();
+        student.firstName = "John";
+        student.lastName = "Aris";
+        student.age = 30;
+
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        List<MatchingConstructor> matchingConstructors =
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(student);
+        assertEquals(1, matchingConstructors.size());
+        assertTrue(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
+
+    }
+
+    @Test
+    void getMatchingConstructors2() {
+        PersonService personService = new PersonService(new PersonRepositoryImpl());
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        List<MatchingConstructor> matchingConstructors =
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(personService);
+        assertEquals(1, matchingConstructors.size());
+        assertFalse(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
     }
 
     private ObjectCreationAnalyzerService getObjectCreationAnalyzerService() {

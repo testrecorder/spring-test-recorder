@@ -122,7 +122,7 @@ public class ObjectCreationAnalyzerService {
         if (fieldsToMatch.size() == 0) {
             return Collections.singletonList(MatchingConstructor.builder()
                     .constructor(constructor)
-                    .orderOfFields(orderOfFields)
+                    .argsInOrder(orderOfFields)
                     .fieldsCouldHaveDifferentOrder(fieldsCouldHaveDifferentOrder)
                     .build());
         } else {
