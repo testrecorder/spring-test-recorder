@@ -3,7 +3,6 @@ package com.onushi.testrecording.analyzer.classinfo;
 import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
-import com.onushi.testrecording.analyzer.object.FieldValue;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,7 +70,7 @@ class ClassInfoServiceTest {
         ObjectCreationAnalyzerService objectCreationAnalyzerService =
                 new ObjectCreationAnalyzerService(new ClassInfoService(), new ObjectStateReaderService());
         List<MatchingConstructor> matchingConstructors =
-                objectCreationAnalyzerService.getMatchingConstructorsWithAllFields(student);
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(student);
         assertEquals(1, matchingConstructors.size());
         assertTrue(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
 
@@ -84,7 +82,7 @@ class ClassInfoServiceTest {
         ObjectCreationAnalyzerService objectCreationAnalyzerService =
                 new ObjectCreationAnalyzerService(new ClassInfoService(), new ObjectStateReaderService());
         List<MatchingConstructor> matchingConstructors =
-                objectCreationAnalyzerService.getMatchingConstructorsWithAllFields(personService);
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(personService);
         assertEquals(1, matchingConstructors.size());
         assertFalse(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
     }

@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
@@ -77,19 +78,27 @@ public class ObjectCodeGeneratorFactory {
             default:
                 if (fullClassName.startsWith("[")) {
                     return new ArrayObjectCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
-                } else if (object instanceof List<?> ) {
+                } else if (object instanceof List<?>) {
                     return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
                 } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(object)) {
                     return new ObjectCodeGeneratorWithNoArgsConstructorFactory().createObjectCodeGenerator(object, objectName);
                 } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
                     ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
                             new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
-                            objectStateReaderService,
-                            this);
+                                    objectStateReaderService,
+                                    this);
 
                     return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(testGenerator, object, objectName);
                 } else {
-                    return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "Object");
+                    List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(object);
+                    if (matchingAllArgsConstructors.size() > 0) {
+                        MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
+                        boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
+                        // TODO IB !!!! !!!!
+                        return null;
+                    } else {
+                        return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "Object");
+                    }
                 }
         }
     }

@@ -73,7 +73,7 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public List<MatchingConstructor> getMatchingConstructorsWithAllFields(Object object) {
+    public List<MatchingConstructor> getMatchingAllArgsConstructors(Object object) {
         if (object == null) {
             return new ArrayList<>();
         }
@@ -94,13 +94,13 @@ public class ObjectCreationAnalyzerService {
 
         List<MatchingConstructor> matchingConstructors = new ArrayList<>();
         for (Constructor<?> constructor : publicConstructorsWithCorrectSize) {
-            matchingConstructors.addAll(getMatchingConstructorsWithAllFields(constructor, fieldValues));
+            matchingConstructors.addAll(getMatchingAllArgsConstructors(constructor, fieldValues));
         }
         return matchingConstructors;
     }
 
     // TODO this algorithm can be improved to produce better matches
-    private List<MatchingConstructor> getMatchingConstructorsWithAllFields(Constructor<?> constructor, Collection<FieldValue> fieldValues) {
+    private List<MatchingConstructor> getMatchingAllArgsConstructors(Constructor<?> constructor, Collection<FieldValue> fieldValues) {
         boolean fieldsCouldHaveDifferentOrder = false;
         List<FieldValue> orderOfFields = new ArrayList<>();
         List<FieldValue> fieldsToMatch = new ArrayList<>(fieldValues);
