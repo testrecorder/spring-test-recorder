@@ -53,30 +53,35 @@ public class ObjectCodeGeneratorFactory {
     // TODO IB !!!! all factories implement an interface
     // TODO IB !!!! all factories are created with new and receive the dependencies from this
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
+        ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
+        context.setTestGenerator(testGenerator);
+        context.setObject(object);
+        context.setObjectName(objectName);
+
         if (object == null) {
-            return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null", "null");
+            return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "null", "null");
         }
 
         String fullClassName = object.getClass().getName();
         switch (fullClassName) {
             case "java.lang.Float":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "f", "float");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object + "f", "float");
             case "java.lang.Long":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object + "L", "long");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object + "L", "long");
             case "java.lang.Byte":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(byte)" + object, "byte");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "(byte)" + object, "byte");
             case "java.lang.Short":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "(short)" + object, "short");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "(short)" + object, "short");
             case "java.lang.Character":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "'" + object + "'", "char");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "'" + object + "'", "char");
             case "java.lang.String":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, "\"" + object + "\"", "String");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "\"" + object + "\"", "String");
             case "java.lang.Boolean":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "boolean");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "boolean");
             case "java.lang.Integer":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "int");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "int");
             case "java.lang.Double":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "double");
+                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "double");
             case "java.util.Date":
                 return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(object, objectName);
             default:
@@ -106,7 +111,7 @@ public class ObjectCodeGeneratorFactory {
                         return new ObjectCodeGeneratorWithNoArgsAndFieldsFactory(this, objectStateReaderService).createObjectCodeGenerator(
                                 object, objectName, testGenerator);
                     } else {
-                        return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "Object");
+                        return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "Object");
                     }
                 }
         }
