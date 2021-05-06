@@ -144,11 +144,11 @@ class ObjectCodeGeneratorTest {
 
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, person, "person1");
-        assertEquals("new Person()", objectCodeGenerator.getInlineCode());
-        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.Person", objectCodeGenerator.getRequiredImports().get(0));
-        assertEquals("", objectCodeGenerator.getInitCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals("Person person1 = new Person();", objectCodeGenerator.getInitCode());
+        assertEquals("person1", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -176,15 +176,13 @@ class ObjectCodeGeneratorTest {
 
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, personService, "person1");
-        assertEquals("new PersonService(new PersonRepositoryImpl())", objectCodeGenerator.getInlineCode());
-        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals(1, objectCodeGenerator.getDependencies().size());
         assertEquals("com.onushi.sampleapp.PersonService", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals("", objectCodeGenerator.getInitCode());
+        assertEquals(1, objectCodeGenerator.getDependencies().size());
+        assertEquals("new PersonService(personRepositoryImpl1)", objectCodeGenerator.getInlineCode());
     }
-
-
 
     // TODO IB !!!! test construction with no args + setters
 

@@ -717,6 +717,7 @@ class TestGeneratorServiceTest {
                         "    @Test\n" +
                         "    void processStudents() throws Exception {\n" +
                         "        // Arrange\n" +
+                        "        StudentWithDefaultInitFields studentWithDefaultInitFields1 = new StudentWithDefaultInitFields();\n" +
                         "        StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
                         "            .age(60)\n" +
                         "            .firstName(\"John\")\n" +
@@ -725,7 +726,7 @@ class TestGeneratorServiceTest {
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        sampleService.processStudents(new StudentWithDefaultInitFields(), studentWithBuilder1);\n" +
+                        "        sampleService.processStudents(studentWithDefaultInitFields1, studentWithBuilder1);\n" +
                         "\n" +
                         "    }\n" +
                         "}\n" +
