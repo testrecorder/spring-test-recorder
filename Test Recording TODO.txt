@@ -56,6 +56,12 @@ DONE ==========================
 
 	OK - see what happens when the fields are from superclass
 
+	-----
+
+	OK - Object creation for the target object
+
+	OK - if there is a identifiable constructor covering all the fields
+			Create with args constructor 
 
 TODO ==========================
 	ObjectCodeGenerators
@@ -80,7 +86,7 @@ TODO ==========================
 							Create with NoArgs constructor 
 						OK - if Lombok builder exists
 							Create with Lombok builder
-						!!!! if there is a identifiable constructor covering all the fields
+						OK - if there is a identifiable constructor covering all the fields
 							Create with args constructor 
 						if there is a NoArg constructor + all setters
 							Create with setters 
@@ -88,6 +94,7 @@ TODO ==========================
 							Create with fields 
 						else
 							Cannot create => write some comments explaining fields values to be set
+								// TODO create this object
 								Person person = new Person();
 									.firstName = "firstName";
 									.lastName = "lastName"
@@ -95,13 +102,10 @@ TODO ==========================
 				
 				see what happens with the fields static
 				
-				!!!! Object creation for the target object
-				
 				Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
 					@Getter(lazy=true) private final double[] cached = expensive();
 				
 		Use JavaPoet to generate java code instead of my library
-
 				
 		@Component dependencies will be mocked
 			Intercept calls to all dependent components and create when() calls
