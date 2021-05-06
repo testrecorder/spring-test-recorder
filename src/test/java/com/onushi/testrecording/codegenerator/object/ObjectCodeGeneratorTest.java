@@ -1,9 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.sampleapp.Person;
-import com.onushi.sampleapp.PersonRepositoryImpl;
-import com.onushi.sampleapp.PersonService;
-import com.onushi.sampleapp.StudentWithPublicFields;
+import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
@@ -185,7 +182,25 @@ class ObjectCodeGeneratorTest {
 
     // TODO IB !!!! test construction with no args + setters
 
-    // TODO IB !!!! test construction with no args + public fields
+    @Test
+    void testNoArgsAndFields() {
+        StudentWithPublicFields2 student = new StudentWithPublicFields2();
+        student.firstName = "Fn";
+        student.lastName = "Ln";
+        student.age = 20;
+
+        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, student, "student1");
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.StudentWithPublicFields2", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(3, objectCodeGenerator.getDependencies().size());
+        assertEquals("StudentWithPublicFields2 student1 = new StudentWithPublicFields2();\n" +
+                "student1.firstName = \"Fn\";\n" +
+                "student1.lastName = \"Ln\";\n" +
+                "student1.age = 20;\n", objectCodeGenerator.getInitCode());
+        assertEquals("student1", objectCodeGenerator.getInlineCode());
+    }
 
     private ObjectCodeGeneratorFactory getObjectCodeGeneratorFactory() {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();

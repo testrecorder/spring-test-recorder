@@ -72,6 +72,18 @@ class ObjectCreationAnalyzerServiceTest {
         assertFalse(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
     }
 
+    @Test
+    void canBeCreatedWithNoArgsAndFields() {
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+
+        Person person = new Person();
+        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(person));
+
+        StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields));
+    }
+
+
     private ObjectCreationAnalyzerService getObjectCreationAnalyzerService() {
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ClassInfoService classInfoService = new ClassInfoService();

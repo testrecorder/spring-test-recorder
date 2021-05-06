@@ -5,6 +5,7 @@ import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class ObjectCreationAnalyzerService {
             long valuesDifferentThanDefaults = 0;
             for (FieldValue fieldValue : objectState.values()) {
                 if (fieldValue.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ) {
-                    continue;
+                    return false;
                 }
                 if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
                     if (isDefaultValueForItsClass(fieldValue.getValue())) {
@@ -130,5 +131,17 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    // TODO IB !!!! add more here
+    public boolean canBeCreatedWithNoArgsAndSetters(Object object) {
+        // TODO IB !!!!
+        return false;
+    }
+
+    public boolean canBeCreatedWithNoArgsAndFields(Object object) {
+        if (object == null) {
+            return false;
+        }
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
+        return objectState.values().stream().allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ &&
+                Modifier.isPublic(x.getField().getModifiers()));
+    }
 }

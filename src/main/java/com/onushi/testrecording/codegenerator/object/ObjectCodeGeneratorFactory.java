@@ -48,6 +48,7 @@ public class ObjectCodeGeneratorFactory {
         }
     }
 
+    // TODO IB refactor this. Have a List of factories that are tried one by one?
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         if (object == null) {
             return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null", "null");
@@ -96,6 +97,11 @@ public class ObjectCodeGeneratorFactory {
                         boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
                         return new ObjectCodeGeneratorWithAllArgsConstructorFactory(this).createObjectCodeGenerator(
                                 object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
+//                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndSetters(object)) {
+//
+                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(object)) {
+                        return new ObjectCodeGeneratorWithNoArgsAndFieldsFactory(this).createObjectCodeGenerator(
+                                object, objectName, testGenerator, objectStateReaderService);
                     } else {
                         return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "Object");
                     }
