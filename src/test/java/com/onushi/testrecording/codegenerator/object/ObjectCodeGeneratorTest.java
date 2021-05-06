@@ -158,14 +158,14 @@ class ObjectCodeGeneratorTest {
         student.lastName = "Aris";
         student.age = 30;
 
-        // TODO IB !!!! add // TODO check this since more constructors are available
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, student, "student1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.StudentWithPublicFields", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(3, objectCodeGenerator.getDependencies().size());
-        assertEquals("StudentWithPublicFields student1 = new StudentWithPublicFields(\"John\", \"Aris\", 30);", objectCodeGenerator.getInitCode());
+        assertEquals("// TODO Check order of arguments\n" +
+                "StudentWithPublicFields student1 = new StudentWithPublicFields(\"John\", \"Aris\", 30);", objectCodeGenerator.getInitCode());
         assertEquals("student1", objectCodeGenerator.getInlineCode());
     }
 

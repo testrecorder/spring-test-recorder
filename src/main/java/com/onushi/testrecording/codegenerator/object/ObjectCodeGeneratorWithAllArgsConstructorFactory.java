@@ -28,11 +28,13 @@ public class ObjectCodeGeneratorWithAllArgsConstructorFactory {
         String argsInlineCode = args.stream()
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
+        boolean addCheckOrderOfArgs = matchingConstructor.isFieldsCouldHaveDifferentOrder() || moreConstructorsAvailable;
         objectCodeGenerator.initCode = new StringGenerator()
-                .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}({{argsInlineCode}});")
+                .setTemplate("{{commentLine}}{{shortClassName}} {{objectName}} = new {{shortClassName}}({{argsInlineCode}});")
                 .addAttribute("shortClassName", object.getClass().getSimpleName())
                 .addAttribute("argsInlineCode", argsInlineCode)
                 .addAttribute("objectName", objectName)
+                .addAttribute("commentLine", addCheckOrderOfArgs ? "// TODO Check order of arguments\n" : "")
                 .generate();
 
 
