@@ -81,31 +81,37 @@ public class ObjectCodeGeneratorFactory {
             return objectCodeGenerator;
         }
 
-        if (object instanceof List<?>) {
-            return new ObjectCodeGeneratorFactoryForArrayList(this).createObjectCodeGenerator(context);
-        } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(object)) {
-            return new ObjectCodeGeneratorFactoryWithNoArgsConstructor().createObjectCodeGenerator(context);
-        } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
-            // TODO IB !!!! objectState in context lazy
-            ObjectCodeGeneratorFactoryWithLombokBuilder objectCodeGeneratorFactoryWithLombokBuilder =
-                    new ObjectCodeGeneratorFactoryWithLombokBuilder(classInfoService, objectStateReaderService, this);
-            return objectCodeGeneratorFactoryWithLombokBuilder.createObjectCodeGenerator(context);
-        } else {
-            List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(object);
-            if (matchingAllArgsConstructors.size() > 0) {
-                // TODO IB !!!! matchingAllArgsConstructors in context lazy
-                MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
-                boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
-                return new ObjectCodeGeneratorFactoryWithAllArgsConstructor(this)
-                        .createObjectCodeGenerator(object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
-//                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndSetters(object)) {
-//
-            } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(object)) {
-                return new ObjectCodeGeneratorFactoryWithNoArgsAndFields(this, objectStateReaderService)
-                        .createObjectCodeGenerator(context);
-            } else {
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "Object");
-            }
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArrayList(this).createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
         }
+
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsConstructor(objectCreationAnalyzerService).createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
+        }
+
+        // TODO IB !!!! objectState in context lazy
+
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithLombokBuilder(classInfoService,
+                objectStateReaderService, this, objectCreationAnalyzerService)
+                .createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
+        }
+
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithAllArgsConstructor(this, objectCreationAnalyzerService)
+                .createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
+        }
+
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsAndFields(this, objectStateReaderService, objectCreationAnalyzerService)
+                .createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
+        }
+
+        return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "Object");
     }
 }

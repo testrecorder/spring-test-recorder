@@ -3,6 +3,7 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.FieldValue;
 import com.onushi.testrecording.analyzer.object.FieldValueStatus;
+import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
@@ -18,32 +19,40 @@ public class ObjectCodeGeneratorFactoryWithLombokBuilder {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+    private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
     public ObjectCodeGeneratorFactoryWithLombokBuilder(ClassInfoService classInfoService,
                                                        ObjectStateReaderService objectStateReaderService,
-                                                       ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+                                                       ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+                                                       ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+        this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(),
-                context.getObjectName(),
-                context.getObjectName(),
-                context.getObject().getClass().getSimpleName());
+        if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(context.getObject())) {
 
-        objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
+            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(),
+                    context.getObjectName(),
+                    context.getObjectName(),
+                    context.getObject().getClass().getSimpleName());
 
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
-        objectCodeGenerator.dependencies = objectState.values().stream()
-                .distinct()
-                .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
-                .map(FieldValue::getValue)
-                .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
-                .collect(Collectors.toList());
-        objectCodeGenerator.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
-        return objectCodeGenerator;
+            objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
+
+            Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
+            objectCodeGenerator.dependencies = objectState.values().stream()
+                    .distinct()
+                    .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
+                    .map(FieldValue::getValue)
+                    .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
+                    .collect(Collectors.toList());
+            objectCodeGenerator.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
+            return objectCodeGenerator;
+        } else {
+            return null;
+        }
     }
 
     private String getInitCode(TestGenerator testGenerator, Object object, String objectName, Map<String, FieldValue> objectState) {
