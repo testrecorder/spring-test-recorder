@@ -15,7 +15,7 @@ import java.util.Map;
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
-    private final SimpleObjectCodeGeneratorFactory simpleObjectCodeGeneratorFactory;
+    private final ObjectCodeGeneratorFactoryInline objectCodeGeneratorFactoryInline;
     private final ObjectNameGenerator objectNameGenerator;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
@@ -28,7 +28,7 @@ public class ObjectCodeGeneratorFactory {
         this.objectNameGenerator = objectNameGenerator;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
         // TODO IB is it ok to have new here?
-        this.simpleObjectCodeGeneratorFactory = new SimpleObjectCodeGeneratorFactory();
+        this.objectCodeGeneratorFactoryInline = new ObjectCodeGeneratorFactoryInline();
     }
 
     public ObjectCodeGenerator getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
@@ -59,61 +59,58 @@ public class ObjectCodeGeneratorFactory {
         context.setObjectName(objectName);
 
         if (object == null) {
-            return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "null", "null");
+            return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "null", "null");
         }
 
         String fullClassName = object.getClass().getName();
         switch (fullClassName) {
             case "java.lang.Float":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object + "f", "float");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object + "f", "float");
             case "java.lang.Long":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object + "L", "long");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object + "L", "long");
             case "java.lang.Byte":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "(byte)" + object, "byte");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "(byte)" + object, "byte");
             case "java.lang.Short":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "(short)" + object, "short");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "(short)" + object, "short");
             case "java.lang.Character":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "'" + object + "'", "char");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "'" + object + "'", "char");
             case "java.lang.String":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, "\"" + object + "\"", "String");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "\"" + object + "\"", "String");
             case "java.lang.Boolean":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "boolean");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "boolean");
             case "java.lang.Integer":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "int");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "int");
             case "java.lang.Double":
-                return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "double");
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "double");
             case "java.util.Date":
-                return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(context);
+                return new ObjectCodeGeneratorFactoryForDate().createObjectCodeGenerator(context);
             default:
                 if (fullClassName.startsWith("[")) {
-                    return new ArrayObjectCodeGeneratorFactory(this).createObjectCodeGenerator(context);
+                    return new ObjectCodeGeneratorFactoryForArray(this).createObjectCodeGenerator(context);
                 } else if (object instanceof List<?>) {
-                    return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(context);
+                    return new ObjectCodeGeneratorFactoryForArrayList(this).createObjectCodeGenerator(context);
                 } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(object)) {
-                    return new ObjectCodeGeneratorWithNoArgsConstructorFactory().createObjectCodeGenerator(context);
+                    return new ObjectCodeGeneratorFactoryWithNoArgsConstructor().createObjectCodeGenerator(context);
                 } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
-                    // TODO IB !!!! name too long
                     // TODO IB !!!! objectState in context lazy
-                    ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
-                            new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
-                                    objectStateReaderService,
-                                    this);
-
-                    return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(context);
+                    ObjectCodeGeneratorFactoryWithLombokBuilder objectCodeGeneratorFactoryWithLombokBuilder =
+                            new ObjectCodeGeneratorFactoryWithLombokBuilder(classInfoService, objectStateReaderService, this);
+                    return objectCodeGeneratorFactoryWithLombokBuilder.createObjectCodeGenerator(context);
                 } else {
                     List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(object);
                     if (matchingAllArgsConstructors.size() > 0) {
+                        // TODO IB !!!! matchingAllArgsConstructors in context lazy
                         MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
                         boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
-                        return new ObjectCodeGeneratorWithAllArgsConstructorFactory(this)
+                        return new ObjectCodeGeneratorFactoryWithAllArgsConstructor(this)
                                 .createObjectCodeGenerator(object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
 //                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndSetters(object)) {
 //
                     } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(object)) {
-                        return new ObjectCodeGeneratorWithNoArgsAndFieldsFactory(this, objectStateReaderService)
+                        return new ObjectCodeGeneratorFactoryWithNoArgsAndFields(this, objectStateReaderService)
                                 .createObjectCodeGenerator(context);
                     } else {
-                        return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "Object");
+                        return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "Object");
                     }
                 }
         }

@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorWithNoArgsAndFieldsFactory {
+public class ObjectCodeGeneratorFactoryWithNoArgsAndFields {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
     private final ObjectStateReaderService objectStateReaderService;
 
-    public ObjectCodeGeneratorWithNoArgsAndFieldsFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+    public ObjectCodeGeneratorFactoryWithNoArgsAndFields(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
                                                          ObjectStateReaderService objectStateReaderService) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
         this.objectStateReaderService = objectStateReaderService;

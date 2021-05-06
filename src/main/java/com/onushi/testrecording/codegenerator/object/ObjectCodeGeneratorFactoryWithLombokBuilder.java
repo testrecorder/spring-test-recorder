@@ -14,12 +14,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ObjectCodeGeneratorWithLombokBuilderFactory {
+public class ObjectCodeGeneratorFactoryWithLombokBuilder {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ObjectCodeGeneratorWithLombokBuilderFactory(ClassInfoService classInfoService,
+    public ObjectCodeGeneratorFactoryWithLombokBuilder(ClassInfoService classInfoService,
                                                        ObjectStateReaderService objectStateReaderService,
                                                        ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
         this.classInfoService = classInfoService;

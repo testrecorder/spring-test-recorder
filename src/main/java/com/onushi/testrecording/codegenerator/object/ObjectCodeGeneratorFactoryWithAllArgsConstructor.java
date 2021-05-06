@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ObjectCodeGeneratorWithAllArgsConstructorFactory {
+public class ObjectCodeGeneratorFactoryWithAllArgsConstructor {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ObjectCodeGeneratorWithAllArgsConstructorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+    public ObjectCodeGeneratorFactoryWithAllArgsConstructor(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 

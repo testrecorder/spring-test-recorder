@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ArrayObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForArray {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ArrayObjectCodeGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+    public ObjectCodeGeneratorFactoryForArray(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 

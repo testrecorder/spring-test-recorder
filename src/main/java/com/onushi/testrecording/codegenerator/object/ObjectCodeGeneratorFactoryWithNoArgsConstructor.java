@@ -2,7 +2,7 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorWithNoArgsConstructorFactory {
+public class ObjectCodeGeneratorFactoryWithNoArgsConstructor {
     ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
         objectCodeGenerator.initCode = new StringGenerator()

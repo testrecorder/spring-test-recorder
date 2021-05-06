@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ArrayListCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForArrayList {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ArrayListCodeGeneratorFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+    public ObjectCodeGeneratorFactoryForArrayList(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 
