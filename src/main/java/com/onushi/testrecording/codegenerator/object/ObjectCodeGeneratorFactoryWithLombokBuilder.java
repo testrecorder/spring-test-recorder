@@ -8,7 +8,6 @@ import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import org.springframework.stereotype.Service;
-
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;

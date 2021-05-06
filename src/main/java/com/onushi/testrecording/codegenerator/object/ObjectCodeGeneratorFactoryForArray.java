@@ -1,7 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
-import com.onushi.testrecording.codegenerator.test.TestGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
