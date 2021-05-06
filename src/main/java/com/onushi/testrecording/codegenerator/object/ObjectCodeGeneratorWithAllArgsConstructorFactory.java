@@ -37,8 +37,6 @@ public class ObjectCodeGeneratorWithAllArgsConstructorFactory {
                 .addAttribute("commentLine", addCheckOrderOfArgs ? "// TODO Check order of arguments\n" : "")
                 .generate();
 
-
-
         objectCodeGenerator.dependencies = args.stream()
                 .distinct()
                 .collect(Collectors.toList());
