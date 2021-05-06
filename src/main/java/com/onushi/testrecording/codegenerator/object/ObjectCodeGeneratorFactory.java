@@ -1,21 +1,18 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
 public class ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
-    private final ObjectCodeGeneratorFactoryInline objectCodeGeneratorFactoryInline;
     private final ObjectNameGenerator objectNameGenerator;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
@@ -27,8 +24,6 @@ public class ObjectCodeGeneratorFactory {
         this.objectStateReaderService = objectStateReaderService;
         this.objectNameGenerator = objectNameGenerator;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
-        // TODO IB is it ok to have new here?
-        this.objectCodeGeneratorFactoryInline = new ObjectCodeGeneratorFactoryInline();
     }
 
     public ObjectCodeGenerator getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
@@ -59,7 +54,7 @@ public class ObjectCodeGeneratorFactory {
         context.setObject(object);
         context.setObjectName(objectName);
 
-        // TODO IB !!!! objectCodeGeneratorFactoryInline might not be needed
+        // TODO IB !!!! objectState in context lazy
 
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForNull().createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
@@ -91,7 +86,6 @@ public class ObjectCodeGeneratorFactory {
             return objectCodeGenerator;
         }
 
-        // TODO IB !!!! objectState in context lazy
 
         objectCodeGenerator = new ObjectCodeGeneratorFactoryWithLombokBuilder(classInfoService,
                 objectStateReaderService, this, objectCreationAnalyzerService)
@@ -112,6 +106,6 @@ public class ObjectCodeGeneratorFactory {
             return objectCodeGenerator;
         }
 
-        return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "Object");
+        return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), object.toString(), "Object");
     }
 }
