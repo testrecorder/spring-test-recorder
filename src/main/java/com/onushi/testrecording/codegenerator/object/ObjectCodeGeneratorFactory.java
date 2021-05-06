@@ -59,49 +59,53 @@ public class ObjectCodeGeneratorFactory {
         context.setObject(object);
         context.setObjectName(objectName);
 
-        if (object == null) {
-            // TODO IB !!!! objectCodeGeneratorFactoryInline might not be needed
-            return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "null", "null");
-        }
+        // TODO IB !!!! objectCodeGeneratorFactoryInline might not be needed
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForPrimitive().createObjectCodeGenerator(context);
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForNull().createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        String fullClassName = object.getClass().getName();
-        switch (fullClassName) {
-            case "java.util.Date":
-                return new ObjectCodeGeneratorFactoryForDate().createObjectCodeGenerator(context);
-            default:
-                if (fullClassName.startsWith("[")) {
-                    return new ObjectCodeGeneratorFactoryForArray(this).createObjectCodeGenerator(context);
-                } else if (object instanceof List<?>) {
-                    return new ObjectCodeGeneratorFactoryForArrayList(this).createObjectCodeGenerator(context);
-                } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(object)) {
-                    return new ObjectCodeGeneratorFactoryWithNoArgsConstructor().createObjectCodeGenerator(context);
-                } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
-                    // TODO IB !!!! objectState in context lazy
-                    ObjectCodeGeneratorFactoryWithLombokBuilder objectCodeGeneratorFactoryWithLombokBuilder =
-                            new ObjectCodeGeneratorFactoryWithLombokBuilder(classInfoService, objectStateReaderService, this);
-                    return objectCodeGeneratorFactoryWithLombokBuilder.createObjectCodeGenerator(context);
-                } else {
-                    List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(object);
-                    if (matchingAllArgsConstructors.size() > 0) {
-                        // TODO IB !!!! matchingAllArgsConstructors in context lazy
-                        MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
-                        boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
-                        return new ObjectCodeGeneratorFactoryWithAllArgsConstructor(this)
-                                .createObjectCodeGenerator(object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForPrimitive().createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
+        }
+
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForDate().createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
+        }
+
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArray(this).createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
+        }
+
+        if (object instanceof List<?>) {
+            return new ObjectCodeGeneratorFactoryForArrayList(this).createObjectCodeGenerator(context);
+        } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(object)) {
+            return new ObjectCodeGeneratorFactoryWithNoArgsConstructor().createObjectCodeGenerator(context);
+        } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
+            // TODO IB !!!! objectState in context lazy
+            ObjectCodeGeneratorFactoryWithLombokBuilder objectCodeGeneratorFactoryWithLombokBuilder =
+                    new ObjectCodeGeneratorFactoryWithLombokBuilder(classInfoService, objectStateReaderService, this);
+            return objectCodeGeneratorFactoryWithLombokBuilder.createObjectCodeGenerator(context);
+        } else {
+            List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(object);
+            if (matchingAllArgsConstructors.size() > 0) {
+                // TODO IB !!!! matchingAllArgsConstructors in context lazy
+                MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
+                boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
+                return new ObjectCodeGeneratorFactoryWithAllArgsConstructor(this)
+                        .createObjectCodeGenerator(object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
 //                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndSetters(object)) {
 //
-                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(object)) {
-                        return new ObjectCodeGeneratorFactoryWithNoArgsAndFields(this, objectStateReaderService)
-                                .createObjectCodeGenerator(context);
-                    } else {
-                        return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "Object");
-                    }
-                }
+            } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(object)) {
+                return new ObjectCodeGeneratorFactoryWithNoArgsAndFields(this, objectStateReaderService)
+                        .createObjectCodeGenerator(context);
+            } else {
+                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "Object");
+            }
         }
     }
 }
