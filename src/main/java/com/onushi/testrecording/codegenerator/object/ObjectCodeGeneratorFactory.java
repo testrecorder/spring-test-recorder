@@ -35,6 +35,7 @@ public class ObjectCodeGeneratorFactory {
         return createObjectCodeGenerator(testGenerator, object, preferredName);
     }
 
+    // TODO IB !!!! move to a separate cache class
     public ObjectCodeGenerator getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
         Map<Object, ObjectCodeGenerator> objectCache = testGenerator.getObjectCodeGeneratorCache();
         ObjectCodeGenerator existingObject = objectCache.get(object);
@@ -59,29 +60,17 @@ public class ObjectCodeGeneratorFactory {
         context.setObjectName(objectName);
 
         if (object == null) {
+            // TODO IB !!!! objectCodeGeneratorFactoryInline might not be needed
             return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "null", "null");
+        }
+
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForPrimitive().createObjectCodeGenerator(context);
+        if (objectCodeGenerator != null) {
+            return objectCodeGenerator;
         }
 
         String fullClassName = object.getClass().getName();
         switch (fullClassName) {
-            case "java.lang.Float":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object + "f", "float");
-            case "java.lang.Long":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object + "L", "long");
-            case "java.lang.Byte":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "(byte)" + object, "byte");
-            case "java.lang.Short":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "(short)" + object, "short");
-            case "java.lang.Character":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "'" + object + "'", "char");
-            case "java.lang.String":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, "\"" + object + "\"", "String");
-            case "java.lang.Boolean":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "boolean");
-            case "java.lang.Integer":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "int");
-            case "java.lang.Double":
-                return objectCodeGeneratorFactoryInline.createObjectCodeGenerator(context, object.toString(), "double");
             case "java.util.Date":
                 return new ObjectCodeGeneratorFactoryForDate().createObjectCodeGenerator(context);
             default:
