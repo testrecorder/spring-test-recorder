@@ -48,7 +48,10 @@ public class ObjectCodeGeneratorFactory {
         }
     }
 
-    // TODO IB refactor this. Have a List of factories that are tried one by one?
+    // TODO IB !!!! Have a ObjectCreationContext that knows more and more about the object as it try to create it. Use @Getter(lazy=true)
+    // TODO IB !!!! Have a List of factories that are tried one by one. They receive the ObjectCreationContext
+    // TODO IB !!!! all factories implement an interface
+    // TODO IB !!!! all factories are created with new and receive the dependencies from this
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         if (object == null) {
             return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(null, objectName, "null", "null");

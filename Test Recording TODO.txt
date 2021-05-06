@@ -73,7 +73,7 @@ TODO ==========================
 			Ex: int[] == int[]
 	
 		Object creation 
-			test cyclic dependencies after I have other ways of object creation
+			!!!! - test cyclic dependencies after I have other ways of object creation
 				I tried with Lombok, but Lombok could not handle it
 			how to differentiate between Float and float for different objects?
 		
@@ -92,16 +92,17 @@ TODO ==========================
 							Create with Lombok builder
 						OK - if there is a identifiable constructor covering all the fields
 							Create with args constructor 
-						if there is a NoArg constructor + all setters
+						!!!! - if there is a NoArg constructor + all setters
 							Create with setters 
 						OK - if there is a NoArg constructor + public fields
 							Create with fields 
-						else
-							// TODO create this object
+						!!!! - else
+							/* TODO create this object
 							Person person = new Person();
-								.firstName = "firstName";
-								.lastName = "lastName"
-								.age = 35;
+							person.firstName = "firstName";
+							person.lastName = "lastName"
+							person.age = 35;
+							*/
 				
 				see what happens with the fields static
 				
