@@ -159,15 +159,14 @@ class ObjectCodeGeneratorTest {
         student.age = 30;
 
         // TODO IB !!!! add // TODO check this since more constructors are available
-        // TODO IB !!!! move creation with constructor on separate lines
         ObjectCodeGeneratorFactory objectCodeGeneratorFactory = getObjectCodeGeneratorFactory();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, student, "student1");
-        assertEquals("new StudentWithPublicFields(\"John\", \"Aris\", 30)", objectCodeGenerator.getInlineCode());
-        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals(3, objectCodeGenerator.getDependencies().size());
         assertEquals("com.onushi.sampleapp.StudentWithPublicFields", objectCodeGenerator.getRequiredImports().get(0));
-        assertEquals("", objectCodeGenerator.getInitCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(3, objectCodeGenerator.getDependencies().size());
+        assertEquals("StudentWithPublicFields student1 = new StudentWithPublicFields(\"John\", \"Aris\", 30);", objectCodeGenerator.getInitCode());
+        assertEquals("student1", objectCodeGenerator.getInlineCode());
     }
 
     @Test
@@ -179,9 +178,9 @@ class ObjectCodeGeneratorTest {
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.PersonService", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
-        assertEquals("", objectCodeGenerator.getInitCode());
         assertEquals(1, objectCodeGenerator.getDependencies().size());
-        assertEquals("new PersonService(personRepositoryImpl1)", objectCodeGenerator.getInlineCode());
+        assertEquals("PersonService person1 = new PersonService(personRepositoryImpl1);", objectCodeGenerator.getInitCode());
+        assertEquals("person1", objectCodeGenerator.getInlineCode());
     }
 
     // TODO IB !!!! test construction with no args + setters

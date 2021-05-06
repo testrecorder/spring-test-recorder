@@ -19,6 +19,8 @@ public class ObjectCodeGeneratorWithAllArgsConstructorFactory {
     ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName, TestGenerator testGenerator,
                                                   MatchingConstructor matchingConstructor, boolean moreConstructorsAvailable) {
 
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
+
         List<ObjectCodeGenerator> args = matchingConstructor.getArgsInOrder().stream()
                 .map(argument -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, argument.getValue()))
                 .collect(Collectors.toList());
@@ -26,13 +28,14 @@ public class ObjectCodeGeneratorWithAllArgsConstructorFactory {
         String argsInlineCode = args.stream()
                 .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
-        String inlineCode = new StringGenerator()
-                .setTemplate("new {{shortClassName}}({{argsInlineCode}})")
+        objectCodeGenerator.initCode = new StringGenerator()
+                .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}({{argsInlineCode}});")
                 .addAttribute("shortClassName", object.getClass().getSimpleName())
                 .addAttribute("argsInlineCode", argsInlineCode)
+                .addAttribute("objectName", objectName)
                 .generate();
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, inlineCode);
+
 
         objectCodeGenerator.dependencies = args.stream()
                 .distinct()
