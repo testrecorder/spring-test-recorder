@@ -27,19 +27,22 @@ public class ObjectCodeGeneratorWithLombokBuilderFactory {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 
-    public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName, object.getClass().getSimpleName());
+    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(),
+                context.getObjectName(),
+                context.getObjectName(),
+                context.getObject().getClass().getSimpleName());
 
-        objectCodeGenerator.requiredImports.add(object.getClass().getName());
+        objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
 
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
         objectCodeGenerator.dependencies = objectState.values().stream()
                 .distinct()
                 .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
                 .map(FieldValue::getValue)
-                .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
+                .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                 .collect(Collectors.toList());
-        objectCodeGenerator.initCode = getInitCode(testGenerator, object, objectName, objectState);
+        objectCodeGenerator.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
         return objectCodeGenerator;
     }
 

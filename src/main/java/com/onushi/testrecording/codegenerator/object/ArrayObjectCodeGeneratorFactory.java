@@ -25,14 +25,14 @@ public class ArrayObjectCodeGeneratorFactory {
         }
     }
 
-    public ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
+    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
-        ArrayAsList arrayAsList = getElementList(object);
+        ArrayAsList arrayAsList = getElementList(context.getObject());
 
         List<ObjectCodeGenerator> elements = arrayAsList.list
                 .stream()
-                .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, fieldValue))
+                .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                 .collect(Collectors.toList());
 
         objectCodeGenerator.dependencies = elements.stream()
@@ -47,7 +47,7 @@ public class ArrayObjectCodeGeneratorFactory {
         objectCodeGenerator.initCode = new StringGenerator()
                 .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};")
                 .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
-                .addAttribute("objectName", objectName)
+                .addAttribute("objectName", context.getObjectName())
                 .addAttribute("elementsInlineCode", getElementsInlineCode(elements))
                 .generate();
 

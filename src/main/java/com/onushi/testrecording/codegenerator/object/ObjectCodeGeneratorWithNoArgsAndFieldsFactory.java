@@ -3,7 +3,6 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.object.FieldValue;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
-import com.onushi.testrecording.codegenerator.test.TestGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,21 +19,21 @@ public class ObjectCodeGeneratorWithNoArgsAndFieldsFactory {
         this.objectStateReaderService = objectStateReaderService;
     }
 
-    ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName, TestGenerator testGenerator) {
+    ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
         // TODO IB !!!! this is computed multiple times. actually I could compute dependent objects once
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
 
         StringBuilder fieldsInitCode = new StringBuilder();
         List<ObjectCodeGenerator> fieldObjectCodeGenerators = new ArrayList<>();
         for (Map.Entry<String, FieldValue> entry : objectState.entrySet()) {
-            ObjectCodeGenerator fieldObjectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, entry.getValue().getValue());
+            ObjectCodeGenerator fieldObjectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
             fieldObjectCodeGenerators.add(fieldObjectCodeGenerator);
             fieldsInitCode.append(new StringGenerator()
                     .setTemplate("{{objectName}}.{{fieldName}} = {{fieldInlineCode}};\n")
-                    .addAttribute("objectName", objectName)
+                    .addAttribute("objectName", context.getObjectName())
                     .addAttribute("fieldName", entry.getKey())
                     .addAttribute("fieldInlineCode", fieldObjectCodeGenerator.getInlineCode())
                     .generate());
@@ -43,8 +42,8 @@ public class ObjectCodeGeneratorWithNoArgsAndFieldsFactory {
         objectCodeGenerator.initCode = new StringGenerator()
                 .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}();\n" +
                         "{{fieldsInitCode}}")
-                .addAttribute("shortClassName", object.getClass().getSimpleName())
-                .addAttribute("objectName", objectName)
+                .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
+                .addAttribute("objectName", context.getObjectName())
                 .addAttribute("fieldsInitCode", fieldsInitCode.toString())
                 .generate();
 
@@ -52,7 +51,7 @@ public class ObjectCodeGeneratorWithNoArgsAndFieldsFactory {
                 .distinct()
                 .collect(Collectors.toList());
 
-        objectCodeGenerator.requiredImports.add(object.getClass().getName());
+        objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
         return objectCodeGenerator;
     }
 

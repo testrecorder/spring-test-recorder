@@ -83,33 +83,33 @@ public class ObjectCodeGeneratorFactory {
             case "java.lang.Double":
                 return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "double");
             case "java.util.Date":
-                return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(object, objectName);
+                return new DateObjectCodeGeneratorFactory().createObjectCodeGenerator(context);
             default:
                 if (fullClassName.startsWith("[")) {
-                    return new ArrayObjectCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
+                    return new ArrayObjectCodeGeneratorFactory(this).createObjectCodeGenerator(context);
                 } else if (object instanceof List<?>) {
-                    return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(testGenerator, object, objectName);
+                    return new ArrayListCodeGeneratorFactory(this).createObjectCodeGenerator(context);
                 } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(object)) {
-                    return new ObjectCodeGeneratorWithNoArgsConstructorFactory().createObjectCodeGenerator(object, objectName);
+                    return new ObjectCodeGeneratorWithNoArgsConstructorFactory().createObjectCodeGenerator(context);
                 } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
                     ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
                             new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
                                     objectStateReaderService,
                                     this);
 
-                    return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(testGenerator, object, objectName);
+                    return objectCodeGeneratorWithLombokBuilderFactory.createObjectCodeGenerator(context);
                 } else {
                     List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(object);
                     if (matchingAllArgsConstructors.size() > 0) {
                         MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
                         boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
-                        return new ObjectCodeGeneratorWithAllArgsConstructorFactory(this).createObjectCodeGenerator(
-                                object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
+                        return new ObjectCodeGeneratorWithAllArgsConstructorFactory(this)
+                                .createObjectCodeGenerator(object, objectName, testGenerator, matchingConstructor, moreConstructorsAvailable);
 //                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndSetters(object)) {
 //
                     } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(object)) {
-                        return new ObjectCodeGeneratorWithNoArgsAndFieldsFactory(this, objectStateReaderService).createObjectCodeGenerator(
-                                object, objectName, testGenerator);
+                        return new ObjectCodeGeneratorWithNoArgsAndFieldsFactory(this, objectStateReaderService)
+                                .createObjectCodeGenerator(context);
                     } else {
                         return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(context, object.toString(), "Object");
                     }
