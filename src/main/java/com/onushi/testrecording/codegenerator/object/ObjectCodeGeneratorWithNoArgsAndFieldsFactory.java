@@ -12,14 +12,15 @@ import java.util.stream.Collectors;
 
 public class ObjectCodeGeneratorWithNoArgsAndFieldsFactory {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+    private final ObjectStateReaderService objectStateReaderService;
 
-    public ObjectCodeGeneratorWithNoArgsAndFieldsFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+    public ObjectCodeGeneratorWithNoArgsAndFieldsFactory(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+                                                         ObjectStateReaderService objectStateReaderService) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+        this.objectStateReaderService = objectStateReaderService;
     }
 
-    ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName,
-                                                  TestGenerator testGenerator,
-                                                  ObjectStateReaderService objectStateReaderService) {
+    ObjectCodeGenerator createObjectCodeGenerator(Object object, String objectName, TestGenerator testGenerator) {
 
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(object, objectName, objectName);
 

@@ -103,8 +103,8 @@ public class ObjectCodeGeneratorFactory {
 //                    } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndSetters(object)) {
 //
                     } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(object)) {
-                        return new ObjectCodeGeneratorWithNoArgsAndFieldsFactory(this).createObjectCodeGenerator(
-                                object, objectName, testGenerator, objectStateReaderService);
+                        return new ObjectCodeGeneratorWithNoArgsAndFieldsFactory(this, objectStateReaderService).createObjectCodeGenerator(
+                                object, objectName, testGenerator);
                     } else {
                         return simpleObjectCodeGeneratorFactory.createObjectCodeGenerator(object, objectName, object.toString(), "Object");
                     }
