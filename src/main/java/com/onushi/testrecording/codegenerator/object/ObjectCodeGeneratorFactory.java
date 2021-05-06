@@ -92,6 +92,8 @@ public class ObjectCodeGeneratorFactory {
                 } else if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(object)) {
                     return new ObjectCodeGeneratorWithNoArgsConstructorFactory().createObjectCodeGenerator(context);
                 } else if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(object)) {
+                    // TODO IB !!!! name too long
+                    // TODO IB !!!! objectState in context lazy
                     ObjectCodeGeneratorWithLombokBuilderFactory objectCodeGeneratorWithLombokBuilderFactory =
                             new ObjectCodeGeneratorWithLombokBuilderFactory(classInfoService,
                                     objectStateReaderService,
