@@ -44,7 +44,8 @@ public class ObjectCodeGeneratorFactory {
         }
     }
 
-    // TODO IB !!!! Have a ObjectCreationContext that knows more and more about the object as it try to create it. Use @Getter(lazy=true)
+    // TODO IB !!!! All classes should end in Impl
+    // TODO IB !!!! Have a ObjectCreationContext that knows more and more about the object as it try to create it.
     // TODO IB !!!! Have a List of factories that are tried one by one. They receive the ObjectCreationContext
     // TODO IB !!!! all factories implement an interface
     // TODO IB !!!! all factories are created with new and receive the dependencies from this
@@ -55,6 +56,7 @@ public class ObjectCodeGeneratorFactory {
         context.setObjectName(objectName);
 
         // TODO IB !!!! objectState in context lazy
+        // TODO IB !!!! move this list upper
 
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForNull().createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
