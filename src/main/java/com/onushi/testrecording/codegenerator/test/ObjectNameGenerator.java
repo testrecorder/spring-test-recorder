@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
-// TODO IB !!!! rename package to unit test
 @Service
 public class ObjectNameGenerator {
     public String getBaseObjectName(Object object) {
