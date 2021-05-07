@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-
+@Getter
+@Setter
 public class ObjectCodeGeneratorCreationContext {
-    @Getter @Setter private Object object;
-    @Getter @Setter private String objectName;
-    @Getter @Setter private TestGenerator testGenerator;
+    private Object object;
+    private String objectName;
+    private TestGenerator testGenerator;
 }
