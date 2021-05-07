@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForArrayImpl {
-    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+public class ObjectCodeGeneratorFactoryForArrayImpl implements ObjectCodeGeneratorFactory {
+    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
-    public ObjectCodeGeneratorFactoryForArrayImpl(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
-        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+    public ObjectCodeGeneratorFactoryForArrayImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
     private class ArrayAsList {
@@ -24,6 +24,7 @@ public class ObjectCodeGeneratorFactoryForArrayImpl {
         }
     }
 
+    @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject().getClass().getName().startsWith("[")) {
 
@@ -33,7 +34,7 @@ public class ObjectCodeGeneratorFactoryForArrayImpl {
 
             List<ObjectCodeGenerator> elements = arrayAsList.list
                     .stream()
-                    .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
+                    .map(fieldValue -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
 
             objectCodeGenerator.dependencies = elements.stream()

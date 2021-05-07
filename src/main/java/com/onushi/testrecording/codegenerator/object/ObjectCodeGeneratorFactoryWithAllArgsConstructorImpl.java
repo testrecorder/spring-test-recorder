@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl {
-    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl implements ObjectCodeGeneratorFactory {
+    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+    public ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
                                                                 ObjectCreationAnalyzerService objectCreationAnalyzerService) {
-        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
-
-    ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    @Override
+    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(context.getObject());
         if (matchingAllArgsConstructors.size() > 0) {
             MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
@@ -29,7 +29,7 @@ public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl {
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
             List<ObjectCodeGenerator> args = matchingConstructor.getArgsInOrder().stream()
-                    .map(argument -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), argument.getValue()))
+                    .map(argument -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), argument.getValue()))
                     .collect(Collectors.toList());
 
             String argsInlineCode = args.stream()

@@ -14,22 +14,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl {
+public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl implements ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
-    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
     public ObjectCodeGeneratorFactoryWithLombokBuilderImpl(ClassInfoService classInfoService,
                                                            ObjectStateReaderService objectStateReaderService,
-                                                           ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+                                                           ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
                                                            ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
-        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
+    @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(context.getObject())) {
 
@@ -45,7 +46,7 @@ public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl {
                     .distinct()
                     .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
                     .map(FieldValue::getValue)
-                    .map(fieldValue -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
+                    .map(fieldValue -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
             objectCodeGenerator.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
             return objectCodeGenerator;
@@ -79,7 +80,7 @@ public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl {
                 FieldValue fieldValue = objectState.get(fieldName);
                 if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
                     ObjectCodeGenerator objectCodeGenerator =
-                            objectCodeGeneratorFactory.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
+                            objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
                     stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
                 } else {
                     stringGenerator.addAttribute("fieldValue", "??? could not read field");

@@ -25,12 +25,12 @@ class ObjectCodeGeneratorWithLombokBuilderImplTest {
         TestGenerator testGenerator = mock(TestGenerator.class);
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = new ObjectCodeGeneratorFactoryManager(
                 classInfoService,
                 objectStateReaderService,
                 objectNameGenerator,
                 new ObjectCreationAnalyzerService(classInfoService, objectStateReaderService));
-        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactory.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
         assertEquals(StringUtils.trimAndIgnoreCRDiffs(
                         "StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
                         "    .age(35)\n" +

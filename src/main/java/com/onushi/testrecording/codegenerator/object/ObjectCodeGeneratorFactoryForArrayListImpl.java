@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForArrayListImpl {
-    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGeneratorFactory {
+    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
-    public ObjectCodeGeneratorFactoryForArrayListImpl(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
-        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+    public ObjectCodeGeneratorFactoryForArrayListImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
+    @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject() instanceof List<?>) {
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
@@ -21,7 +22,7 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl {
 
             // TODO IB this part is repeated
             List<ObjectCodeGenerator> elements = ((List<Object>) context.getObject()).stream()
-                    .map(element -> objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             objectCodeGenerator.dependencies = elements.stream()

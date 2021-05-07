@@ -5,7 +5,7 @@ import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
-import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactory;
+import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactoryManager;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,11 +28,11 @@ class TestGeneratorServiceTest {
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        ObjectCodeGeneratorFactory objectCodeGeneratorFactory = new ObjectCodeGeneratorFactory(classInfoService,
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = new ObjectCodeGeneratorFactoryManager(classInfoService,
                 objectStateReaderService,
                 objectNameGenerator,
                 new ObjectCreationAnalyzerService(classInfoService, objectStateReaderService));
-        testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, objectCodeGeneratorFactory);
+        testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, objectCodeGeneratorFactoryManager);
         testGeneratorService = new TestGeneratorService(new StringService());
     }
 

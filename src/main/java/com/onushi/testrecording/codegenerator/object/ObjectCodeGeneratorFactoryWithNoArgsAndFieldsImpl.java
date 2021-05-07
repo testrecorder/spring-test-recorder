@@ -9,20 +9,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl {
-    private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
+public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl implements ObjectCodeGeneratorFactory {
+    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+    public ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
                                                              ObjectStateReaderService objectStateReaderService,
                                                              ObjectCreationAnalyzerService objectCreationAnalyzerService) {
-        this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
+        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectStateReaderService = objectStateReaderService;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
-    ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    @Override
+    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(context.getObject())) {
 
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
@@ -33,7 +34,7 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl {
             StringBuilder fieldsInitCode = new StringBuilder();
             List<ObjectCodeGenerator> fieldObjectCodeGenerators = new ArrayList<>();
             for (Map.Entry<String, FieldValue> entry : objectState.entrySet()) {
-                ObjectCodeGenerator fieldObjectCodeGenerator = objectCodeGeneratorFactory.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
+                ObjectCodeGenerator fieldObjectCodeGenerator = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
                 fieldObjectCodeGenerators.add(fieldObjectCodeGenerator);
                 fieldsInitCode.append(new StringGenerator()
                         .setTemplate("{{objectName}}.{{fieldName}} = {{fieldInlineCode}};\n")
