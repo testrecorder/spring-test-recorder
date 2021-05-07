@@ -34,6 +34,7 @@ public class ObjectCodeGeneratorFactoryManager implements ObjectCodeGeneratorFac
                 new ObjectCodeGeneratorFactoryForDateImpl(),
                 new ObjectCodeGeneratorFactoryForArrayImpl(this),
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this),
+                new ObjectCodeGeneratorFactoryForSpringComponentsImpl(),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this, classInfoService,
                         objectStateReaderService, objectCreationAnalyzerService),

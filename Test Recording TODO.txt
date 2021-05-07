@@ -83,11 +83,11 @@ TODO ==========================
 	Objects creation priority
 		handle Enum
 		handle HashMap<>
-		handle Map<>
 		Calendar
 		UUID
 		how to differentiate between Float and float for different objects?
 		@Component dependencies will be mocked
+			first just create the mock
 			Intercept calls to all dependent components and create when() calls
 		!!!! - if there is a NoArg constructor + all setters
 			Create with setters 
@@ -110,13 +110,12 @@ TODO ==========================
 		Check side effects on target, arguments, any dependencies
 			create assertEquals() for all the new values
      
-	Demo for Tash, Ionut P
+	Demo for Tash, IonutP
 	 
 	Package and publish locally
 	
 	Test in a real project
 		See what problems appear
-
 
 	Move all the test classes within the testrecording package
 	
