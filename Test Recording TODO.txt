@@ -87,15 +87,20 @@ TODO ==========================
 		@Component dependencies will be mocked
 			first just create the mock
 			Intercept calls to all dependent components and create when() calls
+				if only one call => intercept with any params
+					If n calls => return results in order...
+		!!!! - Create a function that will return the possible name of the setters
+			Or that will find the setter Methods for a field name
 		!!!! - if there is a NoArg constructor + all setters
 			Create with setters 
+			
 
 	Assert part
 		Check expected result
 			if returnType != void
 				if has equals
 					assertEquals(expectedResult, result)
-				else 
+				else (can be done with comments for now)
 					solve equality when there is no equals
 						Ex: int[] == int[]
 					if getters exist

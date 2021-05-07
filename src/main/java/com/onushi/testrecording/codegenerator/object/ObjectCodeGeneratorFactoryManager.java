@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ObjectCodeGeneratorFactoryManager implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryManager {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectNameGenerator objectNameGenerator;
@@ -62,16 +62,12 @@ public class ObjectCodeGeneratorFactoryManager implements ObjectCodeGeneratorFac
         }
     }
 
+    // TODO IB !!!! Put more in ObjectCreationContext. objectState if needed
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(object);
         context.setObjectName(objectName);
-        return createObjectCodeGenerator(context);
-    }
-
-    // TODO IB !!!! Put more in ObjectCreationContext. objectState if needed
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         for (ObjectCodeGeneratorFactory factory : factoriesList) {
             ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
             if (objectCodeGenerator != null) {
