@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ObjectCodeGeneratorFactoryManager {
+public class ObjectCodeGeneratorFactoryManager implements ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectNameGenerator objectNameGenerator;
@@ -42,11 +42,11 @@ public class ObjectCodeGeneratorFactoryManager {
         );
     }
 
+    // Cannot be moved to a separate cache class since it will result in cyclic dependency
     public ObjectCodeGenerator getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
         return createObjectCodeGenerator(testGenerator, object, preferredName);
     }
 
-    // TODO IB !!!! move to a separate cache class
     public ObjectCodeGenerator getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
         Map<Object, ObjectCodeGenerator> objectCache = testGenerator.getObjectCodeGeneratorCache();
         ObjectCodeGenerator existingObject = objectCache.get(object);
@@ -60,14 +60,16 @@ public class ObjectCodeGeneratorFactoryManager {
         }
     }
 
-    // TODO IB !!!! Have a ObjectCreationContext that knows more and more about the object as it try to create it.
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(object);
         context.setObjectName(objectName);
+        return createObjectCodeGenerator(context);
+    }
 
-        // TODO IB !!!! objectState in context lazy
+    // TODO IB !!!! Put more in ObjectCreationContext. objectState if needed
+    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         for (ObjectCodeGeneratorFactory factory : factoriesList) {
             ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
             if (objectCodeGenerator != null) {
@@ -75,6 +77,6 @@ public class ObjectCodeGeneratorFactoryManager {
             }
         }
 
-        return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), object.toString(), "Object");
+        return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObject().toString(), "Object");
     }
 }
