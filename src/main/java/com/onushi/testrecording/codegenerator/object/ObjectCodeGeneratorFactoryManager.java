@@ -7,6 +7,8 @@ import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -56,55 +58,24 @@ public class ObjectCodeGeneratorFactoryManager {
 
         // TODO IB !!!! objectState in context lazy
         // TODO IB !!!! move this list upper
-
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForNullImpl().createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForPrimitiveImpl().createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForDateImpl().createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArrayImpl(this).createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArrayListImpl(this).createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService).createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(classInfoService,
-                objectStateReaderService, this, objectCreationAnalyzerService)
-                .createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this, objectCreationAnalyzerService)
-                .createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
-        }
-
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this, objectStateReaderService, objectCreationAnalyzerService)
-                .createObjectCodeGenerator(context);
-        if (objectCodeGenerator != null) {
-            return objectCodeGenerator;
+        // TODO IB !!!! reorder params here
+        List<ObjectCodeGeneratorFactory> factories = Arrays.asList(
+                new ObjectCodeGeneratorFactoryForNullImpl(),
+                new ObjectCodeGeneratorFactoryForPrimitiveImpl(),
+                new ObjectCodeGeneratorFactoryForDateImpl(),
+                new ObjectCodeGeneratorFactoryForArrayImpl(this),
+                new ObjectCodeGeneratorFactoryForArrayListImpl(this),
+                new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(classInfoService,
+                        objectStateReaderService, this, objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this, objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this, objectStateReaderService, objectCreationAnalyzerService)
+        );
+        for (ObjectCodeGeneratorFactory factory : factories) {
+            ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
+            if (objectCodeGenerator != null) {
+                return objectCodeGenerator;
+            }
         }
 
         return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), object.toString(), "Object");
