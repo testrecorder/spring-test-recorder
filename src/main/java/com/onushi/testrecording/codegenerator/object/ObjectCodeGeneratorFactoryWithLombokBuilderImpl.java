@@ -13,16 +13,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
 public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl implements ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
-
-    public ObjectCodeGeneratorFactoryWithLombokBuilderImpl(ClassInfoService classInfoService,
+    public ObjectCodeGeneratorFactoryWithLombokBuilderImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+                                                           ClassInfoService classInfoService,
                                                            ObjectStateReaderService objectStateReaderService,
-                                                           ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
                                                            ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;

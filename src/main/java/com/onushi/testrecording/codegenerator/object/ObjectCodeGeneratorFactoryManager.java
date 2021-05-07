@@ -17,6 +17,7 @@ public class ObjectCodeGeneratorFactoryManager {
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectNameGenerator objectNameGenerator;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
+    private final List<ObjectCodeGeneratorFactory> factoriesList;
 
     public ObjectCodeGeneratorFactoryManager(ClassInfoService classInfoService,
                                              ObjectStateReaderService objectStateReaderService,
@@ -26,6 +27,19 @@ public class ObjectCodeGeneratorFactoryManager {
         this.objectStateReaderService = objectStateReaderService;
         this.objectNameGenerator = objectNameGenerator;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
+
+        factoriesList = Arrays.asList(
+                new ObjectCodeGeneratorFactoryForNullImpl(),
+                new ObjectCodeGeneratorFactoryForPrimitiveImpl(),
+                new ObjectCodeGeneratorFactoryForDateImpl(),
+                new ObjectCodeGeneratorFactoryForArrayImpl(this),
+                new ObjectCodeGeneratorFactoryForArrayListImpl(this),
+                new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this, classInfoService,
+                        objectStateReaderService, objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this, objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this, objectStateReaderService, objectCreationAnalyzerService)
+        );
     }
 
     public ObjectCodeGenerator getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
@@ -47,9 +61,6 @@ public class ObjectCodeGeneratorFactoryManager {
     }
 
     // TODO IB !!!! Have a ObjectCreationContext that knows more and more about the object as it try to create it.
-    // TODO IB !!!! Have a List of factories that are tried one by one. They receive the ObjectCreationContext
-    // TODO IB !!!! all factories implement an interface
-    // TODO IB !!!! all factories are created with new and receive the dependencies from this
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
         context.setTestGenerator(testGenerator);
@@ -57,21 +68,7 @@ public class ObjectCodeGeneratorFactoryManager {
         context.setObjectName(objectName);
 
         // TODO IB !!!! objectState in context lazy
-        // TODO IB !!!! move this list upper
-        // TODO IB !!!! reorder params here
-        List<ObjectCodeGeneratorFactory> factories = Arrays.asList(
-                new ObjectCodeGeneratorFactoryForNullImpl(),
-                new ObjectCodeGeneratorFactoryForPrimitiveImpl(),
-                new ObjectCodeGeneratorFactoryForDateImpl(),
-                new ObjectCodeGeneratorFactoryForArrayImpl(this),
-                new ObjectCodeGeneratorFactoryForArrayListImpl(this),
-                new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(classInfoService,
-                        objectStateReaderService, this, objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this, objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this, objectStateReaderService, objectCreationAnalyzerService)
-        );
-        for (ObjectCodeGeneratorFactory factory : factories) {
+        for (ObjectCodeGeneratorFactory factory : factoriesList) {
             ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
             if (objectCodeGenerator != null) {
                 return objectCodeGenerator;
