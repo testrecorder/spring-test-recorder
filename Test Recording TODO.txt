@@ -85,34 +85,29 @@ TODO ==========================
 		Object creation 
 			how to differentiate between Float and float for different objects?
 		
-		Non-@Component object creation priority
-				Known object like primitives and utils first
-					https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
-					handle Enum
-					handle HashMap<>
-					handle Map<>
-				Unknown objects
-					Creation priority
-						OK - if NoArgs constructor exists and no fields to be set
-							Create with NoArgs constructor 
-						OK - if Lombok builder exists
-							Create with Lombok builder
-						OK - if there is a identifiable constructor covering all the fields
-							Create with args constructor 
-						!!!! - if there is a NoArg constructor + all setters
-							Create with setters 
-						OK - if there is a NoArg constructor + public fields
-							Create with fields 
-						OK - else
-							/* TODO create this object
-							Person person = new Person();
-							person.firstName = "firstName";
-							person.lastName = "lastName"
-							person.age = 35;
-							*/
+		Object creation priority
+			Known object like primitives and utils first
+				https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
+				handle Enum
+				handle HashMap<>
+				handle Map<>
+			
+			Other objects creation priority
+				@Component dependencies will be mocked
+					Intercept calls to all dependent components and create when() calls
+				OK - if NoArgs constructor exists and no fields to be set
+					Create with NoArgs constructor 
+				OK - if Lombok builder exists
+					Create with Lombok builder
+				OK - if there is a identifiable constructor covering all the fields
+					Create with args constructor 
+				!!!! - if there is a NoArg constructor + all setters
+					Create with setters 
+				OK - if there is a NoArg constructor + public fields
+					Create with fields 
+				OK - else 
+					fallback is a comment
 				
-		@Component dependencies will be mocked
-			Intercept calls to all dependent components and create when() calls
 			
 	Test Code Generation
 		Check expected result

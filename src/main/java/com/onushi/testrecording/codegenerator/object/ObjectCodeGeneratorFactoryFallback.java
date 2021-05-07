@@ -22,7 +22,7 @@ public class ObjectCodeGeneratorFactoryFallback implements ObjectCodeGeneratorFa
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
-        // TODO IB !!!! this is computed multiple times. actually I could compute dependent objects once
+        // TODO IB this is computed multiple times. actually I could compute dependent objects once
         Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
 
         StringBuilder fieldsInitCode = new StringBuilder();
