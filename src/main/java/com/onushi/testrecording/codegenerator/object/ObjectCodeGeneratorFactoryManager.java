@@ -38,6 +38,7 @@ public class ObjectCodeGeneratorFactoryManager implements ObjectCodeGeneratorFac
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this, classInfoService,
                         objectStateReaderService, objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this, objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl(this, objectStateReaderService, objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this, objectStateReaderService, objectCreationAnalyzerService)
         );
     }
@@ -77,6 +78,6 @@ public class ObjectCodeGeneratorFactoryManager implements ObjectCodeGeneratorFac
             }
         }
 
-        return new ObjectCodeGeneratorFactoryFallback(this, objectStateReaderService).createObjectCodeGenerator(context);
+        return new ObjectCodeGeneratorFactoryFallbackImpl(this, objectStateReaderService).createObjectCodeGenerator(context);
     }
 }

@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryFallback implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryFallbackImpl implements ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectStateReaderService objectStateReaderService;
 
-    public ObjectCodeGeneratorFactoryFallback(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager, ObjectStateReaderService objectStateReaderService) {
+    public ObjectCodeGeneratorFactoryFallbackImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager, ObjectStateReaderService objectStateReaderService) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectStateReaderService = objectStateReaderService;
     }
