@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForArrayList {
+public class ObjectCodeGeneratorFactoryForArrayListImpl {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
 
-    public ObjectCodeGeneratorFactoryForArrayList(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
+    public ObjectCodeGeneratorFactoryForArrayListImpl(ObjectCodeGeneratorFactory objectCodeGeneratorFactory) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
     }
 

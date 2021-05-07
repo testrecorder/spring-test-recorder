@@ -3,7 +3,7 @@ package com.onushi.testrecording.codegenerator.object;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ObjectCodeGeneratorFactoryForDate {
+public class ObjectCodeGeneratorFactoryForDateImpl {
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject().getClass().getName().equals("java.util.Date")) {
 

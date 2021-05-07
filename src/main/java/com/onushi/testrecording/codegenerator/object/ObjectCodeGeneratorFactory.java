@@ -58,51 +58,51 @@ public class ObjectCodeGeneratorFactory {
         // TODO IB !!!! objectState in context lazy
         // TODO IB !!!! move this list upper
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForNull().createObjectCodeGenerator(context);
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGeneratorFactoryForNullImpl().createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForPrimitive().createObjectCodeGenerator(context);
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForPrimitiveImpl().createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForDate().createObjectCodeGenerator(context);
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForDateImpl().createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArray(this).createObjectCodeGenerator(context);
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArrayImpl(this).createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArrayList(this).createObjectCodeGenerator(context);
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryForArrayListImpl(this).createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsConstructor(objectCreationAnalyzerService).createObjectCodeGenerator(context);
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService).createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithLombokBuilder(classInfoService,
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(classInfoService,
                 objectStateReaderService, this, objectCreationAnalyzerService)
                 .createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithAllArgsConstructor(this, objectCreationAnalyzerService)
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this, objectCreationAnalyzerService)
                 .createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;
         }
 
-        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsAndFields(this, objectStateReaderService, objectCreationAnalyzerService)
+        objectCodeGenerator = new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this, objectStateReaderService, objectCreationAnalyzerService)
                 .createObjectCodeGenerator(context);
         if (objectCodeGenerator != null) {
             return objectCodeGenerator;

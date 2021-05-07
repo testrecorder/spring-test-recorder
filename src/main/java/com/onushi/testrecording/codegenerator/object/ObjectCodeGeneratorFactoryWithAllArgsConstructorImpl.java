@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ObjectCodeGeneratorFactoryWithAllArgsConstructor {
+public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithAllArgsConstructor(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
-                                                            ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+                                                                ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }

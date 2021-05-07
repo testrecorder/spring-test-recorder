@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsAndFields {
+public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl {
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithNoArgsAndFields(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
-                                                         ObjectStateReaderService objectStateReaderService,
-                                                         ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+                                                             ObjectStateReaderService objectStateReaderService,
+                                                             ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;
         this.objectStateReaderService = objectStateReaderService;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;

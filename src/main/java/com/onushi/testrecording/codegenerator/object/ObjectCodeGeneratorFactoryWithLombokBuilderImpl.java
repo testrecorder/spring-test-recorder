@@ -14,16 +14,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ObjectCodeGeneratorFactoryWithLombokBuilder {
+public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCodeGeneratorFactory objectCodeGeneratorFactory;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithLombokBuilder(ClassInfoService classInfoService,
-                                                       ObjectStateReaderService objectStateReaderService,
-                                                       ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
-                                                       ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectCodeGeneratorFactoryWithLombokBuilderImpl(ClassInfoService classInfoService,
+                                                           ObjectStateReaderService objectStateReaderService,
+                                                           ObjectCodeGeneratorFactory objectCodeGeneratorFactory,
+                                                           ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.objectCodeGeneratorFactory = objectCodeGeneratorFactory;

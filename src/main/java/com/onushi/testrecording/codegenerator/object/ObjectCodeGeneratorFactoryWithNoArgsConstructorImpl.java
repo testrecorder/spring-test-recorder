@@ -3,10 +3,10 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsConstructor {
+public class ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl {
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithNoArgsConstructor(ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 

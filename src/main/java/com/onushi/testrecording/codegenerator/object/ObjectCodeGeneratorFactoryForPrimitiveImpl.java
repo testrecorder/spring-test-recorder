@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
-public class ObjectCodeGeneratorFactoryForPrimitive {
+public class ObjectCodeGeneratorFactoryForPrimitiveImpl {
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         String fullClassName = context.getObject().getClass().getName();
         switch (fullClassName) {
