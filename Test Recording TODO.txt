@@ -79,18 +79,19 @@ DONE ==========================
 
 TODO ==========================
 	ObjectCodeGenerators
-		solve equality when there is no equals
-			Ex: int[] == int[]
-	
-		Object creation 
-			how to differentiate between Float and float for different objects?
-		
 		Object creation priority
 			Known object like primitives and utils first
-				https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
+				how to differentiate between Float and float for different objects?
+				
 				handle Enum
+				
 				handle HashMap<>
+				
 				handle Map<>
+				
+				Calendar
+				
+				UUID
 			
 			Other objects creation priority
 				@Component dependencies will be mocked
@@ -109,12 +110,14 @@ TODO ==========================
 					fallback is a comment
 				
 			
-	Test Code Generation
+	Assert part
 		Check expected result
 			if returnType != void
 				if has equals
 					assertEquals(expectedResult, result)
 				else 
+					solve equality when there is no equals
+						Ex: int[] == int[]
 					if getters exist
 						test with getters
 					if public fields exist
@@ -135,6 +138,8 @@ TODO ==========================
 
 	
 LATER ==========================
+	Handle other Java common classes
+
 	Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
 		@Getter(lazy=true) private final double[] cached = expensive();
 
