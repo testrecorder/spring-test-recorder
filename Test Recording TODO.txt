@@ -68,6 +68,14 @@ DONE ==========================
 		
 	OK - Refactor factory
 
+	OK - else
+		/* TODO create this object
+		Person person = new Person();
+		person.firstName = "firstName";
+		person.lastName = "lastName"
+		person.age = 35;
+		*/
+
 
 TODO ==========================
 	ObjectCodeGenerators
@@ -95,7 +103,7 @@ TODO ==========================
 							Create with setters 
 						OK - if there is a NoArg constructor + public fields
 							Create with fields 
-						!!!! - else
+						OK - else
 							/* TODO create this object
 							Person person = new Person();
 							person.firstName = "firstName";
