@@ -77,6 +77,6 @@ public class ObjectCodeGeneratorFactoryManager implements ObjectCodeGeneratorFac
             }
         }
 
-        return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObject().toString(), "Object");
+        return new ObjectCodeGeneratorFactoryFallback(this, objectStateReaderService).createObjectCodeGenerator(context);
     }
 }

@@ -65,6 +65,8 @@ DONE ==========================
 
 	OK - if there is a NoArg constructor + public fields
 		Create with fields 
+		
+	OK - Refactor factory
 
 
 TODO ==========================
@@ -73,11 +75,8 @@ TODO ==========================
 			Ex: int[] == int[]
 	
 		Object creation 
-			!!!! - test cyclic dependencies after I have other ways of object creation
-				I tried with Lombok, but Lombok could not handle it
 			how to differentiate between Float and float for different objects?
 		
-			
 		Non-@Component object creation priority
 				Known object like primitives and utils first
 					https://medium.com/analytics-vidhya/top-10-java-classes-from-utility-package-a4bebde7c267
@@ -103,13 +102,6 @@ TODO ==========================
 							person.lastName = "lastName"
 							person.age = 35;
 							*/
-				
-				see what happens with the fields static
-				
-				Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
-					@Getter(lazy=true) private final double[] cached = expensive();
-				
-		Use JavaPoet to generate java code instead of my library
 				
 		@Component dependencies will be mocked
 			Intercept calls to all dependent components and create when() calls
@@ -140,6 +132,19 @@ TODO ==========================
 
 	
 LATER ==========================
+	Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
+		@Getter(lazy=true) private final double[] cached = expensive();
+
+	full injection for factories?
+		for test have a util that creates the factory
+	
+	see what happens with the fields static
+
+	test cyclic dependencies after I have other ways of object creation
+		I tried with Lombok, but Lombok could not handle it
+
+	Use JavaPoet to generate java code instead of my library
+
 	if needed object initialisation code could be learned from github	
 	
 	Handle Generics
@@ -154,6 +159,12 @@ LATER ==========================
 	global variables changed - but this is not ok
 	
 	static fields are not handled yet
+	
+	Daca mut calculul cazului si al dependințelor intr-un pas pregatitor, nu mai am ciclic dep.
+	Pot sa fol object creation context
+	
+	Mai am undeva cyclic dep intre componente?
+	
 	
 	
 	

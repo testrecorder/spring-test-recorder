@@ -5,6 +5,7 @@ import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.*;
+import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -200,6 +201,49 @@ class ObjectCodeGeneratorTest {
                 "student1.lastName = \"Ln\";\n" +
                 "student1.age = 20;\n", objectCodeGenerator.getInitCode());
         assertEquals("student1", objectCodeGenerator.getInlineCode());
+    }
+
+    @Test
+    void testCodeGeneratorWithBuilder() {
+        StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()
+                .firstName("John")
+                .lastName("Michael")
+                .age(35)
+                .build();
+
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = getObjectCodeGeneratorFactoryManager();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.StudentWithBuilder", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(3, objectCodeGenerator.getDependencies().size());
+        assertEquals("studentWithBuilder1", objectCodeGenerator.getInlineCode());
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs(
+                "StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
+                        "    .age(35)\n" +
+                        "    .firstName(\"John\")\n" +
+                        "    .lastName(\"Michael\")\n" +
+                        "    .build();"),
+                StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
+    }
+
+    @Test
+    void testCodeGeneratorWithFallback() {
+        OtherStudent student = new OtherStudent();
+        student.myInitSecretMethod("FN");
+
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = getObjectCodeGeneratorFactoryManager();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student");
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.OtherStudent", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(1, objectCodeGenerator.getDependencies().size());
+        assertEquals("student", objectCodeGenerator.getInlineCode());
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs(
+                "// TODO Create this object\n" +
+                     "// OtherStudent student = new OtherStudent();\n" +
+                     "// student.firstName = \"FN\";\n"),
+                StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
     }
 
     private ObjectCodeGeneratorFactoryManager getObjectCodeGeneratorFactoryManager() {
