@@ -89,18 +89,8 @@ TODO ==========================
 		how to differentiate between Float and float for different objects?
 		@Component dependencies will be mocked
 			Intercept calls to all dependent components and create when() calls
-		OK - if NoArgs constructor exists and no fields to be set
-			Create with NoArgs constructor 
-		OK - if Lombok builder exists
-			Create with Lombok builder
-		OK - if there is a identifiable constructor covering all the fields
-			Create with args constructor 
 		!!!! - if there is a NoArg constructor + all setters
 			Create with setters 
-		OK - if there is a NoArg constructor + public fields
-			Create with fields 
-		OK - else 
-			fallback is a comment
 
 	Assert part
 		Check expected result
