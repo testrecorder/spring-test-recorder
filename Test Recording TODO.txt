@@ -75,6 +75,14 @@ DONE ==========================
 		 // person.firstName = "firstName";
 		 // person.lastName = "lastName"
 		 // person.age = 35;
+		 
+	------
+	OK - Create a function that will return the possible name of the setters
+		Or that will find the setter Methods for a field name
+
+	OK - if there is a NoArg constructor + all setters
+		Create with setters 
+
 
 
 TODO ==========================
@@ -89,10 +97,6 @@ TODO ==========================
 			Intercept calls to all dependent components and create when() calls
 				if only one call => intercept with any params
 					If n calls => return results in order...
-		!!!! - Create a function that will return the possible name of the setters
-			Or that will find the setter Methods for a field name
-		!!!! - if there is a NoArg constructor + all setters
-			Create with setters 
 			
 
 	Assert part
