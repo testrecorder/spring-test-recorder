@@ -8,13 +8,8 @@ class StringServiceTest {
 
     @Test
     void addPrefixOnAllLines() {
-        // Arrange
         StringService stringService = new StringService();
-
-        // Act
         String result = stringService.addPrefixOnAllLines("line1\nline2", "    ");
-
-        // Assert
         assertEquals("    line1\n    line2", result);
     }
 

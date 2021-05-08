@@ -5,6 +5,7 @@ import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
+import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,7 +18,7 @@ class ObjectCreationAnalyzerServiceTest {
 
     @Test
     void canBeCreatedWithLombokBuilder() {
-        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
         StudentWithBuilder studentWithBuilder = StudentWithBuilder.builder()
                 .firstName("John")
                 .lastName(null)
@@ -30,7 +31,7 @@ class ObjectCreationAnalyzerServiceTest {
 
     @Test
     void cannotBeCreatedWithNoArgsConstructor() {
-        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
         StudentWithBuilder studentWithBuilder = StudentWithBuilder.builder()
                 .firstName("John")
                 .lastName(null)
@@ -41,7 +42,7 @@ class ObjectCreationAnalyzerServiceTest {
 
     @Test
     void canBeCreatedWithNoArgsConstructor() {
-        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
 
         Person person = new Person();
         assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person));
@@ -57,7 +58,7 @@ class ObjectCreationAnalyzerServiceTest {
         student.lastName = "Aris";
         student.age = 30;
 
-        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
         List<MatchingConstructor> matchingConstructors =
                 objectCreationAnalyzerService.getMatchingAllArgsConstructors(student);
         assertEquals(1, matchingConstructors.size());
@@ -68,7 +69,7 @@ class ObjectCreationAnalyzerServiceTest {
     @Test
     void getMatchingConstructors2() {
         PersonService personService = new PersonService(new PersonRepositoryImpl());
-        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
         List<MatchingConstructor> matchingConstructors =
                 objectCreationAnalyzerService.getMatchingAllArgsConstructors(personService);
         assertEquals(1, matchingConstructors.size());
@@ -77,7 +78,7 @@ class ObjectCreationAnalyzerServiceTest {
 
     @Test
     void canBeCreatedWithNoArgsAndFields() {
-        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
 
         Person person = new Person();
         assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(person));
@@ -97,7 +98,7 @@ class ObjectCreationAnalyzerServiceTest {
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
         Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(studentWithSetters);
 
-        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
         Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(studentWithSetters, objectState);
 
         assertNotNull(settersForFields.get("firstName"));
@@ -147,14 +148,5 @@ class ObjectCreationAnalyzerServiceTest {
         assertNotNull(settersForFields.get("otherField"));
         assertEquals("setOtherField", settersForFields.get("otherField").getName());
         assertFalse(settersForFields.get("otherField").isForBuilder());
-    }
-
-
-    private ObjectCreationAnalyzerService getObjectCreationAnalyzerService() {
-        StringService stringService = new StringService();
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(stringService);
-        ClassInfoService classInfoService = new ClassInfoService();
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        return new ObjectCreationAnalyzerService(stringService, classInfoService, objectStateReaderService);
     }
 }

@@ -7,6 +7,7 @@ import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactoryManager;
 import com.onushi.testrecording.codegenerator.template.StringService;
+import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,19 +24,10 @@ class TestGeneratorServiceTest {
     TestGeneratorFactory testGeneratorFactory;
     TestGeneratorService testGeneratorService;
 
-    // TODO IB !!!! I should have a Util in Tests for object creation with injection
     @BeforeEach
     void setUp() {
-        StringService stringService = new StringService();
-        ClassInfoService classInfoService = new ClassInfoService();
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(stringService);
-        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = new ObjectCodeGeneratorFactoryManager(classInfoService,
-                objectStateReaderService,
-                objectNameGenerator,
-                new ObjectCreationAnalyzerService(stringService, classInfoService, objectStateReaderService));
-        testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, objectCodeGeneratorFactoryManager);
-        testGeneratorService = new TestGeneratorService(new StringService());
+        testGeneratorFactory = ServiceCreatorUtils.createTestGeneratorFactory();
+        testGeneratorService = ServiceCreatorUtils.createTestGeneratorService();
     }
 
     @Test

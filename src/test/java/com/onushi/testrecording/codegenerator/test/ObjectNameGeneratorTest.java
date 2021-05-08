@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.codegenerator.template.StringService;
+import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.Date;
@@ -17,7 +18,7 @@ class ObjectNameGeneratorTest {
         TestGenerator testGeneratorMock = mock(TestGenerator.class);
         when(testGeneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(new StringService());
+        ObjectNameGenerator objectNameGenerator = ServiceCreatorUtils.createObjectNameGenerator();
         assertEquals("date1", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date()));
         Thread.sleep(1);
         assertEquals("date2", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date()));
@@ -28,9 +29,8 @@ class ObjectNameGeneratorTest {
 
     @Test
     void getBaseObjectName() {
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(new StringService());
+        ObjectNameGenerator objectNameGenerator = ServiceCreatorUtils.createObjectNameGenerator();
         assertEquals("float", objectNameGenerator.getBaseObjectName(1f));
         assertEquals("null", objectNameGenerator.getBaseObjectName(null));
     }
-
 }
