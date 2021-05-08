@@ -62,7 +62,7 @@ public class ObjectCodeGeneratorFactoryManager {
         }
     }
 
-    // TODO IB !!!! Put more in ObjectCreationContext. objectState if needed
+    // TODO IB !!!! Put more in ObjectCreationContext. objectState for sure
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
         context.setTestGenerator(testGenerator);

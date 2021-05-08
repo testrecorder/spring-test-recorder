@@ -182,8 +182,6 @@ class ObjectCodeGeneratorTest {
         assertEquals("person1", objectCodeGenerator.getInlineCode());
     }
 
-    // TODO IB !!!! test construction with no args + setters
-
     @Test
     void testNoArgsAndFields() {
         StudentWithPublicFields2 student = new StudentWithPublicFields2();

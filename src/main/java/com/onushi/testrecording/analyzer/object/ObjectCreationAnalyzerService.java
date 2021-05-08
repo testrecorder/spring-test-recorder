@@ -91,7 +91,7 @@ public class ObjectCreationAnalyzerService {
         if (objectState == null) {
             return new ArrayList<>();
         }
-        // TODO IB !!!! this check should be done first to detect that the object should be "created" with commments
+        // TODO IB !!!! this check should be done first to detect that the object should be "created" with comments
         Collection<FieldValue> fieldValues = objectState.values();
         if (fieldValues.stream().anyMatch(x -> x.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ)) {
             return new ArrayList<>();
@@ -140,7 +140,6 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    // TODO IB !!!! implement
     public Map<String, SetterInfo> getSettersForFields(Object object, Map<String, FieldValue> fields) {
         // TODO IB !!!! I should use @NotNull from lombok instead
         if (object == null) {
