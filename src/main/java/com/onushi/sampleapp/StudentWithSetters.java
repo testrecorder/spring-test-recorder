@@ -11,6 +11,10 @@ public class StudentWithSetters {
     private boolean isOnline;
     private Boolean isOnline1;
     private boolean registered;
+    private boolean isometric;
+    private boolean is;
+    private boolean isa;
+    private boolean isA;
     private String otherField;
 
     public StudentWithSetters setFirstName(String firstName) {
@@ -45,6 +49,26 @@ public class StudentWithSetters {
 
     public StudentWithSetters setRegistered(boolean registered) {
         this.registered = registered;
+        return this;
+    }
+
+    public StudentWithSetters setIsometric(boolean isometric) {
+        this.isometric = isometric;
+        return this;
+    }
+
+    public StudentWithSetters setIs(boolean is) {
+        this.is = is;
+        return this;
+    }
+
+    public StudentWithSetters setIsa(boolean isa) {
+        this.isa = isa;
+        return this;
+    }
+
+    public StudentWithSetters setA(boolean a) {
+        isA = a;
         return this;
     }
 

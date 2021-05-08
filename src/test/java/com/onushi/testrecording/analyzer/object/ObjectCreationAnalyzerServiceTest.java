@@ -102,9 +102,51 @@ class ObjectCreationAnalyzerServiceTest {
 
         assertNotNull(settersForFields.get("firstName"));
         assertEquals("setFirstName", settersForFields.get("firstName").getName());
+        assertTrue(settersForFields.get("firstName").isForBuilder());
 
-        // TODO IB !!!! add more tests here
-        // "age", "firstName", "isModule", "isOnline", "isOnline1", "isolation", "otherField", "registered"
+        assertNotNull(settersForFields.get("age"));
+        assertEquals("setAge", settersForFields.get("age").getName());
+        assertTrue(settersForFields.get("age").isForBuilder());
+
+        assertNotNull(settersForFields.get("isolation"));
+        assertEquals("setIsolation", settersForFields.get("isolation").getName());
+        assertTrue(settersForFields.get("isolation").isForBuilder());
+
+        assertNotNull(settersForFields.get("isModule"));
+        assertEquals("setIsModule", settersForFields.get("isModule").getName());
+        assertTrue(settersForFields.get("isModule").isForBuilder());
+
+        assertNotNull(settersForFields.get("isOnline"));
+        assertEquals("setOnline", settersForFields.get("isOnline").getName());
+        assertTrue(settersForFields.get("isOnline").isForBuilder());
+
+        assertNotNull(settersForFields.get("isOnline1"));
+        assertEquals("setOnline1", settersForFields.get("isOnline1").getName());
+        assertTrue(settersForFields.get("isOnline1").isForBuilder());
+
+        assertNotNull(settersForFields.get("registered"));
+        assertEquals("setRegistered", settersForFields.get("registered").getName());
+        assertTrue(settersForFields.get("registered").isForBuilder());
+
+        assertNotNull(settersForFields.get("isometric"));
+        assertEquals("setIsometric", settersForFields.get("isometric").getName());
+        assertTrue(settersForFields.get("isometric").isForBuilder());
+
+        assertNotNull(settersForFields.get("is"));
+        assertEquals("setIs", settersForFields.get("is").getName());
+        assertTrue(settersForFields.get("is").isForBuilder());
+
+        assertNotNull(settersForFields.get("isa"));
+        assertEquals("setIsa", settersForFields.get("isa").getName());
+        assertTrue(settersForFields.get("isa").isForBuilder());
+
+        assertNotNull(settersForFields.get("isA"));
+        assertEquals("setA", settersForFields.get("isA").getName());
+        assertTrue(settersForFields.get("isA").isForBuilder());
+
+        assertNotNull(settersForFields.get("otherField"));
+        assertEquals("setOtherField", settersForFields.get("otherField").getName());
+        assertFalse(settersForFields.get("otherField").isForBuilder());
     }
 
 

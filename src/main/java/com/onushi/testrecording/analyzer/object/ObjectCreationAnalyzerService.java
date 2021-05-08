@@ -6,6 +6,7 @@ import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -155,8 +156,7 @@ public class ObjectCreationAnalyzerService {
 
         Map<String, SetterInfo> result = new HashMap<>();
         for (Map.Entry<String, FieldValue> entry : fields.entrySet()) {
-            String fieldName = entry.getKey();
-            String setterName = "set" + stringService.upperCaseFirstLetter(fieldName);
+            String setterName = getSetterName(entry.getValue().getField());
             Method setter = possibleSetters.stream().filter(x -> x.getName().equals(setterName)).findFirst().orElse(null);
             if (setter != null) {
                 SetterInfo setterInfo = SetterInfo.builder()
@@ -165,11 +165,20 @@ public class ObjectCreationAnalyzerService {
                         .isForBuilder(setter.getReturnType() == object.getClass())
                         .build();
 
-                result.put(fieldName, setterInfo);
+                result.put(entry.getKey(), setterInfo);
             }
         }
 
         return result;
+    }
+
+    public String getSetterName(Field field) {
+        String fieldName = field.getName();
+        if ((field.getType() == boolean.class || field.getType() == Boolean.class) &&
+                (fieldName.matches("^is[A-Z].*$"))) {
+            return "set" + fieldName.substring(2);
+        }
+        return "set" + stringService.upperCaseFirstLetter(fieldName);
     }
 
     public boolean canBeCreatedWithNoArgsAndFields(Object object) {
