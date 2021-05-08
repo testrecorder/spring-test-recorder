@@ -123,10 +123,9 @@ public class ObjectCreationAnalyzerService {
             if (matchingFields.size() > 1) {
                 fieldsCouldHaveDifferentOrder = true;
             }
-            if (matchingFields.size() > 0) {
-                orderOfFields.add(matchingFields.get(0));
-                fieldsToMatch.remove(matchingFields.get(0));
-            }
+
+            orderOfFields.add(matchingFields.get(0));
+            fieldsToMatch.remove(matchingFields.get(0));
         }
         if (fieldsToMatch.size() == 0) {
             return Collections.singletonList(MatchingConstructor.builder()
