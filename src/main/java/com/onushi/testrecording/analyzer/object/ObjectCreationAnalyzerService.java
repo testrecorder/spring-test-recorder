@@ -87,7 +87,6 @@ public class ObjectCreationAnalyzerService {
         if (objectState == null) {
             return new ArrayList<>();
         }
-        // TODO IB !!!! this check should be done first to detect that the object should be "created" with comments
         Collection<FieldValue> fieldValues = objectState.values();
         if (fieldValues.stream().anyMatch(x -> x.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ)) {
             return new ArrayList<>();

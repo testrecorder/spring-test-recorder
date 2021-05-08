@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.analyzer.object.FieldValueStatus;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
@@ -37,7 +38,6 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this)
         );
         unknownClassesFactoriesList = Arrays.asList(
-                new ObjectCodeGeneratorFactoryForNotRedFields(),
                 new ObjectCodeGeneratorFactoryForSpringComponentsImpl(),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
@@ -83,8 +83,11 @@ public class ObjectCodeGeneratorFactoryManager {
         }
 
         context.setObjectState(objectStateReaderService.getObjectState(object));
-
-
+        boolean allFieldsAreRead = context.getObjectState().values().stream()
+                .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);
+        if (!allFieldsAreRead) {
+            return new ObjectCodeGeneratorFactoryForNotRedFields().createObjectCodeGenerator(context);
+        }
 
         for (ObjectCodeGeneratorFactory factory : unknownClassesFactoriesList) {
             ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
