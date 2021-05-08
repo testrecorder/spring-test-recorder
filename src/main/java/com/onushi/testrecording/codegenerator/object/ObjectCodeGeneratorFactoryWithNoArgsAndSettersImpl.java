@@ -27,9 +27,6 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl implements Objec
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
-        if (context.getObject() == null) {
-            return null;
-        }
         if (!classInfoService.hasPublicNoArgsConstructor(context.getObject().getClass())) {
             return null;
         }

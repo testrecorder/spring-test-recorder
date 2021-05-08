@@ -37,6 +37,7 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this)
         );
         unknownClassesFactoriesList = Arrays.asList(
+                new ObjectCodeGeneratorFactoryForNotRedFields(),
                 new ObjectCodeGeneratorFactoryForSpringComponentsImpl(),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
@@ -82,6 +83,8 @@ public class ObjectCodeGeneratorFactoryManager {
         }
 
         context.setObjectState(objectStateReaderService.getObjectState(object));
+
+
 
         for (ObjectCodeGeneratorFactory factory : unknownClassesFactoriesList) {
             ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);

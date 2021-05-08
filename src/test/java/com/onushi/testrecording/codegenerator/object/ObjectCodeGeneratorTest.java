@@ -1,6 +1,9 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.sampleapp.*;
+import com.onushi.testrecording.analyzer.object.FieldValue;
+import com.onushi.testrecording.analyzer.object.FieldValueStatus;
+import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import com.onushi.testrecording.utils.StringUtils;
@@ -11,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -133,6 +137,33 @@ class ObjectCodeGeneratorTest {
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(2, objectCodeGenerator.getRequiredImports().size());
         assertEquals("List<String> list1 = Arrays.asList(\"1\", \"2\", \"3\");", objectCodeGenerator.getInitCode());
+    }
+
+    @Test
+    void testNotAllFieldsRead() {
+        StudentWithBuilder student = StudentWithBuilder.builder()
+                .firstName("John")
+                .lastName("Michael")
+                .age(35)
+                .build();
+
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
+        ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
+        context.setTestGenerator(testGenerator);
+        context.setObject(student);
+        context.setObjectName("student1");
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(student);
+        objectState.values().forEach(x -> x.setFieldValueStatus(FieldValueStatus.COULD_NOT_READ));
+        context.setObjectState(objectState);
+
+        ObjectCodeGeneratorFactoryForNotRedFields objectCodeGeneratorFactoryForNotRedFields = new ObjectCodeGeneratorFactoryForNotRedFields();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryForNotRedFields.createObjectCodeGenerator(context);
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.StudentWithBuilder", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals("// TODO Create this object\n" +
+                "// StudentWithBuilder student1 = new StudentWithBuilder();", objectCodeGenerator.getInitCode());
+        assertEquals("student1", objectCodeGenerator.getInlineCode());
     }
 
     @Test
