@@ -83,6 +83,7 @@ public class ObjectCreationAnalyzerService {
         if (objectState == null) {
             return new ArrayList<>();
         }
+        // TODO IB !!!! this check should be done first to detect that the object should be "created" with commments
         Collection<FieldValue> fieldValues = objectState.values();
         if (fieldValues.stream().anyMatch(x -> x.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ)) {
             return new ArrayList<>();
@@ -131,9 +132,9 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public boolean canBeCreatedWithNoArgsAndSetters(Object object) {
+    public Map<String, SetterInfo> getSettersForFields(Object object, List<String> fields) {
         // TODO IB !!!! implement
-        return false;
+        return new HashMap<>();
     }
 
     public boolean canBeCreatedWithNoArgsAndFields(Object object) {

@@ -228,6 +228,21 @@ class ObjectCodeGeneratorTest {
     }
 
     @Test
+    void testCodeGeneratorWithNoArgsAndSetters() {
+        // TODO IB !!!! finish here
+        StudentWithSetters studentWithSetters = new StudentWithSetters()
+                .setFirstName("FN")
+                .setAge(23)
+                .setIsolation(2)
+                .setIsModule(5)
+                .setOnline(true)
+                .setOnline1(false)
+                .setRegistered(false);
+        studentWithSetters.setOtherField("Other");
+
+    }
+
+    @Test
     void testCodeGeneratorWithFallback() {
         OtherStudent student = new OtherStudent();
         student.myInitSecretMethod("FN");

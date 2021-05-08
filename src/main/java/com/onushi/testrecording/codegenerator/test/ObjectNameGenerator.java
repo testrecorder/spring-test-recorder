@@ -19,6 +19,7 @@ public class ObjectNameGenerator {
         }
     }
 
+    // TODO IB !!!! move from here to StringService
     public String lowerCaseFirstLetter(String varName) {
         if (varName == null || varName.length() == 0) {
             throw new IllegalArgumentException("varName");

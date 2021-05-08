@@ -7,6 +7,8 @@ import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,6 +83,31 @@ class ObjectCreationAnalyzerServiceTest {
 
         StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
         assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields));
+    }
+
+    @Test
+    void getFieldSetters() {
+        // TODO IB !!!! Where I check if it's different from default? Should be some utility function for an object
+        // TODO IB !!!! Where do I handle the fact that some fields could not be read? I should already return some comment
+        // TODO IB !!!! Consider field default values for all the generic generators
+        StudentWithSetters studentWithSetters = new StudentWithSetters();
+
+        // TODO IB !!!! getObjectState should not be called in many places
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(studentWithSetters);
+        List<String> fieldNames = objectState.values()
+                .stream()
+                .map(x -> x.getField().getName())
+                .collect(Collectors.toList());
+
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
+        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(studentWithSetters, fieldNames);
+
+        // TODO IB !!!! add asserts
+        //        assertNotNull(settersForFields.get("firstName"));
+        //        assertEquals("setFirstName", settersForFields.get("firstName").getName());
+
+        // "age", "firstName", "isModule", "isOnline", "isOnline1", "isolation", "otherField", "registered"
     }
 
 
