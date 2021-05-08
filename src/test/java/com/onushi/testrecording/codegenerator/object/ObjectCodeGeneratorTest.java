@@ -228,15 +228,41 @@ class ObjectCodeGeneratorTest {
     void testCodeGeneratorWithNoArgsAndSetters() {
         // TODO IB !!!! finish here
         StudentWithSetters studentWithSetters = new StudentWithSetters()
-                .setFirstName("FN")
-                .setAge(23)
-                .setIsolation(2)
-                .setIsModule(5)
-                .setOnline(true)
-                .setOnline1(false)
-                .setRegistered(false);
+            .setFirstName("FN")
+            .setAge(23)
+            .setIsolation(2)
+            .setIsModule(5)
+            .setOnline(true)
+            .setOnline1(false)
+            .setRegistered(false)
+            .setIsometric(false)
+            .setIs(false)
+            .setIsa(false)
+            .setA(false);
         studentWithSetters.setOtherField("Other");
 
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithSetters, "studentWithSetters1");
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.StudentWithSetters", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(12, objectCodeGenerator.getDependencies().size());
+        assertEquals("studentWithSetters1", objectCodeGenerator.getInlineCode());
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs(
+                "StudentWithSetters studentWithSetters1 = new StudentWithSetters()\n" +
+                        "    .setAge(23)\n" +
+                        "    .setFirstName(\"FN\")\n" +
+                        "    .setIs(false)\n" +
+                        "    .setA(false)\n" +
+                        "    .setIsModule(5)\n" +
+                        "    .setOnline(true)\n" +
+                        "    .setOnline1(false)\n" +
+                        "    .setIsa(false)\n" +
+                        "    .setIsolation(2)\n" +
+                        "    .setIsometric(false)\n" +
+                        "    .setRegistered(false);\n" +
+                        "studentWithSetters1.setOtherField(\"Other\");"),
+                StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
     }
 
     @Test
