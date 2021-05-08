@@ -226,7 +226,6 @@ class ObjectCodeGeneratorTest {
 
     @Test
     void testCodeGeneratorWithNoArgsAndSetters() {
-        // TODO IB !!!! finish here
         StudentWithSetters studentWithSetters = new StudentWithSetters()
             .setFirstName("FN")
             .setAge(23)
