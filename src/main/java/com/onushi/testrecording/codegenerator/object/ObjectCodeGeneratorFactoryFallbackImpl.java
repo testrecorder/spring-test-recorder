@@ -11,23 +11,18 @@ import java.util.stream.Collectors;
 
 public class ObjectCodeGeneratorFactoryFallbackImpl implements ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
-    private final ObjectStateReaderService objectStateReaderService;
 
-    public ObjectCodeGeneratorFactoryFallbackImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager, ObjectStateReaderService objectStateReaderService) {
+    public ObjectCodeGeneratorFactoryFallbackImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
-        this.objectStateReaderService = objectStateReaderService;
     }
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
-        // TODO IB this is computed multiple times. actually I could compute dependent objects once
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
-
         StringBuilder fieldsInitCode = new StringBuilder();
         List<ObjectCodeGenerator> fieldObjectCodeGenerators = new ArrayList<>();
-        for (Map.Entry<String, FieldValue> entry : objectState.entrySet()) {
+        for (Map.Entry<String, FieldValue> entry : context.getObjectState().entrySet()) {
 
             ObjectCodeGenerator fieldObjectCodeGenerator = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
             fieldObjectCodeGenerators.add(fieldObjectCodeGenerator);

@@ -17,7 +17,8 @@ public class ObjectCodeGeneratorFactoryManager {
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectNameGenerator objectNameGenerator;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
-    private final List<ObjectCodeGeneratorFactory> factoriesList;
+    private final List<ObjectCodeGeneratorFactory> knownClassesFactoriesList;
+    private final List<ObjectCodeGeneratorFactory> unknownClassesFactoriesList;
 
     public ObjectCodeGeneratorFactoryManager(ClassInfoService classInfoService,
                                              ObjectStateReaderService objectStateReaderService,
@@ -28,12 +29,14 @@ public class ObjectCodeGeneratorFactoryManager {
         this.objectNameGenerator = objectNameGenerator;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
 
-        factoriesList = Arrays.asList(
+        knownClassesFactoriesList = Arrays.asList(
                 new ObjectCodeGeneratorFactoryForNullImpl(),
                 new ObjectCodeGeneratorFactoryForPrimitiveImpl(),
                 new ObjectCodeGeneratorFactoryForDateImpl(),
                 new ObjectCodeGeneratorFactoryForArrayImpl(this),
-                new ObjectCodeGeneratorFactoryForArrayListImpl(this),
+                new ObjectCodeGeneratorFactoryForArrayListImpl(this)
+        );
+        unknownClassesFactoriesList = Arrays.asList(
                 new ObjectCodeGeneratorFactoryForSpringComponentsImpl(),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
@@ -65,19 +68,30 @@ public class ObjectCodeGeneratorFactoryManager {
         }
     }
 
-    // TODO IB !!!! Put more in ObjectCreationContext. objectState for sure
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(object);
         context.setObjectName(objectName);
-        for (ObjectCodeGeneratorFactory factory : factoriesList) {
+
+        for (ObjectCodeGeneratorFactory factory : knownClassesFactoriesList) {
             ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
             if (objectCodeGenerator != null) {
                 return objectCodeGenerator;
             }
         }
 
-        return new ObjectCodeGeneratorFactoryFallbackImpl(this, objectStateReaderService).createObjectCodeGenerator(context);
+        // TODO IB !!!! remove all not needed getObjectState
+        context.setObjectState(objectStateReaderService.getObjectState(object));
+        // TODO IB !!!! add more into ObjectCreationContext
+
+        for (ObjectCodeGeneratorFactory factory : unknownClassesFactoriesList) {
+            ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
+            if (objectCodeGenerator != null) {
+                return objectCodeGenerator;
+            }
+        }
+
+        return new ObjectCodeGeneratorFactoryFallbackImpl(this).createObjectCodeGenerator(context);
     }
 }
