@@ -1,16 +1,12 @@
 package com.onushi.testrecording.analyzer.object;
 
 import com.onushi.sampleapp.*;
-import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
-import com.onushi.testrecording.codegenerator.template.StringService;
-import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 

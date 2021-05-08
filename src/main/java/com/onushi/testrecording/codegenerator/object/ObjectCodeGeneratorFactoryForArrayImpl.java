@@ -14,9 +14,9 @@ public class ObjectCodeGeneratorFactoryForArrayImpl implements ObjectCodeGenerat
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
-    private class ArrayAsList {
-        public Class<?> elementClass;
-        public List<?> list;
+    private static class ArrayAsList {
+        public final Class<?> elementClass;
+        public final List<?> list;
 
         public ArrayAsList(Class<?> elementClass, List<?> list) {
             this.elementClass = elementClass;

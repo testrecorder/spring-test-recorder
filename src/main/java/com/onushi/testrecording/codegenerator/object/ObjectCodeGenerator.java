@@ -13,7 +13,7 @@ public class ObjectCodeGenerator {
     protected String declareClassName;
     protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();
     protected List<String> requiredImports = new ArrayList<>();
-    protected List<String> requiredHelperObjects = new ArrayList<>();
+    protected final List<String> requiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     // these 2 are used to traverse the ObjectCodeGenerator graph
     private boolean initPrepared = false;
@@ -27,14 +27,12 @@ public class ObjectCodeGenerator {
         return initDone;
     }
 
-    public ObjectCodeGenerator setInitPrepared(boolean initPrepared) {
+    public void setInitPrepared(boolean initPrepared) {
         this.initPrepared = initPrepared;
-        return this;
     }
 
-    public ObjectCodeGenerator setInitDone(boolean initDone) {
+    public void setInitDone(boolean initDone) {
         this.initDone = initDone;
-        return this;
     }
 
     protected ObjectCodeGenerator(Object object, String objectName, String inlineCode) {

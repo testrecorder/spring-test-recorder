@@ -19,7 +19,7 @@ public class TestGeneratorFactory {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
-    public TestGenerator createTestGenerator(MethodRunInfo methodRunInfo) throws Exception {
+    public TestGenerator createTestGenerator(MethodRunInfo methodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
 
         if (methodRunInfo.getArguments() == null) {

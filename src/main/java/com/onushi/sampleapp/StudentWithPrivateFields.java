@@ -1,7 +1,7 @@
 package com.onushi.sampleapp;
 
 public class StudentWithPrivateFields extends StudentWithPrivateField {
-    private String lastName;
+    private final String lastName;
     public static String middleName = "mn";
 
     public StudentWithPrivateFields(String firstName, String lastName) {

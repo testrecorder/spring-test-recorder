@@ -3,7 +3,7 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

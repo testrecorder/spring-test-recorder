@@ -1,11 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.sampleapp.*;
-import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
-import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
-import com.onushi.testrecording.codegenerator.template.StringService;
-import com.onushi.testrecording.codegenerator.test.*;
+import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +12,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 
 class ObjectCodeGeneratorTest {

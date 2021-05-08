@@ -97,8 +97,7 @@ public class SampleService {
     }
 
     public int[] returnIntArray() {
-        int[] intArray = {3, 4};
-        return intArray;
+        return new int[]{3, 4};
     }
 
 

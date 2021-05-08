@@ -3,8 +3,6 @@ package com.onushi.testrecording.codegenerator.test;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
-import java.util.Locale;
-
 @Service
 public class ObjectNameGenerator {
     private final StringService stringService;

@@ -1,11 +1,15 @@
 package com.onushi.testrecording.analyzer.methodrun;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Builder
 public class MethodRunInfo {
@@ -15,15 +19,4 @@ public class MethodRunInfo {
     protected Class<?> fallBackResultType;
     protected Object result;
     protected Exception exception;
-
-    protected MethodRunInfo() {}
-
-    public MethodRunInfo(Object target, String methodName, List<Object> arguments, Class<?> fallBackResultType, Object result, Exception exception) {
-        this.target = target;
-        this.methodName = methodName;
-        this.arguments = arguments;
-        this.fallBackResultType = fallBackResultType;
-        this.result = result;
-        this.exception = exception;
-    }
 }

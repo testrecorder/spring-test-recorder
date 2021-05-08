@@ -1,12 +1,10 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.Test;
 import java.util.*;
-import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.*;
 
 class ObjectNameGeneratorTest {
