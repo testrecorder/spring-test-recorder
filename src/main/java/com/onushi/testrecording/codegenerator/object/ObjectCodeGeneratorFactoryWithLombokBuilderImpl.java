@@ -15,15 +15,12 @@ import java.util.stream.Collectors;
 
 public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl implements ObjectCodeGeneratorFactory {
     private final ClassInfoService classInfoService;
-    private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
     public ObjectCodeGeneratorFactoryWithLombokBuilderImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
                                                            ClassInfoService classInfoService,
-                                                           ObjectStateReaderService objectStateReaderService,
                                                            ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
-        this.objectStateReaderService = objectStateReaderService;
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
@@ -39,7 +36,7 @@ public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl implements ObjectCo
 
             objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
 
-            Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
+            Map<String, FieldValue> objectState = context.getObjectState();
             objectCodeGenerator.dependencies = objectState.values().stream()
                     .distinct()
                     .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)

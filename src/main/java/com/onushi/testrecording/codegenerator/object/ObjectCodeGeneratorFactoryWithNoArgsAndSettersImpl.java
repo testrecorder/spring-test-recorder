@@ -16,16 +16,13 @@ import java.util.stream.Collectors;
 public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl implements ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ClassInfoService classInfoService;
-    private final ObjectStateReaderService objectStateReaderService;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
     public ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
                                                               ClassInfoService classInfoService,
-                                                              ObjectStateReaderService objectStateReaderService,
                                                               ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
-        this.objectStateReaderService = objectStateReaderService;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
@@ -37,8 +34,7 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl implements Objec
         if (!classInfoService.hasPublicNoArgsConstructor(context.getObject().getClass())) {
             return null;
         }
-        // TODO IB !!!! duplicate code in many places
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(context.getObject());
+        Map<String, FieldValue> objectState = context.getObjectState();
         Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(context.getObject(), objectState);
         if (objectState.values().size() != settersForFields.values().size()) {
             return null;

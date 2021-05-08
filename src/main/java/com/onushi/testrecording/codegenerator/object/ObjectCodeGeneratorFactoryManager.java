@@ -40,13 +40,13 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForSpringComponentsImpl(),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
-                        classInfoService, objectStateReaderService, objectCreationAnalyzerService),
+                        classInfoService, objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this,
                         objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl(this,
-                        classInfoService, objectStateReaderService, objectCreationAnalyzerService),
+                        classInfoService, objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this,
-                        objectStateReaderService, objectCreationAnalyzerService)
+                        objectCreationAnalyzerService)
         );
     }
 
