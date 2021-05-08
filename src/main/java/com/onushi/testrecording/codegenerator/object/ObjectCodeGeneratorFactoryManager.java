@@ -36,11 +36,14 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this),
                 new ObjectCodeGeneratorFactoryForSpringComponentsImpl(),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this, classInfoService,
-                        objectStateReaderService, objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this, objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl(this, objectStateReaderService, objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this, objectStateReaderService, objectCreationAnalyzerService)
+                new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
+                        classInfoService, objectStateReaderService, objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this,
+                        objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl(this,
+                        classInfoService, objectStateReaderService, objectCreationAnalyzerService),
+                new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this,
+                        objectStateReaderService, objectCreationAnalyzerService)
         );
     }
 

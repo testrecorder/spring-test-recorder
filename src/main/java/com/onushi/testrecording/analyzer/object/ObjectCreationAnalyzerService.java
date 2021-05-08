@@ -3,6 +3,7 @@ package com.onushi.testrecording.analyzer.object;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.codegenerator.template.StringService;
+import org.springframework.cglib.core.ClassInfo;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
@@ -37,25 +38,26 @@ public class ObjectCreationAnalyzerService {
     public boolean canBeCreatedWithNoArgsConstructor(Object object) {
         if (object == null) {
             return false;
-        } else {
-            Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
-
-            long valuesDifferentThanDefaults = 0;
-            for (FieldValue fieldValue : objectState.values()) {
-                if (fieldValue.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ) {
-                    return false;
-                }
-                if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
-                    if (isDefaultValueForItsClass(fieldValue.getValue())) {
-                        continue;
-                    }
-                }
-
-                valuesDifferentThanDefaults++;
-            }
-            return classInfoService.hasPublicNoArgsConstructor(object.getClass()) &&
-                    valuesDifferentThanDefaults == 0;
         }
+        if (!classInfoService.hasPublicNoArgsConstructor(object.getClass())) {
+            return false;
+        }
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
+
+        long valuesDifferentThanDefaults = 0;
+        for (FieldValue fieldValue : objectState.values()) {
+            if (fieldValue.getFieldValueStatus() == FieldValueStatus.COULD_NOT_READ) {
+                return false;
+            }
+            if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
+                if (isDefaultValueForItsClass(fieldValue.getValue())) {
+                    continue;
+                }
+            }
+
+            valuesDifferentThanDefaults++;
+        }
+        return valuesDifferentThanDefaults == 0;
     }
 
     public boolean isDefaultValueForItsClass(Object object) {
@@ -180,6 +182,9 @@ public class ObjectCreationAnalyzerService {
 
     public boolean canBeCreatedWithNoArgsAndFields(Object object) {
         if (object == null) {
+            return false;
+        }
+        if (!classInfoService.hasPublicNoArgsConstructor(object.getClass())) {
             return false;
         }
         Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
