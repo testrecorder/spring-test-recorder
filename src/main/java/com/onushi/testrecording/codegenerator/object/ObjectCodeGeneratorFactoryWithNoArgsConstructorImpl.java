@@ -12,7 +12,7 @@ public class ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl implements Obje
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
-        if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(context.getObject())){
+        if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(context.getObject(), context.getObjectState())){
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
             objectCodeGenerator.initCode = new StringGenerator()
                     .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}();")

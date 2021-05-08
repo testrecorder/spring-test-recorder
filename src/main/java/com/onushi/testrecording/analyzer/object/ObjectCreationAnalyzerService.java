@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ObjectCreationAnalyzerService {
     private final StringService stringService;
     private final ClassInfoService classInfoService;
+    // TODO IB !!!! remove from here
     private final ObjectStateReaderService objectStateReaderService;
 
     public ObjectCreationAnalyzerService(StringService stringService,
@@ -35,14 +36,13 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public boolean canBeCreatedWithNoArgsConstructor(Object object) {
+    public boolean canBeCreatedWithNoArgsConstructor(Object object, Map<String, FieldValue> objectState) {
         if (object == null) {
             return false;
         }
         if (!classInfoService.hasPublicNoArgsConstructor(object.getClass())) {
             return false;
         }
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
 
         long valuesDifferentThanDefaults = 0;
         for (FieldValue fieldValue : objectState.values()) {
@@ -83,11 +83,10 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public List<MatchingConstructor> getMatchingAllArgsConstructors(Object object) {
+    public List<MatchingConstructor> getMatchingAllArgsConstructors(Object object, Map<String, FieldValue> objectState) {
         if (object == null) {
             return new ArrayList<>();
         }
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
         Class<?> clazz = object.getClass();
         if (objectState == null) {
             return new ArrayList<>();
@@ -180,14 +179,13 @@ public class ObjectCreationAnalyzerService {
         return "set" + stringService.upperCaseFirstLetter(fieldName);
     }
 
-    public boolean canBeCreatedWithNoArgsAndFields(Object object) {
+    public boolean canBeCreatedWithNoArgsAndFields(Object object, Map<String, FieldValue> objectState) {
         if (object == null) {
             return false;
         }
         if (!classInfoService.hasPublicNoArgsConstructor(object.getClass())) {
             return false;
         }
-        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(object);
         return objectState.values().stream().allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ &&
                 Modifier.isPublic(x.getField().getModifiers()));
     }

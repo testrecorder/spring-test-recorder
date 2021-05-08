@@ -20,7 +20,7 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl implements Object
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
-        if (!objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(context.getObject())) {
+        if (!objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(context.getObject(), context.getObjectState())) {
             return null;
         }
 

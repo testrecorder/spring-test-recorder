@@ -33,7 +33,8 @@ class ObjectCreationAnalyzerServiceTest {
                 .lastName(null)
                 .age(30)
                 .build();
-        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithBuilder));
+        Map<String, FieldValue> objectState = new ObjectStateReaderService().getObjectState(studentWithBuilder);
+        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithBuilder, objectState));
     }
 
     @Test
@@ -41,10 +42,12 @@ class ObjectCreationAnalyzerServiceTest {
         ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
 
         Person person = new Person();
-        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person));
+        Map<String, FieldValue> objectState1 = new ObjectStateReaderService().getObjectState(person);
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person, objectState1));
 
         StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
-        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithDefaultInitFields));
+        Map<String, FieldValue> objectState2 = new ObjectStateReaderService().getObjectState(person);
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithDefaultInitFields, objectState2));
     }
 
     @Test
@@ -55,8 +58,9 @@ class ObjectCreationAnalyzerServiceTest {
         student.age = 30;
 
         ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
+        Map<String, FieldValue> studentObjectState = new ObjectStateReaderService().getObjectState(student);
         List<MatchingConstructor> matchingConstructors =
-                objectCreationAnalyzerService.getMatchingAllArgsConstructors(student);
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(student, studentObjectState);
         assertEquals(1, matchingConstructors.size());
         assertTrue(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
 
@@ -65,9 +69,10 @@ class ObjectCreationAnalyzerServiceTest {
     @Test
     void getMatchingConstructors2() {
         PersonService personService = new PersonService(new PersonRepositoryImpl());
+        Map<String, FieldValue> objectState = new ObjectStateReaderService().getObjectState(personService);
         ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
         List<MatchingConstructor> matchingConstructors =
-                objectCreationAnalyzerService.getMatchingAllArgsConstructors(personService);
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(personService, objectState);
         assertEquals(1, matchingConstructors.size());
         assertFalse(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
     }
@@ -77,10 +82,12 @@ class ObjectCreationAnalyzerServiceTest {
         ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
 
         Person person = new Person();
-        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(person));
+        Map<String, FieldValue> objectState = new ObjectStateReaderService().getObjectState(person);
+        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(person, objectState));
 
         StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
-        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields));
+        objectState = new ObjectStateReaderService().getObjectState(studentWithDefaultInitFields);
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields, objectState));
     }
 
     @Test
@@ -90,7 +97,6 @@ class ObjectCreationAnalyzerServiceTest {
         // TODO IB !!!! Consider field default values for all the generic generators
         StudentWithSetters studentWithSetters = new StudentWithSetters();
 
-        // TODO IB !!!! getObjectState should not be called in many places
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
         Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(studentWithSetters);
 

@@ -19,7 +19,8 @@ public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl implements Obj
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
-        List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(context.getObject());
+        List<MatchingConstructor> matchingAllArgsConstructors =
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(context.getObject(), context.getObjectState());
         if (matchingAllArgsConstructors.size() > 0) {
             MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
             boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
