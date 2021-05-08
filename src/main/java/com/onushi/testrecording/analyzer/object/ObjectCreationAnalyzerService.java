@@ -17,15 +17,11 @@ import java.util.stream.Collectors;
 public class ObjectCreationAnalyzerService {
     private final StringService stringService;
     private final ClassInfoService classInfoService;
-    // TODO IB !!!! remove from here
-    private final ObjectStateReaderService objectStateReaderService;
 
     public ObjectCreationAnalyzerService(StringService stringService,
-                                         ClassInfoService classInfoService,
-                                         ObjectStateReaderService objectStateReaderService) {
+                                         ClassInfoService classInfoService) {
         this.stringService = stringService;
         this.classInfoService = classInfoService;
-        this.objectStateReaderService = objectStateReaderService;
     }
 
     public boolean canBeCreatedWithLombokBuilder(Object object) {

@@ -3,7 +3,6 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.FieldValue;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
-import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.analyzer.object.SetterInfo;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 

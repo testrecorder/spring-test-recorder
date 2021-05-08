@@ -22,8 +22,7 @@ public class ServiceCreatorUtils {
     public static ObjectCreationAnalyzerService createObjectCreationAnalyzerService() {
         return new ObjectCreationAnalyzerService(
                 new StringService(),
-                new ClassInfoService(),
-                new ObjectStateReaderService());
+                new ClassInfoService());
     }
 
     public static ObjectCodeGeneratorFactoryManager createObjectCodeGeneratorFactoryManager() {

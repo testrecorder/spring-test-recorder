@@ -81,7 +81,6 @@ public class ObjectCodeGeneratorFactoryManager {
             }
         }
 
-        // TODO IB !!!! remove all not needed getObjectState
         context.setObjectState(objectStateReaderService.getObjectState(object));
         // TODO IB !!!! add more into ObjectCreationContext
 

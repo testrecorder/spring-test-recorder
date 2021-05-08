@@ -4,7 +4,6 @@ import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.FieldValue;
 import com.onushi.testrecording.analyzer.object.FieldValueStatus;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
-import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 
