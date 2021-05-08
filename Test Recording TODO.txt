@@ -82,6 +82,8 @@ DONE ==========================
 
 	OK - if there is a NoArg constructor + all setters
 		Create with setters 
+		
+	OK - Add objectState to context
 
 
 

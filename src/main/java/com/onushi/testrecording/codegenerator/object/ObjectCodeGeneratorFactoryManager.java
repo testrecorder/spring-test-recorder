@@ -82,7 +82,6 @@ public class ObjectCodeGeneratorFactoryManager {
         }
 
         context.setObjectState(objectStateReaderService.getObjectState(object));
-        // TODO IB !!!! add more into ObjectCreationContext
 
         for (ObjectCodeGeneratorFactory factory : unknownClassesFactoriesList) {
             ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
