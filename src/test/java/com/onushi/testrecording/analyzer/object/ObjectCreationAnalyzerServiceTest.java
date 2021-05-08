@@ -3,6 +3,7 @@ package com.onushi.testrecording.analyzer.object;
 import com.onushi.sampleapp.*;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
+import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import org.junit.jupiter.api.Test;
 
@@ -95,26 +96,23 @@ class ObjectCreationAnalyzerServiceTest {
         // TODO IB !!!! getObjectState should not be called in many places
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
         Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(studentWithSetters);
-        List<String> fieldNames = objectState.values()
-                .stream()
-                .map(x -> x.getField().getName())
-                .collect(Collectors.toList());
 
         ObjectCreationAnalyzerService objectCreationAnalyzerService = getObjectCreationAnalyzerService();
-        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(studentWithSetters, fieldNames);
+        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(studentWithSetters, objectState);
 
-        // TODO IB !!!! add asserts
-        //        assertNotNull(settersForFields.get("firstName"));
-        //        assertEquals("setFirstName", settersForFields.get("firstName").getName());
+        assertNotNull(settersForFields.get("firstName"));
+        assertEquals("setFirstName", settersForFields.get("firstName").getName());
 
+        // TODO IB !!!! add more tests here
         // "age", "firstName", "isModule", "isOnline", "isOnline1", "isolation", "otherField", "registered"
     }
 
 
     private ObjectCreationAnalyzerService getObjectCreationAnalyzerService() {
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        StringService stringService = new StringService();
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(stringService);
         ClassInfoService classInfoService = new ClassInfoService();
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        return new ObjectCreationAnalyzerService(classInfoService, objectStateReaderService);
+        return new ObjectCreationAnalyzerService(stringService, classInfoService, objectStateReaderService);
     }
 }

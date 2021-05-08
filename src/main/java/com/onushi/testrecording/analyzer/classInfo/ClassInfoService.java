@@ -36,6 +36,7 @@ public class ClassInfoService {
     }
 
     public boolean canBeCreatedWithLombokBuilder(Class<?> clazz) {
+        // TODO IB !!!! this is not public
         Method[] publicMethods = clazz.getMethods();
         Optional<Method> builderMethod = Arrays.stream(publicMethods)
                 .filter(method -> method.getName().equals("builder") &&

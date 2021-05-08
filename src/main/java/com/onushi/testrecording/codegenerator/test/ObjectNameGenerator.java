@@ -1,11 +1,18 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
 @Service
 public class ObjectNameGenerator {
+    private final StringService stringService;
+
+    public ObjectNameGenerator(StringService stringService) {
+        this.stringService = stringService;
+    }
+
     public String getBaseObjectName(Object object) {
         if (object == null) {
             return "null";
@@ -14,17 +21,9 @@ public class ObjectNameGenerator {
             if (classSimpleName.contains("[")) {
                 return "array";
             } else {
-                return lowerCaseFirstLetter(object.getClass().getSimpleName());
+                return stringService.lowerCaseFirstLetter(object.getClass().getSimpleName());
             }
         }
-    }
-
-    // TODO IB !!!! move from here to StringService
-    public String lowerCaseFirstLetter(String varName) {
-        if (varName == null || varName.length() == 0) {
-            throw new IllegalArgumentException("varName");
-        }
-        return varName.substring(0,1).toLowerCase(Locale.ROOT) + varName.substring(1);
     }
 
     public String getNewObjectName(TestGenerator testGenerator, Object object) {

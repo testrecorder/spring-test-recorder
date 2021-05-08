@@ -23,15 +23,17 @@ class TestGeneratorServiceTest {
     TestGeneratorFactory testGeneratorFactory;
     TestGeneratorService testGeneratorService;
 
+    // TODO IB !!!! I should have a Util in Tests for object creation with injection
     @BeforeEach
     void setUp() {
+        StringService stringService = new StringService();
         ClassInfoService classInfoService = new ClassInfoService();
-        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator();
+        ObjectNameGenerator objectNameGenerator = new ObjectNameGenerator(stringService);
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = new ObjectCodeGeneratorFactoryManager(classInfoService,
                 objectStateReaderService,
                 objectNameGenerator,
-                new ObjectCreationAnalyzerService(classInfoService, objectStateReaderService));
+                new ObjectCreationAnalyzerService(stringService, classInfoService, objectStateReaderService));
         testGeneratorFactory = new TestGeneratorFactory(objectNameGenerator, objectCodeGeneratorFactoryManager);
         testGeneratorService = new TestGeneratorService(new StringService());
     }

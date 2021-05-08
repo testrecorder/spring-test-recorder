@@ -2,19 +2,26 @@ package com.onushi.testrecording.analyzer.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
+import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ObjectCreationAnalyzerService {
+    private final StringService stringService;
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
 
-    public ObjectCreationAnalyzerService(ClassInfoService classInfoService, ObjectStateReaderService objectStateReaderService) {
+    public ObjectCreationAnalyzerService(StringService stringService,
+                                         ClassInfoService classInfoService,
+                                         ObjectStateReaderService objectStateReaderService) {
+        this.stringService = stringService;
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
     }
@@ -132,9 +139,37 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public Map<String, SetterInfo> getSettersForFields(Object object, List<String> fields) {
-        // TODO IB !!!! implement
-        return new HashMap<>();
+    // TODO IB !!!! implement
+    public Map<String, SetterInfo> getSettersForFields(Object object, Map<String, FieldValue> fields) {
+        // TODO IB !!!! I should use @NotNull from lombok instead
+        if (object == null) {
+            return new HashMap<>();
+        }
+        List<Method> possibleSetters = Arrays.stream(object.getClass()
+                .getMethods())
+                .filter(method -> Modifier.isPublic(method.getModifiers()))
+                .filter(method -> !Modifier.isStatic(method.getModifiers()))
+                .filter(method -> method.getName().startsWith("set"))
+                .filter(method -> method.getParameterTypes().length == 1)
+                .collect(Collectors.toList());
+
+        Map<String, SetterInfo> result = new HashMap<>();
+        for (Map.Entry<String, FieldValue> entry : fields.entrySet()) {
+            String fieldName = entry.getKey();
+            String setterName = "set" + stringService.upperCaseFirstLetter(fieldName);
+            Method setter = possibleSetters.stream().filter(x -> x.getName().equals(setterName)).findFirst().orElse(null);
+            if (setter != null) {
+                SetterInfo setterInfo = SetterInfo.builder()
+                        .name(setterName)
+                        .setter(setter)
+                        .isForBuilder(setter.getReturnType() == object.getClass())
+                        .build();
+
+                result.put(fieldName, setterInfo);
+            }
+        }
+
+        return result;
     }
 
     public boolean canBeCreatedWithNoArgsAndFields(Object object) {
