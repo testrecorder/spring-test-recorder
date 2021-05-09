@@ -31,25 +31,35 @@ public class RecordTestAspect {
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         monitorMethodSemaphore.setMonitoring(true);
         Object result;
+        Exception thrownException;
         try {
             result = proceedingJoinPoint.proceed();
+            thrownException = null;
         } catch(Exception ex) {
-            monitorMethodSemaphore.setMonitoring(false);
-            generateTestCode((MethodInvocationProceedingJoinPoint) proceedingJoinPoint, null, ex);
-            throw ex;
+            thrownException = ex;
+            result = null;
         }
-
         monitorMethodSemaphore.setMonitoring(false);
-        generateTestCode((MethodInvocationProceedingJoinPoint) proceedingJoinPoint, result, null);
+
+        generateTestCode((MethodInvocationProceedingJoinPoint) proceedingJoinPoint, result, thrownException);
+
+        if (thrownException != null) {
+            throw thrownException;
+        }
         return result;
     }
 
     private void generateTestCode(MethodInvocationProceedingJoinPoint proceedingJoinPoint, Object result, Exception exception) throws Exception {
         // TODO IB !!!! MethodRunInfo should be created before calling to be send as a parameter to
 
-        MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo(proceedingJoinPoint, result, exception);
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
-        String testCode = testGeneratorService.generateTestCode(testGenerator);
-        System.out.println(testCode);
+        try {
+            MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo(proceedingJoinPoint, result, exception);
+            TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+            String testCode = testGeneratorService.generateTestCode(testGenerator);
+            System.out.println(testCode);
+        } catch (Exception ex) {
+            System.out.println("@RecordTest could not record the test");
+            ex.printStackTrace();
+        }
     }
 }

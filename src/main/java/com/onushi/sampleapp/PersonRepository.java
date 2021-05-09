@@ -1,5 +1,5 @@
 package com.onushi.sampleapp;
 
 public interface PersonRepository {
-    Person getPerson(int id) throws Exception;
+    Person getPersonFromDB(int id) throws Exception;
 }

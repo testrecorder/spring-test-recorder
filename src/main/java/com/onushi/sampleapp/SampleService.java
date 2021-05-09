@@ -1,10 +1,8 @@
 package com.onushi.sampleapp;
 
-import com.onushi.testrecording.aspect.RecordTest;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -113,8 +111,7 @@ public class SampleService {
     public void processStudents(StudentWithDefaultInitFields student1, StudentWithBuilder student2) {
     }
 
-    @RecordTest
-    public int demoFunction(List<Person> personList, Employee[] employeeArray) throws ParseException {
+    public int demoFunction(List<Person> personList, Employee[] employeeArray) {
         return 42;
     }
 }

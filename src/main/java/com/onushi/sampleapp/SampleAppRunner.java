@@ -72,10 +72,10 @@ public class SampleAppRunner implements CommandLineRunner {
 //        sampleService.setTestField(5);
 //        float result = sampleService.addFloats(1.0f, 2.0f);
 
-        demo();
+        demo2();
     }
 
-    private void demo() throws Exception {
+    private void demo1() throws Exception {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
@@ -99,5 +99,9 @@ public class SampleAppRunner implements CommandLineRunner {
 
         Employee[] employeeArray = {employee};
         this.sampleService.demoFunction(Arrays.asList(gica, paul), employeeArray);
+    }
+
+    private void demo2() throws Exception {
+        Person person = this.personService.loadPerson(2);
     }
 }

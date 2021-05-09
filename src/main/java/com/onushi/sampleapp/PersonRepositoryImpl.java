@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 @Repository
 public class PersonRepositoryImpl implements PersonRepository {
     @Override
-    public Person getPerson(int id) throws Exception {
+    public Person getPersonFromDB(int id) throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (id == 1) {
             return Person.builder()
