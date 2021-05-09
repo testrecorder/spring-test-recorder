@@ -13,6 +13,7 @@ public class RecordedMethodRunInfoBuilder {
     private Object result;
     private Exception exception;
     private final List<DependencyMethodRunInfo> dependencyMethodRuns = Collections.synchronizedList(new ArrayList<>());
+    private long threadId;
 
     public RecordedMethodRunInfoBuilder setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
         this.methodInvocation = methodInvocation;
@@ -29,8 +30,16 @@ public class RecordedMethodRunInfoBuilder {
         return this;
     }
 
+    public RecordedMethodRunInfoBuilder setThreadId(long threadId) {
+        this.threadId = threadId;
+        return this;
+    }
+
     public void addDependencyMethodRunInfo(DependencyMethodRunInfo dependencyMethodRunInfo) {
-        dependencyMethodRuns.add(dependencyMethodRunInfo);
+        // TODO IB LATER this check should be optional
+        if (dependencyMethodRunInfo.threadId == threadId) {
+            dependencyMethodRuns.add(dependencyMethodRunInfo);
+        }
     }
 
     public RecordedMethodRunInfo build() {
@@ -46,6 +55,7 @@ public class RecordedMethodRunInfoBuilder {
         recordedMethodRunInfo.dependencyMethodRuns = dependencyMethodRuns;
         recordedMethodRunInfo.result = result;
         recordedMethodRunInfo.exception = exception;
+        recordedMethodRunInfo.threadId = threadId;
 
         return recordedMethodRunInfo;
     }

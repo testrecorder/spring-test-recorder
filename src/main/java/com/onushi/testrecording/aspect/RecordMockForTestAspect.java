@@ -32,7 +32,8 @@ public class RecordMockForTestAspect {
     public Object applyRecordMockForTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         DependencyMethodRunInfoBuilder dependencyMethodRunInfoBuilder = new DependencyMethodRunInfoBuilder();
         MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint) proceedingJoinPoint;
-        dependencyMethodRunInfoBuilder.setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
+        dependencyMethodRunInfoBuilder.setThreadId(Thread.currentThread().getId())
+                .setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
 
         Set<RecordedMethodRunInfoBuilder> testRecordingsAtStart = new HashSet<>(recordingContext.getMethodRunInfoBuilderSet());
 

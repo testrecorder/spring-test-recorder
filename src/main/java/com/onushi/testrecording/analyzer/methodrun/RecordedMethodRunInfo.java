@@ -19,4 +19,5 @@ public class RecordedMethodRunInfo {
     protected List<DependencyMethodRunInfo> dependencyMethodRuns;
     protected Object result;
     protected Exception exception;
+    protected long threadId;
 }

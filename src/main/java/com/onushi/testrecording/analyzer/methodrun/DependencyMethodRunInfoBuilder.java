@@ -9,6 +9,7 @@ public class DependencyMethodRunInfoBuilder {
     private MethodInvocationProceedingJoinPoint methodInvocation;
     private Object result;
     private Exception exception;
+    protected long threadId;
 
     public DependencyMethodRunInfoBuilder setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
         this.methodInvocation = methodInvocation;
@@ -25,6 +26,11 @@ public class DependencyMethodRunInfoBuilder {
         return this;
     }
 
+    public DependencyMethodRunInfoBuilder setThreadId(long threadId) {
+        this.threadId = threadId;
+        return this;
+    }
+
     public DependencyMethodRunInfo build() {
         DependencyMethodRunInfo dependencyMethodRunInfo = new DependencyMethodRunInfo();
 
@@ -37,6 +43,7 @@ public class DependencyMethodRunInfoBuilder {
         }
         dependencyMethodRunInfo.result = result;
         dependencyMethodRunInfo.exception = exception;
+        dependencyMethodRunInfo.threadId = threadId;
 
         return dependencyMethodRunInfo;
     }

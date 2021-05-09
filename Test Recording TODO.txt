@@ -106,22 +106,32 @@ DONE ==========================
 		OK - Intercept all calls inside methods with @RecordMockForTest
 			add them to RecordedMethodRunInfo.dependencyMethodRuns
 
+	OK - check that both aspects run on the same thread
+
+	OK - will match RecordedMethodRunInfo only with DependencyMethodRunInfo from the same thread
+		store current thread
+			int threadId = Thread.currentThread().getId()
 
 TODO ==========================
 	!!!! - Do the real mocking
+		Syntax
+			TestGenerator testGeneratorMock = mock(TestGenerator.class);
+			when(testGeneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
+
+		classes1 = get all clases refered by DependencyMethodRunInfo in the RecordedMethodRunInfo
+			all instances of classes1 will be mocked first (since we matched thread, there is no danger of mocking for no reason)
+				for each class method in the DependencyMethodRunInfo
+					get results for that method in order
+					results are the dependencies of mocked objects
+					create when().thenReturn(student1).thenReturn(student2) for all returns
+						mocking can be done without doing parameter matching
+				remember which class was mocked already in TestGenerator
+				
+
 		create tests with dependencyMethodRuns
+			it's important that production and tests behave the same from the moment we have a RecordedMethodRunInfo
+
 	
-		all the classes marked with @RecordMockForTest
-			by default will match RecordedMethodRunInfo with DependencyMethodRunInfo from the same thread
-				I think this is not a problem since now all is on the same thread
-		
-			If I do like this, in test mode I need to keep the Annotations ... is it ok?
-			there will be a problem in production if other paralel calls to @RecordMockForTest methods exist
-				imagine a student repository and many threads accessing it
-		
-			will be mocked even of calls where not done
-			find all method calls in dependencyMethodRuns in order and create when(args) clauses
-			don't care about their dependencies
 
 	Objects creation
 		handle Enum
@@ -160,6 +170,7 @@ TODO ==========================
      
 	Demo for Tash, IonutP
 	 
+	After the demo
 	Package and publish locally
 	
 	Test in a real project
@@ -174,6 +185,8 @@ TODO ==========================
 
 	
 LATER ==========================
+	
+
 	allow recrding mocks from different threads
 
     What do I do when some fields cound not be read? Do the same for all generic factories

@@ -18,4 +18,5 @@ public class DependencyMethodRunInfo {
     protected Class<?> fallBackResultType;
     protected Object result;
     protected Exception exception;
+    protected long threadId;
 }

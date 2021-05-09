@@ -25,7 +25,8 @@ public class RecordTestAspect {
     @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         RecordedMethodRunInfoBuilder recordedMethodRunInfoBuilder = new RecordedMethodRunInfoBuilder();
-        recordedMethodRunInfoBuilder.setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
+        recordedMethodRunInfoBuilder.setThreadId(Thread.currentThread().getId())
+                .setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
 
         recordingContext.getMethodRunInfoBuilderSet().add(recordedMethodRunInfoBuilder);
         Object result;
