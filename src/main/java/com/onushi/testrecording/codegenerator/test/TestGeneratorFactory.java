@@ -48,7 +48,9 @@ public class TestGeneratorFactory {
 
         testGenerator.requiredHelperObjects = getRequiredHelperObjects(testGenerator);
 
-        testGenerator.objectsInit = getObjectsInit(testGenerator.argumentObjectCodeGenerators);
+        List<ObjectCodeGenerator> objectsToInit = new ArrayList<>(testGenerator.argumentObjectCodeGenerators);
+        objectsToInit.add(testGenerator.targetObjectCodeGenerator);
+        testGenerator.objectsInit = getObjectsInit(objectsToInit);
 
         testGenerator.argumentsInlineCode = getArgumentsInlineCode(testGenerator);
 

@@ -93,7 +93,10 @@ DONE ==========================
 		
 	OK - Add objectState to context
 
+	OK - The application being tested should not crash because of @RecordTest
 
+	OK - Problems with the CGLIB proxyes
+		When a component is injected in a component a proxy is generated
 
 TODO ==========================
 	Objects creation
@@ -105,12 +108,17 @@ TODO ==========================
 			Ex: Float / float
 	try with escaped things in strings
 		
+	I should add logging for debugging as a param of the Annotation
+		
+	
 	@RecordMockForTest
 		Intercept calls to all dependent components and create when() calls
 			I could show a comment // If mocking is needed on service X, add @Annotation to it or to package
 			if only one call => intercept with any params
 				If n calls => return results in order...
 			
+	
+	
 	Assert part
 		Check expected result
 			if returnType != void
