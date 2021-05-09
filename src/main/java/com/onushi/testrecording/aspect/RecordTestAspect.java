@@ -1,7 +1,7 @@
 package com.onushi.testrecording.aspect;
 
 import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
-import com.onushi.testrecording.analyzer.methodrun.MethodRunInfoFactory;
+import com.onushi.testrecording.analyzer.methodrun.MethodRunInfoBuilder;
 import com.onushi.testrecording.codegenerator.test.TestGeneratorFactory;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGeneratorService;
@@ -14,14 +14,12 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class RecordTestAspect {
-    private final MethodRunInfoFactory methodRunInfoFactory;
     private final TestGeneratorFactory testGeneratorFactory;
     private final TestGeneratorService testGeneratorService;
     private final MonitorMethodSemaphore monitorMethodSemaphore;
 
-    public RecordTestAspect(MethodRunInfoFactory methodRunInfoFactory, TestGeneratorFactory testGeneratorFactory,
+    public RecordTestAspect(TestGeneratorFactory testGeneratorFactory,
                             TestGeneratorService testGeneratorService, MonitorMethodSemaphore monitorMethodSemaphore) {
-        this.methodRunInfoFactory = methodRunInfoFactory;
         this.testGeneratorFactory = testGeneratorFactory;
         this.testGeneratorService = testGeneratorService;
         this.monitorMethodSemaphore = monitorMethodSemaphore;
@@ -29,6 +27,10 @@ public class RecordTestAspect {
 
     @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        MethodRunInfoBuilder methodRunInfoBuilder = new MethodRunInfoBuilder();
+        methodRunInfoBuilder.setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
+
+        // TODO IB !!!! send here methodRunInfoBuilder to be added to a thread safe Set or list or something
         monitorMethodSemaphore.setMonitoring(true);
         Object result;
         Exception thrownException;
@@ -36,12 +38,16 @@ public class RecordTestAspect {
             result = proceedingJoinPoint.proceed();
             thrownException = null;
         } catch(Exception ex) {
-            thrownException = ex;
             result = null;
+            thrownException = ex;
         }
         monitorMethodSemaphore.setMonitoring(false);
 
-        generateTestCode((MethodInvocationProceedingJoinPoint) proceedingJoinPoint, result, thrownException);
+        MethodRunInfo methodRunInfo = methodRunInfoBuilder
+                .setResult(result)
+                .setException(thrownException)
+                .build();
+        generateTestCode(methodRunInfo);
 
         if (thrownException != null) {
             throw thrownException;
@@ -49,11 +55,9 @@ public class RecordTestAspect {
         return result;
     }
 
-    private void generateTestCode(MethodInvocationProceedingJoinPoint proceedingJoinPoint, Object result, Exception exception) throws Exception {
-        // TODO IB !!!! MethodRunInfo should be created before calling to be send as a parameter to monitorMethodSemaphore
+    private void generateTestCode(MethodRunInfo methodRunInfo) {
 
         try {
-            MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo(proceedingJoinPoint, result, exception);
             TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
             String testCode = testGeneratorService.generateTestCode(testGenerator);
             System.out.println(testCode);
