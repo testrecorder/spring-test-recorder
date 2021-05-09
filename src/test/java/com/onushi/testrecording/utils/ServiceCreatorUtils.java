@@ -3,6 +3,7 @@ package com.onushi.testrecording.utils;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
+import com.onushi.testrecording.codegenerator.object.CglibService;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactoryManager;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
@@ -30,7 +31,8 @@ public class ServiceCreatorUtils {
                 new ClassInfoService(),
                 new ObjectStateReaderService(),
                 createObjectNameGenerator(),
-                createObjectCreationAnalyzerService());
+                createObjectCreationAnalyzerService(),
+                new CglibService());
     }
 
     public static TestGeneratorFactory createTestGeneratorFactory() {

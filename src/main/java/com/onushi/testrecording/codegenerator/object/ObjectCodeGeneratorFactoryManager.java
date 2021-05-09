@@ -20,15 +20,18 @@ public class ObjectCodeGeneratorFactoryManager {
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
     private final List<ObjectCodeGeneratorFactory> knownClassesFactoriesList;
     private final List<ObjectCodeGeneratorFactory> unknownClassesFactoriesList;
+    private final CglibService cglibService;
 
     public ObjectCodeGeneratorFactoryManager(ClassInfoService classInfoService,
                                              ObjectStateReaderService objectStateReaderService,
                                              ObjectNameGenerator objectNameGenerator,
-                                             ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+                                             ObjectCreationAnalyzerService objectCreationAnalyzerService,
+                                             CglibService cglibService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.objectNameGenerator = objectNameGenerator;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
+        this.cglibService = cglibService;
 
         knownClassesFactoriesList = Arrays.asList(
                 new ObjectCodeGeneratorFactoryForNullImpl(),
@@ -102,8 +105,7 @@ public class ObjectCodeGeneratorFactoryManager {
     }
 
     private void unproxyObject(ObjectCodeGeneratorCreationContext context) {
-        CglibHelper cglibHelper = new CglibHelper(context.getObject());
-        context.setObject(cglibHelper.getTargetObject());
+        context.setObject(cglibService.getTargetObject(context.getObject()));
         int $$index = context.getObjectName().indexOf("$$");
         if ($$index != -1) {
             context.setObjectName(context.getObjectName().substring(0, $$index));

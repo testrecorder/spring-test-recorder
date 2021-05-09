@@ -1,24 +1,24 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import org.springframework.aop.TargetSource;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
 
-public class CglibHelper {
-    private final Object proxied;
-
-    public CglibHelper(Object proxied) {
-        this.proxied = proxied;
-    }
+@Service
+public class CglibService {
 
     // TODO IB !!!! Write a test for this
     // TODO IB !!!! verify and improve
-    public Object getTargetObject() {
-        String name = proxied.getClass().getName();
-        if (name.toLowerCase().contains("cglib")) {
-            return extractTargetObject(proxied);
+    public Object getTargetObject(Object object) {
+        if (object == null) {
+            return null;
         }
-        return proxied;
+        if (object.getClass().getName().contains("$$EnhancerBySpringCGLIB$$")) {
+            return extractTargetObject(object);
+        } else {
+            return object;
+        }
     }
 
     private Object extractTargetObject(Object proxied) {
@@ -31,7 +31,7 @@ public class CglibHelper {
 
     private TargetSource findSpringTargetSource(Object proxied) {
         Method[] methods = proxied.getClass().getDeclaredMethods();
-        Method targetSourceMethod = findTargetSourceMethod(methods);
+        Method targetSourceMethod = findTargetSourceMethod(proxied, methods);
         targetSourceMethod.setAccessible(true);
         try {
             return (TargetSource)targetSourceMethod.invoke(proxied);
@@ -40,7 +40,7 @@ public class CglibHelper {
         }
     }
 
-    private Method findTargetSourceMethod(Method[] methods) {
+    private Method findTargetSourceMethod(Object proxied, Method[] methods) {
         for (Method method : methods) {
             if (method.getName().endsWith("getTargetSource")) {
                 return method;
