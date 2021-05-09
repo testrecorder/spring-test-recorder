@@ -4,13 +4,13 @@ import org.springframework.aop.TargetSource;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 @Service
 public class CglibService {
 
     // TODO IB !!!! Write a test for this
-    // TODO IB !!!! verify and improve
-    public Object getTargetObject(Object object) {
+    public Object getUnproxiedObject(Object object) throws Exception {
         if (object == null) {
             return null;
         }
@@ -21,33 +21,15 @@ public class CglibService {
         }
     }
 
-    private Object extractTargetObject(Object proxied) {
-        try {
-            return findSpringTargetSource(proxied).getTarget();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    private Object extractTargetObject(Object proxied) throws Exception {
+        Method getTargetSourceMethod = Arrays.stream(proxied.getClass().getDeclaredMethods())
+            .filter(method -> method.getName().endsWith("getTargetSource"))
+            .findFirst().orElse(null);
+        if (getTargetSourceMethod == null) {
+            throw new IllegalStateException(
+                "Could not find target source method on proxied object [" + proxied.getClass() + "]");
         }
-    }
-
-    private TargetSource findSpringTargetSource(Object proxied) {
-        Method[] methods = proxied.getClass().getDeclaredMethods();
-        Method targetSourceMethod = findTargetSourceMethod(proxied, methods);
-        targetSourceMethod.setAccessible(true);
-        try {
-            return (TargetSource)targetSourceMethod.invoke(proxied);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private Method findTargetSourceMethod(Object proxied, Method[] methods) {
-        for (Method method : methods) {
-            if (method.getName().endsWith("getTargetSource")) {
-                return method;
-            }
-        }
-        throw new IllegalStateException(
-                "Could not find target source method on proxied object ["
-                        + proxied.getClass() + "]");
+        getTargetSourceMethod.setAccessible(true);
+        return ((TargetSource)getTargetSourceMethod.invoke(proxied)).getTarget();
     }
 }
