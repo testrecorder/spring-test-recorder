@@ -38,7 +38,6 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this)
         );
         unknownClassesFactoriesList = Arrays.asList(
-                new ObjectCodeGeneratorFactoryForSpringComponentsImpl(),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
                         classInfoService, objectCreationAnalyzerService),
