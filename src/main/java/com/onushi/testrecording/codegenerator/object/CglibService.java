@@ -9,7 +9,6 @@ import java.util.Arrays;
 @Service
 public class CglibService {
 
-    // TODO IB !!!! Write a test for this
     public Object getUnproxiedObject(Object object) throws Exception {
         if (object == null) {
             return null;
