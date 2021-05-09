@@ -34,15 +34,15 @@ public class SampleAppRunner implements CommandLineRunner {
 //        sampleService.logicalAnd(true, true);
 //        sampleService.toYYYY_MM_DD_T_HH_MM_SS_Z(new Date(), new Date());
 //        sampleService.testTypes((short)6, (byte)4, 5, true, 'c', 1.5);
-
-        // personService.loadPerson(1);
-
-        // sampleService.testException(5);
-
+//
+//         personService.loadPerson(1);
+//
+//         sampleService.testException(5);
+//
 //        Person person = Person.builder()
 //                .isActor(true)
 //                .build();
-
+//
 //        boolean[] boolArray = {true, false};
 //        byte[] byteArray = {1, 2};
 //        char[] charArray = {'a', 'z'};
@@ -54,13 +54,13 @@ public class SampleAppRunner implements CommandLineRunner {
 //        String[] stringArray = {"a", "z"};
 //        Object[] objectArray = {"a", 2};
 //        sampleService.processArrays(boolArray, byteArray, charArray, doubleArray, floatArray, intArray, longArray, shortArray, stringArray, objectArray);
-
-        // sampleService.returnPerson();
-
+//
+//         sampleService.returnPerson();
+//
 //        List<Float> floatList = Arrays.asList(3.0f, 3.0f);
 //        int[] intArray = {3, 4, 3};
 //        sampleService.repeatedArgs(intArray, floatList);
-
+//
 //        StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
 //        StudentWithBuilder student2 = StudentWithBuilder.builder()
 //                .firstName("John")
@@ -68,23 +68,21 @@ public class SampleAppRunner implements CommandLineRunner {
 //                .age(60)
 //                .build();
 //        sampleService.processStudents(student1, student2);
-
+//
 //        sampleService.setTestField(5);
 //        float result = sampleService.addFloats(1.0f, 2.0f);
 
-        // demo();
-
+        demo();
     }
 
     private void demo() throws Exception {
-        //
-        // ...
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
         Person paul = Person.builder()
-                .firstName("Paul")
-                .lastName("Marculescu")
+                .firstName("Marco")
+                .lastName("Polo")
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
@@ -94,13 +92,12 @@ public class SampleAppRunner implements CommandLineRunner {
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
-        List<Person> personlList = Arrays.asList(paul, gica);
-        Person[] personArray = {paul, gica};
+        Employee employee = new Employee()
+                .setName("Jack Norton")
+                .setAge(23)
+                .setStudent(true);
 
-        this.sampleService.someFunction(personlList, personArray);
-        // ...
-        //
-        //
-        //
+        Employee[] employeeArray = {employee};
+        this.sampleService.demoFunction(Arrays.asList(gica, paul), employeeArray);
     }
 }

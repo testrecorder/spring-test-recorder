@@ -103,13 +103,13 @@ TODO ==========================
 		UUID
 		how to differentiate between boxed and unboxed types?
 			Ex: Float / float
+	try with escaped things in strings
 		
-		@RecordMockForTest
-			first just create the mock
-			Intercept calls to all dependent components and create when() calls
-				I could show a comment // If mocking is needed on service X, add @Annotation to it or to package
-				if only one call => intercept with any params
-					If n calls => return results in order...
+	@RecordMockForTest
+		Intercept calls to all dependent components and create when() calls
+			I could show a comment // If mocking is needed on service X, add @Annotation to it or to package
+			if only one call => intercept with any params
+				If n calls => return results in order...
 			
 	Assert part
 		Check expected result

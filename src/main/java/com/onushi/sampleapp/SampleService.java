@@ -43,7 +43,6 @@ public class SampleService {
         return null;
     }
 
-    @RecordTest
     public float addFloats(float x, float y) {
         return x + y;
     }
@@ -90,12 +89,6 @@ public class SampleService {
         return 42;
     }
 
-    public Person[] someFunction(List<Person> personList, Person[] dateArray) throws ParseException {
-        // ....
-        // ...
-        return dateArray;
-    }
-
     public int[] returnIntArray() {
         return new int[]{3, 4};
     }
@@ -120,5 +113,8 @@ public class SampleService {
     public void processStudents(StudentWithDefaultInitFields student1, StudentWithBuilder student2) {
     }
 
-
+    @RecordTest
+    public int demoFunction(List<Person> personList, Employee[] employeeArray) throws ParseException {
+        return 42;
+    }
 }
