@@ -45,6 +45,8 @@ public class RecordTestAspect {
     }
 
     private void generateTestCode(MethodInvocationProceedingJoinPoint proceedingJoinPoint, Object result, Exception exception) throws Exception {
+        // TODO IB !!!! MethodRunInfo should be created before calling to be send as a parameter to
+
         MethodRunInfo methodRunInfo = methodRunInfoFactory.createMethodRunInfo(proceedingJoinPoint, result, exception);
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
         String testCode = testGeneratorService.generateTestCode(testGenerator);

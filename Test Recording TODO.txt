@@ -4,6 +4,13 @@ INFO ==========================
 		http://testrecorder.amygdalum.net/index.html
 		Get from github and try to see what tests are generated
 		
+	How to use proxy and dynamic-pointcut
+		http://www.java2s.com/Code/Java/Spring/DynamicPointcutExample.htm
+		http://stonefishy.github.io/blog/2015/06/12/spring-aop-dynamic-pointcut/
+		Can I create proxy for the target service (if it's service) and use proxis for all the target dependencies?
+		
+		
+		
 	How to write custom annotations - in case I need
 		What if the objects do not have public fields or getters?
 		I need just a visitor inserted in all args and all dependencies of args
@@ -94,10 +101,13 @@ TODO ==========================
 		handle HashMap<>
 		Calendar
 		UUID
-		how to differentiate between Float and float for different objects?
-		@Component dependencies will be mocked
+		how to differentiate between boxed and unboxed types?
+			Ex: Float / float
+		
+		@RecordMockForTest
 			first just create the mock
 			Intercept calls to all dependent components and create when() calls
+				I could show a comment // If mocking is needed on service X, add @Annotation to it or to package
 				if only one call => intercept with any params
 					If n calls => return results in order...
 			
