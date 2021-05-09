@@ -62,7 +62,7 @@ public class TestGeneratorService {
                 .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
         attributes.put("objectsInit", testGenerator.getObjectsInit().stream()
                 .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
-        attributes.put("targetObjectInit", stringService.addPrefixOnAllLines(testGenerator.getTargetObjectCodeGenerator().getInitCode(), "        "));
+        // attributes.put("targetObjectInit", stringService.addPrefixOnAllLines(testGenerator.getTargetObjectCodeGenerator().getInitCode(), "        "));
         attributes.put("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 
         attributes.put("resultDeclareClassName", testGenerator.getResultDeclareClassName());
@@ -83,8 +83,7 @@ public class TestGeneratorService {
             .setTemplate(
                 "        // Arrange\n" +
                         "{{requiredHelperObjects}}" +
-                        "{{objectsInit}}" +
-                        "{{targetObjectInit}}\n\n"
+                        "{{objectsInit}}\n"
             ).generate();
     }
 

@@ -69,6 +69,7 @@ public class ObjectCodeGeneratorFactoryManager {
     }
 
     protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
+
         ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(object);
@@ -81,7 +82,9 @@ public class ObjectCodeGeneratorFactoryManager {
             }
         }
 
-        context.setObjectState(objectStateReaderService.getObjectState(object));
+        unproxyObject(context);
+
+        context.setObjectState(objectStateReaderService.getObjectState(context.getObject()));
         boolean allFieldsAreRead = context.getObjectState().values().stream()
                 .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);
         if (!allFieldsAreRead) {
@@ -96,5 +99,14 @@ public class ObjectCodeGeneratorFactoryManager {
         }
 
         return new ObjectCodeGeneratorFactoryFallbackImpl(this).createObjectCodeGenerator(context);
+    }
+
+    private void unproxyObject(ObjectCodeGeneratorCreationContext context) {
+        CglibHelper cglibHelper = new CglibHelper(context.getObject());
+        context.setObject(cglibHelper.getTargetObject());
+        int $$index = context.getObjectName().indexOf("$$");
+        if ($$index != -1) {
+            context.setObjectName(context.getObjectName().substring(0, $$index));
+        }
     }
 }
