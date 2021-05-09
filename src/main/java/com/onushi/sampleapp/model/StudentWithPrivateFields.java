@@ -1,4 +1,4 @@
-package com.onushi.sampleapp;
+package com.onushi.sampleapp.model;
 
 public class StudentWithPrivateFields extends StudentWithPrivateField {
     private final String lastName;

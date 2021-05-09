@@ -1,6 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.sampleapp.*;
+import com.onushi.sampleapp.model.*;
+import com.onushi.sampleapp.services.PersonRepositoryImpl;
+import com.onushi.sampleapp.services.PersonService;
 import com.onushi.testrecording.analyzer.object.FieldValue;
 import com.onushi.testrecording.analyzer.object.FieldValueStatus;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
@@ -159,7 +161,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryForNotRedFields objectCodeGeneratorFactoryForNotRedFields = new ObjectCodeGeneratorFactoryForNotRedFields();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryForNotRedFields.createObjectCodeGenerator(context);
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.StudentWithBuilder", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals("// TODO Create this object\n" +
                 "// StudentWithBuilder student1 = new StudentWithBuilder();", objectCodeGenerator.getInitCode());
@@ -173,7 +175,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, person, "person1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.Person", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.model.Person", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals("Person person1 = new Person();", objectCodeGenerator.getInitCode());
         assertEquals("person1", objectCodeGenerator.getInlineCode());
@@ -189,7 +191,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.StudentWithPublicFields", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(3, objectCodeGenerator.getDependencies().size());
         assertEquals("// TODO Check order of arguments\n" +
@@ -204,7 +206,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, personService, "person1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.PersonService", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.services.PersonService", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(1, objectCodeGenerator.getDependencies().size());
         assertEquals("PersonService person1 = new PersonService(personRepositoryImpl1);", objectCodeGenerator.getInitCode());
@@ -221,7 +223,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.StudentWithPublicFields2", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields2", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(3, objectCodeGenerator.getDependencies().size());
         assertEquals("StudentWithPublicFields2 student1 = new StudentWithPublicFields2();\n" +
@@ -242,7 +244,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.StudentWithBuilder", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(3, objectCodeGenerator.getDependencies().size());
         assertEquals("studentWithBuilder1", objectCodeGenerator.getInlineCode());
@@ -274,7 +276,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithSetters, "studentWithSetters1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.StudentWithSetters", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.model.StudentWithSetters", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(12, objectCodeGenerator.getDependencies().size());
         assertEquals("studentWithSetters1", objectCodeGenerator.getInlineCode());
@@ -303,7 +305,7 @@ class ObjectCodeGeneratorTest {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.OtherStudent", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("com.onushi.sampleapp.model.OtherStudent", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(1, objectCodeGenerator.getDependencies().size());
         assertEquals("student", objectCodeGenerator.getInlineCode());

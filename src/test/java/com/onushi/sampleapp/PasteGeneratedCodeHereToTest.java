@@ -1,8 +1,9 @@
 package com.onushi.sampleapp;
 
+import com.onushi.sampleapp.services.SampleService;
 import org.junit.jupiter.api.Test;
-import com.onushi.sampleapp.StudentWithDefaultInitFields;
-import com.onushi.sampleapp.StudentWithBuilder;
+import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
+import com.onushi.sampleapp.model.StudentWithBuilder;
 
 class SampleServiceTest {
     @Test

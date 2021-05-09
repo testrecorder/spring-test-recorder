@@ -1,12 +1,15 @@
 package com.onushi.sampleapp;
 
+import com.onushi.sampleapp.model.Employee;
+import com.onushi.sampleapp.model.Person;
+import com.onushi.sampleapp.services.PersonService;
+import com.onushi.sampleapp.services.SampleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class SampleAppRunner implements CommandLineRunner {

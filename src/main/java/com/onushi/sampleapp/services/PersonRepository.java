@@ -1,4 +1,6 @@
-package com.onushi.sampleapp;
+package com.onushi.sampleapp.services;
+
+import com.onushi.sampleapp.model.Person;
 
 public interface PersonRepository {
     Person getPersonFromDB(int id) throws Exception;

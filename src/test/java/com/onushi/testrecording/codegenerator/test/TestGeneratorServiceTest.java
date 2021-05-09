@@ -1,6 +1,10 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.sampleapp.*;
+import com.onushi.sampleapp.model.Person;
+import com.onushi.sampleapp.model.Student;
+import com.onushi.sampleapp.model.StudentWithBuilder;
+import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
+import com.onushi.sampleapp.services.SampleService;
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import com.onushi.testrecording.utils.StringUtils;
@@ -42,7 +46,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -85,7 +89,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -132,7 +136,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -177,11 +181,11 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.Person;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    @Test\n" +
@@ -225,7 +229,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -264,7 +268,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -314,7 +318,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -366,7 +370,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -416,7 +420,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -479,7 +483,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -487,7 +491,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Date;\n" +
                         "import java.util.List;\n" +
                         "import java.util.Arrays;\n" +
-                        "import com.onushi.sampleapp.Person;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    @Test\n" +
@@ -541,7 +545,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -591,7 +595,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -643,7 +647,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -695,12 +699,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp;\n" +
+                        "package com.onushi.sampleapp.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.StudentWithDefaultInitFields;\n" +
-                        "import com.onushi.sampleapp.StudentWithBuilder;\n" +
+                        "import com.onushi.sampleapp.model.StudentWithDefaultInitFields;\n" +
+                        "import com.onushi.sampleapp.model.StudentWithBuilder;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    @Test\n" +

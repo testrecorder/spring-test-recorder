@@ -1,12 +1,10 @@
 
-package com.onushi.sampleapp;
+package com.onushi.sampleapp.model;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
-public class StudentWithPublicFields {
+public class StudentWithPublicFields2 {
     public String firstName;
     public String lastName;
     public int age;

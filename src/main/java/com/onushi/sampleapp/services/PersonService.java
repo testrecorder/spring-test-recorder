@@ -1,5 +1,6 @@
-package com.onushi.sampleapp;
+package com.onushi.sampleapp.services;
 
+import com.onushi.sampleapp.model.Person;
 import com.onushi.testrecording.aspect.RecordTest;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ public class PersonService {
     }
 
     @RecordTest
-    Person loadPerson(int id) throws Exception {
+    public Person loadPerson(int id) throws Exception {
         return personRepository.getPersonFromDB(id);
     }
 }

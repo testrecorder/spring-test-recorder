@@ -1,5 +1,9 @@
-package com.onushi.sampleapp;
+package com.onushi.sampleapp.services;
 
+import com.onushi.sampleapp.model.Employee;
+import com.onushi.sampleapp.model.Person;
+import com.onushi.sampleapp.model.StudentWithBuilder;
+import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;

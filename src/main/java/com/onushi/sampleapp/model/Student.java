@@ -1,4 +1,4 @@
-package com.onushi.sampleapp;
+package com.onushi.sampleapp.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
