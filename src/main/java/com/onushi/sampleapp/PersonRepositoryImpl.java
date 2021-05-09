@@ -1,9 +1,12 @@
 package com.onushi.sampleapp;
 
+import com.onushi.testrecording.aspect.RecordMockForTest;
 import org.springframework.stereotype.Repository;
 
 import java.text.SimpleDateFormat;
 
+
+@RecordMockForTest
 @Repository
 public class PersonRepositoryImpl implements PersonRepository {
     @Override

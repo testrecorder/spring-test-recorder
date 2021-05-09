@@ -1,10 +1,7 @@
 package com.onushi.testrecording.aspect;
 
-import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
-import com.onushi.testrecording.analyzer.methodrun.MethodRunInfoBuilder;
-import com.onushi.testrecording.codegenerator.test.TestGeneratorFactory;
-import com.onushi.testrecording.codegenerator.test.TestGenerator;
-import com.onushi.testrecording.codegenerator.test.TestGeneratorService;
+import com.onushi.testrecording.analyzer.methodrun.*;
+import com.onushi.testrecording.codegenerator.test.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,13 +13,13 @@ import org.springframework.stereotype.Component;
 public class RecordTestAspect {
     private final TestGeneratorFactory testGeneratorFactory;
     private final TestGeneratorService testGeneratorService;
-    private final MonitorMethodSemaphore monitorMethodSemaphore;
+    private final RecordingContext recordingContext;
 
     public RecordTestAspect(TestGeneratorFactory testGeneratorFactory,
-                            TestGeneratorService testGeneratorService, MonitorMethodSemaphore monitorMethodSemaphore) {
+                            TestGeneratorService testGeneratorService, RecordingContext recordingContext) {
         this.testGeneratorFactory = testGeneratorFactory;
         this.testGeneratorService = testGeneratorService;
-        this.monitorMethodSemaphore = monitorMethodSemaphore;
+        this.recordingContext = recordingContext;
     }
 
     @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
@@ -30,8 +27,7 @@ public class RecordTestAspect {
         MethodRunInfoBuilder methodRunInfoBuilder = new MethodRunInfoBuilder();
         methodRunInfoBuilder.setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
 
-        // TODO IB !!!! send here methodRunInfoBuilder to be added to a thread safe Set or list or something
-        monitorMethodSemaphore.setMonitoring(true);
+        recordingContext.getMethodRunInfoBuilderSet().add(methodRunInfoBuilder);
         Object result;
         Exception thrownException;
         try {
@@ -41,7 +37,7 @@ public class RecordTestAspect {
             result = null;
             thrownException = ex;
         }
-        monitorMethodSemaphore.setMonitoring(false);
+        recordingContext.getMethodRunInfoBuilderSet().remove(methodRunInfoBuilder);
 
         MethodRunInfo methodRunInfo = methodRunInfoBuilder
                 .setResult(result)
