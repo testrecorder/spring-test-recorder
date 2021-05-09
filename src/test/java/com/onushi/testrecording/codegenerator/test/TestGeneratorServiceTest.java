@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.sampleapp.*;
-import com.onushi.testrecording.analyzer.methodrun.MethodRunInfo;
+import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,13 +28,13 @@ class TestGeneratorServiceTest {
     @Test
     void generateTestForAddFloats() throws Exception {
         // Arrange
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("addFloats")
                 .arguments(Arrays.asList(2f, 3f))
                 .result(5f)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -71,13 +71,13 @@ class TestGeneratorServiceTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = simpleDateFormat.parse("2021-01-01");
         Date d2 = simpleDateFormat.parse("2021-02-02");
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("minDate")
                 .arguments(Arrays.asList(d1, d2))
                 .result(d1)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -117,14 +117,14 @@ class TestGeneratorServiceTest {
     @Test
     void generateTestForReturnNull() throws Exception {
         // Arrange
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("returnNull")
                 .arguments(Collections.emptyList())
                 .result(null)
                 .fallBackResultType(Student.class)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -163,13 +163,13 @@ class TestGeneratorServiceTest {
                 .firstName("Mary")
                 .lastName("Poe")
                 .build();
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("getFirstName")
                 .arguments(Collections.singletonList(person))
                 .result("Mary")
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -209,7 +209,7 @@ class TestGeneratorServiceTest {
     @Test
     void generateTestWhenExceptionIsThrown() throws Exception {
         // Arrange
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("testException")
                 .arguments(Collections.singletonList(5))
@@ -217,7 +217,7 @@ class TestGeneratorServiceTest {
                 .fallBackResultType(String.class)
                 .exception(new IllegalArgumentException("x"))
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -248,7 +248,7 @@ class TestGeneratorServiceTest {
     @Test
     void generateTestWhenResultIsVoid() throws Exception {
         // Arrange
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("doNothing")
                 .arguments(Collections.emptyList())
@@ -256,7 +256,7 @@ class TestGeneratorServiceTest {
                 .fallBackResultType(void.class)
                 .exception(null)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -298,7 +298,7 @@ class TestGeneratorServiceTest {
         short[] shortArray = {3, 4};
         String[] stringArray = {"a", "z"};
         Object[] objectArray = {"a", 2};
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("processArrays")
                 .arguments(Arrays.asList(boolArray, byteArray, charArray, doubleArray,
@@ -306,7 +306,7 @@ class TestGeneratorServiceTest {
                 .result(42)
                 .exception(null)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -352,13 +352,13 @@ class TestGeneratorServiceTest {
         // Arrange
         List<String> stringList = Arrays.asList("a", "b");
         List<Object> objectList = Arrays.asList(1, "b", null);
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("processLists")
                 .arguments(Arrays.asList(stringList, objectList))
                 .result(42)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -402,13 +402,13 @@ class TestGeneratorServiceTest {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = simpleDateFormat.parse("2021-01-01");
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("minDate")
                 .arguments(Arrays.asList(d1, d1))
                 .result(d1)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -465,13 +465,13 @@ class TestGeneratorServiceTest {
         List<Person> personList = Arrays.asList(paul, gica);
         Person[] personArray = {paul, gica};
 
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("someFunction")
                 .arguments(Arrays.asList(personList, personArray))
                 .result(personList)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -527,13 +527,13 @@ class TestGeneratorServiceTest {
     void generateTestForMethodThatReturnsArray() throws Exception {
         // Arrange
         int[] expectedResult = {3, 4};
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("returnIntArray")
                 .arguments(Collections.emptyList())
                 .result(expectedResult)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -577,13 +577,13 @@ class TestGeneratorServiceTest {
                 .lastName("Fulgerica")
                 .dateOfBirth(dateOfBirth)
                 .build();
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("returnPerson")
                 .arguments(Collections.emptyList())
                 .result(person)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -629,13 +629,13 @@ class TestGeneratorServiceTest {
         // Arrange
         int[] intArray = {3, 4, 3};
         List<Float> floatList = Arrays.asList(3.0f, 3.0f);
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("repeatedArgs")
                 .arguments(Arrays.asList(intArray, floatList))
                 .result(42)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -679,7 +679,7 @@ class TestGeneratorServiceTest {
                 .lastName("Wayne")
                 .age(60)
                 .build();
-        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("processStudents")
                 .arguments(Arrays.asList(student1, student2))
@@ -687,7 +687,7 @@ class TestGeneratorServiceTest {
                 .fallBackResultType(void.class)
                 .exception(null)
                 .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
@@ -748,7 +748,7 @@ class TestGeneratorServiceTest {
 //                .lastName("Norris")
 //                .dateOfBirth(simpleDateFormat.parse("1940-03-10"))
 //                .build();
-//        MethodRunInfo methodRunInfo = MethodRunInfo.builder()
+//        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
 //                .target(new PersonService(new PersonRepositoryImpl()))
 //                .methodName("loadPerson")
 //                .arguments(Collections.singletonList(1))
@@ -756,7 +756,7 @@ class TestGeneratorServiceTest {
 //                .resultType(Person.class)
 //                .build();
 //
-//        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+//        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 //
 //        // Act
 //        String testString = testGeneratorService.generateTestCode(testGenerator);

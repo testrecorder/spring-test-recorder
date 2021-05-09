@@ -1,6 +1,6 @@
 package com.onushi.testrecording.aspect;
 
-import com.onushi.testrecording.analyzer.methodrun.MethodRunInfoBuilder;
+import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfoBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -9,9 +9,9 @@ import java.util.Set;
 
 @Component
 public class RecordingContext {
-    private final Set<MethodRunInfoBuilder> methodRunInfoBuilderSet = Collections.synchronizedSet(new HashSet<>());
+    private final Set<RecordedMethodRunInfoBuilder> recordedMethodRunInfoBuilderSet = Collections.synchronizedSet(new HashSet<>());
 
-    public Set<MethodRunInfoBuilder> getMethodRunInfoBuilderSet() {
-        return methodRunInfoBuilderSet;
+    public Set<RecordedMethodRunInfoBuilder> getMethodRunInfoBuilderSet() {
+        return recordedMethodRunInfoBuilderSet;
     }
 }

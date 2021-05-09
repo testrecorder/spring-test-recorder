@@ -11,7 +11,7 @@ import java.util.*;
 @AllArgsConstructor
 @Getter
 @Builder
-public class MethodRunInfo {
+public class RecordedMethodRunInfo {
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;

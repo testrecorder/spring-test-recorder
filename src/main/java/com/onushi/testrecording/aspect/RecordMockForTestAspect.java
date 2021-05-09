@@ -2,7 +2,7 @@ package com.onushi.testrecording.aspect;
 
 import com.onushi.testrecording.analyzer.methodrun.DependencyMethodRunInfo;
 import com.onushi.testrecording.analyzer.methodrun.DependencyMethodRunInfoBuilder;
-import com.onushi.testrecording.analyzer.methodrun.MethodRunInfoBuilder;
+import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfoBuilder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -34,7 +34,7 @@ public class RecordMockForTestAspect {
         MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint) proceedingJoinPoint;
         dependencyMethodRunInfoBuilder.setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
 
-        Set<MethodRunInfoBuilder> testRecordingsAtStart = new HashSet<>(recordingContext.getMethodRunInfoBuilderSet());
+        Set<RecordedMethodRunInfoBuilder> testRecordingsAtStart = new HashSet<>(recordingContext.getMethodRunInfoBuilderSet());
 
         Object result;
         Exception thrownException;
@@ -52,12 +52,12 @@ public class RecordMockForTestAspect {
                     .setException(thrownException)
                     .build();
 
-            Set<MethodRunInfoBuilder> testRecordingsAtEnd = new HashSet<>(recordingContext.getMethodRunInfoBuilderSet());
-            Set<MethodRunInfoBuilder> intersection = new HashSet<>(testRecordingsAtStart);
+            Set<RecordedMethodRunInfoBuilder> testRecordingsAtEnd = new HashSet<>(recordingContext.getMethodRunInfoBuilderSet());
+            Set<RecordedMethodRunInfoBuilder> intersection = new HashSet<>(testRecordingsAtStart);
             // we add this DependencyMethodRunInfo only if the recording was present both before and after run
             intersection.retainAll(testRecordingsAtEnd);
-            for (MethodRunInfoBuilder methodRunInfoBuilder : intersection) {
-                methodRunInfoBuilder.addDependencyMethodRunInfo(dependencyMethodRunInfo);
+            for (RecordedMethodRunInfoBuilder recordedMethodRunInfoBuilder : intersection) {
+                recordedMethodRunInfoBuilder.addDependencyMethodRunInfo(dependencyMethodRunInfo);
             }
         } catch (Exception ex) {
             System.out.println("Could not add DependencyMethodRunInfo for method " + methodInvocation.getSignature().getName());

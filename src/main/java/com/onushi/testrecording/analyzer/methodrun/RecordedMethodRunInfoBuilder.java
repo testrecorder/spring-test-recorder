@@ -8,23 +8,23 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class MethodRunInfoBuilder {
+public class RecordedMethodRunInfoBuilder {
     private MethodInvocationProceedingJoinPoint methodInvocation;
     private Object result;
     private Exception exception;
     private final List<DependencyMethodRunInfo> dependencyMethodRuns = Collections.synchronizedList(new ArrayList<>());
 
-    public MethodRunInfoBuilder setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
+    public RecordedMethodRunInfoBuilder setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
         this.methodInvocation = methodInvocation;
         return this;
     }
 
-    public MethodRunInfoBuilder setResult(Object result) {
+    public RecordedMethodRunInfoBuilder setResult(Object result) {
         this.result = result;
         return this;
     }
 
-    public MethodRunInfoBuilder setException(Exception exception) {
+    public RecordedMethodRunInfoBuilder setException(Exception exception) {
         this.exception = exception;
         return this;
     }
@@ -33,20 +33,20 @@ public class MethodRunInfoBuilder {
         dependencyMethodRuns.add(dependencyMethodRunInfo);
     }
 
-    public MethodRunInfo build() {
-        MethodRunInfo methodRunInfo = new MethodRunInfo();
+    public RecordedMethodRunInfo build() {
+        RecordedMethodRunInfo recordedMethodRunInfo = new RecordedMethodRunInfo();
 
         if (methodInvocation != null) {
             MethodSignature methodSignature = (MethodSignature) methodInvocation.getSignature();
-            methodRunInfo.target = methodInvocation.getTarget();
-            methodRunInfo.methodName = methodSignature.getName();
-            methodRunInfo.arguments = Arrays.asList(methodInvocation.getArgs());
-            methodRunInfo.fallBackResultType = methodSignature.getReturnType();
+            recordedMethodRunInfo.target = methodInvocation.getTarget();
+            recordedMethodRunInfo.methodName = methodSignature.getName();
+            recordedMethodRunInfo.arguments = Arrays.asList(methodInvocation.getArgs());
+            recordedMethodRunInfo.fallBackResultType = methodSignature.getReturnType();
         }
-        methodRunInfo.dependencyMethodRuns = dependencyMethodRuns;
-        methodRunInfo.result = result;
-        methodRunInfo.exception = exception;
+        recordedMethodRunInfo.dependencyMethodRuns = dependencyMethodRuns;
+        recordedMethodRunInfo.result = result;
+        recordedMethodRunInfo.exception = exception;
 
-        return methodRunInfo;
+        return recordedMethodRunInfo;
     }
 }

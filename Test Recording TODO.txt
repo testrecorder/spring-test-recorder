@@ -92,11 +92,20 @@ DONE ==========================
 		Create with setters 
 		
 	OK - Add objectState to context
+	
+	---------
 
 	OK - The application being tested should not crash because of @RecordTest
 
 	OK - Problems with the CGLIB proxyes
 		When a component is injected in a component a proxy is generated
+
+	@RecordMockForTest
+		OK - create the type annotation and itercept all public calls inside the type
+		
+		OK - Intercept all calls inside methods with @RecordMockForTest
+			add them to RecordedMethodRunInfo.dependencyMethodRuns
+
 
 TODO ==========================
 	Objects creation
@@ -110,15 +119,13 @@ TODO ==========================
 		
 	I should add logging for debugging as a param of the Annotation
 	
-	@RecordMockForTest
-		OK - create the type annotation and itercept all public calls inside the type
 		
-		OK - Intercept all calls inside methods with @RecordMockForTest
+	All the aspect part is done - ready for mocking
 		
 		to all dependent components and create when() calls
-			I could show a comment // If mocking is needed on service X, add @Annotation to it or to package
-			if only one call => intercept with any params
-				If n calls => return results in order...
+		I could show a comment // If mocking is needed on service X, add @Annotation to it or to package
+		if only one call => intercept with any params
+			If n calls => return results in order...
 			
 	
 	

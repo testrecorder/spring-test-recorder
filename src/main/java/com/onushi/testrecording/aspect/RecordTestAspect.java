@@ -24,10 +24,10 @@ public class RecordTestAspect {
 
     @Around("@annotation(com.onushi.testrecording.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        MethodRunInfoBuilder methodRunInfoBuilder = new MethodRunInfoBuilder();
-        methodRunInfoBuilder.setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
+        RecordedMethodRunInfoBuilder recordedMethodRunInfoBuilder = new RecordedMethodRunInfoBuilder();
+        recordedMethodRunInfoBuilder.setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
 
-        recordingContext.getMethodRunInfoBuilderSet().add(methodRunInfoBuilder);
+        recordingContext.getMethodRunInfoBuilderSet().add(recordedMethodRunInfoBuilder);
         Object result;
         Exception thrownException;
         try {
@@ -37,14 +37,14 @@ public class RecordTestAspect {
             result = null;
             thrownException = ex;
         } finally {
-            recordingContext.getMethodRunInfoBuilderSet().remove(methodRunInfoBuilder);
+            recordingContext.getMethodRunInfoBuilderSet().remove(recordedMethodRunInfoBuilder);
         }
 
-        MethodRunInfo methodRunInfo = methodRunInfoBuilder
+        RecordedMethodRunInfo recordedMethodRunInfo = recordedMethodRunInfoBuilder
                 .setResult(result)
                 .setException(thrownException)
                 .build();
-        generateTestCode(methodRunInfo);
+        generateTestCode(recordedMethodRunInfo);
 
         if (thrownException != null) {
             throw thrownException;
@@ -52,10 +52,10 @@ public class RecordTestAspect {
         return result;
     }
 
-    private void generateTestCode(MethodRunInfo methodRunInfo) {
+    private void generateTestCode(RecordedMethodRunInfo recordedMethodRunInfo) {
 
         try {
-            TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(methodRunInfo);
+            TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
             String testCode = testGeneratorService.generateTestCode(testGenerator);
             System.out.println(testCode);
         } catch (Exception ex) {
