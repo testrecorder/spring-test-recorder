@@ -111,7 +111,11 @@ TODO ==========================
 	I should add logging for debugging as a param of the Annotation
 	
 	@RecordMockForTest
-		Intercept calls to all dependent components and create when() calls
+		OK - create the type annotation and itercept all public calls inside the type
+		
+		OK - Intercept all calls inside methods with @RecordMockForTest
+		
+		to all dependent components and create when() calls
 			I could show a comment // If mocking is needed on service X, add @Annotation to it or to package
 			if only one call => intercept with any params
 				If n calls => return results in order...

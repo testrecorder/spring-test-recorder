@@ -3,12 +3,16 @@ package com.onushi.testrecording.analyzer.methodrun;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class MethodRunInfoBuilder {
     private MethodInvocationProceedingJoinPoint methodInvocation;
     private Object result;
     private Exception exception;
+    private final List<DependencyMethodRunInfo> dependencyMethodRuns = Collections.synchronizedList(new ArrayList<>());
 
     public MethodRunInfoBuilder setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
         this.methodInvocation = methodInvocation;
@@ -25,6 +29,10 @@ public class MethodRunInfoBuilder {
         return this;
     }
 
+    public void addDependencyMethodRunInfo(DependencyMethodRunInfo dependencyMethodRunInfo) {
+        dependencyMethodRuns.add(dependencyMethodRunInfo);
+    }
+
     public MethodRunInfo build() {
         MethodRunInfo methodRunInfo = new MethodRunInfo();
 
@@ -35,6 +43,7 @@ public class MethodRunInfoBuilder {
             methodRunInfo.arguments = Arrays.asList(methodInvocation.getArgs());
             methodRunInfo.fallBackResultType = methodSignature.getReturnType();
         }
+        methodRunInfo.dependencyMethodRuns = dependencyMethodRuns;
         methodRunInfo.result = result;
         methodRunInfo.exception = exception;
 

@@ -36,8 +36,9 @@ public class RecordTestAspect {
         } catch(Exception ex) {
             result = null;
             thrownException = ex;
+        } finally {
+            recordingContext.getMethodRunInfoBuilderSet().remove(methodRunInfoBuilder);
         }
-        recordingContext.getMethodRunInfoBuilderSet().remove(methodRunInfoBuilder);
 
         MethodRunInfo methodRunInfo = methodRunInfoBuilder
                 .setResult(result)

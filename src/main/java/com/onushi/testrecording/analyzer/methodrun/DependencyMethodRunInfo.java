@@ -5,18 +5,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
-public class MethodRunInfo {
+public class DependencyMethodRunInfo {
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;
     protected Class<?> fallBackResultType;
-    protected List<DependencyMethodRunInfo> dependencyMethodRuns;
     protected Object result;
     protected Exception exception;
 }
