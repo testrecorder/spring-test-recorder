@@ -132,10 +132,6 @@ TODO ==========================
 	test mock for void returning functions
 		also exception thrown
 	
-	verify how I did for exceptions thrown by @RecordTest
-		do the same as for mocking
-	
-	
 	split tests in smaller classes
 
 	Objects creation

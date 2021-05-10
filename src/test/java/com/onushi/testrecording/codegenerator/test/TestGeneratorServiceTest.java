@@ -992,7 +992,7 @@ class TestGeneratorServiceTest {
                         "        // Arrange\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
                         "        when(personRepositoryImpl1.getPersonsCountFromDB(\"a\", null)).thenReturn(2);\n" +
-                        "        when(personRepositoryImpl1.getPersonFromDB(2)).thenThrow(new NoSuchElementException());\n" +
+                        "        when(personRepositoryImpl1.getPersonFromDB(2)).thenThrow(NoSuchElementException.class);\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +

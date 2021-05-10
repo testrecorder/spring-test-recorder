@@ -89,9 +89,8 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                     .addAttribute("resultInlineCode", resultCodeGenerator.getInlineCode())
                     .generate();
         } else {
-            // TODO IB !!!! improve here. also add Exception type to imports
             thenClause = new StringGenerator()
-                    .setTemplate(".thenThrow(new {{exceptionClassName}}())")
+                    .setTemplate(".thenThrow({{exceptionClassName}}.class)")
                     .addAttribute("exceptionClassName", dependencyMethodRunInfo.getException().getClass().getSimpleName())
                     .generate();
         }
