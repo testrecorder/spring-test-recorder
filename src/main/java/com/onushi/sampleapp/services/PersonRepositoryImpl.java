@@ -32,7 +32,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     }
 
     @Override
-    public int getPersonsCountFromDB() throws Exception {
+    public int getPersonsCountFromDB(String firstParam, String secondParam) throws Exception {
         return 2;
     }
 }

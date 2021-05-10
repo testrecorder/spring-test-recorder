@@ -118,16 +118,16 @@ DONE ==========================
 
 	OK - try with 2 mocked calls
 
+	OK - try mock with 2 arguments
+
+	OK - try when the mock argument is null
+
 TODO ==========================
-	Write more tests for mockings
-		
-		try mock with 2 arguments
-		
-		try with a dependency being shared by mock and the rest
-		
-		try when the mock argument is null
+	why is the import moving around between test runs?
+
+	test with a dependency being shared by mock and the rest
 	
-		handle exception thrown from the mocked function
+	handle exception thrown from the mocked function
 
 			
 		

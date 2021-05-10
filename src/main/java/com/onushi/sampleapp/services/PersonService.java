@@ -18,7 +18,7 @@ public class PersonService {
 
     @RecordTest
     public String getPersonFirstName(int id) throws Exception {
-        personRepository.getPersonsCountFromDB();
+        personRepository.getPersonsCountFromDB("a", null);
         Person person = personRepository.getPersonFromDB(id);
         if (person != null) {
             return person.getFirstName();
