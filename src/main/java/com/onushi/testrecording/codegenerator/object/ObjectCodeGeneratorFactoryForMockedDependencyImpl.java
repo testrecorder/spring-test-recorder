@@ -1,7 +1,9 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.methodrun.DependencyMethodRunInfo;
+import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,11 +36,20 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                     .map(result -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), result))
                     .collect(Collectors.toList());
 
-
             objectCodeGenerator.dependencies = allResults.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
+            // TODO IB !!!! hard-coded
+            List<String> methodMocks = new ArrayList<>();
+
+
+            objectCodeGenerator.initCode = new StringGenerator()
+                    .setTemplate("{{shortClassName}} {{objectName}} = mock({{shortClassName}}.class);\n" +
+                            "when({{objectName}}.getPersonFromDB(any(int.class))).thenReturn(person1);\n")
+                    .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
+                    .addAttribute("objectName", context.getObjectName())
+                    .generate();
 
             return objectCodeGenerator;
         } else {
