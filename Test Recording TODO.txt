@@ -130,7 +130,8 @@ TODO ==========================
 					mocking can be done without doing parameter matching
 					create when().thenReturn(student1).thenReturn(student2) for all returns
 				remember which class was mocked already in TestGenerator
-				
+			
+			handle exception thrown from the dependency
 
 		create tests with dependencyMethodRuns
 			it's important that production and tests behave the same from the moment we have a RecordedMethodRunInfo

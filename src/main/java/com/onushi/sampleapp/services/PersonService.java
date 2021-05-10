@@ -12,8 +12,17 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    @RecordTest
     public Person loadPerson(int id) throws Exception {
         return personRepository.getPersonFromDB(id);
+    }
+
+    @RecordTest
+    public String getPersonFirstName(int id) throws Exception {
+        Person person = personRepository.getPersonFromDB(id);
+        if (person != null) {
+            return person.getFirstName();
+        } else {
+            return null;
+        }
     }
 }

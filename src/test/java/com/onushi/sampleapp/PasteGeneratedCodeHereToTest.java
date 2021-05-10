@@ -3,29 +3,33 @@ package com.onushi.sampleapp.services;
 import com.onushi.sampleapp.model.Person;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.onushi.sampleapp.services.PersonRepositoryImpl;
+
+import java.text.SimpleDateFormat;
 
 class PersonServiceTest {
     @Test
-    void loadPerson() throws Exception {
+    void getPersonFirstName() throws Exception {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        PersonRepositoryImpl personRepositoryImpl1 = new PersonRepositoryImpl();
-        PersonService personService = new PersonService(personRepositoryImpl1);
-
-        // Act
-        Person result = personService.loadPerson(2);
-
-        // Assert
-        Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
-        Person expectedResult = Person.builder()
-                .dateOfBirth(date1)
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Person person1 = Person.builder()
                 .firstName("Bruce")
                 .lastName("Lee")
+                .dateOfBirth(simpleDateFormat.parse("1940-11-27"))
                 .build();
-        assertEquals(expectedResult, result);
+        PersonRepositoryImpl personRepositoryImpl = mock(PersonRepositoryImpl.class);
+        when(personRepositoryImpl.getPersonFromDB(any(int.class))).thenReturn(person1);
+
+        PersonService personService = new PersonService(personRepositoryImpl);
+
+        // Act
+        String result = personService.getPersonFirstName(2);
+
+        // Assert
+        assertEquals("Bruce", result);
     }
 }
-
