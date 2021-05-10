@@ -499,9 +499,9 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import java.util.List;\n" +
                         "import java.util.Arrays;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    @Test\n" +
@@ -770,9 +770,9 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
-                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         "    @Test\n" +
@@ -838,10 +838,10 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import static org.mockito.Mockito.mock;\n" +
                         "import static org.mockito.Mockito.when;\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         "    @Test\n" +
@@ -913,10 +913,10 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import static org.mockito.Mockito.mock;\n" +
                         "import static org.mockito.Mockito.when;\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         "    @Test\n" +

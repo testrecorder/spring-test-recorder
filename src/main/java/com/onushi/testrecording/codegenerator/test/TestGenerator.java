@@ -4,10 +4,7 @@ import com.onushi.testrecording.analyzer.methodrun.DependencyMethodRunInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class TestGenerator {
@@ -27,7 +24,7 @@ public class TestGenerator {
     protected List<String> expectedResultInit;
     protected List<DependencyMethodRunInfo> dependencyMethodRuns = new ArrayList<>();
 
-    protected final Map<Object, ObjectCodeGenerator> objectCodeGeneratorCache = new HashMap<>();
+    protected final Map<Object, ObjectCodeGenerator> objectCodeGeneratorCache = new LinkedHashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
     protected TestGenerator() {}
