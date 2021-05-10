@@ -855,7 +855,7 @@ class TestGeneratorServiceTest {
                         "            .lastName(\"Lee\")\n" +
                         "            .build();\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
-                        "        when(personRepositoryImpl1.getPersonFromDB(any(int.class))).thenReturn(person1);\n" +
+                        "        when(personRepositoryImpl1.getPersonFromDB(2).thenReturn(person1);\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +

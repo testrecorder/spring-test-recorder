@@ -22,7 +22,7 @@ class PersonServiceTest {
                 .lastName("Lee")
                 .build();
         PersonRepositoryImpl personRepositoryImpl = mock(PersonRepositoryImpl.class);
-        when(personRepositoryImpl.getPersonFromDB(any(int.class))).thenReturn(person1);
+        when(personRepositoryImpl.getPersonFromDB(2)).thenReturn(person1);
 
         PersonService personService = new PersonService(personRepositoryImpl);
 
