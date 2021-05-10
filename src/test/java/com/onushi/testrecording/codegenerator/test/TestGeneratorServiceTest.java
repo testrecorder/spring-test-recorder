@@ -946,6 +946,67 @@ class TestGeneratorServiceTest {
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
+    @Test
+    void generateTestWithExceptionThrownByMockCall() throws Exception {
+        // Arrange
+        PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
+        DependencyMethodRunInfo dependencyMethodRunInfo1 = DependencyMethodRunInfo.builder()
+                .target(personRepositoryImpl)
+                .methodName("getPersonsCountFromDB")
+                .arguments(Arrays.asList("a", null))
+                .result(2)
+                .build();
+        DependencyMethodRunInfo dependencyMethodRunInfo2 = DependencyMethodRunInfo.builder()
+                .target(personRepositoryImpl)
+                .methodName("getPersonFromDB")
+                .arguments(Collections.singletonList(2))
+                .result(null)
+                .exception(new NoSuchElementException())
+                .build();
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new PersonService(personRepositoryImpl))
+                .methodName("getPersonFirstName")
+                .arguments(Collections.singletonList(3))
+                .dependencyMethodRuns(Arrays.asList(dependencyMethodRunInfo1, dependencyMethodRunInfo2))
+                .result(null)
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import static org.mockito.Mockito.mock;\n" +
+                        "import static org.mockito.Mockito.when;\n" +
+                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
+                        "\n" +
+                        "class PersonServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void getPersonFirstName() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
+                        "        when(personRepositoryImpl1.getPersonsCountFromDB(\"a\", null)).thenReturn(2);\n" +
+                        "        when(personRepositoryImpl1.getPersonFromDB(2)).thenThrow(new NoSuchElementException());\n" +
+                        "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        Object result = personService.getPersonFirstName(3);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(null, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
     // TODO IB solve equality when there is no equals defined
 //    @Test
 //    void returnIntArray() throws Exception {

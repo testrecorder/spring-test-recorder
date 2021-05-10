@@ -104,6 +104,6 @@ public class SampleAppRunner implements CommandLineRunner {
     }
 
     private void demo2() throws Exception {
-        String personFirstName = this.personService.getPersonFirstName(2);
+        String personFirstName = this.personService.getPersonFirstName(3);
     }
 }

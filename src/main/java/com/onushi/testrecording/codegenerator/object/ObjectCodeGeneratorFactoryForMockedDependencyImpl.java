@@ -80,19 +80,28 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                 .map(ObjectCodeGenerator::getInlineCode)
                 .collect(Collectors.joining(", "));
 
-        ObjectCodeGenerator resultCodeGenerator = objectCodeGeneratorFactoryManager
-                .getCommonObjectCodeGenerator(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
-        String thenReturn = new StringGenerator()
-                .setTemplate(".thenReturn({{resultInlineCode}})")
-                .addAttribute("resultInlineCode", resultCodeGenerator.getInlineCode())
-                .generate();
+        String thenClause;
+        if (dependencyMethodRunInfo.getException() == null) {
+            ObjectCodeGenerator resultCodeGenerator = objectCodeGeneratorFactoryManager
+                    .getCommonObjectCodeGenerator(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
+            thenClause = new StringGenerator()
+                    .setTemplate(".thenReturn({{resultInlineCode}})")
+                    .addAttribute("resultInlineCode", resultCodeGenerator.getInlineCode())
+                    .generate();
+        } else {
+            // TODO IB !!!! improve here. also add Exception type to imports
+            thenClause = new StringGenerator()
+                    .setTemplate(".thenThrow(new {{exceptionClassName}}())")
+                    .addAttribute("exceptionClassName", dependencyMethodRunInfo.getException().getClass().getSimpleName())
+                    .generate();
+        }
 
         return new StringGenerator()
-                .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}})){{thenReturn}};\n")
+                .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}})){{thenClause}};\n")
                 .addAttribute("objectName", context.getObjectName())
                 .addAttribute("methodName", dependencyMethodRunInfo.getMethodName())
                 .addAttribute("methodArgsMatchers", methodArgsInline)
-                .addAttribute("thenReturn", thenReturn)
+                .addAttribute("thenClause", thenClause)
                 .generate();
     }
 }

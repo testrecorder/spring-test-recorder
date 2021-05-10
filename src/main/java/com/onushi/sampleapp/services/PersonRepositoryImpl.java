@@ -5,6 +5,7 @@ import com.onushi.testrecording.aspect.RecordMockForTest;
 import org.springframework.stereotype.Repository;
 
 import java.text.SimpleDateFormat;
+import java.util.NoSuchElementException;
 
 
 @RecordMockForTest
@@ -27,7 +28,7 @@ public class PersonRepositoryImpl implements PersonRepository {
                     .dateOfBirth(simpleDateFormat.parse("1940-11-27"))
                     .build();
         } else {
-            return null;
+            throw new NoSuchElementException();
         }
     }
 

@@ -13,10 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -316,4 +313,16 @@ class ObjectCodeGeneratorTest {
                 StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
     }
 
+    // TODO IB !!!! @Test
+    void testNoSuchElementException() {
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
+        ObjectCodeGenerator objectCodeGenerator =
+                objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, new NoSuchElementException(), "ex");
+        assertEquals("ex", objectCodeGenerator.getObjectName());
+        assertEquals("noSuchElementException1", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("java.util.NoSuchElementException", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("NoSuchElementException noSuchElementException1 = new NoSuchElementException()", objectCodeGenerator.getInitCode());
+    }
 }

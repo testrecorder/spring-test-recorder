@@ -19,10 +19,10 @@ public class PersonService {
     @RecordTest
     public String getPersonFirstName(int id) throws Exception {
         personRepository.getPersonsCountFromDB("a", null);
-        Person person = personRepository.getPersonFromDB(id);
-        if (person != null) {
+        try {
+            Person person = personRepository.getPersonFromDB(id);
             return person.getFirstName();
-        } else {
+        } catch (Exception ex) {
             return null;
         }
     }

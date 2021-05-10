@@ -124,8 +124,19 @@ DONE ==========================
 	
 	OK - why is the import moving around between test runs?
 
+	OK - handle exception thrown from the mocked function
+
 TODO ==========================
-	handle exception thrown from the mocked function
+	why NoSuchElementException cannot be created by the generic code?
+	
+	test mock for void returning functions
+		also exception thrown
+	
+	verify how I did for exceptions thrown by @RecordTest
+		do the same as for mocking
+	
+	
+	split tests in smaller classes
 
 	Objects creation
 		handle Enum
