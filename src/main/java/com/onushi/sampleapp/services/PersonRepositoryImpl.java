@@ -30,4 +30,9 @@ public class PersonRepositoryImpl implements PersonRepository {
             return null;
         }
     }
+
+    @Override
+    public int getPersonsCountFromDB() throws Exception {
+        return 2;
+    }
 }

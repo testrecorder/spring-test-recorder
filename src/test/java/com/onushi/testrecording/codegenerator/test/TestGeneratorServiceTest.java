@@ -838,7 +838,6 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
-                        "import static org.mockito.ArgumentMatchers.any;\n" +
                         "import static org.mockito.Mockito.mock;\n" +
                         "import static org.mockito.Mockito.when;\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
@@ -855,7 +854,7 @@ class TestGeneratorServiceTest {
                         "            .lastName(\"Lee\")\n" +
                         "            .build();\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
-                        "        when(personRepositoryImpl1.getPersonFromDB(2).thenReturn(person1);\n" +
+                        "        when(personRepositoryImpl1.getPersonFromDB(2)).thenReturn(person1);\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +

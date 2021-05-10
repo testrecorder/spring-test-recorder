@@ -4,11 +4,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import com.onushi.sampleapp.model.Person;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import com.onushi.sampleapp.services.PersonRepositoryImpl;
+import com.onushi.sampleapp.model.Person;
 
 class PersonServiceTest {
     @Test
@@ -22,8 +21,8 @@ class PersonServiceTest {
                 .lastName("Lee")
                 .build();
         PersonRepositoryImpl personRepositoryImpl = mock(PersonRepositoryImpl.class);
+        when(personRepositoryImpl.getPersonsCountFromDB()).thenReturn(2);
         when(personRepositoryImpl.getPersonFromDB(2)).thenReturn(person1);
-
         PersonService personService = new PersonService(personRepositoryImpl);
 
         // Act

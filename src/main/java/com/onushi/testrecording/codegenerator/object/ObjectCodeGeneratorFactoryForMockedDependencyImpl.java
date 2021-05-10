@@ -25,7 +25,6 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
             objectCodeGenerator.requiredImports = Arrays.asList(
-                    "static org.mockito.ArgumentMatchers.any",
                     "static org.mockito.Mockito.mock",
                     "static org.mockito.Mockito.when",
                     context.getObject().getClass().getName());
@@ -89,7 +88,7 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                 .generate();
 
         return new StringGenerator()
-                .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}}){{thenReturn}};\n")
+                .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}})){{thenReturn}};\n")
                 .addAttribute("objectName", context.getObjectName())
                 .addAttribute("methodName", dependencyMethodRunInfo.getMethodName())
                 .addAttribute("methodArgsMatchers", methodArgsInline)

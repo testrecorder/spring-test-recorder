@@ -114,27 +114,24 @@ DONE ==========================
 			
 	OK - @RecordMockForTestAspect works only on injected components
 
+	OK - implement first mocking
 
+	OK - try with 2 mocked calls
 
 TODO ==========================
-	!!!! - Do the real mocking
-		Syntax
-			TestGenerator testGeneratorMock = mock(TestGenerator.class);
-			when(testGeneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName).thenReturn(...);
+	Write more tests for mockings
+		
+		try mock with 2 arguments
+		
+		try with a dependency being shared by mock and the rest
+		
+		try when the mock argument is null
+	
+		handle exception thrown from the mocked function
 
-		classes1 = get all clases refered by DependencyMethodRunInfo in the RecordedMethodRunInfo
-			all instances of classes1 will be mocked first (since we matched thread, there is no danger of mocking for no reason)
-				for each class method in the DependencyMethodRunInfo
-					get results for that method in order
-					results are the dependencies of mocked objects
-					mocking can be done without doing parameter matching
-					create when().thenReturn(student1).thenReturn(student2) for all returns
-				remember which class was mocked already in TestGenerator
 			
-			handle exception thrown from the dependency
-
-		create tests with dependencyMethodRuns
-			it's important that production and tests behave the same from the moment we have a RecordedMethodRunInfo
+		
+		
 
 	
 
@@ -190,9 +187,9 @@ TODO ==========================
 
 	
 LATER ==========================
+	if you have a Component with multiple instances called from the @RecordTest method, mocks will be duplicated
 	
-
-	allow recrding mocks from different threads
+	allow recording mocks from different threads
 
     What do I do when some fields cound not be read? Do the same for all generic factories
 		1. I could ignore them and consider just the rest of fields
