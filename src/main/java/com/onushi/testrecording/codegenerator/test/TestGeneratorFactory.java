@@ -48,7 +48,6 @@ public class TestGeneratorFactory {
 
         testGenerator.requiredHelperObjects = getRequiredHelperObjects(testGenerator);
 
-        // TODO IB !!!! write a test for this
         List<ObjectCodeGenerator> objectsToInit = new ArrayList<>(testGenerator.argumentObjectCodeGenerators);
         objectsToInit.add(testGenerator.targetObjectCodeGenerator);
         testGenerator.objectsInit = getObjectsInit(objectsToInit);
