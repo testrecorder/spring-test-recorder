@@ -304,25 +304,25 @@ class ObjectCodeGeneratorTest {
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.OtherStudent", objectCodeGenerator.getRequiredImports().get(0));
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
-        assertEquals(1, objectCodeGenerator.getDependencies().size());
+        assertEquals(0, objectCodeGenerator.getDependencies().size());
         assertEquals("student", objectCodeGenerator.getInlineCode());
         assertEquals(StringUtils.trimAndIgnoreCRDiffs(
                 "// TODO Create this object\n" +
-                     "// OtherStudent student = new OtherStudent();\n" +
-                     "// student.firstName = \"FN\";\n"),
+                     "// OtherStudent student = new OtherStudent();\n"),
                 StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
     }
 
-    // TODO IB !!!! @Test
+    @Test
     void testNoSuchElementException() {
         ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator =
                 objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, new NoSuchElementException(), "ex");
         assertEquals("ex", objectCodeGenerator.getObjectName());
-        assertEquals("noSuchElementException1", objectCodeGenerator.getInlineCode());
+        assertEquals("ex", objectCodeGenerator.getInlineCode());
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("java.util.NoSuchElementException", objectCodeGenerator.getRequiredImports().get(0));
-        assertEquals("NoSuchElementException noSuchElementException1 = new NoSuchElementException()", objectCodeGenerator.getInitCode());
+        assertEquals("// TODO Create this object\n" +
+                "// NoSuchElementException ex = new NoSuchElementException();\n", objectCodeGenerator.getInitCode());
     }
 }

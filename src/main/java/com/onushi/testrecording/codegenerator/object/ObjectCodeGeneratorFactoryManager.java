@@ -106,7 +106,7 @@ public class ObjectCodeGeneratorFactoryManager {
             }
         }
 
-        return new ObjectCodeGeneratorFactoryFallbackImpl(this).createObjectCodeGenerator(context);
+        return new ObjectCodeGeneratorFactoryFallbackImpl().createObjectCodeGenerator(context);
     }
 
     private void unproxyObject(ObjectCodeGeneratorCreationContext context) throws Exception {

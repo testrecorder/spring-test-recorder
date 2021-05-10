@@ -130,16 +130,14 @@ DONE ==========================
 
 	OK - I should include doThrow
 
+	OK - why NoSuchElementException cannot be created by the generic code?
+		What should I do for such cases?
+		We don't have to cover all cases for now. If an object cannot be created automatically, the user has to create it
 
 TODO ==========================
 	what happens when you call a void returning method and want to mock it?
 	
 	Exceptions thrown are not added to includes
-
-	why NoSuchElementException cannot be created by the generic code?
-		What should I do for such cases?
-	
-	
 	
 	split tests in smaller classes
 
@@ -190,6 +188,8 @@ TODO ==========================
 
 	
 LATER ==========================
+	I could have a fallback with serializable
+
 	when expectedResult is one of the inited objects it's not reused
 
 
