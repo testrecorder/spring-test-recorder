@@ -29,6 +29,17 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                     "static org.mockito.Mockito.when",
                     context.getObject().getClass().getName());
 
+            List<ObjectCodeGenerator> allResults = dependencyMethodRunForObjectClass.stream()
+                    .map(DependencyMethodRunInfo::getResult)
+                    .map(result -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), result))
+                    .collect(Collectors.toList());
+
+
+            objectCodeGenerator.dependencies = allResults.stream()
+                    .distinct()
+                    .collect(Collectors.toList());
+
+
             return objectCodeGenerator;
         } else {
             return null;

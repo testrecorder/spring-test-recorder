@@ -833,26 +833,27 @@ class TestGeneratorServiceTest {
         assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
                         "\npackage com.onushi.sampleapp.services;\n" +
                         "\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import static org.mockito.ArgumentMatchers.any;\n" +
                         "import static org.mockito.Mockito.mock;\n" +
                         "import static org.mockito.Mockito.when;\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
-                        "import java.text.SimpleDateFormat;\n" +
-                        "\n" +
                         "class PersonServiceTest {\n" +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd\");\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"1940-11-27 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
-                        "                .firstName(\"Bruce\")\n" +
-                        "                .lastName(\"Lee\")\n" +
-                        "                .dateOfBirth(simpleDateFormat.parse(\"1940-11-27\"))\n" +
-                        "                .build();\n" +
+                        "            .dateOfBirth(date1)\n" +
+                        "            .firstName(\"Bruce\")\n" +
+                        "            .lastName(\"Lee\")\n" +
+                        "            .build();\n" +
                         "        PersonRepositoryImpl personRepositoryImpl = mock(PersonRepositoryImpl.class);\n" +
                         "        when(personRepositoryImpl.getPersonFromDB(any(int.class))).thenReturn(person1);\n" +
                         "\n" +
