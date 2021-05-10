@@ -15,7 +15,6 @@ public class DependencyMethodRunInfo {
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;
-    // TODO IB !!!! rename to resultType;
     protected Class<?> fallBackResultType;
     protected Object result;
     protected Exception exception;

@@ -128,8 +128,13 @@ DONE ==========================
 
 	OK - exception thrown by mock for void returning functions
 
+	OK - I should include doThrow
+
+
 TODO ==========================
 	what happens when you call a void returning method and want to mock it?
+	
+	Exceptions thrown are not added to includes
 
 	why NoSuchElementException cannot be created by the generic code?
 		What should I do for such cases?
