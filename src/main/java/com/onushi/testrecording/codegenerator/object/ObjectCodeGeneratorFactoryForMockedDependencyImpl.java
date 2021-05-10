@@ -3,7 +3,6 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.methodrun.DependencyMethodRunInfo;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,31 +40,39 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                     .collect(Collectors.toList());
 
 
-
-            // TODO IB !!!! hard-coded
-            String methodName = dependencyMethodRunForObjectClass.get(0).getMethodName();
-            String methodArgsMatchers = "any(int.class))";
-            String thenReturns = ".thenReturn(person1)";
-
-            String whenClauses = new StringGenerator()
-                    .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}}){{thenReturns}};\n")
-                    .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("methodName", methodName)
-                    .addAttribute("methodArgsMatchers", methodArgsMatchers)
-                    .addAttribute("thenReturns", thenReturns)
-                    .generate();
-
-            objectCodeGenerator.initCode = new StringGenerator()
-                    .setTemplate("{{shortClassName}} {{objectName}} = mock({{shortClassName}}.class);\n" +
-                            "{{whenClauses}}")
-                    .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
-                    .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("whenClauses", whenClauses)
-                    .generate();
+            objectCodeGenerator.initCode = getInitCode(context, dependencyMethodRunForObjectClass);
 
             return objectCodeGenerator;
         } else {
             return null;
         }
+    }
+
+    private String getInitCode(ObjectCodeGeneratorCreationContext context, List<DependencyMethodRunInfo> dependencyMethodRunForObjectClass) {
+        // TODO IB !!!! hard-coded
+        DependencyMethodRunInfo dependencyMethodRunInfo = dependencyMethodRunForObjectClass.get(0);
+        String methodArgsMatchers = "any(int.class))";
+        ObjectCodeGenerator resultCodeGenerator = objectCodeGeneratorFactoryManager
+                .getCommonObjectCodeGenerator(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
+        String thenReturns = new StringGenerator()
+                .setTemplate(".thenReturn({{resultInlineCode}})")
+                .addAttribute("resultInlineCode", resultCodeGenerator.getInlineCode())
+                .generate();
+
+        String whenClauses = new StringGenerator()
+                .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}}){{thenReturns}};\n")
+                .addAttribute("objectName", context.getObjectName())
+                .addAttribute("methodName", dependencyMethodRunInfo.getMethodName())
+                .addAttribute("methodArgsMatchers", methodArgsMatchers)
+                .addAttribute("thenReturns", thenReturns)
+                .generate();
+
+        return new StringGenerator()
+                .setTemplate("{{shortClassName}} {{objectName}} = mock({{shortClassName}}.class);\n" +
+                        "{{whenClauses}}")
+                .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
+                .addAttribute("objectName", context.getObjectName())
+                .addAttribute("whenClauses", whenClauses)
+                .generate();
     }
 }
