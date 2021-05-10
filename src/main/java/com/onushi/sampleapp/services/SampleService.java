@@ -120,7 +120,6 @@ public class SampleService {
         return 42;
     }
 
-    @RecordTest
     public void test3() {
         NonComponentService nonComponentService = new NonComponentService();
         nonComponentService.add(1, 2);

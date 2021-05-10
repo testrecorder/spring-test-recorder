@@ -95,15 +95,15 @@ DONE ==========================
 	
 	---------
 
-	OK - The application being tested should not crash because of @RecordTest
+	OK - The application being tested should not crash because of RecordTest
 
 	OK - Problems with the CGLIB proxyes
 		When a component is injected in a component a proxy is generated
 
-	@RecordMockForTest
+	RecordMockForTest
 		OK - create the type annotation and itercept all public calls inside the type
 		
-		OK - Intercept all calls inside methods with @RecordMockForTest
+		OK - Intercept all calls inside methods with RecordMockForTest
 			add them to RecordedMethodRunInfo.dependencyMethodRuns
 
 	OK - check that both aspects run on the same thread
@@ -112,7 +112,7 @@ DONE ==========================
 		store current thread
 			int threadId = Thread.currentThread().getId()
 			
-	OK - @RecordMockForTestAspect works only on injected components
+	OK - RecordMockForTestAspect works only on injected components
 
 	OK - implement first mocking
 
@@ -121,19 +121,11 @@ DONE ==========================
 	OK - try mock with 2 arguments
 
 	OK - try when the mock argument is null
+	
+	OK - why is the import moving around between test runs?
 
 TODO ==========================
-	why is the import moving around between test runs?
-
-	test with a dependency being shared by mock and the rest
-	
 	handle exception thrown from the mocked function
-
-			
-		
-		
-
-	
 
 	Objects creation
 		handle Enum
@@ -145,11 +137,6 @@ TODO ==========================
 	try with escaped things in strings
 		
 	I should add logging for debugging as a param of the Annotation
-	
-		
-			
-		
-			
 	
 	
 	Assert part
@@ -170,7 +157,7 @@ TODO ==========================
 		Check side effects on target, arguments, any dependencies
 			create assertEquals() for all the new values
      
-	Demo for Tash, IonutP
+	Demo for Tash, IonutP, Rares, Sebi, Claudiu ...
 	 
 	After the demo
 	Package and publish locally
@@ -187,7 +174,10 @@ TODO ==========================
 
 	
 LATER ==========================
-	if you have a Component with multiple instances called from the @RecordTest method, mocks will be duplicated
+	when expectedResult is one of the inited objects it's not reused
+
+
+	if you have a Component with multiple instances called from the RecordTest method, mocks will be duplicated
 	
 	allow recording mocks from different threads
 
