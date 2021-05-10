@@ -120,4 +120,8 @@ public class SampleService {
         return 42;
     }
 
+    public void doSomething(String a, String b) {
+
+    }
+
 }

@@ -839,8 +839,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
-                        "import static org.mockito.Mockito.mock;\n" +
-                        "import static org.mockito.Mockito.when;\n" +
+                        "import static org.mockito.Mockito.*;\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
@@ -914,8 +913,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
-                        "import static org.mockito.Mockito.mock;\n" +
-                        "import static org.mockito.Mockito.when;\n" +
+                        "import static org.mockito.Mockito.*;\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
@@ -959,7 +957,7 @@ class TestGeneratorServiceTest {
         DependencyMethodRunInfo dependencyMethodRunInfo2 = DependencyMethodRunInfo.builder()
                 .target(personRepositoryImpl)
                 .methodName("getPersonFromDB")
-                .arguments(Collections.singletonList(2))
+                .arguments(Collections.singletonList(3))
                 .result(null)
                 .exception(new NoSuchElementException())
                 .build();
@@ -982,8 +980,7 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import static org.mockito.Mockito.mock;\n" +
-                        "import static org.mockito.Mockito.when;\n" +
+                        "import static org.mockito.Mockito.*;\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
@@ -992,7 +989,8 @@ class TestGeneratorServiceTest {
                         "        // Arrange\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
                         "        when(personRepositoryImpl1.getPersonsCountFromDB(\"a\", null)).thenReturn(2);\n" +
-                        "        when(personRepositoryImpl1.getPersonFromDB(2)).thenThrow(NoSuchElementException.class);\n" +
+                        "        doThrow(NoSuchElementException.class)\n" +
+                        "            .when(personRepositoryImpl1).getPersonFromDB(3);\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +

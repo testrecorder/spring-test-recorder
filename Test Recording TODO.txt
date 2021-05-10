@@ -126,11 +126,15 @@ DONE ==========================
 
 	OK - handle exception thrown from the mocked function
 
+	OK - exception thrown by mock for void returning functions
+
 TODO ==========================
+	what happens when you call a void returning method and want to mock it?
+
 	why NoSuchElementException cannot be created by the generic code?
+		What should I do for such cases?
 	
-	test mock for void returning functions
-		also exception thrown
+	
 	
 	split tests in smaller classes
 

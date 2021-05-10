@@ -25,8 +25,7 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
             objectCodeGenerator.requiredImports = Arrays.asList(
-                    "static org.mockito.Mockito.mock",
-                    "static org.mockito.Mockito.when",
+                    "static org.mockito.Mockito.*",
                     context.getObject().getClass().getName());
 
             objectCodeGenerator.dependencies = getDependencies(context, dependencyMethodRuns);
@@ -80,27 +79,29 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                 .map(ObjectCodeGenerator::getInlineCode)
                 .collect(Collectors.joining(", "));
 
-        String thenClause;
-        if (dependencyMethodRunInfo.getException() == null) {
-            ObjectCodeGenerator resultCodeGenerator = objectCodeGeneratorFactoryManager
-                    .getCommonObjectCodeGenerator(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
-            thenClause = new StringGenerator()
-                    .setTemplate(".thenReturn({{resultInlineCode}})")
-                    .addAttribute("resultInlineCode", resultCodeGenerator.getInlineCode())
+        if (dependencyMethodRunInfo.getException() != null) {
+            return new StringGenerator()
+                    .setTemplate("doThrow({{exceptionClassName}}.class)\n" + "" +
+                            "    .when({{objectName}}).{{methodName}}({{methodArgsInline}});")
+                    .addAttribute("exceptionClassName", dependencyMethodRunInfo.getException().getClass().getSimpleName())
+                    .addAttribute("objectName", context.getObjectName())
+                    .addAttribute("methodName", dependencyMethodRunInfo.getMethodName())
+                    .addAttribute("methodArgsInline", methodArgsInline)
                     .generate();
         } else {
-            thenClause = new StringGenerator()
-                    .setTemplate(".thenThrow({{exceptionClassName}}.class)")
-                    .addAttribute("exceptionClassName", dependencyMethodRunInfo.getException().getClass().getSimpleName())
+            ObjectCodeGenerator resultCodeGenerator = objectCodeGeneratorFactoryManager
+                    .getCommonObjectCodeGenerator(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
+            String thenClause = new StringGenerator()
+                        .setTemplate(".thenReturn({{resultInlineCode}})")
+                        .addAttribute("resultInlineCode", resultCodeGenerator.getInlineCode())
+                        .generate();
+            return new StringGenerator()
+                    .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsInline}})){{thenClause}};\n")
+                    .addAttribute("objectName", context.getObjectName())
+                    .addAttribute("methodName", dependencyMethodRunInfo.getMethodName())
+                    .addAttribute("methodArgsInline", methodArgsInline)
+                    .addAttribute("thenClause", thenClause)
                     .generate();
         }
-
-        return new StringGenerator()
-                .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}})){{thenClause}};\n")
-                .addAttribute("objectName", context.getObjectName())
-                .addAttribute("methodName", dependencyMethodRunInfo.getMethodName())
-                .addAttribute("methodArgsMatchers", methodArgsInline)
-                .addAttribute("thenClause", thenClause)
-                .generate();
     }
 }
