@@ -4,6 +4,7 @@ import com.onushi.sampleapp.model.Employee;
 import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.model.StudentWithBuilder;
 import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
+import com.onushi.testrecording.aspect.RecordTest;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
@@ -117,5 +118,11 @@ public class SampleService {
 
     public int demoFunction(List<Person> personList, Employee[] employeeArray) {
         return 42;
+    }
+
+    @RecordTest
+    public void test3() {
+        NonComponentService nonComponentService = new NonComponentService();
+        nonComponentService.add(1, 2);
     }
 }

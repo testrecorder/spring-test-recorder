@@ -111,20 +111,24 @@ DONE ==========================
 	OK - will match RecordedMethodRunInfo only with DependencyMethodRunInfo from the same thread
 		store current thread
 			int threadId = Thread.currentThread().getId()
+			
+	OK - @RecordMockForTestAspect works only on injected components
+
+
 
 TODO ==========================
 	!!!! - Do the real mocking
 		Syntax
 			TestGenerator testGeneratorMock = mock(TestGenerator.class);
-			when(testGeneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
+			when(testGeneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName).thenReturn(...);
 
 		classes1 = get all clases refered by DependencyMethodRunInfo in the RecordedMethodRunInfo
 			all instances of classes1 will be mocked first (since we matched thread, there is no danger of mocking for no reason)
 				for each class method in the DependencyMethodRunInfo
 					get results for that method in order
 					results are the dependencies of mocked objects
+					mocking can be done without doing parameter matching
 					create when().thenReturn(student1).thenReturn(student2) for all returns
-						mocking can be done without doing parameter matching
 				remember which class was mocked already in TestGenerator
 				
 
