@@ -758,9 +758,9 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         "    @Test\n" +
