@@ -41,6 +41,7 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this)
         );
         unknownClassesFactoriesList = Arrays.asList(
+                new ObjectCodeGeneratorFactoryForMockedDependencyImpl(this),
                 new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
                 new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
                         classInfoService, objectCreationAnalyzerService),
@@ -59,6 +60,7 @@ public class ObjectCodeGeneratorFactoryManager {
     }
 
     public ObjectCodeGenerator getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
+        // TODO IB !!!! have a special cache for mocked objects... this time by class
         Map<Object, ObjectCodeGenerator> objectCache = testGenerator.getObjectCodeGeneratorCache();
         ObjectCodeGenerator existingObject = objectCache.get(object);
         if (existingObject != null) {

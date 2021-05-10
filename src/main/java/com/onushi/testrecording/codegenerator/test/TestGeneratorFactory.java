@@ -29,6 +29,7 @@ public class TestGeneratorFactory {
             throw new IllegalArgumentException("target");
         }
 
+        testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
         testGenerator.targetObjectCodeGenerator = objectCodeGeneratorFactoryManager.getNamedObjectCodeGenerator(testGenerator,
                 recordedMethodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));

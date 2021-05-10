@@ -15,10 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,6 +37,7 @@ class TestGeneratorServiceTest {
                 .methodName("addFloats")
                 .arguments(Arrays.asList(2f, 3f))
                 .result(5f)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -83,6 +81,7 @@ class TestGeneratorServiceTest {
                 .methodName("minDate")
                 .arguments(Arrays.asList(d1, d2))
                 .result(d1)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -130,6 +129,7 @@ class TestGeneratorServiceTest {
                 .arguments(Collections.emptyList())
                 .result(null)
                 .fallBackResultType(Student.class)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -175,6 +175,7 @@ class TestGeneratorServiceTest {
                 .methodName("getFirstName")
                 .arguments(Collections.singletonList(person))
                 .result("Mary")
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -223,6 +224,7 @@ class TestGeneratorServiceTest {
                 .result(null)
                 .fallBackResultType(String.class)
                 .exception(new IllegalArgumentException("x"))
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -262,6 +264,7 @@ class TestGeneratorServiceTest {
                 .result(null)
                 .fallBackResultType(void.class)
                 .exception(null)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -312,6 +315,7 @@ class TestGeneratorServiceTest {
                         floatArray, intArray, longArray, shortArray, stringArray, objectArray))
                 .result(42)
                 .exception(null)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -364,6 +368,7 @@ class TestGeneratorServiceTest {
                 .methodName("processLists")
                 .arguments(Arrays.asList(stringList, objectList))
                 .result(42)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -414,6 +419,7 @@ class TestGeneratorServiceTest {
                 .methodName("minDate")
                 .arguments(Arrays.asList(d1, d1))
                 .result(d1)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -477,6 +483,7 @@ class TestGeneratorServiceTest {
                 .methodName("someFunction")
                 .arguments(Arrays.asList(personList, personArray))
                 .result(personList)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -539,6 +546,7 @@ class TestGeneratorServiceTest {
                 .methodName("returnIntArray")
                 .arguments(Collections.emptyList())
                 .result(expectedResult)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -589,6 +597,7 @@ class TestGeneratorServiceTest {
                 .methodName("returnPerson")
                 .arguments(Collections.emptyList())
                 .result(person)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -641,6 +650,7 @@ class TestGeneratorServiceTest {
                 .methodName("repeatedArgs")
                 .arguments(Arrays.asList(intArray, floatList))
                 .result(42)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -693,6 +703,7 @@ class TestGeneratorServiceTest {
                 .result(null)
                 .fallBackResultType(void.class)
                 .exception(null)
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -745,6 +756,7 @@ class TestGeneratorServiceTest {
                         .firstName("Bruce")
                         .lastName("Lee")
                         .build())
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -827,7 +839,6 @@ class TestGeneratorServiceTest {
                         "import static org.mockito.ArgumentMatchers.any;\n" +
                         "import static org.mockito.Mockito.mock;\n" +
                         "import static org.mockito.Mockito.when;\n" +
-                        "\n" +
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "import java.text.SimpleDateFormat;\n" +
