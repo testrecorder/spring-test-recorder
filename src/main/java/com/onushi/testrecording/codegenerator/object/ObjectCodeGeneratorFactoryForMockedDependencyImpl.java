@@ -40,15 +40,27 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl implements Object
                     .distinct()
                     .collect(Collectors.toList());
 
-            // TODO IB !!!! hard-coded
-            List<String> methodMocks = new ArrayList<>();
 
+
+            // TODO IB !!!! hard-coded
+            String methodName = dependencyMethodRunForObjectClass.get(0).getMethodName();
+            String methodArgsMatchers = "any(int.class))";
+            String thenReturns = ".thenReturn(person1)";
+
+            String whenClauses = new StringGenerator()
+                    .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsMatchers}}){{thenReturns}};\n")
+                    .addAttribute("objectName", context.getObjectName())
+                    .addAttribute("methodName", methodName)
+                    .addAttribute("methodArgsMatchers", methodArgsMatchers)
+                    .addAttribute("thenReturns", thenReturns)
+                    .generate();
 
             objectCodeGenerator.initCode = new StringGenerator()
                     .setTemplate("{{shortClassName}} {{objectName}} = mock({{shortClassName}}.class);\n" +
-                            "when({{objectName}}.getPersonFromDB(any(int.class))).thenReturn(person1);\n")
+                            "{{whenClauses}}")
                     .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                     .addAttribute("objectName", context.getObjectName())
+                    .addAttribute("whenClauses", whenClauses)
                     .generate();
 
             return objectCodeGenerator;
