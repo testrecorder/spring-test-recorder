@@ -79,7 +79,6 @@ public class SampleAppRunner implements CommandLineRunner {
     }
 
     private void demo1() throws Exception {
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
@@ -106,9 +105,5 @@ public class SampleAppRunner implements CommandLineRunner {
 
     private void demo2() throws Exception {
         String personFirstName = this.personService.getPersonFirstName(2);
-    }
-
-    private void test3() {
-        sampleService.test3();
     }
 }

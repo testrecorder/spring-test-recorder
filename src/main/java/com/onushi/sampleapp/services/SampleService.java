@@ -120,8 +120,4 @@ public class SampleService {
         return 42;
     }
 
-    public void test3() {
-        NonComponentService nonComponentService = new NonComponentService();
-        nonComponentService.add(1, 2);
-    }
 }
