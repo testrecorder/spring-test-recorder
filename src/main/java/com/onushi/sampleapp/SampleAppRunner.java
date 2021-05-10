@@ -75,7 +75,7 @@ public class SampleAppRunner implements CommandLineRunner {
 //        sampleService.setTestField(5);
 //        float result = sampleService.addFloats(1.0f, 2.0f);
 
-        test3();
+        demo2();
     }
 
     private void demo1() throws Exception {

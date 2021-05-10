@@ -4,6 +4,8 @@ import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.model.Student;
 import com.onushi.sampleapp.model.StudentWithBuilder;
 import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
+import com.onushi.sampleapp.services.PersonRepositoryImpl;
+import com.onushi.sampleapp.services.PersonService;
 import com.onushi.sampleapp.services.SampleService;
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
@@ -727,6 +729,64 @@ class TestGeneratorServiceTest {
                         "END GENERATED TEST ========="),
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
+
+    @Test
+    void generateTestTargetWithDependencies() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new PersonService(new PersonRepositoryImpl()))
+                .methodName("loadPerson")
+                .arguments(Collections.singletonList(2))
+                .result(Person.builder()
+                        .dateOfBirth(date1)
+                        .firstName("Bruce")
+                        .lastName("Lee")
+                        .build())
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
+                        "\n" +
+                        "class PersonServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void loadPerson() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "        PersonRepositoryImpl personRepositoryImpl1 = new PersonRepositoryImpl();\n" +
+                        "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        Person result = personService.loadPerson(2);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"1940-11-27 00:00:00.000\");\n" +
+                        "        Person expectedResult = Person.builder()\n" +
+                        "            .dateOfBirth(date1)\n" +
+                        "            .firstName(\"Bruce\")\n" +
+                        "            .lastName(\"Lee\")\n" +
+                        "            .build();\n" +
+                        "        assertEquals(expectedResult, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
 
     // TODO IB solve equality when there is no equals defined
 //    @Test
