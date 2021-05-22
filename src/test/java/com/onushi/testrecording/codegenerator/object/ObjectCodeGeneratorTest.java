@@ -334,4 +334,16 @@ class ObjectCodeGeneratorTest {
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.Color", objectCodeGenerator.getRequiredImports().get(0));
     }
+
+    @Test
+    void testUUID() {
+        // TODO IB !!!! move to before
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "uuid1");
+        assertEquals("uuid1", objectCodeGenerator.getInlineCode());
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("java.util.UUID", objectCodeGenerator.getRequiredImports().get(0));
+        assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectCodeGenerator.getInitCode());
+    }
+
 }

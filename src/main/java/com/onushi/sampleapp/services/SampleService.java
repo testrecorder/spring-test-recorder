@@ -6,10 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 @Component
 public class SampleService {
@@ -135,8 +132,12 @@ public class SampleService {
 
     }
 
-    @RecordTest
     public int testEnum(Color color) {
+        return 2;
+    }
+
+    @RecordTest
+    public int testUUID(UUID uuid) {
         return 2;
     }
 }

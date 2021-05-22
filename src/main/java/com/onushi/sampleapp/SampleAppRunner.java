@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class SampleAppRunner implements CommandLineRunner {
@@ -84,7 +85,9 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // sampleService.getIntersection(Arrays.asList(10, 20, 5), Arrays.asList(1, 2, 3, 4, 5));
 
-        int a = sampleService.testEnum(Color.BLUE);
+        // int a = sampleService.testEnum(Color.BLUE);
+
+        int a = sampleService.testUUID(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
     }
 
     private void demo1() throws Exception {

@@ -145,9 +145,9 @@ DONE ==========================
 TODO ==========================
 	Objects creation
 		OK - Enum
+		UUID
 		HashMap<>
 		Calendar
-		UUID
 		
 		how to differentiate between boxed and unboxed types?
 			Ex: Float / float

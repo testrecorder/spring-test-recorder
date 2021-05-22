@@ -15,6 +15,7 @@ public class StringService {
     }
 
 
+    // TODO IB !!!! it would be nice to have UUID => uuid
     public String lowerCaseFirstLetter(String input) {
         if (input == null || input.length() == 0) {
             throw new IllegalArgumentException("input");
