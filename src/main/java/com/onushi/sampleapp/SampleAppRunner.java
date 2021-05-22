@@ -1,8 +1,9 @@
 package com.onushi.sampleapp;
 
-import com.onushi.sampleapp.model.Employee;
+import com.onushi.sampleapp.model.Employee1;
 import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.services.PersonService;
+import com.onushi.sampleapp.services.SalaryService;
 import com.onushi.sampleapp.services.SampleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,12 @@ import java.util.Date;
 public class SampleAppRunner implements CommandLineRunner {
     private final SampleService sampleService;
     private final PersonService personService;
+    private final SalaryService salaryService;
 
-    public SampleAppRunner(SampleService sampleService, PersonService personService) {
+    public SampleAppRunner(SampleService sampleService, PersonService personService, SalaryService salaryService) {
         this.sampleService = sampleService;
         this.personService = personService;
+        this.salaryService = salaryService;
     }
 
     @Override
@@ -75,14 +78,17 @@ public class SampleAppRunner implements CommandLineRunner {
 //        sampleService.setTestField(5);
 //        float result = sampleService.addFloats(1.0f, 2.0f);
 
-        demo2();
+        // demo1();
+        demo3();
+
+        // sampleService.getIntersection(Arrays.asList(10, 20, 5), Arrays.asList(1, 2, 3, 4, 5));
     }
 
     private void demo1() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
-        Person paul = Person.builder()
+        Person marco = Person.builder()
                 .firstName("Marco")
                 .lastName("Polo")
                 .dateOfBirth(dateOfBirth1)
@@ -94,16 +100,20 @@ public class SampleAppRunner implements CommandLineRunner {
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
-        Employee employee = new Employee()
+        Employee1 employee1 = new Employee1()
                 .setName("Jack Norton")
                 .setAge(23)
                 .setStudent(true);
 
-        Employee[] employeeArray = {employee};
-        this.sampleService.demoFunction(Arrays.asList(gica, paul), employeeArray);
+        Employee1[] employee1Array = {employee1};
+        this.sampleService.demoFunction(Arrays.asList(gica, marco), employee1Array);
     }
 
     private void demo2() throws Exception {
-        String personFirstName = this.personService.getPersonFirstName(3);
+        String personFirstName = this.personService.getPersonFirstName(2);
+    }
+
+    private void demo3() throws Exception {
+        salaryService.computeEmployeeSalary(1);
     }
 }

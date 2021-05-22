@@ -1,27 +1,33 @@
-
 package com.onushi.sampleapp.services;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import com.onushi.sampleapp.model.Person;
 import static org.mockito.Mockito.*;
-
 import com.onushi.sampleapp.services.PersonRepositoryImpl;
 
-import java.util.NoSuchElementException;
-
-        class PersonServiceTest {
+class PersonServiceTest {
     @Test
     void getPersonFirstName() throws Exception {
         // Arrange
-        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);
-        when(personRepositoryImpl1.getPersonsCountFromDB("a", null)).thenReturn(2);
-        doThrow(NoSuchElementException.class)
-                .when(personRepositoryImpl1).getPersonFromDB(3);
-        PersonService personService = new PersonService(personRepositoryImpl1);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
+        Person person1 = Person.builder()
+                .dateOfBirth(date1)
+                .firstName("Bruce")
+                .lastName("Lee")
+                .build();
+        PersonRepositoryImpl personRepositoryImpl = mock(PersonRepositoryImpl.class);
+        when(personRepositoryImpl.getPersonsCountFromDB("a", null)).thenReturn(2);
+        when(personRepositoryImpl.getPersonFromDB(2)).thenReturn(person1);
+        PersonService personService = new PersonService(personRepositoryImpl);
 
         // Act
-        Object result = personService.getPersonFirstName(3);
+        String result = personService.getPersonFirstName(2);
 
         // Assert
-        assertEquals(null, result);
+        assertEquals("Bruce", result);
     }
 }

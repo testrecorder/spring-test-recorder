@@ -1,27 +1,16 @@
 package com.onushi.sampleapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
+@Getter
 public class Employee {
-    private String name;
-    private int age;
-    private boolean isStudent;
-
-    public Employee setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public Employee setAge(int age) {
-        this.age = age;
-        return this;
-    }
-
-    public Employee setStudent(boolean student) {
-        isStudent = student;
-        return this;
-    }
+    private int id;
+    private String firstName;
+    private String lastName;
+    private Department department;
+    private double salaryParam1;
+    private double salaryParam2;
+    private double salaryParam3;
 }

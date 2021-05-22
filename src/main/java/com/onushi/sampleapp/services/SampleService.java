@@ -1,6 +1,6 @@
 package com.onushi.sampleapp.services;
 
-import com.onushi.sampleapp.model.Employee;
+import com.onushi.sampleapp.model.Employee1;
 import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.model.StudentWithBuilder;
 import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -26,6 +27,7 @@ public class SampleService {
         return this;
     }
 
+    @RecordTest
     public int add(int x, int y) {
         return addInternal(x, y);
     }
@@ -110,18 +112,31 @@ public class SampleService {
                 .lastName("Fulgerica")
                 .dateOfBirth(dateOfBirth)
                 .build();
+    }
 
+    @RecordTest
+    public  List<Integer> getIntersection(List<Integer> list1, List<Integer> list2) {
+        List<Integer> result = new ArrayList<>();
+
+        for (Integer value : list1) {
+            if(list2.contains(value)) {
+                result.add(value);
+            }
+        }
+
+        return result;
     }
 
     public void processStudents(StudentWithDefaultInitFields student1, StudentWithBuilder student2) {
     }
 
-    public int demoFunction(List<Person> personList, Employee[] employeeArray) {
+    public int demoFunction(List<Person> personList, Employee1[] employee1Array) {
         return 42;
     }
 
     public void doSomething(String a, String b) {
 
     }
+
 
 }

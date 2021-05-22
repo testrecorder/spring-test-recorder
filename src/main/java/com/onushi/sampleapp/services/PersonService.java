@@ -12,13 +12,13 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public Person loadPerson(int id) throws Exception {
-        return personRepository.getPersonFromDB(id);
-    }
+//    public Person loadPerson(int id) throws Exception {
+//        return personRepository.getPersonFromDB(id);
+//    }
 
     @RecordTest
-    public String getPersonFirstName(int id) throws Exception {
-        personRepository.getPersonsCountFromDB("a", null);
+    public String getPersonFirstName(int id) {
+//        personRepository.getPersonsCountFromDB("a", null);
         try {
             Person person = personRepository.getPersonFromDB(id);
             return person.getFirstName();
