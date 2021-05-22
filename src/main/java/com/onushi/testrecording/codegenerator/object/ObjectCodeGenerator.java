@@ -19,14 +19,6 @@ public class ObjectCodeGenerator {
     private boolean initPrepared = false;
     private boolean initDone = false;
 
-    public boolean isInitPrepared() {
-        return initPrepared;
-    }
-
-    public boolean isInitDone() {
-        return initDone;
-    }
-
     public void setInitPrepared(boolean initPrepared) {
         this.initPrepared = initPrepared;
     }
