@@ -1,6 +1,6 @@
 package com.onushi.sampleapp.services;
 
-import com.onushi.sampleapp.model.Employee1;
+import com.onushi.sampleapp.model.OtherEmployee;
 import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.model.StudentWithBuilder;
 import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
@@ -130,7 +130,7 @@ public class SampleService {
     public void processStudents(StudentWithDefaultInitFields student1, StudentWithBuilder student2) {
     }
 
-    public int demoFunction(List<Person> personList, Employee1[] employee1Array) {
+    public int demoFunction(List<Person> personList, OtherEmployee[] otherEmployeeArray) {
         return 42;
     }
 

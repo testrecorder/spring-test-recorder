@@ -1,6 +1,6 @@
 package com.onushi.sampleapp;
 
-import com.onushi.sampleapp.model.Employee1;
+import com.onushi.sampleapp.model.OtherEmployee;
 import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.services.PersonService;
 import com.onushi.sampleapp.services.SalaryService;
@@ -100,13 +100,13 @@ public class SampleAppRunner implements CommandLineRunner {
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
-        Employee1 employee1 = new Employee1()
+        OtherEmployee otherEmployee = new OtherEmployee()
                 .setName("Jack Norton")
                 .setAge(23)
                 .setStudent(true);
 
-        Employee1[] employee1Array = {employee1};
-        this.sampleService.demoFunction(Arrays.asList(gica, marco), employee1Array);
+        OtherEmployee[] otherEmployeeArray = {otherEmployee};
+        this.sampleService.demoFunction(Arrays.asList(gica, marco), otherEmployeeArray);
     }
 
     private void demo2() throws Exception {
