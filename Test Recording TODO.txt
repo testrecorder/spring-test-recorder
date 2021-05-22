@@ -145,14 +145,15 @@ DONE ==========================
 TODO ==========================
 	Objects creation
 		OK - Enum
-		UUID
+		OK - UUID
 		HashMap<>
 		Calendar
 		
 		how to differentiate between boxed and unboxed types?
 			Ex: Float / float
 
-
+	Read exception handling best practices
+	
 		
 	Add generation date and tool
 	

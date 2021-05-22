@@ -15,12 +15,19 @@ class StringServiceTest {
 
 
     @Test
-    void lowerCaseFirstLetter() {
+    void getVariableName() {
         StringService stringService = new StringService();
-        assertEquals("date", stringService.lowerCaseFirstLetter("Date"));
-        assertEquals("personRepository", stringService.lowerCaseFirstLetter("PersonRepository"));
-        assertEquals("d", stringService.lowerCaseFirstLetter("D"));
-        assertThrows(IllegalArgumentException.class, () -> stringService.lowerCaseFirstLetter(""));
+        assertEquals("person", stringService.getVariableName("person"));
+        assertEquals("d", stringService.getVariableName("D"));
+        assertEquals("uuid", stringService.getVariableName("UUID"));
+        assertEquals("date", stringService.getVariableName("Date"));
+        assertEquals("personRepository", stringService.getVariableName("PersonRepository"));
+        assertEquals("uuidArrayList", stringService.getVariableName("UUIDArrayList"));
+        assertEquals("aList", stringService.getVariableName("aList"));
+        assertEquals("aList", stringService.getVariableName("AList"));
+        assertEquals("anObject", stringService.getVariableName("AnObject"));
+        assertEquals("isPerson", stringService.getVariableName("isPerson"));
+        assertThrows(IllegalArgumentException.class, () -> stringService.getVariableName(""));
     }
 
     @Test

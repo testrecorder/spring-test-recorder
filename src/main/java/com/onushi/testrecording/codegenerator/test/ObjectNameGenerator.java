@@ -19,7 +19,7 @@ public class ObjectNameGenerator {
             if (classSimpleName.contains("[")) {
                 return "array";
             } else {
-                return stringService.lowerCaseFirstLetter(object.getClass().getSimpleName());
+                return stringService.getVariableName(object.getClass().getSimpleName());
             }
         }
     }

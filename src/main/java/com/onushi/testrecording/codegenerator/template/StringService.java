@@ -15,12 +15,29 @@ public class StringService {
     }
 
 
-    // TODO IB !!!! it would be nice to have UUID => uuid
-    public String lowerCaseFirstLetter(String input) {
+    public String getVariableName(String input) {
         if (input == null || input.length() == 0) {
             throw new IllegalArgumentException("input");
         }
-        return input.substring(0,1).toLowerCase(Locale.ROOT) + input.substring(1);
+        int firstLowerCaseLetter = -1;
+        int i = 0;
+        while(i < input.length()) {
+            char ch = input.charAt(i);
+            if (Character.isLowerCase(ch)) {
+                firstLowerCaseLetter = i;
+                break;
+            }
+            i++;
+        }
+
+        if (firstLowerCaseLetter == -1) {
+            return input.toLowerCase(Locale.ROOT);
+        } else if (firstLowerCaseLetter == 0) {
+            return input;
+        } else if (firstLowerCaseLetter == 1) {
+            return input.substring(0, firstLowerCaseLetter).toLowerCase(Locale.ROOT) + input.substring(firstLowerCaseLetter);
+        }
+        return input.substring(0, firstLowerCaseLetter - 1).toLowerCase(Locale.ROOT) + input.substring(firstLowerCaseLetter - 1);
     }
 
     public String upperCaseFirstLetter(String input) {
