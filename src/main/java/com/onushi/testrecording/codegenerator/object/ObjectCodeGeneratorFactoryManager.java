@@ -36,6 +36,7 @@ public class ObjectCodeGeneratorFactoryManager {
         knownClassesFactoriesList = Arrays.asList(
                 new ObjectCodeGeneratorFactoryForNullImpl(),
                 new ObjectCodeGeneratorFactoryForPrimitiveImpl(),
+                new ObjectCodeGeneratorFactoryForEnumImpl(),
                 new ObjectCodeGeneratorFactoryForDateImpl(),
                 new ObjectCodeGeneratorFactoryForArrayImpl(this),
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this)

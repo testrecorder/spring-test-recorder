@@ -1,9 +1,6 @@
 package com.onushi.sampleapp.services;
 
-import com.onushi.sampleapp.model.OtherEmployee;
-import com.onushi.sampleapp.model.Person;
-import com.onushi.sampleapp.model.StudentWithBuilder;
-import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
+import com.onushi.sampleapp.model.*;
 import com.onushi.testrecording.aspect.RecordTest;
 import org.springframework.stereotype.Component;
 
@@ -114,7 +111,7 @@ public class SampleService {
                 .build();
     }
 
-    @RecordTest
+
     public  List<Integer> getIntersection(List<Integer> list1, List<Integer> list2) {
         List<Integer> result = new ArrayList<>();
 
@@ -138,5 +135,8 @@ public class SampleService {
 
     }
 
-
+    @RecordTest
+    public int testEnum(Color color) {
+        return 2;
+    }
 }

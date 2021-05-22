@@ -325,4 +325,13 @@ class ObjectCodeGeneratorTest {
         assertEquals("// TODO Create this object\n" +
                 "// NoSuchElementException ex = new NoSuchElementException();\n", objectCodeGenerator.getInitCode());
     }
+
+    @Test
+    void testEnum() {
+        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, Color.BLUE, "test");
+        assertEquals("Color.BLUE", objectCodeGenerator.getInlineCode());
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.model.Color", objectCodeGenerator.getRequiredImports().get(0));
+    }
 }
