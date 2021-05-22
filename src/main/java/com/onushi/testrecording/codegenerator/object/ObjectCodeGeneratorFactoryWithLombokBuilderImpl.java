@@ -30,8 +30,7 @@ public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl implements ObjectCo
 
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(),
                     context.getObjectName(),
-                    context.getObjectName(),
-                    context.getObject().getClass().getSimpleName());
+                    context.getObjectName());
 
             objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
 

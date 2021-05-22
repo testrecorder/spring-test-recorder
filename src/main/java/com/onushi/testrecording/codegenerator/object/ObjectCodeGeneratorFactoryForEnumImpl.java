@@ -7,7 +7,7 @@ public class ObjectCodeGeneratorFactoryForEnumImpl implements ObjectCodeGenerato
         if (clazz.isEnum()) {
             String inlineCode = clazz.getSimpleName() + "." + context.getObject().toString();
             ObjectCodeGenerator objectCodeGenerator =
-                    new ObjectCodeGenerator(context.getObject(), context.getObjectName(), inlineCode, clazz.getSimpleName());
+                    new ObjectCodeGenerator(context.getObject(), context.getObjectName(), inlineCode);
             objectCodeGenerator.requiredImports.add(clazz.getName());
 
             return  objectCodeGenerator;

@@ -27,11 +27,11 @@ public class ObjectCodeGenerator {
         this.initDone = initDone;
     }
 
-    // TODO IB !!!! how come here there is no declareClassName
     protected ObjectCodeGenerator(Object object, String objectName, String inlineCode) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
+        this.declareClassName = object.getClass().getSimpleName();
     }
 
     protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, String declareClassName) {
