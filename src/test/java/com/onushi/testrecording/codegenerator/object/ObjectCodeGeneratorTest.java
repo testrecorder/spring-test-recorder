@@ -21,22 +21,22 @@ import static org.mockito.Mockito.mock;
 
 class ObjectCodeGeneratorTest {
     TestGenerator testGenerator;
+    ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
     @BeforeEach
     void setUp() {
         testGenerator = mock(TestGenerator.class);
+        objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
     }
 
     @Test
     void testNull() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator,null, "test");
         assertEquals("null", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testFloat() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator,1f, "testFloat");
         assertEquals("testFloat", objectCodeGenerator.getObjectName());
         assertEquals("1.0f", objectCodeGenerator.getInlineCode());
@@ -47,56 +47,48 @@ class ObjectCodeGeneratorTest {
 
     @Test
     void testLong() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 1L, "test");
         assertEquals("1L", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testByte() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, (byte)11, "test");
         assertEquals("(byte)11", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testShort() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, (short)100, "test");
         assertEquals("(short)100", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testCharacter() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 'a', "test");
         assertEquals("'a'", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testString() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, "Hello World", "test");
         assertEquals("\"Hello World\"", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testBoolean() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, true, "test");
         assertEquals("true", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testInt() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 2, "test");
         assertEquals("2", objectCodeGenerator.getInlineCode());
     }
 
     @Test
     void testDouble() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 2.5, "test");
         assertEquals("2.5", objectCodeGenerator.getInlineCode());
     }
@@ -106,7 +98,6 @@ class ObjectCodeGeneratorTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = simpleDateFormat.parse("2021-01-01");
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, date1, "date1");
         assertEquals("date1", objectCodeGenerator.getInlineCode());
         assertEquals(1, objectCodeGenerator.getRequiredHelperObjects().size());
@@ -118,7 +109,6 @@ class ObjectCodeGeneratorTest {
     void testArray() {
         int[] array = {1, 2, 4};
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, array, "array1");
         assertEquals("array1", objectCodeGenerator.getInlineCode());
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
@@ -130,7 +120,6 @@ class ObjectCodeGeneratorTest {
     void testList() {
         List<String> list = Arrays.asList("1", "2", "3");
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, list, "list1");
         assertEquals("list1", objectCodeGenerator.getInlineCode());
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
@@ -169,7 +158,6 @@ class ObjectCodeGeneratorTest {
     void testNoArgsConstruction() {
         Person person = new Person();
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, person, "person1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.Person", objectCodeGenerator.getRequiredImports().get(0));
@@ -185,7 +173,6 @@ class ObjectCodeGeneratorTest {
         student.lastName = "Aris";
         student.age = 30;
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields", objectCodeGenerator.getRequiredImports().get(0));
@@ -200,7 +187,6 @@ class ObjectCodeGeneratorTest {
     void testAllArgsConstruction2() {
         PersonService personService = new PersonService(new PersonRepositoryImpl());
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, personService, "person1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.services.PersonService", objectCodeGenerator.getRequiredImports().get(0));
@@ -217,7 +203,6 @@ class ObjectCodeGeneratorTest {
         student.lastName = "Ln";
         student.age = 20;
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields2", objectCodeGenerator.getRequiredImports().get(0));
@@ -238,7 +223,6 @@ class ObjectCodeGeneratorTest {
                 .age(35)
                 .build();
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectCodeGenerator.getRequiredImports().get(0));
@@ -270,7 +254,6 @@ class ObjectCodeGeneratorTest {
             .setA(false);
         studentWithSetters.setOtherField("Other");
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithSetters, "studentWithSetters1");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithSetters", objectCodeGenerator.getRequiredImports().get(0));
@@ -299,7 +282,6 @@ class ObjectCodeGeneratorTest {
         OtherStudent student = new OtherStudent();
         student.myInitSecretMethod("FN");
 
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student");
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.OtherStudent", objectCodeGenerator.getRequiredImports().get(0));
@@ -314,7 +296,6 @@ class ObjectCodeGeneratorTest {
 
     @Test
     void testNoSuchElementException() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator =
                 objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, new NoSuchElementException(), "ex");
         assertEquals("ex", objectCodeGenerator.getObjectName());
@@ -328,7 +309,6 @@ class ObjectCodeGeneratorTest {
 
     @Test
     void testEnum() {
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, Color.BLUE, "test");
         assertEquals("Color.BLUE", objectCodeGenerator.getInlineCode());
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
@@ -337,8 +317,6 @@ class ObjectCodeGeneratorTest {
 
     @Test
     void testUUID() {
-        // TODO IB !!!! move to before
-        ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
         ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "uuid1");
         assertEquals("uuid1", objectCodeGenerator.getInlineCode());
         assertEquals(1, objectCodeGenerator.getRequiredImports().size());
