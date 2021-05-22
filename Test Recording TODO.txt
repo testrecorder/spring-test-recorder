@@ -31,6 +31,14 @@ INFO ==========================
 		See the sources of Lombok	
 			https://github.com/projectlombok/lombok
 		
+		https://softwareengineering.stackexchange.com/questions/147055/when-is-unit-testing-inappropriate-or-unnecessary
+		JUnit FAQ
+			http://junit.sourceforge.net/doc/faq/faq.htm#best_1
+		Types of functional tests
+			https://www.simform.com/functional-testing-types/
+
+
+
 
 DONE ==========================
 	OK - Handle also exceptions thrown by act
@@ -135,12 +143,6 @@ DONE ==========================
 		We don't have to cover all cases for now. If an object cannot be created automatically, the user has to create it
 
 TODO ==========================
-	what happens when you call a void returning method and want to mock it?
-	
-	Exceptions thrown are not added to includes
-	
-	split tests in smaller classes
-
 	Objects creation
 		handle Enum
 		handle HashMap<>
@@ -148,10 +150,30 @@ TODO ==========================
 		UUID
 		how to differentiate between boxed and unboxed types?
 			Ex: Float / float
+
+
+		
+	Add generation date and tool
+	
+	Add TODO to describe the use case
+	
+	Option to add the date in the in name of the test function to be able to run them in order
+
+	I found out that the tool can be done, now the question is:
+		In which cases such tool can be used?
+
+	
+	Test what happens when you call a void returning method and want to mock it?
+
+	Exceptions thrown are not added to includes
+		in mocks
+		in test
+	
+	Should I test that the mocked object was called?
+	
 	try with escaped things in strings
 		
 	I should add logging for debugging as a param of the Annotation
-	
 	
 	Assert part
 		Check expected result
@@ -171,7 +193,7 @@ TODO ==========================
 		Check side effects on target, arguments, any dependencies
 			create assertEquals() for all the new values
      
-	Demo for Tash, IonutP, Rares, Sebi, Claudiu ...
+	Demo for IonutP, Rares ...
 	 
 	After the demo
 	Package and publish locally
@@ -181,8 +203,12 @@ TODO ==========================
 
 	Move all the test classes within the testrecording package
 	
-	Write tests for all the code
+	Write tests for all the code that could break
 		check coverage again
+
+	JUnit FAQ
+		Use @BeforeEach
+		It's recommended to have one assert per test
 
 	Sa citesc de la rus cum sa pregatesc cod pt Git
 
@@ -191,7 +217,6 @@ LATER ==========================
 	I could have a fallback with serializable
 
 	when expectedResult is one of the inited objects it's not reused
-
 
 	if you have a Component with multiple instances called from the RecordTest method, mocks will be duplicated
 	
