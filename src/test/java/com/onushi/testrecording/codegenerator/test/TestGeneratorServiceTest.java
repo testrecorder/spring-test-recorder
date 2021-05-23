@@ -1030,7 +1030,7 @@ class TestGeneratorServiceTest {
                         "import java.util.List;\n" +
                         "import java.util.Arrays;\n" +
                         "import java.util.Map;\n" +
-                        "import java.util.HashMap;;\n" +
+                        "import java.util.HashMap;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    @Test\n" +
