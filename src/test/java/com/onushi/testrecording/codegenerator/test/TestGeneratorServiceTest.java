@@ -59,7 +59,7 @@ class TestGeneratorServiceTest {
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        float result = sampleService.addFloats(2.0f, 3.0f);\n" +
+                        "        Float result = sampleService.addFloats(2.0f, 3.0f);\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(5.0f, result);\n" +
@@ -347,7 +347,7 @@ class TestGeneratorServiceTest {
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        int result = sampleService.processArrays(array1, array2, array3, array4, array5, array6, array7, array8, array9, array10);\n" +
+                        "        Integer result = sampleService.processArrays(array1, array2, array3, array4, array5, array6, array7, array8, array9, array10);\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(42, result);\n" +
@@ -394,7 +394,7 @@ class TestGeneratorServiceTest {
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        int result = sampleService.processLists(arrayList1, arrayList2);\n" +
+                        "        Integer result = sampleService.processLists(arrayList1, arrayList2);\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(42, result);\n" +
@@ -672,7 +672,7 @@ class TestGeneratorServiceTest {
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        int result = sampleService.repeatedArgs(array1, arrayList1);\n" +
+                        "        Integer result = sampleService.repeatedArgs(array1, arrayList1);\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(42, result);\n" +
@@ -1046,7 +1046,7 @@ class TestGeneratorServiceTest {
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        int result = sampleService.processMap(hashMap1);\n" +
+                        "        Integer result = sampleService.processMap(hashMap1);\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(42, result);\n" +
