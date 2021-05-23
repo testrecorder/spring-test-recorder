@@ -136,8 +136,12 @@ public class SampleService {
         return 2;
     }
 
-    @RecordTest
     public int testUUID(UUID uuid) {
         return 2;
+    }
+
+    @RecordTest
+    public int processMap(Map<String, List<String>> map) {
+        return 42;
     }
 }

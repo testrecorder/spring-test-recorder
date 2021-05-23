@@ -405,10 +405,6 @@ class TestGeneratorServiceTest {
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
-
-
-
-
     @Test
     void testObjectCaching() throws Exception {
         // Arrange
@@ -1004,6 +1000,63 @@ class TestGeneratorServiceTest {
                         "END GENERATED TEST ========="),
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
+
+    @Test
+    void generateTestForHashMaps() throws Exception {
+        // Arrange
+        Map<String, List<String>> map = new HashMap<>();
+        map.put("1", Arrays.asList("0", "1"));
+        map.put("2", Arrays.asList("0", "1", "2"));
+        map.put("3", Arrays.asList("0", "1", "2", "3"));
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("processMap")
+                .arguments(Collections.singletonList(map))
+                .result(42)
+                .dependencyMethodRuns(new ArrayList<>())
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.Arrays;\n" +
+                        "import java.util.Map;\n" +
+                        "import java.util.HashMap;;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void processMap() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        List<String> arrayList1 = Arrays.asList(\"0\", \"1\");\n" +
+                        "        List<String> arrayList2 = Arrays.asList(\"0\", \"1\", \"2\");\n" +
+                        "        List<String> arrayList3 = Arrays.asList(\"0\", \"1\", \"2\", \"3\");\n" +
+                        "        Map<String, List<String>> hashMap1 = new HashMap<>();\n" +
+                        "        hashMap1.put(\"1\", arrayList1);\n" +
+                        "        hashMap1.put(\"2\", arrayList2);\n" +
+                        "        hashMap1.put(\"3\", arrayList3);\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        int result = sampleService.processMap(hashMap1);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(42, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
+
 
     // TODO IB solve equality when there is no equals defined
 //    @Test

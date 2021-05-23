@@ -10,9 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class SampleAppRunner implements CommandLineRunner {
@@ -87,7 +85,13 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // int a = sampleService.testEnum(Color.BLUE);
 
-        int a = sampleService.testUUID(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
+        // int a = sampleService.testUUID(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
+
+        Map<String, List<String>> map = new HashMap<>();
+        map.put("1", Arrays.asList("0", "1"));
+        map.put("2", Arrays.asList("0", "1", "2"));
+        map.put("3", Arrays.asList("0", "1", "2", "3"));
+        int a = sampleService.processMap(map);
     }
 
     private void demo1() throws Exception {
