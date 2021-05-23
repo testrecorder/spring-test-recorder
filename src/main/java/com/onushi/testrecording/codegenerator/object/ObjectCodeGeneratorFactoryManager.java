@@ -39,8 +39,8 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForEnumImpl(),
                 new ObjectCodeGeneratorFactoryForDateImpl(),
                 new ObjectCodeGeneratorFactoryForArrayImpl(this),
-                new ObjectCodeGeneratorFactoryForArrayListImpl(this, classInfoService),
-                new ObjectCodeGeneratorFactoryForHashMapImpl(this, classInfoService),
+                new ObjectCodeGeneratorFactoryForArrayListImpl(this),
+                new ObjectCodeGeneratorFactoryForHashMapImpl(this),
                 new ObjectCodeGeneratorFactoryForUUIDImpl()
         );
         unknownClassesFactoriesList = Arrays.asList(

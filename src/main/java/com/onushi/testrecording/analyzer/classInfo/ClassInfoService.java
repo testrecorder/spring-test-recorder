@@ -68,17 +68,4 @@ public class ClassInfoService {
         }
         return new ArrayList<>();
     }
-
-    public String getElementClassSimpleName(List<Object> list) {
-        List<String> elementsClassSimpleNames = list.stream()
-                .filter(Objects::nonNull)
-                .map(x -> x.getClass().getSimpleName())
-                .distinct()
-                .collect(Collectors.toList());
-        if (elementsClassSimpleNames.size() == 1) {
-            return elementsClassSimpleNames.get(0);
-        } else {
-            return "Object";
-        }
-    }
 }

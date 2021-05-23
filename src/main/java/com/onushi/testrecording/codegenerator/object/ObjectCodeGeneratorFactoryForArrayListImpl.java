@@ -1,6 +1,5 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import java.util.Arrays;
 import java.util.List;
@@ -9,12 +8,9 @@ import java.util.stream.Collectors;
 
 public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
-    private final ClassInfoService classInfoService;
 
-    public ObjectCodeGeneratorFactoryForArrayListImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
-                                                      ClassInfoService classInfoService) {
+    public ObjectCodeGeneratorFactoryForArrayListImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
-        this.classInfoService = classInfoService;
     }
 
     @Override
@@ -33,7 +29,7 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGen
                     .distinct()
                     .collect(Collectors.toList());
 
-            String elementClassSimpleName = classInfoService.getElementClassSimpleName((List<Object>) context.getObject());
+            String elementClassSimpleName = getElementsDeclaringType(elements);
 
             String elementsInlineCode = elements.stream()
                     .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
@@ -53,6 +49,19 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGen
             return objectCodeGenerator;
         } else {
             return null;
+        }
+    }
+
+    public String getElementsDeclaringType(List<ObjectCodeGenerator> objectCodeGenerators) {
+        List<String> distinct = objectCodeGenerators.stream()
+                .filter(x -> !x.inlineCode.equals("null"))
+                .map(ObjectCodeGenerator::getDeclareClassName)
+                .distinct()
+                .collect(Collectors.toList());
+        if (distinct.size() == 1) {
+            return distinct.get(0);
+        } else {
+            return "Object";
         }
     }
 }
