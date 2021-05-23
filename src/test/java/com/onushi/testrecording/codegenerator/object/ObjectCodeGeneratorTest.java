@@ -324,4 +324,23 @@ class ObjectCodeGeneratorTest {
         assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectCodeGenerator.getInitCode());
     }
 
+    @Test
+    void testHashMap() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put(null, 0);
+        map.put("1", 1);
+        map.put("2", 2);
+        map.put("3", 3);
+
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, map, "map1");
+        assertEquals("map1", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(1, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("Map<String, Integer> map1 = new HashMap<>();\n" +
+                "map1.put(null, 0);\n" +
+                "map1.put(\"1\", 1);\n" +
+                "map1.put(\"2\", 2);\n" +
+                "map1.put(\"3\", 3);\n", objectCodeGenerator.getInitCode());
+        assertEquals("Map<String, Integer>", objectCodeGenerator.getDeclareClassName());
+    }
 }

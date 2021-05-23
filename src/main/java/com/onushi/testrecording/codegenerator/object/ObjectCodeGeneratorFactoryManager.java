@@ -40,6 +40,7 @@ public class ObjectCodeGeneratorFactoryManager {
                 new ObjectCodeGeneratorFactoryForDateImpl(),
                 new ObjectCodeGeneratorFactoryForArrayImpl(this),
                 new ObjectCodeGeneratorFactoryForArrayListImpl(this),
+                new ObjectCodeGeneratorFactoryForHashMapImpl(this),
                 new ObjectCodeGeneratorFactoryForUUIDImpl()
         );
         unknownClassesFactoriesList = Arrays.asList(

@@ -148,17 +148,28 @@ DONE ==========================
 		OK - Fix getVariableName
 		OK - Fix ObjectCodeGenerator constructor
 
-TODO ==========================
-	Add generation date and tool
-	
-	Add TODO to describe the use case
+	------
+		OK - HashMap<>
 
+TODO ==========================
 	Objects creation
-		HashMap<>
+		Set<>
 		Calendar
 		
 		how to differentiate between boxed and unboxed types?
 			Ex: Float / float
+
+
+	Add generation date and tool
+		but how can I ignore it in tests?
+	
+	Add TODO to describe the use case
+
+			
+	I should refactor the TestGenerator / TestGeneratorFactory
+	Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
+		@Getter(lazy=true) private final double[] cached = expensive();
+
 
 	Read again exception handling best practices
 		checking params 
@@ -238,9 +249,6 @@ LATER ==========================
 		Do I need to do something? Think for each of them
 
 	Handle other Java common classes
-
-	Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
-		@Getter(lazy=true) private final double[] cached = expensive();
 
 	full injection for factories?
 		for test have a util that creates the factory
