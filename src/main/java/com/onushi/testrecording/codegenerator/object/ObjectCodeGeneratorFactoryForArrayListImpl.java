@@ -34,13 +34,12 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGen
             String elementsInlineCode = elements.stream()
                     .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
-            StringGenerator stringGenerator = new StringGenerator();
-            stringGenerator.setTemplate("List<{{elementClassSimpleName}}> {{objectName}} = Arrays.asList({{elementsInlineCode}});")
+            objectCodeGenerator.initCode = new StringGenerator()
+                    .setTemplate("List<{{elementClassSimpleName}}> {{objectName}} = Arrays.asList({{elementsInlineCode}});")
                     .addAttribute("elementClassSimpleName", elementClassSimpleName)
                     .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("elementsInlineCode", elementsInlineCode);
-
-            objectCodeGenerator.initCode = stringGenerator.generate();
+                    .addAttribute("elementsInlineCode", elementsInlineCode)
+                    .generate();
 
             objectCodeGenerator.declareClassName = new StringGenerator()
                     .setTemplate("List<{{elementClassSimpleName}}>")
