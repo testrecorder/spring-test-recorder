@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
 import java.util.*;
@@ -7,9 +8,12 @@ import java.util.stream.Collectors;
 
 public class ObjectCodeGeneratorFactoryForHashMapImpl implements ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ClassInfoService classInfoService;
 
-    public ObjectCodeGeneratorFactoryForHashMapImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+    public ObjectCodeGeneratorFactoryForHashMapImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+                                                    ClassInfoService classInfoService) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+        this.classInfoService = classInfoService;
     }
 
     @Override
@@ -46,9 +50,8 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl implements ObjectCodeGener
 
             objectCodeGenerator.dependencies = allDependencies;
 
-            String keyClassName = getElementClassSimpleName(keys);
-            String valueClassName = getElementClassSimpleName(values);
-
+            String keyClassName = classInfoService.getElementClassSimpleName(keys);
+            String valueClassName = classInfoService.getElementClassSimpleName(values);
 
             String elementsInlineCode = keys.stream()
                     .map(key ->  new StringGenerator()
@@ -78,20 +81,6 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl implements ObjectCodeGener
             return objectCodeGenerator;
         } else {
             return null;
-        }
-    }
-
-    // TODO IB !!!! remove duplication
-    private String getElementClassSimpleName(List<Object> list) {
-        List<String> elementsClassSimpleNames = list.stream()
-                .filter(Objects::nonNull)
-                .map(x -> x.getClass().getSimpleName())
-                .distinct()
-                .collect(Collectors.toList());
-        if (elementsClassSimpleNames.size() == 1) {
-            return elementsClassSimpleNames.get(0);
-        } else {
-            return "Object";
         }
     }
 }
