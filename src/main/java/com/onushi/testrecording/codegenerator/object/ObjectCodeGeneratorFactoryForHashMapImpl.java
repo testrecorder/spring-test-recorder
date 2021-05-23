@@ -19,7 +19,6 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl implements ObjectCodeGener
 
             objectCodeGenerator.requiredImports = Collections.singletonList("java.util.Map");
 
-            // TODO IB this part is repeated
             HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
 
             List<Object> keys = hashMap.keySet()
