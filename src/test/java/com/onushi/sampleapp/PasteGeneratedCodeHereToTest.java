@@ -1,20 +1,26 @@
-package com.onushi.sampleapp.services;
+
+        package com.onushi.sampleapp.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import com.onushi.sampleapp.services.EmployeeRepository;
+import java.util.Set;
+import java.util.HashSet;
 
-class SalaryServiceTest {
+class SampleServiceTest {
     @Test
-    void computeEmployeeSalary() throws Exception {
+    void processSet() throws Exception {
         // Arrange
-        EmployeeRepository employeeRepository1 = new EmployeeRepository();
-        SalaryService salaryService = new SalaryService(employeeRepository1);
+        Set<Double> hashSet1 = new HashSet<>();
+        hashSet1.add(null);
+        hashSet1.add(1.2);
+        hashSet1.add(2.6);
+        SampleService sampleService = new SampleService();
 
         // Act
-        Double result = salaryService.computeEmployeeSalary(1);
+        Float result = sampleService.processSet(hashSet1);
 
         // Assert
-        assertEquals(4000.0, result);
+        assertEquals(42.42f, result);
     }
 }
+

@@ -1,6 +1,5 @@
 package com.onushi.sampleapp;
 
-import com.onushi.sampleapp.model.Color;
 import com.onushi.sampleapp.model.OtherEmployee;
 import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.services.PersonService;
@@ -79,7 +78,7 @@ public class SampleAppRunner implements CommandLineRunner {
 //        float result = sampleService.addFloats(1.0f, 2.0f);
 
         // demo1();
-        demo3();
+        // demo3();
 
         // sampleService.getIntersection(Arrays.asList(10, 20, 5), Arrays.asList(1, 2, 3, 4, 5));
 
@@ -92,6 +91,12 @@ public class SampleAppRunner implements CommandLineRunner {
 //        map.put("2", Arrays.asList("0", "1", "2"));
 //        map.put("3", Arrays.asList("0", "1", "2", "3"));
 //        int a = sampleService.processMap(map);
+
+        Set<Double> set = new HashSet<>();
+        set.add(null);
+        set.add(1.2);
+        set.add(2.6);
+        sampleService.processSet(set);
     }
 
     private void demo1() throws Exception {

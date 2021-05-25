@@ -1057,6 +1057,56 @@ class TestGeneratorServiceTest {
                 StringUtils.trimAndIgnoreCRDiffs(testString));
     }
 
+    @Test
+    void generateTestForHashSets() throws Exception {
+        // Arrange
+        Set<Double> set = new HashSet<>();
+        set.add(null);
+        set.add(1.2);
+        set.add(2.6);
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("processSet")
+                .arguments(Collections.singletonList(set))
+                .result(42.42f)
+                .dependencyMethodRuns(new ArrayList<>())
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.util.Set;\n" +
+                        "import java.util.HashSet;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    @Test\n" +
+                        "    void processSet() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        Set<Double> hashSet1 = new HashSet<>();\n" +
+                        "        hashSet1.add(null);\n" +
+                        "        hashSet1.add(1.2);\n" +
+                        "        hashSet1.add(2.6);\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        Float result = sampleService.processSet(hashSet1);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(42.42f, result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST =========\n"),
+                StringUtils.trimAndIgnoreCRDiffs(testString));
+    }
 
     // TODO IB solve equality when there is no equals defined
 //    @Test

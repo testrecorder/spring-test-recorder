@@ -140,8 +140,12 @@ public class SampleService {
         return 2;
     }
 
-    @RecordTest
     public int processMap(Map<String, List<String>> map) {
         return 42;
+    }
+
+    @RecordTest
+    public float processSet(Set<Double> set) {
+        return 42.42f;
     }
 }
