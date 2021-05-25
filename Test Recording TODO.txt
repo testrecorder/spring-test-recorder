@@ -150,11 +150,11 @@ DONE ==========================
 
 	------
 		OK - HashMap<>
+		OK - Set<>
 
 TODO ==========================
 	Objects creation
 		Solve !!!!
-		Set<>
 		Calendar
 
 	Is there a problem with boxed vs unboxed types?
