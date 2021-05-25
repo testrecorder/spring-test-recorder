@@ -5,24 +5,23 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForHashMapImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForHashSetImpl implements ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
-    public ObjectCodeGeneratorFactoryForHashMapImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+    public ObjectCodeGeneratorFactoryForHashSetImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
-        if (context.getObject() instanceof HashMap<?, ?>) {
+        if (context.getObject() instanceof HashSet<?>) {
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
 
-            objectCodeGenerator.requiredImports = Arrays.asList("java.util.Map", "java.util.HashMap");
+            objectCodeGenerator.requiredImports = Arrays.asList("java.util.Set", "java.util.HashSet");
 
-            HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
+            HashSet<Object> hashSet = (HashSet<Object>)context.getObject();
 
-            List<Object> keys = hashMap.keySet()
-                    .stream()
+            List<Object> elements = Arrays.stream(hashSet.toArray())
                     .sorted(Comparator.comparing(k -> {
                         if (k == null) {
                             return "";
@@ -31,47 +30,33 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl implements ObjectCodeGener
                         }
                     }))
                     .collect(Collectors.toList());
-            List<Object> values = new ArrayList<>(hashMap.values());
 
-            List<ObjectCodeGenerator> keyGenerators = keys.stream()
+            objectCodeGenerator.dependencies = elements.stream()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            List<ObjectCodeGenerator> valueGenerators = values.stream()
-                    .distinct()
-                    .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
-                    .collect(Collectors.toList());
+            String elementClassName = getElementsDeclaringType(objectCodeGenerator.dependencies);
 
-            List<ObjectCodeGenerator> allDependencies = new ArrayList<>(keyGenerators);
-            allDependencies.addAll(valueGenerators);
-
-            objectCodeGenerator.dependencies = allDependencies;
-
-            String keyClassName = getElementsDeclaringType(keyGenerators);
-            String valueClassName = getElementsDeclaringType(valueGenerators);
-
-            String elementsInlineCode = keys.stream()
-                    .map(key ->  new StringGenerator()
-                            .setTemplate("{{objectName}}.put({{key}}, {{value}});\n")
+            String elementsInlineCode = elements.stream()
+                    .map(element ->  new StringGenerator()
+                            .setTemplate("{{objectName}}.add({{element}});\n")
                             .addAttribute("objectName", context.getObjectName())
-                            .addAttribute("key", objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), key).getInlineCode())
-                            .addAttribute("value", objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), hashMap.get(key)).getInlineCode())
+                            .addAttribute("element", objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element).getInlineCode())
                             .generate())
                     .collect(Collectors.joining(""));
 
+
             objectCodeGenerator.initCode = new StringGenerator()
-                    .setTemplate("Map<{{keyClassName}}, {{valueClassName}}> {{objectName}} = new HashMap<>();\n" +
+                    .setTemplate("Set<{{elementClassName}}> {{objectName}} = new HashSet<>();\n" +
                             "{{elementsInlineCode}}")
-                    .addAttribute("keyClassName", keyClassName)
-                    .addAttribute("valueClassName", valueClassName)
+                    .addAttribute("elementClassName", elementClassName)
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
             objectCodeGenerator.declareClassName = new StringGenerator()
-                    .setTemplate("Map<{{keyClassName}}, {{valueClassName}}>")
-                    .addAttribute("keyClassName", keyClassName)
-                    .addAttribute("valueClassName", valueClassName)
+                    .setTemplate("Set<{{elementClassName}}>")
+                    .addAttribute("elementClassName", elementClassName)
                     .generate();
 
             return objectCodeGenerator;

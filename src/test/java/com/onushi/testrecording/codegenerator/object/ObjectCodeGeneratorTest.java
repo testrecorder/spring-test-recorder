@@ -343,4 +343,25 @@ class ObjectCodeGeneratorTest {
                 "map1.put(\"3\", 3);\n", objectCodeGenerator.getInitCode());
         assertEquals("Map<String, Integer>", objectCodeGenerator.getDeclareClassName());
     }
+
+    @Test
+    void testHashSet() {
+        Set<String> set1 = new HashSet<>();
+        set1.add(null);
+        set1.add("1");
+        set1.add("2");
+        set1.add("2");
+        set1.add("3");
+
+        ObjectCodeGenerator objectCodeGenerator = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, set1, "set1");
+        assertEquals("set1", objectCodeGenerator.getInlineCode());
+        assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
+        assertEquals(2, objectCodeGenerator.getRequiredImports().size());
+        assertEquals("Set<String> set1 = new HashSet<>();\n" +
+                "set1.add(null);\n" +
+                "set1.add(\"1\");\n" +
+                "set1.add(\"2\");\n" +
+                "set1.add(\"3\");\n", objectCodeGenerator.getInitCode());
+        assertEquals("Set<String>", objectCodeGenerator.getDeclareClassName());
+    }
 }
