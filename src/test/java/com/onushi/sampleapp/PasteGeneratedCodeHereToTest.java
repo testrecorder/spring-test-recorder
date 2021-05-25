@@ -2,21 +2,19 @@ package com.onushi.sampleapp.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.List;
-import java.util.Arrays;
+import com.onushi.sampleapp.services.EmployeeRepository;
 
-class SampleServiceTest {
+class SalaryServiceTest {
     @Test
-    void repeatedArgs() throws Exception {
+    void computeEmployeeSalary() throws Exception {
         // Arrange
-        int[] array1 = {3, 4, 3};
-        List<Float> arrayList1 = Arrays.asList(3.0f, 3.0f);
-        SampleService sampleService = new SampleService();
+        EmployeeRepository employeeRepository1 = new EmployeeRepository();
+        SalaryService salaryService = new SalaryService(employeeRepository1);
 
         // Act
-        Integer result = sampleService.repeatedArgs(array1, arrayList1);
+        Double result = salaryService.computeEmployeeSalary(1);
 
         // Assert
-        assertEquals(42, result);
+        assertEquals(4000.0, result);
     }
 }

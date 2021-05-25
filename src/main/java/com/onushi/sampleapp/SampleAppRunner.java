@@ -79,7 +79,7 @@ public class SampleAppRunner implements CommandLineRunner {
 //        float result = sampleService.addFloats(1.0f, 2.0f);
 
         // demo1();
-        // demo3();
+        demo3();
 
         // sampleService.getIntersection(Arrays.asList(10, 20, 5), Arrays.asList(1, 2, 3, 4, 5));
 
@@ -87,11 +87,11 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // int a = sampleService.testUUID(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
 
-        Map<String, List<String>> map = new HashMap<>();
-        map.put("1", Arrays.asList("0", "1"));
-        map.put("2", Arrays.asList("0", "1", "2"));
-        map.put("3", Arrays.asList("0", "1", "2", "3"));
-        int a = sampleService.processMap(map);
+//        Map<String, List<String>> map = new HashMap<>();
+//        map.put("1", Arrays.asList("0", "1"));
+//        map.put("2", Arrays.asList("0", "1", "2"));
+//        map.put("3", Arrays.asList("0", "1", "2", "3"));
+//        int a = sampleService.processMap(map);
     }
 
     private void demo1() throws Exception {

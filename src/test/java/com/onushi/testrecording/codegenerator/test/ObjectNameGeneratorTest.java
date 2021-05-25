@@ -17,12 +17,9 @@ class ObjectNameGeneratorTest {
         when(testGeneratorMock.getLastIndexForObjectName()).thenReturn(lastIndexForObjectName);
 
         ObjectNameGenerator objectNameGenerator = ServiceCreatorUtils.createObjectNameGenerator();
-        assertEquals("date1", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date()));
-        Thread.sleep(1);
-        assertEquals("date2", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date()));
-        Thread.sleep(1);
-        assertEquals("date3", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date()));
-        Thread.sleep(1);
+        assertEquals("date1", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date(10)));
+        assertEquals("date2", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date(20)));
+        assertEquals("date3", objectNameGenerator.getNewObjectName(testGeneratorMock, new Date(30)));
     }
 
     @Test
