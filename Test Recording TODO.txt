@@ -163,12 +163,17 @@ TODO ==========================
 
 	Add generation date and tool
 		but how can I ignore it in tests?
+		Test Generated on ... with TestRecorder
+		
+		
+	Add the date in the in name of the test function to be able to run them in order
+		make it a parameter
+
+	Rename project to TestRecorder
 	
 	TODO rename the test to describe the use case
 	TODO refactor the test to make it easier to understand
-	@RecordTest => @GenerateTest
-	RecordMockForTest => @GenerateMock
-	Rename others. Packages. Classes
+	
 	
 	Could both Annotations be for Class/Function?
 		
@@ -208,7 +213,6 @@ TODO ==========================
 		raising exceptions
 		where to treat exceptions
 	
-	Option to add the date in the in name of the test function to be able to run them in order
 
 	Test what happens when you call a void returning method and want to mock it?
 
