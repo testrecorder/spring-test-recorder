@@ -157,45 +157,22 @@ DONE ==========================
 TODO ==========================
 	Objects creation
 		Calendar
+		best way to create a date?
 
-	Is there a problem with boxed vs unboxed types?
-		Ex: Float / float
-
+	try with escaped things in strings
 
 	Add generation date and tool
 		but how can I ignore it in tests?
 	
-	Add TODO to describe the use case
-
-			
-	I should refactor the TestGenerator / TestGeneratorFactory
-	Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
-		@Getter(lazy=true) private final double[] cached = expensive();
-
-
-	Read again exception handling best practices
-		checking params 
-		raising exceptions
-		where to treat exceptions
+	TODO rename the test to describe the use case
+	TODO refactor the test to make it easier to understand
+	@RecordTest => @GenerateTest
+	RecordMockForTest => @GenerateMock
 	
-	Option to add the date in the in name of the test function to be able to run them in order
+	I should generate the code on disk. 
+		If not possible, write to console
+		Add a parameter to specify the path for generation
 
-	I found out that the tool can be done, now the question is:
-		In which cases such tool can be used?
-
-	
-	Test what happens when you call a void returning method and want to mock it?
-
-	Exceptions thrown are not added to includes
-		in mocks
-		in test
-	
-	Should I test that the mocked object was called?
-	
-	try with escaped things in strings
-		
-	I should add logging for debugging as a param of the Annotation
-	
 	Assert part
 		Check expected result
 			if returnType != void
@@ -213,7 +190,32 @@ TODO ==========================
 
 		Check side effects on target, arguments, any dependencies
 			create assertEquals() for all the new values
-     
+
+
+	Is there a problem with boxed vs unboxed types?
+		Ex: Float / float
+
+	I should refactor the TestGenerator / TestGeneratorFactory
+	Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
+		@Getter(lazy=true) private final double[] cached = expensive();
+
+
+	Read again exception handling best practices
+		checking params 
+		raising exceptions
+		where to treat exceptions
+	
+	Option to add the date in the in name of the test function to be able to run them in order
+
+	Test what happens when you call a void returning method and want to mock it?
+
+	Exceptions thrown are not added to includes
+		in mocks
+		in test
+	
+		
+	I should add logging for debugging as a param of the Annotation
+	
 	Demo for IonutP, Rares ...
 	 
 	After the demo
