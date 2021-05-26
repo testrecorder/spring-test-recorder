@@ -1,6 +1,14 @@
 package com.onushi.testrecording.codegenerator.object;
 
+import com.onushi.testrecording.codegenerator.template.StringService;
+
 public class ObjectCodeGeneratorFactoryForPrimitiveImpl extends ObjectCodeGeneratorFactory {
+    private StringService stringService;
+
+    public ObjectCodeGeneratorFactoryForPrimitiveImpl(StringService stringService) {
+        this.stringService = stringService;
+    }
+
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         String fullClassName = context.getObject().getClass().getName();
@@ -16,7 +24,7 @@ public class ObjectCodeGeneratorFactoryForPrimitiveImpl extends ObjectCodeGenera
             case "java.lang.Character":
                 return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), "'" + context.getObject() + "'", "Char");
             case "java.lang.String":
-                return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), "\"" + context.getObject() + "\"", "String");
+                return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), "\"" + stringService.escape(context.getObject().toString()) + "\"", "String");
             case "java.lang.Boolean":
                 return new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObject().toString(), "Boolean");
             case "java.lang.Integer":

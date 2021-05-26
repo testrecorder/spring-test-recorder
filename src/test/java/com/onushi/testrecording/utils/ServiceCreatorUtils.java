@@ -32,7 +32,8 @@ public class ServiceCreatorUtils {
                 new ObjectStateReaderService(),
                 createObjectNameGenerator(),
                 createObjectCreationAnalyzerService(),
-                new CglibService());
+                new CglibService(),
+                new StringService());
     }
 
     public static TestGeneratorFactory createTestGeneratorFactory() {

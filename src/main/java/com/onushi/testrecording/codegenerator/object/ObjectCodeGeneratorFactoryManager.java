@@ -4,6 +4,7 @@ import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.FieldValueStatus;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
+import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGenerator;
 import org.springframework.stereotype.Service;
@@ -21,21 +22,24 @@ public class ObjectCodeGeneratorFactoryManager {
     private final List<ObjectCodeGeneratorFactory> knownClassesFactoriesList;
     private final List<ObjectCodeGeneratorFactory> unknownClassesFactoriesList;
     private final CglibService cglibService;
+    private final StringService stringService;
 
     public ObjectCodeGeneratorFactoryManager(ClassInfoService classInfoService,
                                              ObjectStateReaderService objectStateReaderService,
                                              ObjectNameGenerator objectNameGenerator,
                                              ObjectCreationAnalyzerService objectCreationAnalyzerService,
-                                             CglibService cglibService) {
+                                             CglibService cglibService,
+                                             StringService stringService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.objectNameGenerator = objectNameGenerator;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
         this.cglibService = cglibService;
+        this.stringService = stringService;
 
         knownClassesFactoriesList = Arrays.asList(
                 new ObjectCodeGeneratorFactoryForNullImpl(),
-                new ObjectCodeGeneratorFactoryForPrimitiveImpl(),
+                new ObjectCodeGeneratorFactoryForPrimitiveImpl(stringService),
                 new ObjectCodeGeneratorFactoryForEnumImpl(),
                 new ObjectCodeGeneratorFactoryForDateImpl(),
                 new ObjectCodeGeneratorFactoryForArrayImpl(this),

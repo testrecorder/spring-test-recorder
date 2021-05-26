@@ -153,27 +153,33 @@ DONE ==========================
 	------
 		OK - Set<>
 		Solve !!!!
-
+		
+	------
+		try with escaped things in strings
+		
+		
+		
 TODO ==========================
-	Objects creation
-		Calendar
-		best way to create a date?
-
-	try with escaped things in strings
+	
 
 	Add generation date and tool
 		but how can I ignore it in tests?
 		Test Generated on ... with TestRecorder
-		
-		
+
+	TODO rename the test to describe the use case
+	TODO refactor the test to make it easier to understand
+
 	Add the date in the in name of the test function to be able to run them in order
 		make it a parameter
 
 	Rename project to TestRecorder
-	
-	TODO rename the test to describe the use case
-	TODO refactor the test to make it easier to understand
-	
+
+
+
+
+	Objects creation
+		Calendar
+
 	
 	Could both Annotations be for Class/Function?
 		

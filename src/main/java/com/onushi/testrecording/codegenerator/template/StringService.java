@@ -46,4 +46,17 @@ public class StringService {
         }
         return input.substring(0,1).toUpperCase(Locale.ROOT) + input.substring(1);
     }
+
+    public String escape(String s){
+        if (s == null) {
+            return null;
+        }
+        return s.replace("\\", "\\\\")
+                .replace("\t", "\\t")
+                .replace("\b", "\\b")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\f", "\\f")
+                .replace("\"", "\\\"");
+    }
 }

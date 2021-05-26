@@ -92,11 +92,13 @@ public class SampleAppRunner implements CommandLineRunner {
 //        map.put("3", Arrays.asList("0", "1", "2", "3"));
 //        int a = sampleService.processMap(map);
 
-        Set<Double> set = new HashSet<>();
-        set.add(null);
-        set.add(1.2);
-        set.add(2.6);
-        sampleService.processSet(set);
+//        Set<Double> set = new HashSet<>();
+//        set.add(null);
+//        set.add(1.2);
+//        set.add(2.6);
+//        sampleService.processSet(set);
+
+        sampleService.doSomething("a", "  \\  \t  \b  \n  \r  \f \"");
     }
 
     private void demo1() throws Exception {

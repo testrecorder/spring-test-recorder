@@ -128,8 +128,9 @@ public class SampleService {
         return 42;
     }
 
-    public void doSomething(String a, String b) {
-
+    @RecordTest
+    public int doSomething(String a, String b) {
+        return 42;
     }
 
     public int testEnum(Color color) {
