@@ -155,13 +155,11 @@ DONE ==========================
 		Solve !!!!
 		
 	------
-		try with escaped things in strings
+		OK - escape strings
 		
 		
 		
 TODO ==========================
-	
-
 	Add generation date and tool
 		but how can I ignore it in tests?
 		Test Generated on ... with TestRecorder
@@ -173,8 +171,6 @@ TODO ==========================
 		make it a parameter
 
 	Rename project to TestRecorder
-
-
 
 
 	Objects creation
