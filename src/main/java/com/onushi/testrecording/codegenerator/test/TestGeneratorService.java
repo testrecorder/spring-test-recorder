@@ -4,6 +4,8 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -47,6 +49,7 @@ public class TestGeneratorService {
         Map<String, String> attributes = getStringGeneratorAttributes(testGenerator);
         stringGenerator.setTemplate(
                 "class {{testClassName}} {\n" +
+                getTestGeneratedDateTime() +
                 COMMENT_BEFORE_TEST +
                 "    @Test\n" +
                 "    void {{methodName}}() throws Exception {\n" +
@@ -57,6 +60,14 @@ public class TestGeneratorService {
                 "}\n");
         stringGenerator.addAttributes(attributes);
         return stringGenerator.generate();
+    }
+
+    private String getTestGeneratedDateTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        return new StringGenerator()
+                .setTemplate("    //Test Generated on {{datetime}} with @RecordTest\n")
+                .addAttribute("datetime", simpleDateFormat.format(new Date()))
+                .generate();
     }
 
     private Map<String, String> getStringGeneratorAttributes(TestGenerator testGenerator) {

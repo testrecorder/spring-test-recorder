@@ -45,7 +45,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -68,7 +68,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -90,7 +90,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -119,7 +119,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -139,7 +139,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -162,7 +162,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
 
     }
 
@@ -186,7 +186,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -215,7 +215,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -236,7 +236,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -256,7 +256,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -277,7 +277,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -298,7 +298,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -329,7 +329,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -362,7 +362,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -383,7 +383,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -410,7 +410,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST =========\n"),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -431,7 +431,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -441,8 +441,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Date;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void minDate() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -460,7 +459,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -497,7 +496,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -541,7 +540,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -561,7 +560,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -585,7 +584,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
 
@@ -613,7 +612,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -645,7 +644,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
 
@@ -667,7 +666,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -677,8 +676,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void repeatedArgs() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -695,7 +693,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST =========\n"),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -722,7 +720,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -751,7 +749,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -776,7 +774,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -810,7 +808,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -843,7 +841,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -880,7 +878,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -918,7 +916,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -956,7 +954,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -989,7 +987,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -1018,7 +1016,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -1041,7 +1039,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -1075,7 +1073,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     @Test
@@ -1098,7 +1096,7 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sampleapp.services;\n" +
                         "\n" +
@@ -1127,7 +1125,7 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST =========\n"),
-                StringUtils.trimAndIgnoreCRDiffs(testString));
+                StringUtils.prepareForCompare(testString));
     }
 
     // TODO IB solve equality when there is no equals defined

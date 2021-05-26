@@ -229,13 +229,13 @@ class ObjectCodeGeneratorTest {
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(3, objectCodeGenerator.getDependencies().size());
         assertEquals("studentWithBuilder1", objectCodeGenerator.getInlineCode());
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs(
+        assertEquals(StringUtils.prepareForCompare(
                 "StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
                         "    .age(35)\n" +
                         "    .firstName(\"John\")\n" +
                         "    .lastName(\"Michael\")\n" +
                         "    .build();"),
-                StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
+                StringUtils.prepareForCompare(objectCodeGenerator.getInitCode()));
     }
 
     @Test
@@ -260,7 +260,7 @@ class ObjectCodeGeneratorTest {
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(12, objectCodeGenerator.getDependencies().size());
         assertEquals("studentWithSetters1", objectCodeGenerator.getInlineCode());
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs(
+        assertEquals(StringUtils.prepareForCompare(
                 "StudentWithSetters studentWithSetters1 = new StudentWithSetters()\n" +
                         "    .setAge(23)\n" +
                         "    .setFirstName(\"FN\")\n" +
@@ -274,7 +274,7 @@ class ObjectCodeGeneratorTest {
                         "    .setIsometric(false)\n" +
                         "    .setRegistered(false);\n" +
                         "studentWithSetters1.setOtherField(\"Other\");"),
-                StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
+                StringUtils.prepareForCompare(objectCodeGenerator.getInitCode()));
     }
 
     @Test
@@ -288,10 +288,10 @@ class ObjectCodeGeneratorTest {
         assertEquals(0, objectCodeGenerator.getRequiredHelperObjects().size());
         assertEquals(0, objectCodeGenerator.getDependencies().size());
         assertEquals("student", objectCodeGenerator.getInlineCode());
-        assertEquals(StringUtils.trimAndIgnoreCRDiffs(
+        assertEquals(StringUtils.prepareForCompare(
                 "// TODO Create this object\n" +
                      "// OtherStudent student = new OtherStudent();\n"),
-                StringUtils.trimAndIgnoreCRDiffs(objectCodeGenerator.getInitCode()));
+                StringUtils.prepareForCompare(objectCodeGenerator.getInitCode()));
     }
 
     @Test
