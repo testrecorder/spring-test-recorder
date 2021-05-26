@@ -3,7 +3,7 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl extends ObjectCodeGeneratorFactory {
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
     public ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(ObjectCreationAnalyzerService objectCreationAnalyzerService) {

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForArrayImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
     public ObjectCodeGeneratorFactoryForArrayImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {

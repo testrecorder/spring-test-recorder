@@ -5,7 +5,7 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForHashSetImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
     public ObjectCodeGeneratorFactoryForHashSetImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
@@ -62,20 +62,6 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl implements ObjectCodeGener
             return objectCodeGenerator;
         } else {
             return null;
-        }
-    }
-
-    // TODO IB !!!! remove duplication
-    public String getElementsDeclaringType(List<ObjectCodeGenerator> objectCodeGenerators) {
-        List<String> distinct = objectCodeGenerators.stream()
-                .filter(x -> !x.inlineCode.equals("null"))
-                .map(ObjectCodeGenerator::getDeclareClassName)
-                .distinct()
-                .collect(Collectors.toList());
-        if (distinct.size() == 1) {
-            return distinct.get(0);
-        } else {
-            return "Object";
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
-public class ObjectCodeGeneratorFactoryForPrimitiveImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForPrimitiveImpl extends ObjectCodeGeneratorFactory {
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         String fullClassName = context.getObject().getClass().getName();

@@ -2,7 +2,7 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryForNotRedFields implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForNotRedFields extends ObjectCodeGeneratorFactory {
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {

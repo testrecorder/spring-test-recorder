@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl extends ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ClassInfoService classInfoService;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;

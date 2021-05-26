@@ -2,7 +2,7 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryForUUIDImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForUUIDImpl extends ObjectCodeGeneratorFactory {
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         String fullClassName = context.getObject().getClass().getName();

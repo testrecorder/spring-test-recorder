@@ -7,7 +7,7 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl extends ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 

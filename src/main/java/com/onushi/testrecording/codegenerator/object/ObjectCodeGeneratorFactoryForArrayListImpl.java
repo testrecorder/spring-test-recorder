@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGeneratorFactory {
+public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGeneratorFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
     public ObjectCodeGeneratorFactoryForArrayListImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
@@ -20,7 +20,6 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGen
 
             objectCodeGenerator.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
-            // TODO IB this part is repeated
             List<ObjectCodeGenerator> elements = ((List<Object>) context.getObject()).stream()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
@@ -49,19 +48,6 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl implements ObjectCodeGen
             return objectCodeGenerator;
         } else {
             return null;
-        }
-    }
-
-    public String getElementsDeclaringType(List<ObjectCodeGenerator> objectCodeGenerators) {
-        List<String> distinct = objectCodeGenerators.stream()
-                .filter(x -> !x.inlineCode.equals("null"))
-                .map(ObjectCodeGenerator::getDeclareClassName)
-                .distinct()
-                .collect(Collectors.toList());
-        if (distinct.size() == 1) {
-            return distinct.get(0);
-        } else {
-            return "Object";
         }
     }
 }

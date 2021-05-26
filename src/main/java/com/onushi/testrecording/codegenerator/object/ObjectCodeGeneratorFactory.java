@@ -1,6 +1,21 @@
 package com.onushi.testrecording.codegenerator.object;
 
-public interface ObjectCodeGeneratorFactory {
-    // TODO IB I could make this abstract and add some helper functions like getting list of dependencies
-    ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context);
+import java.util.List;
+import java.util.stream.Collectors;
+
+public abstract class ObjectCodeGeneratorFactory {
+    abstract ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context);
+
+    protected String getElementsDeclaringType(List<ObjectCodeGenerator> objectCodeGenerators) {
+        List<String> distinct = objectCodeGenerators.stream()
+                .filter(x -> !x.inlineCode.equals("null"))
+                .map(ObjectCodeGenerator::getDeclareClassName)
+                .distinct()
+                .collect(Collectors.toList());
+        if (distinct.size() == 1) {
+            return distinct.get(0);
+        } else {
+            return "Object";
+        }
+    }
 }
