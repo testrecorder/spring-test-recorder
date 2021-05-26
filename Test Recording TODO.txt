@@ -168,7 +168,10 @@ TODO ==========================
 	TODO refactor the test to make it easier to understand
 	@RecordTest => @GenerateTest
 	RecordMockForTest => @GenerateMock
+	Rename others. Packages. Classes
 	
+	Could both Annotations be for Class/Function?
+		
 	I should generate the code on disk. 
 		If not possible, write to console
 		Add a parameter to specify the path for generation
