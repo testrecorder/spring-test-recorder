@@ -160,23 +160,22 @@ DONE ==========================
 		
 		
 TODO ==========================
+	TODO rename the test to describe the use case
+	TODO refactor the generated code to make it easier to understand
+
 	Add generation date and tool
 		but how can I ignore it in tests?
 		Test Generated on ... with TestRecorder
 
-	TODO rename the test to describe the use case
-	TODO refactor the test to make it easier to understand
 
 	Add the date in the in name of the test function to be able to run them in order
 		make it a parameter
 
 	Rename project to TestRecorder
 
-
 	Objects creation
 		Calendar
 
-	
 	Could both Annotations be for Class/Function?
 		
 	I should generate the code on disk. 

@@ -53,6 +53,7 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void addFloats() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -99,6 +100,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Date;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void minDate() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -145,6 +147,7 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void returnNull() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -192,6 +195,7 @@ class TestGeneratorServiceTest {
                         "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void getFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -240,6 +244,7 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void testException() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -280,6 +285,7 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void doNothing() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -331,6 +337,7 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void processArrays() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -386,6 +393,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void processLists() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -433,6 +441,8 @@ class TestGeneratorServiceTest {
                         "import java.util.Date;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void minDate() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -500,6 +510,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void someFunction() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -558,6 +569,7 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void returnIntArray() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -611,6 +623,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Date;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void returnPerson() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -664,6 +677,8 @@ class TestGeneratorServiceTest {
                         "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void repeatedArgs() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -717,6 +732,7 @@ class TestGeneratorServiceTest {
                         "import com.onushi.sampleapp.model.StudentWithBuilder;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void processStudents() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -771,6 +787,7 @@ class TestGeneratorServiceTest {
                         "import java.util.Date;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void loadPerson() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -839,6 +856,7 @@ class TestGeneratorServiceTest {
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -913,6 +931,7 @@ class TestGeneratorServiceTest {
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -980,6 +999,7 @@ class TestGeneratorServiceTest {
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1033,6 +1053,7 @@ class TestGeneratorServiceTest {
                         "import java.util.HashMap;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void processMap() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1087,6 +1108,7 @@ class TestGeneratorServiceTest {
                         "import java.util.HashSet;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void processSet() throws Exception {\n" +
                         "        // Arrange\n" +

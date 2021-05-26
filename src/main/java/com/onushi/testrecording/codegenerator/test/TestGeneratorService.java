@@ -15,6 +15,10 @@ public class TestGeneratorService {
         this.stringService = stringService;
     }
 
+    public final String COMMENT_BEFORE_TEST =
+            "    //TODO rename the test to describe the use case\n" +
+            "    //TODO refactor the generated code to make it easier to understand\n";
+
     public String generateTestCode(TestGenerator testGenerator) {
         return getBeginMarkerString() +
                 getPackageString(testGenerator) +
@@ -43,6 +47,7 @@ public class TestGeneratorService {
         Map<String, String> attributes = getStringGeneratorAttributes(testGenerator);
         stringGenerator.setTemplate(
                 "class {{testClassName}} {\n" +
+                COMMENT_BEFORE_TEST +
                 "    @Test\n" +
                 "    void {{methodName}}() throws Exception {\n" +
                         getArrangeCode(testGenerator, attributes) +
