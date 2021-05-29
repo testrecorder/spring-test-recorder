@@ -156,22 +156,71 @@ DONE ==========================
 		
 	------
 		OK - escape strings
+		OK - TODO rename the test to describe the use case
+		OK - TODO refactor the generated code to make it easier to understand
 		
+		OK - Add generation date and tool
+			but how can I ignore it in tests?
+			Test Generated on ... with @RecordTest
 		
+	------
+		Assert part
+			OK - if returnType == void
+				skip checking the equals and skip collecting the result
+
 		
 TODO ==========================
-	TODO rename the test to describe the use case
-	TODO refactor the generated code to make it easier to understand
+	Write a demo to understand the problem
+	
+	Bug. If I modify the params, the test will have them already modified
+	
+	How the test should look like?
 
-	Add generation date and tool
-		but how can I ignore it in tests?
-		Test Generated on ... with TestRecorder
 
 
-	Add the date in the in name of the test function to be able to run them in order
-		make it a parameter
+	Check object value
+		void
+			no need to check
+	
+		null, primitive
+			simple
+		
+		has equals
+			construct the expectedResult
+			check equality
+			
+		has getters
+			use getters
+				this is recursive
+			
+		has public fields
+			use public fields
+			
+			
+			
+		
+	Assert part
+		Check expected result
+			if returnType != void
+				OK - if has equals
+					assertEquals(expectedResult, result)
+				else 
+					solve equality when there is no equals
+						Ex: int[] == int[]
+					if getters exist
+						test with getters
+					if public fields exist
+						test with public fields
+
+		Check side effects on target, arguments, any dependencies
+			create assertEquals() for all the new values
+
+
+
+	===============================
 
 	Rename project to TestRecorder
+
 
 	Objects creation
 		Calendar
@@ -182,23 +231,6 @@ TODO ==========================
 		If not possible, write to console
 		Add a parameter to specify the path for generation
 
-	Assert part
-		Check expected result
-			if returnType != void
-				if has equals
-					assertEquals(expectedResult, result)
-				else (can be done with comments for now)
-					solve equality when there is no equals
-						Ex: int[] == int[]
-					if getters exist
-						test with getters
-					if public fields exist
-						test with public fields
-			OK - if returnType == void
-				skip checking the equals and skip collecting the result
-
-		Check side effects on target, arguments, any dependencies
-			create assertEquals() for all the new values
 
 
 	Is there a problem with boxed vs unboxed types?
@@ -214,8 +246,8 @@ TODO ==========================
 		raising exceptions
 		where to treat exceptions
 	
-
 	Test what happens when you call a void returning method and want to mock it?
+
 
 	Exceptions thrown are not added to includes
 		in mocks
@@ -245,6 +277,10 @@ TODO ==========================
 
 	
 LATER ==========================
+	Add the date in the in name of the test function to be able to run them in order
+		make it a parameter
+
+
 	I could have a fallback with serializable
 
 	when expectedResult is one of the inited objects it's not reused

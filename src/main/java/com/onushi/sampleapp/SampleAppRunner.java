@@ -1,5 +1,7 @@
 package com.onushi.sampleapp;
 
+import com.onushi.sampleapp.model.Department;
+import com.onushi.sampleapp.model.Employee;
 import com.onushi.sampleapp.model.OtherEmployee;
 import com.onushi.sampleapp.model.Person;
 import com.onushi.sampleapp.services.PersonService;
@@ -98,7 +100,9 @@ public class SampleAppRunner implements CommandLineRunner {
 //        set.add(2.6);
 //        sampleService.processSet(set);
 
-        sampleService.doSomething("a", "  \\  \t  \b  \n  \r  \f \"");
+        // sampleService.doSomething("a", "  \\  \t  \b  \n  \r  \f \"");
+
+        demo4();
     }
 
     private void demo1() throws Exception {
@@ -132,5 +136,21 @@ public class SampleAppRunner implements CommandLineRunner {
 
     private void demo3() throws Exception {
         salaryService.computeEmployeeSalary(1);
+    }
+
+    private void demo4() throws Exception {
+        Employee employee = Employee.builder()
+                .id(1)
+                .firstName("John")
+                .lastName("Doe")
+                .salaryParam1(1000)
+                .salaryParam2(1500)
+                .department(Department.builder()
+                        .id(100)
+                        .name("IT")
+                        .build())
+                .build();
+
+        sampleService.modifyEmployee(employee);
     }
 }

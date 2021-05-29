@@ -145,8 +145,17 @@ public class SampleService {
         return 42;
     }
 
-    @RecordTest
+
     public float processSet(Set<Double> set) {
         return 42.42f;
+    }
+
+    @RecordTest
+    public void modifyEmployee(Employee employee) {
+        employee.setSalaryParam1(employee.getSalaryParam1() * 1.1f);
+        employee.setSalaryParam2(employee.getSalaryParam2() * 1.1f);
+        employee.setSalaryParam3(employee.getSalaryParam3() * 1.1f);
+        Department department = employee.getDepartment();
+        department.setName(department.getName() + " New");
     }
 }

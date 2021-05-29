@@ -14,7 +14,7 @@ public class EmployeeRepository {
         if (id == 1) {
             return Employee.builder()
                     .id(1)
-                    .firstName("John1")
+                    .firstName("John")
                     .lastName("Doe")
                     .salaryParam1(1000)
                     .salaryParam2(1500)
