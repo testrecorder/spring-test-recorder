@@ -169,6 +169,11 @@ DONE ==========================
 TODO ==========================
 	OK - Write a demo to understand how the equality should behave
 	
+	!!!! !!!! !!!! - I need to do something about the expected result
+		Should be treated as a normal object in the TextGenerator context
+	
+	
+	
 	Assert part
 		call checkObjectValue("result");
 

@@ -172,4 +172,8 @@ public class SampleService {
                         .build())
                 .build();
     }
+
+    public List<Integer> getList() {
+        return Arrays.asList(1, 2, 3);
+    }
 }

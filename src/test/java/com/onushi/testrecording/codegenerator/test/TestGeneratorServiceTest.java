@@ -534,8 +534,9 @@ class TestGeneratorServiceTest {
                         "        List<Person> result = sampleService.someFunction(arrayList1, array1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        List<Person> expectedResult = Arrays.asList(person1, person2);\n" +
-                        "        assertEquals(expectedResult, result);\n" +
+                        "        assertEquals(2, result.size());\n" +
+                        "        assertEquals(person1, result.get(0));\n" +
+                        "        assertEquals(person2, result.get(1));\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
@@ -544,14 +545,62 @@ class TestGeneratorServiceTest {
     }
 
     @Test
+    void testListOfIntegers() throws Exception {
+        // Arrange
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("getList")
+                .arguments(Collections.emptyList())
+                .result(Arrays.asList(1, 2, 3))
+                .dependencyMethodRuns(new ArrayList<>())
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        "    @Test\n" +
+                        "    void getList() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        List<Integer> result = sampleService.getList();\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(3, result.size());\n" +
+                        "        assertEquals(1, result.get(0));\n" +
+                        "        assertEquals(2, result.get(1));\n" +
+                        "        assertEquals(3, result.get(2));\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.prepareForCompare(testString));
+    }
+
+
+
+    @Test
     void generateTestForMethodThatReturnsArray() throws Exception {
         // Arrange
-        int[] expectedResult = {3, 4};
+        int[] result = {3, 4};
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("returnIntArray")
                 .arguments(Collections.emptyList())
-                .result(expectedResult)
+                .result(result)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
