@@ -164,7 +164,6 @@ public class TestGeneratorService {
                             "        assertEquals({{inlineCode}}, {{assertPath}});\n")
                         .generate();
             }
-            // TODO IB !!!! fix test for List<>
             // TODO IB !!!! continue here with other known types
         } else if (objectCodeGenerator.getObject().getClass().getName().startsWith("[")) {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, "[{{index}}]", ".length");
@@ -190,15 +189,14 @@ public class TestGeneratorService {
         for (int i = 0, elementsSize = elements.size(); i < elementsSize; i++) {
             ObjectCodeGenerator element = elements.get(i);
             String elementAssertPath =  new StringGenerator()
-                    // TODO IB replace String.valueOf() with int
-                    .addAttribute("index", String.valueOf(i))
+                    .addAttribute("index", i)
                     .addAttribute("assertPath", assertPath)
                     .setTemplate("{{assertPath}}" + indexSyntax)
                     .generate();
             elementsAssert.append(getAssertCode(testGenerator, attributes, element, elementAssertPath));
         }
         return new StringGenerator()
-                .addAttribute("size", String.valueOf(elements.size()))
+                .addAttribute("size", elements.size())
                 .addAttribute("assertPath", assertPath)
                 .addAttribute("elementsAssert", elementsAssert.toString())
                 .addAttribute("sizeSyntax", sizeSyntax)

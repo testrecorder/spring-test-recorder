@@ -15,6 +15,11 @@ public class StringGenerator {
         return this;
     }
 
+    public StringGenerator addAttribute(String name, int value) {
+        context.put(name, String.valueOf(value));
+        return this;
+    }
+
     public StringGenerator addAttribute(String name, String value) {
         context.put(name, value);
         return this;
