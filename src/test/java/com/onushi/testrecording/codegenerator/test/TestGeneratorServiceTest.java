@@ -157,7 +157,7 @@ class TestGeneratorServiceTest {
                         "        Student result = sampleService.returnNull();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(null, result);\n" +
+                        "        assertNull(result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
@@ -1011,7 +1011,7 @@ class TestGeneratorServiceTest {
                         "        Object result = personService.getPersonFirstName(3);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(null, result);\n" +
+                        "        assertNull(result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

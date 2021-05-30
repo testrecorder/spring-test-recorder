@@ -127,19 +127,25 @@ public class TestGeneratorService {
     }
 
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) {
-        if (testGenerator.getExpectedException() == null && !testGenerator.getResultDeclareClassName().equals("void")) {
+        if (testGenerator.getExpectedException() != null) {
+            return "";
+        } else if (testGenerator.getResultDeclareClassName().equals("void")) {
+            return "";
+        } else if (testGenerator.getExpectedResultObjectCodeGenerator().getObject() == null) {
+            return
+            "        // Assert\n" +
+            "        assertNull(result);\n";
+        // TODO IB !!!! continue here
+        } else {
             return new StringGenerator()
                 .addAttributes(attributes)
                 .setTemplate(
-                    "        // Assert\n" +
-                            "{{expectedResultInit}}" +
-                    "        assertEquals({{expectedResult}}, result);\n")
+                        "        // Assert\n" +
+                        "{{expectedResultInit}}" +
+                        "        assertEquals({{expectedResult}}, result);\n")
                 .generate();
-        } else {
-            return "";
         }
     }
-
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");

@@ -102,7 +102,9 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // sampleService.doSomething("a", "  \\  \t  \b  \n  \r  \f \"");
 
-        demo4();
+        // demoSideEffects();
+
+        demoEquality();
     }
 
     private void demo1() throws Exception {
@@ -138,7 +140,7 @@ public class SampleAppRunner implements CommandLineRunner {
         salaryService.computeEmployeeSalary(1);
     }
 
-    private void demo4() throws Exception {
+    private void demoSideEffects() throws Exception {
         Employee employee = Employee.builder()
                 .id(1)
                 .firstName("John")
@@ -152,5 +154,9 @@ public class SampleAppRunner implements CommandLineRunner {
                 .build();
 
         sampleService.modifyEmployee(employee);
+    }
+
+    private void demoEquality() throws Exception {
+        Employee employee = sampleService.getEmployee();
     }
 }

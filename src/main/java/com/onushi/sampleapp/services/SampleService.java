@@ -150,12 +150,26 @@ public class SampleService {
         return 42.42f;
     }
 
-    @RecordTest
     public void modifyEmployee(Employee employee) {
         employee.setSalaryParam1(employee.getSalaryParam1() * 1.1f);
         employee.setSalaryParam2(employee.getSalaryParam2() * 1.1f);
         employee.setSalaryParam3(employee.getSalaryParam3() * 1.1f);
         Department department = employee.getDepartment();
         department.setName(department.getName() + " New");
+    }
+
+    @RecordTest
+    public Employee getEmployee() {
+        return Employee.builder()
+                .id(1)
+                .firstName("John")
+                .lastName("Doe")
+                .salaryParam1(1000)
+                .salaryParam2(1500)
+                .department(Department.builder()
+                        .id(100)
+                        .name("IT")
+                        .build())
+                .build();
     }
 }

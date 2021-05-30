@@ -164,63 +164,64 @@ DONE ==========================
 			Test Generated on ... with @RecordTest
 		
 	------
-		Assert part
-			OK - if returnType == void
-				skip checking the equals and skip collecting the result
 
 		
 TODO ==========================
-	Write a demo to understand the problem
+	OK - Write a demo to understand how the equality should behave
 	
-	Bug. If I modify the params, the test will have them already modified
-	
-	How the test should look like?
-
-
-
-	Check object value
-		void
-			no need to check
-	
-		null, primitive
-			simple
-		
-		has equals
-			construct the expectedResult
-			check equality
-			
-		has getters
-			use getters
-				this is recursive
-			
-		has public fields
-			use public fields
-			
-			
-			
-		
 	Assert part
-		Check expected result
-			if returnType != void
-				OK - if has equals
-					assertEquals(expectedResult, result)
-				else 
-					solve equality when there is no equals
-						Ex: int[] == int[]
-					if getters exist
-						test with getters
-					if public fields exist
-						test with public fields
+		call checkObjectValue("result");
 
-		Check side effects on target, arguments, any dependencies
-			create assertEquals() for all the new values
+		checkObjectValue(String path, Object object)
+			OK - if exception was thrown
+				no expectedResult init
+				no check
+		
+			OK - object is void
+				no expectedResult init
+				no check
+		
+			OK - object is null
+				no expectedResult init
+				simple assertNull
+				
+			primitive
+				no expectedResult init
+				simple assertEquals
+				
+			result == one of the known objects
+				assertEquals(object, result)
+			
+			object has equals
+				expectedResult init if it's not in the Context already
+				simple assertEquals
+				
+			object is known object (array / map / date / etc)
+				check equality in a specific way
+				
+			object has getters / public fields
+				for each field (ex: "firstName", "lastName", "department")
+					checkObjectValue(path + "." + "firstName", object.firstName from map)
+					checkObjectValue(path + "." + "getLastName()", object.lastName from map)
+						
 
 
+	Check side effects on target, arguments, any dependencies
+		OK - Write a demo to understand the problem
+
+		create assertEquals() for all the new values
+
+		Bug. If I modify the params, the test will have them already modified
+			I should get the values of params + target before the function is run
+			I should get the values again after the function call to be able to assert
+			
+		
+		TestGenerator should become TestContext
+			every object should be tested before and after the call 
 
 	===============================
 
 	Rename project to TestRecorder
-
 
 	Objects creation
 		Calendar
