@@ -192,7 +192,7 @@ TODO ==========================
 			!!!! result == one of the known objects
 				assertEquals(object, result)
 
-			object has equals
+			OK - object has equals
 				expectedResult init if it's not in the Context already
 				simple assertEquals
 				

@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,10 @@ import java.util.stream.Collectors;
 @Service
 public class TestGeneratorService {
     private final StringService stringService;
-    public TestGeneratorService(StringService stringService) {
+    private final ClassInfoService classInfoService;
+    public TestGeneratorService(StringService stringService, ClassInfoService classInfoService) {
         this.stringService = stringService;
+        this.classInfoService = classInfoService;
     }
 
     public final String COMMENT_BEFORE_TEST =
@@ -141,14 +144,22 @@ public class TestGeneratorService {
                         "        // Assert\n" +
                         "        assertEquals({{expectedResult}}, result);\n")
                 .generate();
+        } else if (classInfoService.hasEquals(testGenerator.getExpectedResultObjectCodeGenerator().getObject().getClass())) {
+            return new StringGenerator()
+                    .addAttributes(attributes)
+                    .setTemplate(
+                            "        // Assert\n" +
+                                    "{{expectedResultInit}}" +
+                                    "        assertEquals({{expectedResult}}, result);\n")
+                    .generate();
+        // TODO IB !!!! fix all tests
         // TODO IB !!!! continue here
         } else {
             return new StringGenerator()
                     .addAttributes(attributes)
                     .setTemplate(
                             "        // Assert\n" +
-                            "{{expectedResultInit}}" +
-                            "        assertEquals({{expectedResult}}, result);\n")
+                            "        // TODO Check results here \n")
                     .generate();
         }
     }

@@ -17,7 +17,7 @@ public class ServiceCreatorUtils {
     }
 
     public static TestGeneratorService createTestGeneratorService() {
-        return new TestGeneratorService(new StringService());
+        return new TestGeneratorService(new StringService(), new ClassInfoService());
     }
 
     public static ObjectCreationAnalyzerService createObjectCreationAnalyzerService() {
