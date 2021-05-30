@@ -31,9 +31,11 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
                     }))
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.dependencies = elements.stream()
+            objectCodeGenerator.elements = elements.stream()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
+
+            objectCodeGenerator.dependencies = objectCodeGenerator.elements;
 
             String elementClassName = getElementsDeclaringType(objectCodeGenerator.dependencies);
 

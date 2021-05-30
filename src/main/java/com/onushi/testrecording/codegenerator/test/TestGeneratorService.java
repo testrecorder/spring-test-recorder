@@ -1,14 +1,13 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -134,35 +133,67 @@ public class TestGeneratorService {
             return "";
         } else if (testGenerator.getResultDeclareClassName().equals("void")) {
             return "";
-        } else if (testGenerator.getExpectedResultObjectCodeGenerator().getObject() == null) {
-            return
-            "        // Assert\n" +
-            "        assertNull(result);\n";
-        } else if (testGenerator.getExpectedResultObjectCodeGenerator().isCanUseDoubleEqualForComparison()) {
+        } else {
+            return "        // Assert\n" +
+                getAssertCode(testGenerator, attributes, testGenerator.getExpectedResultObjectCodeGenerator(), "result");
+        }
+    }
+
+    // TODO IB !!!! refactor to pattern
+    private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes,
+                                 ObjectCodeGenerator objectCodeGenerator, String assertPath) {
+        if (objectCodeGenerator.getObject() == null) {
+            return "        assertNull(result);\n";
+        } else if (objectCodeGenerator.isCanUseDoubleEqualForComparison()) {
             return new StringGenerator()
-                .setTemplate(
-                        "        // Assert\n" +
-                        "        assertEquals({{expectedResult}}, result);\n")
-                .generate();
-        } else if (classInfoService.hasEquals(testGenerator.getExpectedResultObjectCodeGenerator().getObject().getClass())) {
+                    .addAttribute("assertPath", assertPath)
+                    .addAttribute("inlineCode", objectCodeGenerator.getInlineCode())
+                    .setTemplate("        assertEquals({{inlineCode}}, {{assertPath}});\n")
+                    .generate();
+        } else if (classInfoService.hasEquals(objectCodeGenerator.getObject().getClass())) {
+            // testGenerator.expectedResultInit = getObjectsInit(Collections.singletonList(testGenerator.expectedResultObjectCodeGenerator));
+            // attributes.put("expectedResultInit", testGenerator.getExpectedResultInit().stream()
+            //     .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
+
+            // TODO IB !!!! this should be recursive here so it's not ok to use expectedResultInit
             return new StringGenerator()
                     .addAttributes(attributes)
                     .setTemplate(
-                            "        // Assert\n" +
-                                    "{{expectedResultInit}}" +
-                                    "        assertEquals({{expectedResult}}, result);\n")
+                        "{{expectedResultInit}}" +
+                        "        assertEquals({{expectedResult}}, result);\n")
                     .generate();
-        // TODO IB !!!! fix all tests
-        // TODO IB !!!! continue here
+            // TODO IB !!!! fix test for List<>
+            // TODO IB !!!! continue here with other known types
+        } else if (objectCodeGenerator.getObject().getClass().getName().startsWith("[")) {
+            List<ObjectCodeGenerator> elements = objectCodeGenerator.getElements();
+            StringBuilder elementsAssert = new StringBuilder();
+            for (int i = 0, elementsSize = elements.size(); i < elementsSize; i++) {
+                ObjectCodeGenerator element = elements.get(i);
+                String elementAssertPath =  new StringGenerator()
+                        // TODO IB replace String.valueOf() with int
+                        .addAttribute("index", String.valueOf(i))
+                        .addAttribute("assertPath", assertPath)
+                        .setTemplate("{{assertPath}}[{{index}}]")
+                        .generate();
+                elementsAssert.append(getAssertCode(testGenerator, attributes, element, elementAssertPath));
+            }
+            return new StringGenerator()
+                    .addAttribute("length", String.valueOf(elements.size()))
+                    .addAttribute("assertPath", assertPath)
+                    .addAttribute("elementsAssert", elementsAssert.toString())
+                    .setTemplate(
+                            "        assertEquals({{length}}, {{assertPath}}.length);\n" +
+                            "{{elementsAssert}}")
+                    .generate();
         } else {
             return new StringGenerator()
-                    .addAttributes(attributes)
+                    .addAttribute("assertPath", assertPath)
                     .setTemplate(
-                            "        // Assert\n" +
-                            "        // TODO Check results here \n")
+                        "        // TODO Add assert for {{assertPath}} object \n")
                     .generate();
         }
     }
+
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");

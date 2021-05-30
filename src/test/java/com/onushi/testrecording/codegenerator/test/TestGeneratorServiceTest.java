@@ -578,8 +578,9 @@ class TestGeneratorServiceTest {
                         "        int[] result = sampleService.returnIntArray();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        int[] expectedResult = {3, 4};\n" +
-                        "        assertEquals(expectedResult, result);\n" +
+                        "        assertEquals(2, result.length);\n" +
+                        "        assertEquals(3, result[0]);\n" +
+                        "        assertEquals(4, result[1]);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

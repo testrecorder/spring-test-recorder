@@ -11,6 +11,7 @@ public class ObjectCodeGenerator {
     protected final String objectName;
     protected final String inlineCode;
     protected String declareClassName;
+    protected List<ObjectCodeGenerator> elements = new ArrayList<>();
     protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();
     protected List<String> requiredImports = new ArrayList<>();
     protected final List<String> requiredHelperObjects = new ArrayList<>();

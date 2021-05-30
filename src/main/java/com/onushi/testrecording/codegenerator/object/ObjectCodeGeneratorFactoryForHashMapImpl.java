@@ -45,6 +45,7 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
             List<ObjectCodeGenerator> allDependencies = new ArrayList<>(keyGenerators);
             allDependencies.addAll(valueGenerators);
 
+            objectCodeGenerator.elements = keyGenerators;
             objectCodeGenerator.dependencies = allDependencies;
 
             String keyClassName = getElementsDeclaringType(keyGenerators);

@@ -20,17 +20,17 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGenera
 
             objectCodeGenerator.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
-            List<ObjectCodeGenerator> elements = ((List<Object>) context.getObject()).stream()
+            objectCodeGenerator.elements = ((List<Object>) context.getObject()).stream()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.dependencies = elements.stream()
+            objectCodeGenerator.dependencies = objectCodeGenerator.elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
-            String elementClassSimpleName = getElementsDeclaringType(elements);
+            String elementClassSimpleName = getElementsDeclaringType(objectCodeGenerator.elements);
 
-            String elementsInlineCode = elements.stream()
+            String elementsInlineCode = objectCodeGenerator.elements.stream()
                     .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
             objectCodeGenerator.initCode = new StringGenerator()

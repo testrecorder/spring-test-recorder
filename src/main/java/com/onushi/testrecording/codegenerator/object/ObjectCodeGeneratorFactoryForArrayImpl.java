@@ -32,12 +32,12 @@ public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorF
 
             ArrayAsList arrayAsList = getElementList(context.getObject());
 
-            List<ObjectCodeGenerator> elements = arrayAsList.list
+            objectCodeGenerator.elements = arrayAsList.list
                     .stream()
                     .map(fieldValue -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.dependencies = elements.stream()
+            objectCodeGenerator.dependencies = objectCodeGenerator.elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
@@ -50,7 +50,7 @@ public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorF
                     .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};")
                     .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
                     .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("elementsInlineCode", getElementsInlineCode(elements))
+                    .addAttribute("elementsInlineCode", getElementsInlineCode(objectCodeGenerator.elements))
                     .generate();
 
             return objectCodeGenerator;
