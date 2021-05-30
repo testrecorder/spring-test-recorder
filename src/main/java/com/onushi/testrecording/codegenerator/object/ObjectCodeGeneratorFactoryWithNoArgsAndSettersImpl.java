@@ -36,7 +36,7 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl extends ObjectCo
             return null;
         }
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         StringBuilder builderSetters = new StringBuilder();
         StringBuilder simpleSetters = new StringBuilder();

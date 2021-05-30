@@ -6,7 +6,7 @@ public class ObjectCodeGeneratorFactoryForNotRedFields extends ObjectCodeGenerat
 
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         objectCodeGenerator.initCode = new StringGenerator()
                 .setTemplate("// TODO Create this object\n" +

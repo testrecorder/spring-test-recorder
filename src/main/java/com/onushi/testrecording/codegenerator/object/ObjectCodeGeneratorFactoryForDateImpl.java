@@ -9,7 +9,7 @@ public class ObjectCodeGeneratorFactoryForDateImpl extends ObjectCodeGeneratorFa
         if (context.getObject().getClass().getName().equals("java.util.Date")) {
 
             ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(),
-                    context.getObjectName());
+                    context.getObjectName(), false);
 
             objectCodeGenerator.requiredImports.add("java.text.SimpleDateFormat");
             objectCodeGenerator.requiredImports.add("java.util.Date");

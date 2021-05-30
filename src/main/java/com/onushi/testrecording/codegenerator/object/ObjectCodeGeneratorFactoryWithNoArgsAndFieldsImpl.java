@@ -24,7 +24,7 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl extends ObjectCod
             return null;
         }
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         StringBuilder fieldsInitCode = new StringBuilder();
         List<ObjectCodeGenerator> fieldObjectCodeGenerators = new ArrayList<>();

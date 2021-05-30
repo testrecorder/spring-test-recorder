@@ -28,7 +28,7 @@ public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorF
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject().getClass().getName().startsWith("[")) {
 
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             ArrayAsList arrayAsList = getElementList(context.getObject());
 

@@ -8,7 +8,7 @@ public class ObjectCodeGeneratorFactoryForUUIDImpl extends ObjectCodeGeneratorFa
         String fullClassName = context.getObject().getClass().getName();
         if (fullClassName.equals("java.util.UUID")) {
             ObjectCodeGenerator objectCodeGenerator =
-                    new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+                    new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             objectCodeGenerator.initCode = new StringGenerator()
                     .setTemplate("UUID {{objectName}} = UUID.fromString(\"{{uuid}}\");")

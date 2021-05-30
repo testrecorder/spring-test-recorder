@@ -18,6 +18,7 @@ public class ObjectCodeGenerator {
     // these 2 are used to traverse the ObjectCodeGenerator graph
     private boolean initPrepared = false;
     private boolean initDone = false;
+    protected boolean canUseDoubleEqualForComparison;
 
     public void setInitPrepared(boolean initPrepared) {
         this.initPrepared = initPrepared;
@@ -27,18 +28,20 @@ public class ObjectCodeGenerator {
         this.initDone = initDone;
     }
 
-    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode) {
+    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, boolean canUseDoubleEqualForComparison) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
         this.declareClassName = object.getClass().getSimpleName();
+        this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
     }
 
-    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, String declareClassName) {
+    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, String declareClassName, boolean canUseDoubleEqualForComparison) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
         this.declareClassName = declareClassName;
+        this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
     }
 }
 

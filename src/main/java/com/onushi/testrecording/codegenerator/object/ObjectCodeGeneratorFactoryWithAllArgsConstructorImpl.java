@@ -26,7 +26,7 @@ public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl extends Object
             boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
 
 
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             List<ObjectCodeGenerator> args = matchingConstructor.getArgsInOrder().stream()
                     .map(argument -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), argument.getValue()))

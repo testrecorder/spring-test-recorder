@@ -185,13 +185,13 @@ TODO ==========================
 				no expectedResult init
 				simple assertNull
 				
-			primitive
+			OK - primitive
 				no expectedResult init
 				simple assertEquals
 				
-			result == one of the known objects
+			!!!! result == one of the known objects
 				assertEquals(object, result)
-			
+
 			object has equals
 				expectedResult init if it's not in the Context already
 				simple assertEquals

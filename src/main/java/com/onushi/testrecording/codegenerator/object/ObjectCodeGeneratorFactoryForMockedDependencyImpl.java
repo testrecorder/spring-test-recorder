@@ -22,7 +22,7 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl extends ObjectCod
                 .filter(x -> x.getTarget().getClass() == context.getObject().getClass())
                 .collect(Collectors.toList());
         if (dependencyMethodRuns.size() > 0) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             objectCodeGenerator.requiredImports = Arrays.asList(
                     "static org.mockito.Mockito.*",

@@ -135,15 +135,21 @@ public class TestGeneratorService {
             return
             "        // Assert\n" +
             "        assertNull(result);\n";
+        } else if (testGenerator.getExpectedResultObjectCodeGenerator().isCanUseDoubleEqualForComparison()) {
+            return new StringGenerator()
+                .setTemplate(
+                        "        // Assert\n" +
+                        "        assertEquals({{expectedResult}}, result);\n")
+                .generate();
         // TODO IB !!!! continue here
         } else {
             return new StringGenerator()
-                .addAttributes(attributes)
-                .setTemplate(
-                        "        // Assert\n" +
-                        "{{expectedResultInit}}" +
-                        "        assertEquals({{expectedResult}}, result);\n")
-                .generate();
+                    .addAttributes(attributes)
+                    .setTemplate(
+                            "        // Assert\n" +
+                            "{{expectedResultInit}}" +
+                            "        assertEquals({{expectedResult}}, result);\n")
+                    .generate();
         }
     }
 

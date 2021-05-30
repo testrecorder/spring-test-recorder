@@ -15,7 +15,7 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject() instanceof HashMap<?, ?>) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             objectCodeGenerator.requiredImports = Arrays.asList("java.util.Map", "java.util.HashMap");
 

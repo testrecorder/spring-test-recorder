@@ -15,7 +15,7 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject() instanceof HashSet<?>) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             objectCodeGenerator.requiredImports = Arrays.asList("java.util.Set", "java.util.HashSet");
 

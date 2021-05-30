@@ -16,7 +16,7 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGenera
     @Override
     public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject() instanceof List<?>) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             objectCodeGenerator.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
