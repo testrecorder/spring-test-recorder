@@ -21,7 +21,6 @@ public class TestGenerator {
 
     protected List<String> requiredImports;
     protected List<String> requiredHelperObjects;
-    protected List<String> objectsInit;
     protected List<String> argumentsInlineCode;
     protected List<DependencyMethodRunInfo> dependencyMethodRuns = new ArrayList<>();
 

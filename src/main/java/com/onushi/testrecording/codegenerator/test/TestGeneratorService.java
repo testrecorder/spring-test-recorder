@@ -78,9 +78,12 @@ public class TestGeneratorService {
         attributes.put("methodName", testGenerator.getMethodName());
         attributes.put("requiredHelperObjects", testGenerator.getRequiredHelperObjects().stream()
                 .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
-        attributes.put("objectsInit", testGenerator.getObjectsInit().stream()
+
+        List<ObjectCodeGenerator> objectsToInit = new ArrayList<>(testGenerator.argumentObjectCodeGenerators);
+        objectsToInit.add(testGenerator.targetObjectCodeGenerator);
+        attributes.put("objectsInit", getObjectsInit(objectsToInit).stream()
                 .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
-        // attributes.put("targetObjectInit", stringService.addPrefixOnAllLines(testGenerator.getTargetObjectCodeGenerator().getInitCode(), "        "));
+
         attributes.put("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
 
         attributes.put("resultDeclareClassName", testGenerator.getResultDeclareClassName());

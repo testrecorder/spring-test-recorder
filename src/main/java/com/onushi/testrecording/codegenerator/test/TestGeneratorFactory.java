@@ -52,10 +52,6 @@ public class TestGeneratorFactory {
 
         testGenerator.requiredHelperObjects = getRequiredHelperObjects(testGenerator);
 
-        List<ObjectCodeGenerator> objectsToInit = new ArrayList<>(testGenerator.argumentObjectCodeGenerators);
-        objectsToInit.add(testGenerator.targetObjectCodeGenerator);
-        testGenerator.objectsInit = testGeneratorService.getObjectsInit(objectsToInit);
-
         testGenerator.argumentsInlineCode = getArgumentsInlineCode(testGenerator);
 
         testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectCodeGenerator, recordedMethodRunInfo.getFallBackResultType());
