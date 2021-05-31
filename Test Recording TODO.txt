@@ -200,7 +200,17 @@ TODO ==========================
 				simple assertEquals
 				
 			!!!! object has getters / public fields
-				extend ObjectStateReaderService
+				create an ObjectGettersAnalyzerService()
+					getObjectGettersInfo()
+						call getObjectState()
+							for each field
+								try to find getter and value
+								if not see if the field is public
+								if not add comment that the field is not tested
+								
+								
+								
+					
 						
 				for each field (ex: "firstName", "lastName", "department")
 					checkObjectValue(path + "." + "firstName", object.firstName from map)

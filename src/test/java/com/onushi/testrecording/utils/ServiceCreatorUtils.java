@@ -2,6 +2,7 @@ package com.onushi.testrecording.utils;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
+import com.onushi.testrecording.analyzer.object.ObjectReadAnalyzerService;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
 import com.onushi.testrecording.codegenerator.object.CglibService;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactoryManager;
@@ -41,5 +42,9 @@ public class ServiceCreatorUtils {
                 createObjectNameGenerator(),
                 createObjectCodeGeneratorFactoryManager(),
                 createTestGeneratorService());
+    }
+
+    public static ObjectReadAnalyzerService createObjectReadAnalyzerService() {
+        return new ObjectReadAnalyzerService(new ObjectStateReaderService());
     }
 }
