@@ -199,33 +199,33 @@ TODO ==========================
 				expectedResult init if it's not in the Context already
 				simple assertEquals
 				
-			!!!! - handle assert for other known types
-				
-				
-				
-				
-			object is known object (array / map / date / etc)
-				check equality in a specific way
-				
-			object has getters / public fields
+			!!!! object has getters / public fields
+				extend ObjectStateReaderService
+						
 				for each field (ex: "firstName", "lastName", "department")
 					checkObjectValue(path + "." + "firstName", object.firstName from map)
 					checkObjectValue(path + "." + "getLastName()", object.lastName from map)
-						
 
+
+			!!!! - handle assert for other known types
+				HashMap
+				HashSet
+				UUID? has equals?
+				
+				
+			
 
 	Check side effects on target, arguments, any dependencies
 		OK - Write a demo to understand the problem
 
-		create assertEquals() for all the new values
+		create assertEquals() for all the changed values
 
-		Bug. If I modify the params, the test will have them already modified
+		!!!! Bug. If I modify the params, the test will have them already modified
 			I should get the values of params + target before the function is run
 			I should get the values again after the function call to be able to assert
 			
 		
-		TestGenerator should become TestContext
-			every object should be tested before and after the call 
+		every object should be tested before and after the call 
 
 	===============================
 

@@ -1,9 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.sampleapp.model.Person;
-import com.onushi.sampleapp.model.Student;
-import com.onushi.sampleapp.model.StudentWithBuilder;
-import com.onushi.sampleapp.model.StudentWithDefaultInitFields;
+import com.onushi.sampleapp.model.*;
 import com.onushi.sampleapp.services.PersonRepositoryImpl;
 import com.onushi.sampleapp.services.PersonService;
 import com.onushi.sampleapp.services.SampleService;
@@ -1258,6 +1255,38 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
+                StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void generateAssertTestForObjectsWithGetters() throws Exception {
+        // Arrange
+        Employee employee = Employee.builder()
+                .id(1)
+                .firstName("John")
+                .lastName("Doe")
+                .salaryParam1(1000)
+                .salaryParam2(1500)
+                .department(Department.builder()
+                        .id(100)
+                        .name("IT")
+                        .build())
+                .build();
+
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("getEmployee")
+                .arguments(Collections.emptyList())
+                .result(employee)
+                .dependencyMethodRuns(new ArrayList<>())
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.prepareForCompare(""),
                 StringUtils.prepareForCompare(testString));
     }
 }

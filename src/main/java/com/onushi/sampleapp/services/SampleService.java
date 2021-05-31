@@ -174,7 +174,6 @@ public class SampleService {
                 .build();
     }
 
-    @RecordTest
     public List<List<Person>> getListOfPersonList() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");

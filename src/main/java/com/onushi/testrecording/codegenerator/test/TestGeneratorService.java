@@ -160,16 +160,15 @@ public class TestGeneratorService {
                     .setTemplate("{{objectsInit}}" +
                         "        assertEquals({{inlineCode}}, {{assertPath}});\n")
                     .generate();
-            // TODO IB !!!! continue here with other known types
         } else if (objectCodeGenerator.getObject().getClass().getName().startsWith("[")) {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, "[{{index}}]", ".length");
         } if (objectCodeGenerator.getObject() instanceof List<?>) {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, ".get({{index}})", ".size()");
         } else {
+        // TODO IB !!!! continue here with other known types
             return new StringGenerator()
                     .addAttribute("assertPath", assertPath)
-                    .setTemplate(
-                        "        // TODO Add assert for {{assertPath}} object \n")
+                    .setTemplate("        // TODO Add assert for {{assertPath}} object \n")
                     .generate();
         }
     }

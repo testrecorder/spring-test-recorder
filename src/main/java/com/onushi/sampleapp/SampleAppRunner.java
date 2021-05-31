@@ -157,6 +157,7 @@ public class SampleAppRunner implements CommandLineRunner {
     }
 
     private void demoAssert() throws Exception {
-        sampleService.getListOfPersonList();
+        // sampleService.getListOfPersonList();
+        sampleService.getEmployee();
     }
 }
