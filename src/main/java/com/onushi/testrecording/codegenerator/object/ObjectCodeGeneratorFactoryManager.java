@@ -100,7 +100,7 @@ public class ObjectCodeGeneratorFactoryManager {
             return new ObjectCodeGeneratorFactoryForNotRedFields().createObjectCodeGenerator(context);
         }
 
-        // TODO IB !!!! why the objectState is not in the ObjectCodeGenerator?
+        // after we tried knownClassesFactoriesList and we unproxy we getObjectState to try creating in a generic way
         context.setObjectState(objectStateReaderService.getObjectState(context.getObject()));
         boolean allFieldsAreRead = context.getObjectState().values().stream()
                 .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);
