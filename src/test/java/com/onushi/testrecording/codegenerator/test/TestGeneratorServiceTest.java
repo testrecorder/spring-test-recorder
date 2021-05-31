@@ -113,8 +113,7 @@ class TestGeneratorServiceTest {
                         "        Date result = sampleService.minDate(date1, date2);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        Date expectedResult = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
-                        "        assertEquals(expectedResult, result);\n" +
+                        "        assertEquals(date1, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
@@ -453,8 +452,7 @@ class TestGeneratorServiceTest {
                         "        Date result = sampleService.minDate(date1, date1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        Date expectedResult = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
-                        "        assertEquals(expectedResult, result);\n" +
+                        "        assertEquals(date1, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
@@ -566,6 +564,8 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -670,6 +670,7 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
@@ -684,12 +685,12 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "        // Assert\n" +
                         "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
-                        "        Person expectedResult = Person.builder()\n" +
+                        "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Gica\")\n" +
                         "            .lastName(\"Fulgerica\")\n" +
                         "            .build();\n" +
-                        "        assertEquals(expectedResult, result);\n" +
+                        "        assertEquals(person1, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
@@ -833,6 +834,7 @@ class TestGeneratorServiceTest {
                         "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
@@ -848,12 +850,12 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "        // Assert\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1940-11-27 00:00:00.000\");\n" +
-                        "        Person expectedResult = Person.builder()\n" +
+                        "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Bruce\")\n" +
                         "            .lastName(\"Lee\")\n" +
                         "            .build();\n" +
-                        "        assertEquals(expectedResult, result);\n" +
+                        "        assertEquals(person1, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

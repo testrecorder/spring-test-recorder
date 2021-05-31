@@ -8,7 +8,9 @@ import java.util.*;
 
 @Getter
 public class TestGenerator {
+    // TODO IB !!!! simplify this and refactor towards this being a Context
     protected ObjectCodeGenerator targetObjectCodeGenerator;
+    // TODO IB !!!! these 2 should be in targetObjectCodeGenerator
     protected String packageName;
     protected String shortClassName;
     protected String methodName;
@@ -21,7 +23,6 @@ public class TestGenerator {
     protected List<String> requiredHelperObjects;
     protected List<String> objectsInit;
     protected List<String> argumentsInlineCode;
-    protected List<String> expectedResultInit;
     protected List<DependencyMethodRunInfo> dependencyMethodRuns = new ArrayList<>();
 
     protected final Map<Object, ObjectCodeGenerator> objectCodeGeneratorCache = new LinkedHashMap<>();

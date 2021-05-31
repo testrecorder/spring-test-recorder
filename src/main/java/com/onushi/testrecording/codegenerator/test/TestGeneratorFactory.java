@@ -12,11 +12,14 @@ import java.util.stream.Collectors;
 public class TestGeneratorFactory {
     private final ObjectNameGenerator objectNameGenerator;
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final TestGeneratorService testGeneratorService;
 
     public TestGeneratorFactory(ObjectNameGenerator objectNameGenerator,
-                                ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+                                ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+                                TestGeneratorService testGeneratorService) {
         this.objectNameGenerator = objectNameGenerator;
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+        this.testGeneratorService = testGeneratorService;
     }
 
     public TestGenerator createTestGenerator(RecordedMethodRunInfo recordedMethodRunInfo) {
@@ -41,8 +44,8 @@ public class TestGeneratorFactory {
                 .map(x -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, x))
                 .collect(Collectors.toList());
 
-        testGenerator.expectedResultObjectCodeGenerator = objectCodeGeneratorFactoryManager.getNamedObjectCodeGenerator(testGenerator,
-                recordedMethodRunInfo.getResult(), "expectedResult");
+        testGenerator.expectedResultObjectCodeGenerator = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator,
+                recordedMethodRunInfo.getResult());
         testGenerator.expectedException = recordedMethodRunInfo.getException();
 
         testGenerator.requiredImports = getRequiredImports(testGenerator);
@@ -51,17 +54,16 @@ public class TestGeneratorFactory {
 
         List<ObjectCodeGenerator> objectsToInit = new ArrayList<>(testGenerator.argumentObjectCodeGenerators);
         objectsToInit.add(testGenerator.targetObjectCodeGenerator);
-        testGenerator.objectsInit = getObjectsInit(objectsToInit);
+        testGenerator.objectsInit = testGeneratorService.getObjectsInit(objectsToInit);
 
         testGenerator.argumentsInlineCode = getArgumentsInlineCode(testGenerator);
-
-        testGenerator.expectedResultInit = getObjectsInit(Collections.singletonList(testGenerator.expectedResultObjectCodeGenerator));
 
         testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectCodeGenerator, recordedMethodRunInfo.getFallBackResultType());
 
         return testGenerator;
     }
 
+    // TODO IB !!!! this is suspect. ObjectCodeGenerator should handle this
     private String getResultDeclareClassName(ObjectCodeGenerator expectedResultObjectCodeGenerator, Class<?> fallBackResultType) {
         if (expectedResultObjectCodeGenerator.getObject() != null) {
             return expectedResultObjectCodeGenerator.getDeclareClassName();
@@ -91,38 +93,6 @@ public class TestGeneratorFactory {
                 .flatMap(x -> x.getRequiredHelperObjects().stream())
                 .distinct()
                 .collect(Collectors.toList());
-    }
-
-    private List<String> getObjectsInit(List<ObjectCodeGenerator> objectCodeGenerators) {
-        Set<String> objectInitsAlreadyAdded = new HashSet<>();
-
-        List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectCodeGenerator argumentObjectCodeGenerator : objectCodeGenerators) {
-            List<String> objectsInit = getObjectsInit(argumentObjectCodeGenerator);
-            for (String objectInit : objectsInit) {
-                if (objectInitsAlreadyAdded.add(objectInit)) {
-                    allObjectsInit.add(objectInit);
-                }
-            }
-        }
-        return allObjectsInit;
-    }
-
-    private List<String> getObjectsInit(ObjectCodeGenerator objectCodeGenerator) {
-        if (objectCodeGenerator.isInitPrepared() || objectCodeGenerator.isInitDone()) {
-            // to avoid cyclic traversal
-            return new ArrayList<>();
-        }
-        objectCodeGenerator.setInitPrepared(true);
-        List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectCodeGenerator dependency : objectCodeGenerator.getDependencies()) {
-            allObjectsInit.addAll(getObjectsInit(dependency));
-        }
-        if (!objectCodeGenerator.getInitCode().equals("")) {
-            allObjectsInit.add(objectCodeGenerator.getInitCode());
-        }
-        objectCodeGenerator.setInitDone(true);
-        return allObjectsInit;
     }
 
     private List<String> getArgumentsInlineCode(TestGenerator testGenerator) {

@@ -86,8 +86,6 @@ public class TestGeneratorService {
         attributes.put("resultDeclareClassName", testGenerator.getResultDeclareClassName());
 
         attributes.put("argumentsInlineCode", String.join(", ", testGenerator.getArgumentsInlineCode()));
-        attributes.put("expectedResultInit", testGenerator.getExpectedResultInit().stream()
-                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
         attributes.put("expectedResult", testGenerator.getExpectedResultObjectCodeGenerator().getInlineCode());
         if (testGenerator.getExpectedException() != null) {
             attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
@@ -151,19 +149,14 @@ public class TestGeneratorService {
                     .setTemplate("        assertEquals({{inlineCode}}, {{assertPath}});\n")
                     .generate();
         } else if (classInfoService.hasEquals(objectCodeGenerator.getObject().getClass())) {
-            // testGenerator.expectedResultInit = getObjectsInit(Collections.singletonList(testGenerator.expectedResultObjectCodeGenerator));
-            // attributes.put("expectedResultInit", testGenerator.getExpectedResultInit().stream()
-            //     .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
-
-            // TODO IB !!!! this should be recursive here so it's not ok to use expectedResultInit
-            if (objectCodeGenerator.isInitDone()) {
-                return new StringGenerator()
-                        .addAttribute("assertPath", assertPath)
-                        .addAttribute("inlineCode", objectCodeGenerator.getInlineCode())
-                        .setTemplate(
-                            "        assertEquals({{inlineCode}}, {{assertPath}});\n")
-                        .generate();
-            }
+            return new StringGenerator()
+                    .addAttribute("objectsInit", getObjectsInit(Collections.singletonList(objectCodeGenerator)).stream()
+                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")))
+                    .addAttribute("assertPath", assertPath)
+                    .addAttribute("inlineCode", objectCodeGenerator.getInlineCode())
+                    .setTemplate("{{objectsInit}}" +
+                        "        assertEquals({{inlineCode}}, {{assertPath}});\n")
+                    .generate();
             // TODO IB !!!! continue here with other known types
         } else if (objectCodeGenerator.getObject().getClass().getName().startsWith("[")) {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, "[{{index}}]", ".length");
@@ -208,5 +201,30 @@ public class TestGeneratorService {
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
+    }
+
+    public List<String> getObjectsInit(List<ObjectCodeGenerator> objectCodeGenerators) {
+        List<String> allObjectsInit = new ArrayList<>();
+        for (ObjectCodeGenerator objectCodeGenerator : objectCodeGenerators) {
+            allObjectsInit.addAll(getObjectsInit(objectCodeGenerator));
+        }
+        return allObjectsInit;
+    }
+
+    public List<String> getObjectsInit(ObjectCodeGenerator objectCodeGenerator) {
+        if (objectCodeGenerator.isInitPrepared() || objectCodeGenerator.isInitDone()) {
+            // to avoid cyclic traversal
+            return new ArrayList<>();
+        }
+        objectCodeGenerator.setInitPrepared(true);
+        List<String> allObjectsInit = new ArrayList<>();
+        for (ObjectCodeGenerator dependency : objectCodeGenerator.getDependencies()) {
+            allObjectsInit.addAll(getObjectsInit(dependency));
+        }
+        if (!objectCodeGenerator.getInitCode().equals("")) {
+            allObjectsInit.add(objectCodeGenerator.getInitCode());
+        }
+        objectCodeGenerator.setInitDone(true);
+        return allObjectsInit;
     }
 }
