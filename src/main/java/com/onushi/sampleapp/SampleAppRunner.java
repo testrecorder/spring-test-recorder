@@ -104,7 +104,7 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // demoSideEffects();
 
-        demoEquality();
+        demoAssert();
     }
 
     private void demo1() throws Exception {
@@ -156,7 +156,7 @@ public class SampleAppRunner implements CommandLineRunner {
         sampleService.modifyEmployee(employee);
     }
 
-    private void demoEquality() throws Exception {
-        Employee employee = sampleService.getEmployee();
+    private void demoAssert() throws Exception {
+        sampleService.getListOfPersonList();
     }
 }

@@ -5,6 +5,7 @@ import com.onushi.testrecording.aspect.RecordTest;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -171,6 +172,27 @@ public class SampleService {
                         .name("IT")
                         .build())
                 .build();
+    }
+
+    @RecordTest
+    public List<List<Person>> getListOfPersonList() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
+        Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
+        Person paul = Person.builder()
+                .firstName("Paul")
+                .lastName("Marculescu")
+                .dateOfBirth(dateOfBirth1)
+                .build();
+
+        Person gica = Person.builder()
+                .firstName("Gica")
+                .lastName("Fulgerica")
+                .dateOfBirth(dateOfBirth2)
+                .build();
+
+        List<Person> personList = Arrays.asList(paul, gica);
+        return Collections.singletonList(personList);
     }
 
     public List<Integer> getList() {
