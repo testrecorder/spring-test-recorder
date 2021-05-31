@@ -100,6 +100,7 @@ public class ObjectCodeGeneratorFactoryManager {
             return new ObjectCodeGeneratorFactoryForNotRedFields().createObjectCodeGenerator(context);
         }
 
+        // TODO IB !!!! why the objectState is not in the ObjectCodeGenerator?
         context.setObjectState(objectStateReaderService.getObjectState(context.getObject()));
         boolean allFieldsAreRead = context.getObjectState().values().stream()
                 .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);
