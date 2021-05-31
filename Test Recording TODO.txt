@@ -169,10 +169,8 @@ DONE ==========================
 TODO ==========================
 	OK - Write a demo to understand how the equality should behave
 	
-	!!!! !!!! !!!! - I need to do something about the expected result
+	OK - I need to do something about the expected result
 		Should be treated as a normal object in the TextGenerator context
-	
-	
 	
 	Assert part
 		call checkObjectValue("result");
@@ -194,12 +192,17 @@ TODO ==========================
 				no expectedResult init
 				simple assertEquals
 				
-			!!!! result == one of the known objects
+			OK - result == one of the known objects
 				assertEquals(object, result)
 
 			OK - object has equals
 				expectedResult init if it's not in the Context already
 				simple assertEquals
+				
+			!!!! - handle assert for other known types
+				
+				
+				
 				
 			object is known object (array / map / date / etc)
 				check equality in a specific way
