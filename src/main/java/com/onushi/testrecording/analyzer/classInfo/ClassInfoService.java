@@ -3,6 +3,7 @@ package com.onushi.testrecording.analyzer.classInfo;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -67,5 +68,27 @@ public class ClassInfoService {
                     .collect(Collectors.toList());
         }
         return new ArrayList<>();
+    }
+
+    public List<Method> getPublicGetters(Class<?> clazz) {
+        return Arrays.stream(clazz.getMethods())
+                .filter(method -> Modifier.isPublic(method.getModifiers()))
+                .filter(method -> !Modifier.isStatic(method.getModifiers()))
+                .filter(method -> method.getParameterTypes().length == 0)
+                .filter(method -> (method.getName().startsWith("get") ||
+                        // TODO IB !!!! should be followed by big letter
+                        method.getName().startsWith("is")) &&
+                        !method.getName().equals("getClass"))
+                .sorted(Comparator.comparing(Method::getName))
+                .collect(Collectors.toList());
+    }
+
+    public List<Field> getPublicFields(Class<?> clazz) {
+        return Arrays.stream(clazz.getDeclaredFields())
+                .filter(field -> Modifier.isPublic(field.getModifiers()))
+                .filter(field -> !Modifier.isTransient(field.getModifiers()))
+                .filter(field -> !Modifier.isStatic(field.getModifiers()))
+                .sorted(Comparator.comparing(Field::getName))
+                .collect(Collectors.toList());
     }
 }

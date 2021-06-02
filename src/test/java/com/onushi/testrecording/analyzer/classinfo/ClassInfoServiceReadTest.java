@@ -1,7 +1,8 @@
-package com.onushi.testrecording.analyzer.object;
+package com.onushi.testrecording.analyzer.classinfo;
 
 import com.onushi.sampleapp.model.Department;
 import com.onushi.sampleapp.model.Programmer;
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +12,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ObjectReadAnalyzerServiceTest {
-    ObjectReadAnalyzerService objectReadAnalyzerService;
+class ClassInfoServiceReadTest {
+    ClassInfoService classInfoService;
     Department department1;
     Programmer programmer1;
 
     @BeforeEach
     void setUp() {
-        objectReadAnalyzerService = new ObjectReadAnalyzerService();
+        classInfoService = new ClassInfoService();
         department1 = Department.builder().id(100).name("IT").build();
         programmer1 = Programmer.builder()
                 .id(1)
@@ -30,7 +31,7 @@ class ObjectReadAnalyzerServiceTest {
 
     @Test
     void getPublicFields() {
-        List<Field> publicFields = objectReadAnalyzerService.getPublicFields(programmer1);
+        List<Field> publicFields = classInfoService.getPublicFields(programmer1.getClass());
         assertEquals(4, publicFields.size());
         assertEquals("department", publicFields.get(0).getName());
         assertEquals("firstName", publicFields.get(1).getName());
@@ -40,7 +41,7 @@ class ObjectReadAnalyzerServiceTest {
 
     @Test
     void getPublicGetters() {
-        List<Method> publicGetters = objectReadAnalyzerService.getPublicGetters(programmer1);
+        List<Method> publicGetters = classInfoService.getPublicGetters(programmer1.getClass());
         assertEquals(2, publicGetters.size());
         assertEquals("getSalary", publicGetters.get(0).getName());
         assertEquals("isOnline", publicGetters.get(1).getName());
