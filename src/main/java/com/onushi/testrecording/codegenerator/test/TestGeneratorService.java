@@ -6,6 +6,9 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,7 +26,7 @@ public class TestGeneratorService {
             "    //TODO rename the test to describe the use case\n" +
             "    //TODO refactor the generated code to make it easier to understand\n";
 
-    public String generateTestCode(TestGenerator testGenerator) {
+    public String generateTestCode(TestGenerator testGenerator) throws InvocationTargetException, IllegalAccessException {
         return getBeginMarkerString() +
                 getPackageString(testGenerator) +
                 getImportsString(testGenerator) +
@@ -46,7 +49,7 @@ public class TestGeneratorService {
                 .collect(Collectors.joining(""));
     }
 
-    private String getClassAndTestString(TestGenerator testGenerator) {
+    private String getClassAndTestString(TestGenerator testGenerator) throws InvocationTargetException, IllegalAccessException {
         StringGenerator stringGenerator = new StringGenerator();
         Map<String, String> attributes = getStringGeneratorAttributes(testGenerator);
         stringGenerator.setTemplate(
@@ -129,7 +132,7 @@ public class TestGeneratorService {
         return stringGenerator.generate();
     }
 
-    private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) {
+    private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) throws InvocationTargetException, IllegalAccessException {
         if (testGenerator.getExpectedException() != null) {
             return "";
         } else if (testGenerator.getResultDeclareClassName().equals("void")) {
@@ -141,8 +144,9 @@ public class TestGeneratorService {
     }
 
     // TODO IB !!!! refactor to pattern
+    // TODO IB !!!! do I need the attributes?
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes,
-                                 ObjectCodeGenerator objectCodeGenerator, String assertPath) {
+                                 ObjectCodeGenerator objectCodeGenerator, String assertPath) throws InvocationTargetException, IllegalAccessException {
         if (objectCodeGenerator.getObject() == null) {
             return "        assertNull(result);\n";
         } else if (objectCodeGenerator.isCanUseDoubleEqualForComparison()) {
@@ -164,8 +168,21 @@ public class TestGeneratorService {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, "[{{index}}]", ".length");
         } if (objectCodeGenerator.getObject() instanceof List<?>) {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, ".get({{index}})", ".size()");
-        } else {
         // TODO IB !!!! continue here with other known types
+        } else {
+            List<Method> publicGetters = classInfoService.getPublicGetters(objectCodeGenerator.getObject().getClass());
+            for (Method publicGetter : publicGetters) {
+                Object value = publicGetter.invoke(objectCodeGenerator.getObject());
+                // TODO IB !!!! call this
+                // TODO IB !!!! do I have the dependents of this object?
+                // objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, value)
+            }
+
+            List<Field> publicFields = classInfoService.getPublicFields(objectCodeGenerator.getObject().getClass());
+            for (Field publicField : publicFields) {
+                Object value = publicField.get(objectCodeGenerator.getObject());
+            }
+
             return new StringGenerator()
                     .addAttribute("assertPath", assertPath)
                     .setTemplate("        // TODO Add assert for {{assertPath}} object \n")
@@ -178,7 +195,7 @@ public class TestGeneratorService {
                                           ObjectCodeGenerator objectCodeGenerator,
                                           String assertPath,
                                           String indexSyntax,
-                                          String sizeSyntax) {
+                                          String sizeSyntax) throws InvocationTargetException, IllegalAccessException {
         List<ObjectCodeGenerator> elements = objectCodeGenerator.getElements();
         StringBuilder elementsAssert = new StringBuilder();
         for (int i = 0, elementsSize = elements.size(); i < elementsSize; i++) {
