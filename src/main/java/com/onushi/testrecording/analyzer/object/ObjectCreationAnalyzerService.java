@@ -143,6 +143,7 @@ public class ObjectCreationAnalyzerService {
                 .getMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
                 .filter(method -> !Modifier.isStatic(method.getModifiers()))
+                // TODO IB !!!! sometimes setters don't start with set
                 .filter(method -> method.getName().startsWith("set"))
                 .filter(method -> method.getParameterTypes().length == 1)
                 .collect(Collectors.toList());
@@ -165,7 +166,7 @@ public class ObjectCreationAnalyzerService {
         return result;
     }
 
-    public String getSetterName(Field field) {
+    private String getSetterName(Field field) {
         String fieldName = field.getName();
         if ((field.getType() == boolean.class || field.getType() == Boolean.class) &&
                 (fieldName.matches("^is[A-Z].*$"))) {

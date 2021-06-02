@@ -6,42 +6,46 @@ import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ObjectReadAnalyzerServiceTest {
     ObjectReadAnalyzerService objectReadAnalyzerService;
+    Department department1;
+    Programmer programmer1;
 
     @BeforeEach
     void setUp() {
         objectReadAnalyzerService = ServiceCreatorUtils.createObjectReadAnalyzerService();
-    }
-
-    @Test
-    void getObjectReadInfo() {
-        Department department1 = Department.builder().id(100).name("IT").build();
-        Programmer programmer1 = Programmer.builder()
+        department1 = Department.builder().id(100).name("IT").build();
+        programmer1 = Programmer.builder()
                 .id(1)
                 .firstName("John")
                 .lastName("Smith")
                 .department(department1)
                 .build();
+    }
 
-        Map<String, FieldReadInfo> objectReadInfo = objectReadAnalyzerService.getObjectReadInfo(programmer1);
-        assertEquals(4, objectReadInfo.keySet().size());
+    @Test
+    void getPublicFields() {
+        List<Field> publicFields = objectReadAnalyzerService.getPublicFields(programmer1);
+        assertEquals(4, publicFields.size());
+        assertEquals("department", publicFields.get(0).getName());
+        assertEquals("firstName", publicFields.get(1).getName());
+        assertEquals("id", publicFields.get(2).getName());
+        assertEquals("lastName", publicFields.get(3).getName());
+    }
 
-        assertEquals(FieldReadType.PUBLIC_FIELD, objectReadInfo.get("id").getFieldReadType());
-        assertEquals(1, objectReadInfo.get("id").getValue());
-        assertNotNull(objectReadInfo.get("id").getFieldValue());
-        assertNull(objectReadInfo.get("id").getGetter());
-
-        assertEquals(FieldReadType.PUBLIC_FIELD, objectReadInfo.get("firstName").getFieldReadType());
-        assertEquals("John", objectReadInfo.get("firstName").getValue());
-
-        assertEquals(FieldReadType.PUBLIC_FIELD, objectReadInfo.get("lastName").getFieldReadType());
-        assertEquals("Smith", objectReadInfo.get("lastName").getValue());
-
-        assertEquals(FieldReadType.PUBLIC_FIELD, objectReadInfo.get("department").getFieldReadType());
+    @Test
+    void getPublicGetters() {
+        List<Method> publicGetters = objectReadAnalyzerService.getPublicGetters(programmer1);
+        assertEquals(2, publicGetters.size());
+        assertEquals("getSalary", publicGetters.get(0).getName());
+        assertEquals("isOnline", publicGetters.get(1).getName());
     }
 }

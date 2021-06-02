@@ -199,29 +199,21 @@ TODO ==========================
 				expectedResult init if it's not in the Context already
 				simple assertEquals
 				
-			!!!! object has getters / public fields
-				create an ObjectGettersAnalyzerService()
-					getObjectGettersInfo()
-						call getObjectState()
-							for each field
-								try to find getter and value
-								if not see if the field is public
-								if not add comment that the field is not tested
-								
-								
-								
+			!!!! object has public (protected) getters / public (protected) fields
+				create an ObjectReadAnalyzerService()
+					return all getters 
+					return all public fields
+					don't care about the objectState
+					don't care about calculating the name of getters for fields
 					
-						
-				for each field (ex: "firstName", "lastName", "department")
-					checkObjectValue(path + "." + "firstName", object.firstName from map)
-					checkObjectValue(path + "." + "getLastName()", object.lastName from map)
-
 
 			!!!! - handle assert for other known types
 				HashMap
 				HashSet
 				UUID? has equals?
-				
+				Class
+			
+			sometimes I can use protected setters/properties/getters if the namespace is correct
 				
 			
 
@@ -238,6 +230,8 @@ TODO ==========================
 		every object should be tested before and after the call 
 
 	===============================
+
+	Handle Class class 
 
 	Rename project to TestRecorder
 

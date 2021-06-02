@@ -45,6 +45,6 @@ public class ServiceCreatorUtils {
     }
 
     public static ObjectReadAnalyzerService createObjectReadAnalyzerService() {
-        return new ObjectReadAnalyzerService(new ObjectStateReaderService());
+        return new ObjectReadAnalyzerService();
     }
 }
