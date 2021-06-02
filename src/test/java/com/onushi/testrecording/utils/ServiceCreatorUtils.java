@@ -43,8 +43,4 @@ public class ServiceCreatorUtils {
                 createObjectCodeGeneratorFactoryManager(),
                 createTestGeneratorService());
     }
-
-    public static ObjectReadAnalyzerService createObjectReadAnalyzerService() {
-        return new ObjectReadAnalyzerService();
-    }
 }

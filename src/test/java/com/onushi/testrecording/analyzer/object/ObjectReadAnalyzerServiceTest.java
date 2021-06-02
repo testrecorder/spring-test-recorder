@@ -2,15 +2,12 @@ package com.onushi.testrecording.analyzer.object;
 
 import com.onushi.sampleapp.model.Department;
 import com.onushi.sampleapp.model.Programmer;
-import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +18,7 @@ class ObjectReadAnalyzerServiceTest {
 
     @BeforeEach
     void setUp() {
-        objectReadAnalyzerService = ServiceCreatorUtils.createObjectReadAnalyzerService();
+        objectReadAnalyzerService = new ObjectReadAnalyzerService();
         department1 = Department.builder().id(100).name("IT").build();
         programmer1 = Programmer.builder()
                 .id(1)
