@@ -10,6 +10,7 @@ public class ObjectCodeGenerator {
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
+    // TODO IB !!!! suspect
     protected String declareClassName;
     protected List<ObjectCodeGenerator> elements = new ArrayList<>();
     protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();

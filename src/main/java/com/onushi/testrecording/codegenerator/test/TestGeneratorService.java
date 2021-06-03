@@ -143,8 +143,8 @@ public class TestGeneratorService {
         }
     }
 
-    // TODO IB !!!! refactor to pattern
-    // TODO IB !!!! do I need the attributes?
+    // TODO IB refactor
+    // TODO IB do I need the attributes?
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes,
                                  ObjectCodeGenerator objectCodeGenerator, String assertPath) throws InvocationTargetException, IllegalAccessException {
         if (objectCodeGenerator.getObject() == null) {
@@ -168,13 +168,13 @@ public class TestGeneratorService {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, "[{{index}}]", ".length");
         } if (objectCodeGenerator.getObject() instanceof List<?>) {
             return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, ".get({{index}})", ".size()");
-        // TODO IB !!!! continue here with other known types
+        // TODO IB continue here with other known types
         } else {
             List<Method> publicGetters = classInfoService.getPublicGetters(objectCodeGenerator.getObject().getClass());
             for (Method publicGetter : publicGetters) {
                 Object value = publicGetter.invoke(objectCodeGenerator.getObject());
-                // TODO IB !!!! call this
-                // TODO IB !!!! do I have the dependents of this object?
+                // TODO IB call this
+                // TODO IB do I have the dependents of this object?
                 // objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, value)
             }
 

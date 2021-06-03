@@ -76,7 +76,7 @@ public class ClassInfoService {
                 .filter(method -> !Modifier.isStatic(method.getModifiers()))
                 .filter(method -> method.getParameterTypes().length == 0)
                 .filter(method -> (method.getName().startsWith("get") ||
-                        // TODO IB !!!! should be followed by big letter
+                        // TODO IB should be followed by big letter
                         method.getName().startsWith("is")) &&
                         !method.getName().equals("getClass"))
                 .sorted(Comparator.comparing(Method::getName))

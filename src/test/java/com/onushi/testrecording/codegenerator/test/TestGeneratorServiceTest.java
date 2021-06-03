@@ -1258,7 +1258,7 @@ class TestGeneratorServiceTest {
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! finish this test after finishing ObjectReadAnalyzerService
+    // TODO IB finish this test after finishing ObjectReadAnalyzerService
     // @Test
     void generateAssertTestForObjectsWithGetters() throws Exception {
         // Arrange

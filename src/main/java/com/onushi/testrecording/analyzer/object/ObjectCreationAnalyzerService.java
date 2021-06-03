@@ -143,7 +143,7 @@ public class ObjectCreationAnalyzerService {
                 .getMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
                 .filter(method -> !Modifier.isStatic(method.getModifiers()))
-                // TODO IB !!!! sometimes setters don't start with set
+                // TODO IB sometimes setters don't start with set
                 .filter(method -> method.getName().startsWith("set"))
                 .filter(method -> method.getParameterTypes().length == 1)
                 .collect(Collectors.toList());
