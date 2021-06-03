@@ -19,27 +19,27 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl extends ObjectCod
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (!objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(context.getObject(), context.getObjectState())) {
             return null;
         }
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         StringBuilder fieldsInitCode = new StringBuilder();
-        List<ObjectCodeGenerator> fieldObjectCodeGenerators = new ArrayList<>();
+        List<ObjectInfo> fieldObjectInfos = new ArrayList<>();
         for (Map.Entry<String, FieldValue> entry : context.getObjectState().entrySet()) {
-            ObjectCodeGenerator fieldObjectCodeGenerator = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
-            fieldObjectCodeGenerators.add(fieldObjectCodeGenerator);
+            ObjectInfo fieldObjectInfo = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
+            fieldObjectInfos.add(fieldObjectInfo);
             fieldsInitCode.append(new StringGenerator()
                     .setTemplate("{{objectName}}.{{fieldName}} = {{fieldInlineCode}};\n")
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("fieldName", entry.getKey())
-                    .addAttribute("fieldInlineCode", fieldObjectCodeGenerator.getInlineCode())
+                    .addAttribute("fieldInlineCode", fieldObjectInfo.getInlineCode())
                     .generate());
         }
 
-        objectCodeGenerator.initCode = new StringGenerator()
+        objectInfo.initCode = new StringGenerator()
                 .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}();\n" +
                         "{{fieldsInitCode}}")
                 .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
@@ -47,11 +47,11 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl extends ObjectCod
                 .addAttribute("fieldsInitCode", fieldsInitCode.toString())
                 .generate();
 
-        objectCodeGenerator.dependencies = fieldObjectCodeGenerators.stream()
+        objectInfo.dependencies = fieldObjectInfos.stream()
                 .distinct()
                 .collect(Collectors.toList());
 
-        objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
-        return objectCodeGenerator;
+        objectInfo.requiredImports.add(context.getObject().getClass().getName());
+        return objectInfo;
     }
 }

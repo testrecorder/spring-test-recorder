@@ -64,33 +64,33 @@ public class ObjectCodeGeneratorFactoryManager {
 
     // Cannot be moved to a separate cache class since it will result in cyclic dependency
     // TODO IB if target is already in cache ... I should use it
-    public ObjectCodeGenerator getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
+    public ObjectInfo getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
         return createObjectCodeGenerator(testGenerator, object, preferredName);
     }
 
-    public ObjectCodeGenerator getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
-        Map<Object, ObjectCodeGenerator> objectCache = testGenerator.getObjectCodeGeneratorCache();
-        ObjectCodeGenerator existingObject = objectCache.get(object);
+    public ObjectInfo getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
+        Map<Object, ObjectInfo> objectCache = testGenerator.getObjectCodeGeneratorCache();
+        ObjectInfo existingObject = objectCache.get(object);
         if (existingObject != null) {
             return existingObject;
         } else {
             String objectName = objectNameGenerator.getNewObjectName(testGenerator, object);
-            ObjectCodeGenerator objectCodeGenerator = createObjectCodeGenerator(testGenerator, object, objectName);
-            objectCache.put(object, objectCodeGenerator);
-            return objectCodeGenerator;
+            ObjectInfo objectInfo = createObjectCodeGenerator(testGenerator, object, objectName);
+            objectCache.put(object, objectInfo);
+            return objectInfo;
         }
     }
 
-    protected ObjectCodeGenerator createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
+    protected ObjectInfo createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
         ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(object);
         context.setObjectName(objectName);
 
         for (ObjectCodeGeneratorFactory factory : knownClassesFactoriesList) {
-            ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
-            if (objectCodeGenerator != null) {
-                return objectCodeGenerator;
+            ObjectInfo objectInfo = factory.createObjectCodeGenerator(context);
+            if (objectInfo != null) {
+                return objectInfo;
             }
         }
 
@@ -110,9 +110,9 @@ public class ObjectCodeGeneratorFactoryManager {
         }
 
         for (ObjectCodeGeneratorFactory factory : unknownClassesFactoriesList) {
-            ObjectCodeGenerator objectCodeGenerator = factory.createObjectCodeGenerator(context);
-            if (objectCodeGenerator != null) {
-                return objectCodeGenerator;
+            ObjectInfo objectInfo = factory.createObjectCodeGenerator(context);
+            if (objectInfo != null) {
+                return objectInfo;
             }
         }
 

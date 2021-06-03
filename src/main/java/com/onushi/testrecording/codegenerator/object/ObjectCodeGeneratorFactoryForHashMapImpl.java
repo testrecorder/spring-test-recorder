@@ -13,11 +13,11 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject() instanceof HashMap<?, ?>) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
-            objectCodeGenerator.requiredImports = Arrays.asList("java.util.Map", "java.util.HashMap");
+            objectInfo.requiredImports = Arrays.asList("java.util.Map", "java.util.HashMap");
 
             HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
 
@@ -33,20 +33,20 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
                     .collect(Collectors.toList());
             List<Object> values = new ArrayList<>(hashMap.values());
 
-            List<ObjectCodeGenerator> keyGenerators = keys.stream()
+            List<ObjectInfo> keyGenerators = keys.stream()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            List<ObjectCodeGenerator> valueGenerators = values.stream()
+            List<ObjectInfo> valueGenerators = values.stream()
                     .distinct()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            List<ObjectCodeGenerator> allDependencies = new ArrayList<>(keyGenerators);
+            List<ObjectInfo> allDependencies = new ArrayList<>(keyGenerators);
             allDependencies.addAll(valueGenerators);
 
-            objectCodeGenerator.elements = keyGenerators;
-            objectCodeGenerator.dependencies = allDependencies;
+            objectInfo.elements = keyGenerators;
+            objectInfo.dependencies = allDependencies;
 
             String keyClassName = getElementsClassName(keyGenerators);
             String valueClassName = getElementsClassName(valueGenerators);
@@ -60,7 +60,7 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
                             .generate())
                     .collect(Collectors.joining(""));
 
-            objectCodeGenerator.initCode = new StringGenerator()
+            objectInfo.initCode = new StringGenerator()
                     .setTemplate("Map<{{keyClassName}}, {{valueClassName}}> {{objectName}} = new HashMap<>();\n" +
                             "{{elementsInlineCode}}")
                     .addAttribute("keyClassName", keyClassName)
@@ -69,13 +69,13 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectCodeGenerator.actualClassName = new StringGenerator()
+            objectInfo.actualClassName = new StringGenerator()
                     .setTemplate("Map<{{keyClassName}}, {{valueClassName}}>")
                     .addAttribute("keyClassName", keyClassName)
                     .addAttribute("valueClassName", valueClassName)
                     .generate();
 
-            return objectCodeGenerator;
+            return objectInfo;
         } else {
             return null;
         }

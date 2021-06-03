@@ -25,43 +25,43 @@ public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorF
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject().getClass().getName().startsWith("[")) {
 
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             ArrayAsList arrayAsList = getElementList(context.getObject());
 
-            objectCodeGenerator.elements = arrayAsList.list
+            objectInfo.elements = arrayAsList.list
                     .stream()
                     .map(fieldValue -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.dependencies = objectCodeGenerator.elements.stream()
+            objectInfo.dependencies = objectInfo.elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.actualClassName = new StringGenerator()
+            objectInfo.actualClassName = new StringGenerator()
                     .setTemplate("{{elementClassShort}}[]")
                     .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
                     .generate();
 
-            objectCodeGenerator.initCode = new StringGenerator()
+            objectInfo.initCode = new StringGenerator()
                     .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};")
                     .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
                     .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("elementsInlineCode", getElementsInlineCode(objectCodeGenerator.elements))
+                    .addAttribute("elementsInlineCode", getElementsInlineCode(objectInfo.elements))
                     .generate();
 
-            return objectCodeGenerator;
+            return objectInfo;
         } else {
             return null;
         }
     }
 
-    private String getElementsInlineCode(List<ObjectCodeGenerator> dependencies) {
+    private String getElementsInlineCode(List<ObjectInfo> dependencies) {
         return dependencies.stream()
-                .map(ObjectCodeGenerator::getInlineCode)
+                .map(ObjectInfo::getInlineCode)
                 .collect(Collectors.joining(", "));
     }
 

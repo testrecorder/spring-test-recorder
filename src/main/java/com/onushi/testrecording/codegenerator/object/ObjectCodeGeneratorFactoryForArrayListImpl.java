@@ -13,38 +13,38 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGenera
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject() instanceof List<?>) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
-            objectCodeGenerator.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
+            objectInfo.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
-            objectCodeGenerator.elements = ((List<Object>) context.getObject()).stream()
+            objectInfo.elements = ((List<Object>) context.getObject()).stream()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.dependencies = objectCodeGenerator.elements.stream()
+            objectInfo.dependencies = objectInfo.elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
-            String elementClassName = getElementsClassName(objectCodeGenerator.elements);
+            String elementClassName = getElementsClassName(objectInfo.elements);
 
-            String elementsInlineCode = objectCodeGenerator.elements.stream()
-                    .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
+            String elementsInlineCode = objectInfo.elements.stream()
+                    .map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
 
-            objectCodeGenerator.initCode = new StringGenerator()
+            objectInfo.initCode = new StringGenerator()
                     .setTemplate("List<{{elementClassName}}> {{objectName}} = Arrays.asList({{elementsInlineCode}});")
                     .addAttribute("elementClassName", elementClassName)
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectCodeGenerator.actualClassName = new StringGenerator()
+            objectInfo.actualClassName = new StringGenerator()
                     .setTemplate("List<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();
 
-            return objectCodeGenerator;
+            return objectInfo;
         } else {
             return null;
         }

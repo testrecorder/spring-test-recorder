@@ -18,7 +18,7 @@ public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl extends Object
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         List<MatchingConstructor> matchingAllArgsConstructors =
                 objectCreationAnalyzerService.getMatchingAllArgsConstructors(context.getObject(), context.getObjectState());
         if (matchingAllArgsConstructors.size() > 0) {
@@ -26,17 +26,17 @@ public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl extends Object
             boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
 
 
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
-            List<ObjectCodeGenerator> args = matchingConstructor.getArgsInOrder().stream()
+            List<ObjectInfo> args = matchingConstructor.getArgsInOrder().stream()
                     .map(argument -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), argument.getValue()))
                     .collect(Collectors.toList());
 
             String argsInlineCode = args.stream()
-                    .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
+                    .map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
 
             boolean addCheckOrderOfArgs = matchingConstructor.isFieldsCouldHaveDifferentOrder() || moreConstructorsAvailable;
-            objectCodeGenerator.initCode = new StringGenerator()
+            objectInfo.initCode = new StringGenerator()
                     .setTemplate("{{commentLine}}{{shortClassName}} {{objectName}} = new {{shortClassName}}({{argsInlineCode}});")
                     .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                     .addAttribute("argsInlineCode", argsInlineCode)
@@ -44,12 +44,12 @@ public class ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl extends Object
                     .addAttribute("commentLine", addCheckOrderOfArgs ? "// TODO Check order of arguments\n" : "")
                     .generate();
 
-            objectCodeGenerator.dependencies = args.stream()
+            objectInfo.dependencies = args.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
-            return objectCodeGenerator;
+            objectInfo.requiredImports.add(context.getObject().getClass().getName());
+            return objectInfo;
         } else {
             return null;
         }

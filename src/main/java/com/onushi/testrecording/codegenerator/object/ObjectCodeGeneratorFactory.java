@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class ObjectCodeGeneratorFactory {
-    abstract ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context);
+    abstract ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context);
 
-    protected String getElementsClassName(List<ObjectCodeGenerator> objectCodeGenerators) {
-        List<String> distinct = objectCodeGenerators.stream()
+    protected String getElementsClassName(List<ObjectInfo> objectInfos) {
+        List<String> distinct = objectInfos.stream()
                 .filter(x -> !x.inlineCode.equals("null"))
-                .map(ObjectCodeGenerator::getActualClassName)
+                .map(ObjectInfo::getActualClassName)
                 .distinct()
                 .collect(Collectors.toList());
         if (distinct.size() == 1) {

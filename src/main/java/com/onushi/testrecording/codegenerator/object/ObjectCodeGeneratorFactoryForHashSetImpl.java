@@ -13,11 +13,11 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (context.getObject() instanceof HashSet<?>) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
-            objectCodeGenerator.requiredImports = Arrays.asList("java.util.Set", "java.util.HashSet");
+            objectInfo.requiredImports = Arrays.asList("java.util.Set", "java.util.HashSet");
 
             HashSet<Object> hashSet = (HashSet<Object>)context.getObject();
 
@@ -31,13 +31,13 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
                     }))
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.elements = elements.stream()
+            objectInfo.elements = elements.stream()
                     .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.dependencies = objectCodeGenerator.elements;
+            objectInfo.dependencies = objectInfo.elements;
 
-            String elementClassName = getElementsClassName(objectCodeGenerator.dependencies);
+            String elementClassName = getElementsClassName(objectInfo.dependencies);
 
             String elementsInlineCode = elements.stream()
                     .map(element ->  new StringGenerator()
@@ -48,7 +48,7 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
                     .collect(Collectors.joining(""));
 
 
-            objectCodeGenerator.initCode = new StringGenerator()
+            objectInfo.initCode = new StringGenerator()
                     .setTemplate("Set<{{elementClassName}}> {{objectName}} = new HashSet<>();\n" +
                             "{{elementsInlineCode}}")
                     .addAttribute("elementClassName", elementClassName)
@@ -56,12 +56,12 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectCodeGenerator.actualClassName = new StringGenerator()
+            objectInfo.actualClassName = new StringGenerator()
                     .setTemplate("Set<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();
 
-            return objectCodeGenerator;
+            return objectInfo;
         } else {
             return null;
         }

@@ -25,25 +25,25 @@ public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl extends ObjectCodeG
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(context.getObject())) {
 
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(),
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(),
                     context.getObjectName(),
                     context.getObjectName(),
                     false);
 
-            objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
+            objectInfo.requiredImports.add(context.getObject().getClass().getName());
 
             Map<String, FieldValue> objectState = context.getObjectState();
-            objectCodeGenerator.dependencies = objectState.values().stream()
+            objectInfo.dependencies = objectState.values().stream()
                     .distinct()
                     .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
                     .map(FieldValue::getValue)
                     .map(fieldValue -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
-            objectCodeGenerator.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
-            return objectCodeGenerator;
+            objectInfo.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
+            return objectInfo;
         } else {
             return null;
         }
@@ -73,9 +73,9 @@ public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl extends ObjectCodeG
                 // this will be found in the cache since dependencies were calculated
                 FieldValue fieldValue = objectState.get(fieldName);
                 if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
-                    ObjectCodeGenerator objectCodeGenerator =
+                    ObjectInfo objectInfo =
                             objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
-                    stringGenerator.addAttribute("fieldValue", objectCodeGenerator.inlineCode);
+                    stringGenerator.addAttribute("fieldValue", objectInfo.inlineCode);
                 } else {
                     stringGenerator.addAttribute("fieldValue", "??? could not read field");
                 }

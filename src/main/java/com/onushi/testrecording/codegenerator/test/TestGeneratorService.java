@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
-import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
+import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -82,17 +82,17 @@ public class TestGeneratorService {
         attributes.put("requiredHelperObjects", testGenerator.getRequiredHelperObjects().stream()
                 .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
 
-        List<ObjectCodeGenerator> objectsToInit = new ArrayList<>(testGenerator.argumentObjectCodeGenerators);
-        objectsToInit.add(testGenerator.targetObjectCodeGenerator);
+        List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
+        objectsToInit.add(testGenerator.targetObjectInfo);
         attributes.put("objectsInit", getObjectsInit(objectsToInit).stream()
                 .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
 
-        attributes.put("targetObjectName", testGenerator.getTargetObjectCodeGenerator().getObjectName());
+        attributes.put("targetObjectName", testGenerator.getTargetObjectInfo().getObjectName());
 
         attributes.put("resultDeclareClassName", testGenerator.getResultDeclareClassName());
 
         attributes.put("argumentsInlineCode", String.join(", ", testGenerator.getArgumentsInlineCode()));
-        attributes.put("expectedResult", testGenerator.getExpectedResultObjectCodeGenerator().getInlineCode());
+        attributes.put("expectedResult", testGenerator.getExpectedResultObjectInfo().getInlineCode());
         if (testGenerator.getExpectedException() != null) {
             attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
         }
@@ -139,48 +139,48 @@ public class TestGeneratorService {
             return "";
         } else {
             return "        // Assert\n" +
-                getAssertCode(testGenerator, attributes, testGenerator.getExpectedResultObjectCodeGenerator(), "result");
+                getAssertCode(testGenerator, attributes, testGenerator.getExpectedResultObjectInfo(), "result");
         }
     }
 
     // TODO IB refactor
     // TODO IB do I need the attributes?
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes,
-                                 ObjectCodeGenerator objectCodeGenerator, String assertPath) throws InvocationTargetException, IllegalAccessException {
-        if (objectCodeGenerator.getObject() == null) {
+                                 ObjectInfo objectInfo, String assertPath) throws InvocationTargetException, IllegalAccessException {
+        if (objectInfo.getObject() == null) {
             return "        assertNull(result);\n";
-        } else if (objectCodeGenerator.isCanUseDoubleEqualForComparison()) {
+        } else if (objectInfo.isCanUseDoubleEqualForComparison()) {
             return new StringGenerator()
                     .addAttribute("assertPath", assertPath)
-                    .addAttribute("inlineCode", objectCodeGenerator.getInlineCode())
+                    .addAttribute("inlineCode", objectInfo.getInlineCode())
                     .setTemplate("        assertEquals({{inlineCode}}, {{assertPath}});\n")
                     .generate();
-        } else if (classInfoService.hasEquals(objectCodeGenerator.getObject().getClass())) {
+        } else if (classInfoService.hasEquals(objectInfo.getObject().getClass())) {
             return new StringGenerator()
-                    .addAttribute("objectsInit", getObjectsInit(Collections.singletonList(objectCodeGenerator)).stream()
+                    .addAttribute("objectsInit", getObjectsInit(Collections.singletonList(objectInfo)).stream()
                             .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")))
                     .addAttribute("assertPath", assertPath)
-                    .addAttribute("inlineCode", objectCodeGenerator.getInlineCode())
+                    .addAttribute("inlineCode", objectInfo.getInlineCode())
                     .setTemplate("{{objectsInit}}" +
                         "        assertEquals({{inlineCode}}, {{assertPath}});\n")
                     .generate();
-        } else if (objectCodeGenerator.getObject().getClass().getName().startsWith("[")) {
-            return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, "[{{index}}]", ".length");
-        } if (objectCodeGenerator.getObject() instanceof List<?>) {
-            return getAssertForCollection(testGenerator, attributes, objectCodeGenerator, assertPath, ".get({{index}})", ".size()");
+        } else if (objectInfo.getObject().getClass().getName().startsWith("[")) {
+            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, "[{{index}}]", ".length");
+        } if (objectInfo.getObject() instanceof List<?>) {
+            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, ".get({{index}})", ".size()");
         // TODO IB continue here with other known types
         } else {
-            List<Method> publicGetters = classInfoService.getPublicGetters(objectCodeGenerator.getObject().getClass());
+            List<Method> publicGetters = classInfoService.getPublicGetters(objectInfo.getObject().getClass());
             for (Method publicGetter : publicGetters) {
-                Object value = publicGetter.invoke(objectCodeGenerator.getObject());
+                Object value = publicGetter.invoke(objectInfo.getObject());
                 // TODO IB call this
                 // TODO IB do I have the dependents of this object?
                 // objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, value)
             }
 
-            List<Field> publicFields = classInfoService.getPublicFields(objectCodeGenerator.getObject().getClass());
+            List<Field> publicFields = classInfoService.getPublicFields(objectInfo.getObject().getClass());
             for (Field publicField : publicFields) {
-                Object value = publicField.get(objectCodeGenerator.getObject());
+                Object value = publicField.get(objectInfo.getObject());
             }
 
             return new StringGenerator()
@@ -192,14 +192,14 @@ public class TestGeneratorService {
 
     private String getAssertForCollection(TestGenerator testGenerator,
                                           Map<String, String> attributes,
-                                          ObjectCodeGenerator objectCodeGenerator,
+                                          ObjectInfo objectInfo,
                                           String assertPath,
                                           String indexSyntax,
                                           String sizeSyntax) throws InvocationTargetException, IllegalAccessException {
-        List<ObjectCodeGenerator> elements = objectCodeGenerator.getElements();
+        List<ObjectInfo> elements = objectInfo.getElements();
         StringBuilder elementsAssert = new StringBuilder();
         for (int i = 0, elementsSize = elements.size(); i < elementsSize; i++) {
-            ObjectCodeGenerator element = elements.get(i);
+            ObjectInfo element = elements.get(i);
             String elementAssertPath =  new StringGenerator()
                     .addAttribute("index", i)
                     .addAttribute("assertPath", assertPath)
@@ -222,28 +222,28 @@ public class TestGeneratorService {
         return String.format("%nEND GENERATED TEST =========%n%n");
     }
 
-    public List<String> getObjectsInit(List<ObjectCodeGenerator> objectCodeGenerators) {
+    public List<String> getObjectsInit(List<ObjectInfo> objectInfos) {
         List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectCodeGenerator objectCodeGenerator : objectCodeGenerators) {
-            allObjectsInit.addAll(getObjectsInit(objectCodeGenerator));
+        for (ObjectInfo objectInfo : objectInfos) {
+            allObjectsInit.addAll(getObjectsInit(objectInfo));
         }
         return allObjectsInit;
     }
 
-    public List<String> getObjectsInit(ObjectCodeGenerator objectCodeGenerator) {
-        if (objectCodeGenerator.isInitPrepared() || objectCodeGenerator.isInitDone()) {
+    public List<String> getObjectsInit(ObjectInfo objectInfo) {
+        if (objectInfo.isInitPrepared() || objectInfo.isInitDone()) {
             // to avoid cyclic traversal
             return new ArrayList<>();
         }
-        objectCodeGenerator.setInitPrepared(true);
+        objectInfo.setInitPrepared(true);
         List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectCodeGenerator dependency : objectCodeGenerator.getDependencies()) {
+        for (ObjectInfo dependency : objectInfo.getDependencies()) {
             allObjectsInit.addAll(getObjectsInit(dependency));
         }
-        if (!objectCodeGenerator.getInitCode().equals("")) {
-            allObjectsInit.add(objectCodeGenerator.getInitCode());
+        if (!objectInfo.getInitCode().equals("")) {
+            allObjectsInit.add(objectInfo.getInitCode());
         }
-        objectCodeGenerator.setInitDone(true);
+        objectInfo.setInitDone(true);
         return allObjectsInit;
     }
 }

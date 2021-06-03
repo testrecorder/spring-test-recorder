@@ -26,7 +26,7 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl extends ObjectCo
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (!classInfoService.hasPublicNoArgsConstructor(context.getObject().getClass())) {
             return null;
         }
@@ -36,36 +36,36 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl extends ObjectCo
             return null;
         }
 
-        ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         StringBuilder builderSetters = new StringBuilder();
         StringBuilder simpleSetters = new StringBuilder();
-        List<ObjectCodeGenerator> fieldObjectCodeGenerators = new ArrayList<>();
+        List<ObjectInfo> fieldObjectInfos = new ArrayList<>();
         List<FieldValue> sortedFields = objectState.values().stream()
                 .sorted(Comparator.comparing(f -> f.getField().getName()))
                 .collect(Collectors.toList());
         for (FieldValue field : sortedFields) {
-            ObjectCodeGenerator fieldObjectCodeGenerator =
+            ObjectInfo fieldObjectInfo =
                     objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), field.getValue());
-            fieldObjectCodeGenerators.add(fieldObjectCodeGenerator);
+            fieldObjectInfos.add(fieldObjectInfo);
             SetterInfo setterInfo = settersForFields.get(field.getField().getName());
             if (setterInfo.isForBuilder()) {
                 builderSetters.append(new StringGenerator()
                         .setTemplate("\n    .{{setterName}}({{fieldInlineCode}})")
                         .addAttribute("setterName", setterInfo.getName())
-                        .addAttribute("fieldInlineCode", fieldObjectCodeGenerator.getInlineCode())
+                        .addAttribute("fieldInlineCode", fieldObjectInfo.getInlineCode())
                         .generate());
             } else {
                 simpleSetters.append(new StringGenerator()
                         .setTemplate("{{objectName}}.{{setterName}}({{fieldInlineCode}});\n")
                         .addAttribute("objectName", context.getObjectName())
                         .addAttribute("setterName", setterInfo.getName())
-                        .addAttribute("fieldInlineCode", fieldObjectCodeGenerator.getInlineCode())
+                        .addAttribute("fieldInlineCode", fieldObjectInfo.getInlineCode())
                         .generate());
             }
         }
 
-        objectCodeGenerator.initCode = new StringGenerator()
+        objectInfo.initCode = new StringGenerator()
                 .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}()" +
                         "{{builderSetters}};\n" +
                         "{{simpleSetters}}")
@@ -75,12 +75,12 @@ public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl extends ObjectCo
                 .addAttribute("simpleSetters", simpleSetters.toString())
                 .generate();
 
-        objectCodeGenerator.dependencies = fieldObjectCodeGenerators.stream()
+        objectInfo.dependencies = fieldObjectInfos.stream()
                 .distinct()
                 .collect(Collectors.toList());
 
-        objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
+        objectInfo.requiredImports.add(context.getObject().getClass().getName());
 
-        return objectCodeGenerator;
+        return objectInfo;
     }
 }

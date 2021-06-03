@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ObjectCodeGenerator {
+public class ObjectInfo {
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
     // this contains more info than the object.getClass() for generics
     protected String actualClassName;
-    protected List<ObjectCodeGenerator> elements = new ArrayList<>();
-    protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();
+    protected List<ObjectInfo> elements = new ArrayList<>();
+    protected List<ObjectInfo> dependencies = new ArrayList<>();
     protected List<String> requiredImports = new ArrayList<>();
     protected final List<String> requiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
@@ -30,7 +30,7 @@ public class ObjectCodeGenerator {
         this.initDone = initDone;
     }
 
-    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, boolean canUseDoubleEqualForComparison) {
+    protected ObjectInfo(Object object, String objectName, String inlineCode, boolean canUseDoubleEqualForComparison) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
@@ -38,7 +38,7 @@ public class ObjectCodeGenerator {
         this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
     }
 
-    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, String actualClassName, boolean canUseDoubleEqualForComparison) {
+    protected ObjectInfo(Object object, String objectName, String inlineCode, String actualClassName, boolean canUseDoubleEqualForComparison) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;

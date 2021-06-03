@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
-import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
+import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectCodeGeneratorFactoryManager;
 import org.springframework.stereotype.Service;
 
@@ -33,18 +33,18 @@ public class TestGeneratorFactory {
         }
 
         testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
-        testGenerator.targetObjectCodeGenerator = objectCodeGeneratorFactoryManager.getNamedObjectCodeGenerator(testGenerator,
+        testGenerator.targetObjectInfo = objectCodeGeneratorFactoryManager.getNamedObjectCodeGenerator(testGenerator,
                 recordedMethodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));
         testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
         testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
         testGenerator.methodName = recordedMethodRunInfo.getMethodName();
 
-        testGenerator.argumentObjectCodeGenerators = recordedMethodRunInfo.getArguments().stream()
+        testGenerator.argumentObjectInfos = recordedMethodRunInfo.getArguments().stream()
                 .map(x -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, x))
                 .collect(Collectors.toList());
 
-        testGenerator.expectedResultObjectCodeGenerator = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator,
+        testGenerator.expectedResultObjectInfo = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator,
                 recordedMethodRunInfo.getResult());
         testGenerator.expectedException = recordedMethodRunInfo.getException();
 
@@ -54,14 +54,14 @@ public class TestGeneratorFactory {
 
         testGenerator.argumentsInlineCode = getArgumentsInlineCode(testGenerator);
 
-        testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectCodeGenerator, recordedMethodRunInfo.getFallBackResultType());
+        testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, recordedMethodRunInfo.getFallBackResultType());
 
         return testGenerator;
     }
 
-    private String getResultDeclareClassName(ObjectCodeGenerator expectedResultObjectCodeGenerator, Class<?> fallBackResultType) {
-        if (expectedResultObjectCodeGenerator.getObject() != null) {
-            return expectedResultObjectCodeGenerator.getActualClassName();
+    private String getResultDeclareClassName(ObjectInfo expectedResultObjectInfo, Class<?> fallBackResultType) {
+        if (expectedResultObjectInfo.getObject() != null) {
+            return expectedResultObjectInfo.getActualClassName();
         }
         if (fallBackResultType != null) {
             if (fallBackResultType.isPrimitive()) {
@@ -91,8 +91,8 @@ public class TestGeneratorFactory {
     }
 
     private List<String> getArgumentsInlineCode(TestGenerator testGenerator) {
-        return testGenerator.argumentObjectCodeGenerators.stream()
-                .map(ObjectCodeGenerator::getInlineCode)
+        return testGenerator.argumentObjectInfos.stream()
+                .map(ObjectInfo::getInlineCode)
                 .collect(Collectors.toList());
     }
 }

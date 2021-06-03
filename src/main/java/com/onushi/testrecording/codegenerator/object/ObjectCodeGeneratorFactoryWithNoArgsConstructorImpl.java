@@ -11,17 +11,17 @@ public class ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl extends ObjectC
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(context.getObject(), context.getObjectState())){
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
-            objectCodeGenerator.initCode = new StringGenerator()
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            objectInfo.initCode = new StringGenerator()
                     .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}();")
                     .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                     .addAttribute("objectName", context.getObjectName())
                     .generate();
 
-            objectCodeGenerator.requiredImports.add(context.getObject().getClass().getName());
-            return objectCodeGenerator;
+            objectInfo.requiredImports.add(context.getObject().getClass().getName());
+            return objectInfo;
         } else {
             return null;
         }

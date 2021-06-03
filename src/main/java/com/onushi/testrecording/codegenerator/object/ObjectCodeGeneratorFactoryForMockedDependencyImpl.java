@@ -16,41 +16,41 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl extends ObjectCod
     }
 
     @Override
-    public ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
         List<DependencyMethodRunInfo> dependencyMethodRuns =
                 context.getTestGenerator().getDependencyMethodRuns().stream()
                 .filter(x -> x.getTarget().getClass() == context.getObject().getClass())
                 .collect(Collectors.toList());
         if (dependencyMethodRuns.size() > 0) {
-            ObjectCodeGenerator objectCodeGenerator = new ObjectCodeGenerator(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
-            objectCodeGenerator.requiredImports = Arrays.asList(
+            objectInfo.requiredImports = Arrays.asList(
                     "static org.mockito.Mockito.*",
                     context.getObject().getClass().getName());
 
-            objectCodeGenerator.dependencies = getDependencies(context, dependencyMethodRuns);
+            objectInfo.dependencies = getDependencies(context, dependencyMethodRuns);
 
-            objectCodeGenerator.initCode = getInitCode(context, dependencyMethodRuns);
+            objectInfo.initCode = getInitCode(context, dependencyMethodRuns);
 
-            return objectCodeGenerator;
+            return objectInfo;
         } else {
             return null;
         }
     }
 
-    private List<ObjectCodeGenerator> getDependencies(ObjectCodeGeneratorCreationContext context,
-                                                      List<DependencyMethodRunInfo> dependencyMethodRuns) {
-        List<ObjectCodeGenerator> allArgs = dependencyMethodRuns.stream()
+    private List<ObjectInfo> getDependencies(ObjectCodeGeneratorCreationContext context,
+                                             List<DependencyMethodRunInfo> dependencyMethodRuns) {
+        List<ObjectInfo> allArgs = dependencyMethodRuns.stream()
                 .flatMap(x -> x.getArguments().stream())
                 .map(arg -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), arg))
                 .collect(Collectors.toList());
 
-        List<ObjectCodeGenerator> allResults = dependencyMethodRuns.stream()
+        List<ObjectInfo> allResults = dependencyMethodRuns.stream()
                 .map(DependencyMethodRunInfo::getResult)
                 .map(result -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), result))
                 .collect(Collectors.toList());
 
-        List<ObjectCodeGenerator> allDependencies = new ArrayList<>(allArgs);
+        List<ObjectInfo> allDependencies = new ArrayList<>(allArgs);
         allDependencies.addAll(allResults);
 
         return allDependencies.stream()
@@ -76,7 +76,7 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl extends ObjectCod
     private String getWhenClause(ObjectCodeGeneratorCreationContext context, DependencyMethodRunInfo dependencyMethodRunInfo) {
         String methodArgsInline = dependencyMethodRunInfo.getArguments().stream()
                 .map(arg -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), arg))
-                .map(ObjectCodeGenerator::getInlineCode)
+                .map(ObjectInfo::getInlineCode)
                 .collect(Collectors.joining(", "));
 
         if (dependencyMethodRunInfo.getException() != null) {
@@ -89,7 +89,7 @@ public class ObjectCodeGeneratorFactoryForMockedDependencyImpl extends ObjectCod
                     .addAttribute("methodArgsInline", methodArgsInline)
                     .generate();
         } else {
-            ObjectCodeGenerator resultCodeGenerator = objectCodeGeneratorFactoryManager
+            ObjectInfo resultCodeGenerator = objectCodeGeneratorFactoryManager
                     .getCommonObjectCodeGenerator(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
             String thenClause = new StringGenerator()
                         .setTemplate(".thenReturn({{resultInlineCode}})")

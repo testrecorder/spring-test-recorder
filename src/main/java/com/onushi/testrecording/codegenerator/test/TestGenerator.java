@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.methodrun.DependencyMethodRunInfo;
-import com.onushi.testrecording.codegenerator.object.ObjectCodeGenerator;
+import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import lombok.Getter;
 
 import java.util.*;
@@ -9,13 +9,13 @@ import java.util.*;
 @Getter
 public class TestGenerator {
     // TODO IB simplify this and refactor towards this being a Context
-    protected ObjectCodeGenerator targetObjectCodeGenerator;
+    protected ObjectInfo targetObjectInfo;
     // TODO IB these 2 should be in targetObjectCodeGenerator
     protected String packageName;
     protected String shortClassName;
     protected String methodName;
-    protected List<ObjectCodeGenerator> argumentObjectCodeGenerators;
-    protected ObjectCodeGenerator expectedResultObjectCodeGenerator;
+    protected List<ObjectInfo> argumentObjectInfos;
+    protected ObjectInfo expectedResultObjectInfo;
     protected String resultDeclareClassName;
     protected Exception expectedException;
 
@@ -24,7 +24,7 @@ public class TestGenerator {
     protected List<String> argumentsInlineCode;
     protected List<DependencyMethodRunInfo> dependencyMethodRuns = new ArrayList<>();
 
-    protected final Map<Object, ObjectCodeGenerator> objectCodeGeneratorCache = new LinkedHashMap<>();
+    protected final Map<Object, ObjectInfo> objectCodeGeneratorCache = new LinkedHashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
     protected TestGenerator() {}
@@ -33,7 +33,7 @@ public class TestGenerator {
         return lastIndexForObjectName;
     }
 
-    public Map<Object, ObjectCodeGenerator> getObjectCodeGeneratorCache() {
+    public Map<Object, ObjectInfo> getObjectCodeGeneratorCache() {
         return objectCodeGeneratorCache;
     }
 }
