@@ -75,7 +75,7 @@ public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory
                 .addAttribute("simpleSetters", simpleSetters.toString())
                 .generate();
 
-        objectInfo.dependencies = fieldObjectInfos.stream()
+        objectInfo.initDependencies = fieldObjectInfos.stream()
                 .distinct()
                 .collect(Collectors.toList());
 

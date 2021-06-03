@@ -46,7 +46,7 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
             allDependencies.addAll(valueGenerators);
 
             objectInfo.elements = keyGenerators;
-            objectInfo.dependencies = allDependencies;
+            objectInfo.initDependencies = allDependencies;
 
             String keyClassName = getElementsClassName(keyGenerators);
             String valueClassName = getElementsClassName(valueGenerators);

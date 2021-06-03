@@ -23,7 +23,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            objectInfo.dependencies = objectInfo.elements.stream()
+            objectInfo.initDependencies = objectInfo.elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 

@@ -177,7 +177,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
-        assertEquals(3, objectInfo.getDependencies().size());
+        assertEquals(3, objectInfo.getInitDependencies().size());
         assertEquals("// TODO Check order of arguments\n" +
                 "StudentWithPublicFields student1 = new StudentWithPublicFields(\"John\", \"Aris\", 30);", objectInfo.getInitCode());
         assertEquals("student1", objectInfo.getInlineCode());
@@ -191,7 +191,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.services.PersonService", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
-        assertEquals(1, objectInfo.getDependencies().size());
+        assertEquals(1, objectInfo.getInitDependencies().size());
         assertEquals("PersonService person1 = new PersonService(personRepositoryImpl1);", objectInfo.getInitCode());
         assertEquals("person1", objectInfo.getInlineCode());
     }
@@ -207,7 +207,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields2", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
-        assertEquals(3, objectInfo.getDependencies().size());
+        assertEquals(3, objectInfo.getInitDependencies().size());
         assertEquals("StudentWithPublicFields2 student1 = new StudentWithPublicFields2();\n" +
                 "student1.firstName = \"Fn\";\n" +
                 "student1.lastName = \"Ln\";\n" +
@@ -227,7 +227,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
-        assertEquals(3, objectInfo.getDependencies().size());
+        assertEquals(3, objectInfo.getInitDependencies().size());
         assertEquals("studentWithBuilder1", objectInfo.getInlineCode());
         assertEquals(StringUtils.prepareForCompare(
                 "StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
@@ -258,7 +258,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithSetters", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
-        assertEquals(12, objectInfo.getDependencies().size());
+        assertEquals(12, objectInfo.getInitDependencies().size());
         assertEquals("studentWithSetters1", objectInfo.getInlineCode());
         assertEquals(StringUtils.prepareForCompare(
                 "StudentWithSetters studentWithSetters1 = new StudentWithSetters()\n" +
@@ -286,7 +286,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.OtherStudent", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
-        assertEquals(0, objectInfo.getDependencies().size());
+        assertEquals(0, objectInfo.getInitDependencies().size());
         assertEquals("student", objectInfo.getInlineCode());
         assertEquals(StringUtils.prepareForCompare(
                 "// TODO Create this object\n" +

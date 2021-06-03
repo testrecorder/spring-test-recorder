@@ -44,7 +44,7 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
                     .addAttribute("commentLine", addCheckOrderOfArgs ? "// TODO Check order of arguments\n" : "")
                     .generate();
 
-            objectInfo.dependencies = args.stream()
+            objectInfo.initDependencies = args.stream()
                     .distinct()
                     .collect(Collectors.toList());
 

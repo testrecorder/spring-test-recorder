@@ -47,7 +47,7 @@ public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory 
                 .addAttribute("fieldsInitCode", fieldsInitCode.toString())
                 .generate();
 
-        objectInfo.dependencies = fieldObjectInfos.stream()
+        objectInfo.initDependencies = fieldObjectInfos.stream()
                 .distinct()
                 .collect(Collectors.toList());
 

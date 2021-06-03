@@ -37,7 +37,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
                     .map(fieldValue -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
 
-            objectInfo.dependencies = objectInfo.elements.stream()
+            objectInfo.initDependencies = objectInfo.elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
@@ -59,8 +59,8 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
         }
     }
 
-    private String getElementsInlineCode(List<ObjectInfo> dependencies) {
-        return dependencies.stream()
+    private String getElementsInlineCode(List<ObjectInfo> elements) {
+        return elements.stream()
                 .map(ObjectInfo::getInlineCode)
                 .collect(Collectors.joining(", "));
     }

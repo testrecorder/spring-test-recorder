@@ -12,8 +12,9 @@ public class ObjectInfo {
     protected final String inlineCode;
     // this contains more info than the object.getClass() for generics
     protected String actualClassName;
+    // TOD IB remove elements
     protected List<ObjectInfo> elements = new ArrayList<>();
-    protected List<ObjectInfo> dependencies = new ArrayList<>();
+    protected List<ObjectInfo> initDependencies = new ArrayList<>();
     protected List<String> requiredImports = new ArrayList<>();
     protected final List<String> requiredHelperObjects = new ArrayList<>();
     protected String initCode = "";

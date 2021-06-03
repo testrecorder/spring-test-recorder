@@ -35,9 +35,9 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            objectInfo.dependencies = objectInfo.elements;
+            objectInfo.initDependencies = objectInfo.elements;
 
-            String elementClassName = getElementsClassName(objectInfo.dependencies);
+            String elementClassName = getElementsClassName(objectInfo.initDependencies);
 
             String elementsInlineCode = elements.stream()
                     .map(element ->  new StringGenerator()

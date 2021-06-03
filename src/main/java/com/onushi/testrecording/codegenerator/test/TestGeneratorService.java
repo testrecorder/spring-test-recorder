@@ -143,7 +143,7 @@ public class TestGeneratorService {
         }
     }
 
-    // TODO IB refactor
+    // TODO IB !!!! this part should be moved slowly to ObjectInfo factories
     // TODO IB do I need the attributes?
     private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes,
                                  ObjectInfo objectInfo, String assertPath) throws InvocationTargetException, IllegalAccessException {
@@ -237,7 +237,7 @@ public class TestGeneratorService {
         }
         objectInfo.setInitPrepared(true);
         List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectInfo dependency : objectInfo.getDependencies()) {
+        for (ObjectInfo dependency : objectInfo.getInitDependencies()) {
             allObjectsInit.addAll(getObjectsInit(dependency));
         }
         if (!objectInfo.getInitCode().equals("")) {

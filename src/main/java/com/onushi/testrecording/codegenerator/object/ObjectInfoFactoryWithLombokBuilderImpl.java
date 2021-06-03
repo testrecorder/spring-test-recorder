@@ -36,7 +36,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
             objectInfo.requiredImports.add(context.getObject().getClass().getName());
 
             Map<String, FieldValue> objectState = context.getObjectState();
-            objectInfo.dependencies = objectState.values().stream()
+            objectInfo.initDependencies = objectState.values().stream()
                     .distinct()
                     .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
                     .map(FieldValue::getValue)
@@ -70,7 +70,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
             stringGenerator.setTemplate("    .{{fieldName}}({{fieldValue}})\n");
             stringGenerator.addAttribute("fieldName", fieldName);
             if (objectState.containsKey(fieldName)) {
-                // this will be found in the cache since dependencies were calculated
+                // this will be found in the cache since init dependencies were calculated
                 FieldValue fieldValue = objectState.get(fieldName);
                 if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
                     ObjectInfo objectInfo =

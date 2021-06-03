@@ -28,7 +28,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
                     "static org.mockito.Mockito.*",
                     context.getObject().getClass().getName());
 
-            objectInfo.dependencies = getDependencies(context, dependencyMethodRuns);
+            objectInfo.initDependencies = getDependencies(context, dependencyMethodRuns);
 
             objectInfo.initCode = getInitCode(context, dependencyMethodRuns);
 
