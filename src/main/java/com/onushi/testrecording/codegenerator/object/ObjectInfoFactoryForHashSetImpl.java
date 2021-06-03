@@ -5,15 +5,15 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
-    public ObjectCodeGeneratorFactoryForHashSetImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+    public ObjectInfoFactoryForHashSetImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (context.getObject() instanceof HashSet<?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 

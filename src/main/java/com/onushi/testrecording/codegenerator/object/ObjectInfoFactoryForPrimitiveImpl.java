@@ -2,15 +2,15 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringService;
 
-public class ObjectCodeGeneratorFactoryForPrimitiveImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
     private StringService stringService;
 
-    public ObjectCodeGeneratorFactoryForPrimitiveImpl(StringService stringService) {
+    public ObjectInfoFactoryForPrimitiveImpl(StringService stringService) {
         this.stringService = stringService;
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         String fullClassName = context.getObject().getClass().getName();
         switch (fullClassName) {
             case "java.lang.Float":

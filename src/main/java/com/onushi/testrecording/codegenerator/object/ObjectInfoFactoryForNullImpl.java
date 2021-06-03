@@ -1,8 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
-public class ObjectCodeGeneratorFactoryForNullImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForNullImpl extends ObjectInfoFactory {
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (context.getObject() == null) {
             return new ObjectInfo(context.getObject(), context.getObjectName(), "null", "null", true);
         }

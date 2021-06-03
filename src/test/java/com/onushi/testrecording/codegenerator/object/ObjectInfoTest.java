@@ -136,7 +136,7 @@ class ObjectInfoTest {
                 .build();
 
         ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
-        ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
+        ObjectInfoCreationContext context = new ObjectInfoCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(student);
         context.setObjectName("student1");
@@ -144,7 +144,7 @@ class ObjectInfoTest {
         objectState.values().forEach(x -> x.setFieldValueStatus(FieldValueStatus.COULD_NOT_READ));
         context.setObjectState(objectState);
 
-        ObjectCodeGeneratorFactoryForNotRedFields objectCodeGeneratorFactoryForNotRedFields = new ObjectCodeGeneratorFactoryForNotRedFields();
+        ObjectInfoFactoryForNotRedFields objectCodeGeneratorFactoryForNotRedFields = new ObjectInfoFactoryForNotRedFields();
         ObjectInfo objectInfo = objectCodeGeneratorFactoryForNotRedFields.createObjectCodeGenerator(context);
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectInfo.getRequiredImports().get(0));

@@ -12,20 +12,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryWithLombokBuilderImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
     private final ClassInfoService classInfoService;
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
-    public ObjectCodeGeneratorFactoryWithLombokBuilderImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
-                                                           ClassInfoService classInfoService,
-                                                           ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectInfoFactoryWithLombokBuilderImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+                                                  ClassInfoService classInfoService,
+                                                  ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(context.getObject())) {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(),

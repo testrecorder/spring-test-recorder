@@ -3,8 +3,8 @@ package com.onushi.testrecording.codegenerator.object;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class ObjectCodeGeneratorFactory {
-    abstract ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context);
+public abstract class ObjectInfoFactory {
+    abstract ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context);
 
     protected String getElementsClassName(List<ObjectInfo> objectInfos) {
         List<String> distinct = objectInfos.stream()

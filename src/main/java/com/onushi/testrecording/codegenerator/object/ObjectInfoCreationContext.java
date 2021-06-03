@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class ObjectCodeGeneratorCreationContext {
+public class ObjectInfoCreationContext {
     private Object object;
     private String objectName;
     private TestGenerator testGenerator;

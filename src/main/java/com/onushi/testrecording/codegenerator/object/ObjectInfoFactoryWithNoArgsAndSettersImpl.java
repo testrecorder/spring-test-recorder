@@ -12,21 +12,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ClassInfoService classInfoService;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
-                                                              ClassInfoService classInfoService,
-                                                              ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectInfoFactoryWithNoArgsAndSettersImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+                                                     ClassInfoService classInfoService,
+                                                     ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (!classInfoService.hasPublicNoArgsConstructor(context.getObject().getClass())) {
             return null;
         }

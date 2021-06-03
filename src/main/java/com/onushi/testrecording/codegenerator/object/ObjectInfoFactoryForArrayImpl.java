@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
-    public ObjectCodeGeneratorFactoryForArrayImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+    public ObjectInfoFactoryForArrayImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
@@ -25,7 +25,7 @@ public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorF
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (context.getObject().getClass().getName().startsWith("[")) {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);

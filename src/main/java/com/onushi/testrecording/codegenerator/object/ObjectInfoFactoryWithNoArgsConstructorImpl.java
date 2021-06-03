@@ -3,15 +3,15 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryWithNoArgsConstructorImpl extends ObjectInfoFactory {
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectInfoFactoryWithNoArgsConstructorImpl(ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(context.getObject(), context.getObjectState())){
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
             objectInfo.initCode = new StringGenerator()

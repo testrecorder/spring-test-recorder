@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
-                                                             ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+    public ObjectInfoFactoryWithNoArgsAndFieldsImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+                                                    ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (!objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(context.getObject(), context.getObjectState())) {
             return null;
         }

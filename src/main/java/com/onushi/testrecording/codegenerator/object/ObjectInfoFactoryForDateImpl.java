@@ -3,9 +3,9 @@ package com.onushi.testrecording.codegenerator.object;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ObjectCodeGeneratorFactoryForDateImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (context.getObject().getClass().getName().equals("java.util.Date")) {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(),

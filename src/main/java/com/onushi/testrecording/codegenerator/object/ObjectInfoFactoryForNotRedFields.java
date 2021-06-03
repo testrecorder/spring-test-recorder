@@ -2,10 +2,10 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryForNotRedFields extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForNotRedFields extends ObjectInfoFactory {
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         objectInfo.initCode = new StringGenerator()

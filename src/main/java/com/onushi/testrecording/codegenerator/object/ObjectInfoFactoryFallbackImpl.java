@@ -2,9 +2,9 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryFallbackImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryFallbackImpl extends ObjectInfoFactory {
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         objectInfo.initCode = new StringGenerator()

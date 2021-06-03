@@ -19,8 +19,8 @@ public class ObjectCodeGeneratorFactoryManager {
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectNameGenerator objectNameGenerator;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
-    private final List<ObjectCodeGeneratorFactory> knownClassesFactoriesList;
-    private final List<ObjectCodeGeneratorFactory> unknownClassesFactoriesList;
+    private final List<ObjectInfoFactory> knownClassesFactoriesList;
+    private final List<ObjectInfoFactory> unknownClassesFactoriesList;
     private final CglibService cglibService;
     private final StringService stringService;
 
@@ -38,26 +38,26 @@ public class ObjectCodeGeneratorFactoryManager {
         this.stringService = stringService;
 
         knownClassesFactoriesList = Arrays.asList(
-                new ObjectCodeGeneratorFactoryForNullImpl(),
-                new ObjectCodeGeneratorFactoryForPrimitiveImpl(stringService),
-                new ObjectCodeGeneratorFactoryForEnumImpl(),
-                new ObjectCodeGeneratorFactoryForDateImpl(),
-                new ObjectCodeGeneratorFactoryForArrayImpl(this),
-                new ObjectCodeGeneratorFactoryForArrayListImpl(this),
-                new ObjectCodeGeneratorFactoryForHashMapImpl(this),
-                new ObjectCodeGeneratorFactoryForHashSetImpl(this),
-                new ObjectCodeGeneratorFactoryForUUIDImpl()
+                new ObjectInfoFactoryForNullImpl(),
+                new ObjectInfoFactoryForPrimitiveImpl(stringService),
+                new ObjectInfoFactoryForEnumImpl(),
+                new ObjectInfoFactoryForDateImpl(),
+                new ObjectInfoFactoryForArrayImpl(this),
+                new ObjectInfoFactoryForArrayListImpl(this),
+                new ObjectInfoFactoryForHashMapImpl(this),
+                new ObjectInfoFactoryForHashSetImpl(this),
+                new ObjectInfoFactoryForUUIDImpl()
         );
         unknownClassesFactoriesList = Arrays.asList(
-                new ObjectCodeGeneratorFactoryForMockedDependencyImpl(this),
-                new ObjectCodeGeneratorFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithLombokBuilderImpl(this,
+                new ObjectInfoFactoryForMockedDependencyImpl(this),
+                new ObjectInfoFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
+                new ObjectInfoFactoryWithLombokBuilderImpl(this,
                         classInfoService, objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithAllArgsConstructorImpl(this,
+                new ObjectInfoFactoryWithAllArgsConstructorImpl(this,
                         objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithNoArgsAndSettersImpl(this,
+                new ObjectInfoFactoryWithNoArgsAndSettersImpl(this,
                         classInfoService, objectCreationAnalyzerService),
-                new ObjectCodeGeneratorFactoryWithNoArgsAndFieldsImpl(this,
+                new ObjectInfoFactoryWithNoArgsAndFieldsImpl(this,
                         objectCreationAnalyzerService)
         );
     }
@@ -82,12 +82,12 @@ public class ObjectCodeGeneratorFactoryManager {
     }
 
     protected ObjectInfo createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
-        ObjectCodeGeneratorCreationContext context = new ObjectCodeGeneratorCreationContext();
+        ObjectInfoCreationContext context = new ObjectInfoCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(object);
         context.setObjectName(objectName);
 
-        for (ObjectCodeGeneratorFactory factory : knownClassesFactoriesList) {
+        for (ObjectInfoFactory factory : knownClassesFactoriesList) {
             ObjectInfo objectInfo = factory.createObjectCodeGenerator(context);
             if (objectInfo != null) {
                 return objectInfo;
@@ -98,7 +98,7 @@ public class ObjectCodeGeneratorFactoryManager {
             unproxyObject(context);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ObjectCodeGeneratorFactoryForNotRedFields().createObjectCodeGenerator(context);
+            return new ObjectInfoFactoryForNotRedFields().createObjectCodeGenerator(context);
         }
 
         // after we tried knownClassesFactoriesList and we unproxy we getObjectState to try creating in a generic way
@@ -106,20 +106,20 @@ public class ObjectCodeGeneratorFactoryManager {
         boolean allFieldsAreRead = context.getObjectState().values().stream()
                 .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);
         if (!allFieldsAreRead) {
-            return new ObjectCodeGeneratorFactoryForNotRedFields().createObjectCodeGenerator(context);
+            return new ObjectInfoFactoryForNotRedFields().createObjectCodeGenerator(context);
         }
 
-        for (ObjectCodeGeneratorFactory factory : unknownClassesFactoriesList) {
+        for (ObjectInfoFactory factory : unknownClassesFactoriesList) {
             ObjectInfo objectInfo = factory.createObjectCodeGenerator(context);
             if (objectInfo != null) {
                 return objectInfo;
             }
         }
 
-        return new ObjectCodeGeneratorFactoryFallbackImpl().createObjectCodeGenerator(context);
+        return new ObjectInfoFactoryFallbackImpl().createObjectCodeGenerator(context);
     }
 
-    private void unproxyObject(ObjectCodeGeneratorCreationContext context) throws Exception {
+    private void unproxyObject(ObjectInfoCreationContext context) throws Exception {
         context.setObject(cglibService.getUnproxiedObject(context.getObject()));
         int $$index = context.getObjectName().indexOf("$$");
         if ($$index != -1) {

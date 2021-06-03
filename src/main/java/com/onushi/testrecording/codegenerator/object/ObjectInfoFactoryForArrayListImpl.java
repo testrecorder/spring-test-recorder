@@ -5,15 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
     private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
 
-    public ObjectCodeGeneratorFactoryForArrayListImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
+    public ObjectInfoFactoryForArrayListImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
         this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         if (context.getObject() instanceof List<?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 

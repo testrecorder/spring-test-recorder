@@ -2,9 +2,9 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
-public class ObjectCodeGeneratorFactoryForUUIDImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         String fullClassName = context.getObject().getClass().getName();
         if (fullClassName.equals("java.util.UUID")) {
             ObjectInfo objectInfo =

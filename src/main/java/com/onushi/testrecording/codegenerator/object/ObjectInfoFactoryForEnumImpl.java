@@ -1,8 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
-public class ObjectCodeGeneratorFactoryForEnumImpl extends ObjectCodeGeneratorFactory {
+public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context) {
+    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
         Class<?> clazz = context.getObject().getClass();
         if (clazz.isEnum()) {
             String inlineCode = clazz.getSimpleName() + "." + context.getObject().toString();
