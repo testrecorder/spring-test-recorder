@@ -10,6 +10,7 @@ public class ObjectCodeGenerator {
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
+    // this contains more info than the object.getClass() for generics
     protected String actualClassName;
     protected List<ObjectCodeGenerator> elements = new ArrayList<>();
     protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();
