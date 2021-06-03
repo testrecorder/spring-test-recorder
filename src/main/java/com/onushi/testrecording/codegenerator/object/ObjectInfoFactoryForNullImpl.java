@@ -4,7 +4,11 @@ public class ObjectInfoFactoryForNullImpl extends ObjectInfoFactory {
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject() == null) {
-            return new ObjectInfo(context.getObject(), context.getObjectName(), "null", "null", true);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), "null", "null", true);
+            objectInfo.visibleProperties.put("", VisibleProperty.builder()
+                    .finalValue("null")
+                    .build());
+            return objectInfo;
         }
         return null;
     }
