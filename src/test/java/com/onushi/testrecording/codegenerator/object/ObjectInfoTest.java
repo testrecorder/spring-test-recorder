@@ -15,8 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class ObjectInfoTest {
@@ -33,8 +32,10 @@ class ObjectInfoTest {
     void testNull() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator,null, "test");
         assertEquals("null", objectInfo.getInlineCode());
+        // TODO IB !!!! add to all cases
         assertEquals(1, objectInfo.visibleProperties.size());
         assertEquals("null", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
@@ -45,56 +46,84 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals(0, objectInfo.getRequiredImports().size());
         assertEquals("", objectInfo.getInitCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("1.0f", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testLong() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 1L, "test");
         assertEquals("1L", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("1L", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testByte() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, (byte)11, "test");
         assertEquals("(byte)11", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("(byte)11", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testShort() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, (short)100, "test");
         assertEquals("(short)100", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("(short)100", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testCharacter() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 'a', "test");
         assertEquals("'a'", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("'a'", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testString() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, "Hello World", "test");
         assertEquals("\"Hello World\"", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("\"Hello World\"", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testBoolean() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, true, "test");
         assertEquals("true", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("true", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testInt() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 2, "test");
         assertEquals("2", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("2", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
     @Test
     void testDouble() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 2.5, "test");
         assertEquals("2.5", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("2.5", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
+    // TODO IB !!!! !!!! test all
     @Test
     void testDate() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

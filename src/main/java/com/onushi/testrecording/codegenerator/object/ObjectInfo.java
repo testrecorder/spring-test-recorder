@@ -42,6 +42,11 @@ public class ObjectInfo {
         return this;
     }
 
+    protected ObjectInfo addVisibleProperty(String key, VisibleProperty visibleProperty) {
+        this.visibleProperties.put(key, visibleProperty);
+        return this;
+    }
+
     // TODO IB !!!! I should have setters for other props too
 
     protected ObjectInfo(Object object, String objectName, String inlineCode) {
