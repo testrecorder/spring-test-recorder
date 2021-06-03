@@ -32,7 +32,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .collect(Collectors.toList());
 
             objectInfo.elements = elements.stream()
-                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             objectInfo.dependencies = objectInfo.elements;
@@ -43,7 +43,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .map(element ->  new StringGenerator()
                             .setTemplate("{{objectName}}.add({{element}});\n")
                             .addAttribute("objectName", context.getObjectName())
-                            .addAttribute("element", objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element).getInlineCode())
+                            .addAttribute("element", objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element).getInlineCode())
                             .generate())
                     .collect(Collectors.joining(""));
 

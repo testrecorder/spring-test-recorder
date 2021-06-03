@@ -29,7 +29,7 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             List<ObjectInfo> args = matchingConstructor.getArgsInOrder().stream()
-                    .map(argument -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), argument.getValue()))
+                    .map(argument -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), argument.getValue()))
                     .collect(Collectors.toList());
 
             String argsInlineCode = args.stream()

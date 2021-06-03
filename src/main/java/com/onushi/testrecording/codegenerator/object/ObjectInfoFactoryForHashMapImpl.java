@@ -34,12 +34,12 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
             List<Object> values = new ArrayList<>(hashMap.values());
 
             List<ObjectInfo> keyGenerators = keys.stream()
-                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             List<ObjectInfo> valueGenerators = values.stream()
                     .distinct()
-                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             List<ObjectInfo> allDependencies = new ArrayList<>(keyGenerators);
@@ -55,8 +55,8 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .map(key ->  new StringGenerator()
                             .setTemplate("{{objectName}}.put({{key}}, {{value}});\n")
                             .addAttribute("objectName", context.getObjectName())
-                            .addAttribute("key", objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), key).getInlineCode())
-                            .addAttribute("value", objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), hashMap.get(key)).getInlineCode())
+                            .addAttribute("key", objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), key).getInlineCode())
+                            .addAttribute("value", objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), hashMap.get(key)).getInlineCode())
                             .generate())
                     .collect(Collectors.joining(""));
 

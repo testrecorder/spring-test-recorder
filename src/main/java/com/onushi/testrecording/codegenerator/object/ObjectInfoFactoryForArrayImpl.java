@@ -34,7 +34,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
 
             objectInfo.elements = arrayAsList.list
                     .stream()
-                    .map(fieldValue -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
+                    .map(fieldValue -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
 
             objectInfo.dependencies = objectInfo.elements.stream()

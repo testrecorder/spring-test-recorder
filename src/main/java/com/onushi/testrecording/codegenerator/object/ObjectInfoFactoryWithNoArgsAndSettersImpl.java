@@ -46,7 +46,7 @@ public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory
                 .collect(Collectors.toList());
         for (FieldValue field : sortedFields) {
             ObjectInfo fieldObjectInfo =
-                    objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), field.getValue());
+                    objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), field.getValue());
             fieldObjectInfos.add(fieldObjectInfo);
             SetterInfo setterInfo = settersForFields.get(field.getField().getName());
             if (setterInfo.isForBuilder()) {

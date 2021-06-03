@@ -40,7 +40,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
                     .distinct()
                     .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
                     .map(FieldValue::getValue)
-                    .map(fieldValue -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
+                    .map(fieldValue -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
             objectInfo.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
             return objectInfo;
@@ -74,7 +74,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
                 FieldValue fieldValue = objectState.get(fieldName);
                 if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
                     ObjectInfo objectInfo =
-                            objectInfoFactoryManager.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
+                            objectInfoFactoryManager.getCommonObjectInfo(testGenerator, objectState.get(fieldName).getValue());
                     stringGenerator.addAttribute("fieldValue", objectInfo.inlineCode);
                 } else {
                     stringGenerator.addAttribute("fieldValue", "??? could not read field");

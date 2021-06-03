@@ -20,7 +20,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
             objectInfo.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
             objectInfo.elements = ((List<Object>) context.getObject()).stream()
-                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             objectInfo.dependencies = objectInfo.elements.stream()

@@ -68,7 +68,7 @@ public class ObjectInfoFactoryManager {
         return createObjectCodeGenerator(testGenerator, object, preferredName);
     }
 
-    public ObjectInfo getCommonObjectCodeGenerator(TestGenerator testGenerator, Object object) {
+    public ObjectInfo getCommonObjectInfo(TestGenerator testGenerator, Object object) {
         Map<Object, ObjectInfo> objectCache = testGenerator.getObjectCodeGeneratorCache();
         ObjectInfo existingObject = objectCache.get(object);
         if (existingObject != null) {

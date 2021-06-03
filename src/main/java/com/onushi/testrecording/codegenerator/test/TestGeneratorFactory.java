@@ -41,10 +41,10 @@ public class TestGeneratorFactory {
         testGenerator.methodName = recordedMethodRunInfo.getMethodName();
 
         testGenerator.argumentObjectInfos = recordedMethodRunInfo.getArguments().stream()
-                .map(x -> objectInfoFactoryManager.getCommonObjectCodeGenerator(testGenerator, x))
+                .map(x -> objectInfoFactoryManager.getCommonObjectInfo(testGenerator, x))
                 .collect(Collectors.toList());
 
-        testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectCodeGenerator(testGenerator,
+        testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
                 recordedMethodRunInfo.getResult());
         testGenerator.expectedException = recordedMethodRunInfo.getException();
 

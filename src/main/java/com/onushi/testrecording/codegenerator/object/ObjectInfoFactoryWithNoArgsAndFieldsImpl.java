@@ -29,7 +29,7 @@ public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory 
         StringBuilder fieldsInitCode = new StringBuilder();
         List<ObjectInfo> fieldObjectInfos = new ArrayList<>();
         for (Map.Entry<String, FieldValue> entry : context.getObjectState().entrySet()) {
-            ObjectInfo fieldObjectInfo = objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
+            ObjectInfo fieldObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), entry.getValue().getValue());
             fieldObjectInfos.add(fieldObjectInfo);
             fieldsInitCode.append(new StringGenerator()
                     .setTemplate("{{objectName}}.{{fieldName}} = {{fieldInlineCode}};\n")
