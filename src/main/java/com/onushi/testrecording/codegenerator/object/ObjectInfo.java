@@ -37,10 +37,12 @@ public class ObjectInfo {
         return this;
     }
 
-    public ObjectInfo setCanUseDoubleEqualForComparison(boolean canUseDoubleEqualForComparison) {
+    protected ObjectInfo setCanUseDoubleEqualForComparison(boolean canUseDoubleEqualForComparison) {
         this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
         return this;
     }
+
+    // TODO IB !!!! I should have setters for other props too
 
     protected ObjectInfo(Object object, String objectName, String inlineCode) {
         this.object = object;
@@ -49,12 +51,11 @@ public class ObjectInfo {
         this.actualClassName = object.getClass().getSimpleName();
     }
 
-    protected ObjectInfo(Object object, String objectName, String inlineCode, String actualClassName, boolean canUseDoubleEqualForComparison) {
+    protected ObjectInfo(Object object, String objectName, String inlineCode, String actualClassName) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
         this.actualClassName = actualClassName;
-        this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
     }
 }
 
