@@ -9,7 +9,7 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
         if (context.getObject().getClass().getName().equals("java.util.Date")) {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(),
-                    context.getObjectName(), false);
+                    context.getObjectName());
 
             objectInfo.requiredImports.add("java.text.SimpleDateFormat");
             objectInfo.requiredImports.add("java.util.Date");

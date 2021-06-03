@@ -25,22 +25,28 @@ public class ObjectInfo {
     // these 2 are used to traverse the ObjectInfo graph
     private boolean initPrepared = false;
     private boolean initDone = false;
-    protected boolean canUseDoubleEqualForComparison;
+    protected boolean canUseDoubleEqualForComparison = false;
 
-    public void setInitPrepared(boolean initPrepared) {
+    public ObjectInfo setInitPrepared(boolean initPrepared) {
         this.initPrepared = initPrepared;
+        return this;
     }
 
-    public void setInitDone(boolean initDone) {
+    public ObjectInfo setInitDone(boolean initDone) {
         this.initDone = initDone;
+        return this;
     }
 
-    protected ObjectInfo(Object object, String objectName, String inlineCode, boolean canUseDoubleEqualForComparison) {
+    public ObjectInfo setCanUseDoubleEqualForComparison(boolean canUseDoubleEqualForComparison) {
+        this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
+        return this;
+    }
+
+    protected ObjectInfo(Object object, String objectName, String inlineCode) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
         this.actualClassName = object.getClass().getSimpleName();
-        this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
     }
 
     protected ObjectInfo(Object object, String objectName, String inlineCode, String actualClassName, boolean canUseDoubleEqualForComparison) {

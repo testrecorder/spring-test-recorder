@@ -26,7 +26,7 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
             boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
 
 
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
             List<ObjectInfo> args = matchingConstructor.getArgsInOrder().stream()
                     .map(argument -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), argument.getValue()))

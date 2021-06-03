@@ -22,7 +22,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
                 .filter(x -> x.getTarget().getClass() == context.getObject().getClass())
                 .collect(Collectors.toList());
         if (dependencyMethodRuns.size() > 0) {
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
             objectInfo.requiredImports = Arrays.asList(
                     "static org.mockito.Mockito.*",

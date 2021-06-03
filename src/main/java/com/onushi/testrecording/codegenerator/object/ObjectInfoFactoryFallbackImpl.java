@@ -5,7 +5,7 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 public class ObjectInfoFactoryFallbackImpl extends ObjectInfoFactory {
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
-        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
         objectInfo.initCode = new StringGenerator()
                 .setTemplate("// TODO Create this object\n" +

@@ -30,8 +30,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(),
                     context.getObjectName(),
-                    context.getObjectName(),
-                    false);
+                    context.getObjectName());
 
             objectInfo.requiredImports.add(context.getObject().getClass().getName());
 

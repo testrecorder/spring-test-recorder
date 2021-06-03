@@ -36,7 +36,7 @@ public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory
             return null;
         }
 
-        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
+        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
         StringBuilder builderSetters = new StringBuilder();
         StringBuilder simpleSetters = new StringBuilder();
