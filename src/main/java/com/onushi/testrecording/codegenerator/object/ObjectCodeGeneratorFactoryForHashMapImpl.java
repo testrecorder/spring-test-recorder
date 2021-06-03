@@ -69,7 +69,7 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectCodeGenerator.declareClassName = new StringGenerator()
+            objectCodeGenerator.actualClassName = new StringGenerator()
                     .setTemplate("Map<{{keyClassName}}, {{valueClassName}}>")
                     .addAttribute("keyClassName", keyClassName)
                     .addAttribute("valueClassName", valueClassName)

@@ -56,7 +56,7 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectCodeGenerator.declareClassName = new StringGenerator()
+            objectCodeGenerator.actualClassName = new StringGenerator()
                     .setTemplate("Set<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();

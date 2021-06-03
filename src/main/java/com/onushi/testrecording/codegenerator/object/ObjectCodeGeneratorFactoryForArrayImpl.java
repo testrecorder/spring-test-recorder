@@ -41,7 +41,7 @@ public class ObjectCodeGeneratorFactoryForArrayImpl extends ObjectCodeGeneratorF
                     .distinct()
                     .collect(Collectors.toList());
 
-            objectCodeGenerator.declareClassName = new StringGenerator()
+            objectCodeGenerator.actualClassName = new StringGenerator()
                     .setTemplate("{{elementClassShort}}[]")
                     .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
                     .generate();

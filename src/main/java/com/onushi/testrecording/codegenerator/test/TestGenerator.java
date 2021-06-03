@@ -10,13 +10,12 @@ import java.util.*;
 public class TestGenerator {
     // TODO IB simplify this and refactor towards this being a Context
     protected ObjectCodeGenerator targetObjectCodeGenerator;
-    // TODO IB !!!! these 2 should be in targetObjectCodeGenerator
+    // TODO IB these 2 should be in targetObjectCodeGenerator
     protected String packageName;
     protected String shortClassName;
     protected String methodName;
     protected List<ObjectCodeGenerator> argumentObjectCodeGenerators;
     protected ObjectCodeGenerator expectedResultObjectCodeGenerator;
-    // TODO IB !!!! suspect
     protected String resultDeclareClassName;
     protected Exception expectedException;
 

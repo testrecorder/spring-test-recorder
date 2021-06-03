@@ -59,10 +59,9 @@ public class TestGeneratorFactory {
         return testGenerator;
     }
 
-    // TODO IB !!!! this is suspect. Could ObjectCodeGenerator handle this?
     private String getResultDeclareClassName(ObjectCodeGenerator expectedResultObjectCodeGenerator, Class<?> fallBackResultType) {
         if (expectedResultObjectCodeGenerator.getObject() != null) {
-            return expectedResultObjectCodeGenerator.getDeclareClassName();
+            return expectedResultObjectCodeGenerator.getActualClassName();
         }
         if (fallBackResultType != null) {
             if (fallBackResultType.isPrimitive()) {

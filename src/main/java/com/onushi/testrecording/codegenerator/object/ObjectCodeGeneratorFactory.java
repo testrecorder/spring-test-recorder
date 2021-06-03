@@ -9,7 +9,7 @@ public abstract class ObjectCodeGeneratorFactory {
     protected String getElementsClassName(List<ObjectCodeGenerator> objectCodeGenerators) {
         List<String> distinct = objectCodeGenerators.stream()
                 .filter(x -> !x.inlineCode.equals("null"))
-                .map(ObjectCodeGenerator::getDeclareClassName)
+                .map(ObjectCodeGenerator::getActualClassName)
                 .distinct()
                 .collect(Collectors.toList());
         if (distinct.size() == 1) {

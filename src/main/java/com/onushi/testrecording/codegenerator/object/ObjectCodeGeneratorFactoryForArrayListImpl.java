@@ -39,7 +39,7 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGenera
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectCodeGenerator.declareClassName = new StringGenerator()
+            objectCodeGenerator.actualClassName = new StringGenerator()
                     .setTemplate("List<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();

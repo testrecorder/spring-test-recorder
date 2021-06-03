@@ -10,8 +10,7 @@ public class ObjectCodeGenerator {
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
-    // TODO IB !!!! suspect
-    protected String declareClassName;
+    protected String actualClassName;
     protected List<ObjectCodeGenerator> elements = new ArrayList<>();
     protected List<ObjectCodeGenerator> dependencies = new ArrayList<>();
     protected List<String> requiredImports = new ArrayList<>();
@@ -34,15 +33,15 @@ public class ObjectCodeGenerator {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
-        this.declareClassName = object.getClass().getSimpleName();
+        this.actualClassName = object.getClass().getSimpleName();
         this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
     }
 
-    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, String declareClassName, boolean canUseDoubleEqualForComparison) {
+    protected ObjectCodeGenerator(Object object, String objectName, String inlineCode, String actualClassName, boolean canUseDoubleEqualForComparison) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
-        this.declareClassName = declareClassName;
+        this.actualClassName = actualClassName;
         this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
     }
 }
