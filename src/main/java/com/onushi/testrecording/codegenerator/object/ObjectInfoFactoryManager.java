@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ObjectCodeGeneratorFactoryManager {
+public class ObjectInfoFactoryManager {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectNameGenerator objectNameGenerator;
@@ -24,12 +24,12 @@ public class ObjectCodeGeneratorFactoryManager {
     private final CglibService cglibService;
     private final StringService stringService;
 
-    public ObjectCodeGeneratorFactoryManager(ClassInfoService classInfoService,
-                                             ObjectStateReaderService objectStateReaderService,
-                                             ObjectNameGenerator objectNameGenerator,
-                                             ObjectCreationAnalyzerService objectCreationAnalyzerService,
-                                             CglibService cglibService,
-                                             StringService stringService) {
+    public ObjectInfoFactoryManager(ClassInfoService classInfoService,
+                                    ObjectStateReaderService objectStateReaderService,
+                                    ObjectNameGenerator objectNameGenerator,
+                                    ObjectCreationAnalyzerService objectCreationAnalyzerService,
+                                    CglibService cglibService,
+                                    StringService stringService) {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.objectNameGenerator = objectNameGenerator;

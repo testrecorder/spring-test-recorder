@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
 
-    public ObjectInfoFactoryForArrayImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+    public ObjectInfoFactoryForArrayImpl(ObjectInfoFactoryManager objectInfoFactoryManager) {
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
     }
 
     private static class ArrayAsList {
@@ -34,7 +34,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
 
             objectInfo.elements = arrayAsList.list
                     .stream()
-                    .map(fieldValue -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
+                    .map(fieldValue -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
 
             objectInfo.dependencies = objectInfo.elements.stream()

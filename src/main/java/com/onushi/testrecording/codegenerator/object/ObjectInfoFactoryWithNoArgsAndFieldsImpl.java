@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectInfoFactoryWithNoArgsAndFieldsImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+    public ObjectInfoFactoryWithNoArgsAndFieldsImpl(ObjectInfoFactoryManager objectInfoFactoryManager,
                                                     ObjectCreationAnalyzerService objectCreationAnalyzerService) {
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
@@ -29,7 +29,7 @@ public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory 
         StringBuilder fieldsInitCode = new StringBuilder();
         List<ObjectInfo> fieldObjectInfos = new ArrayList<>();
         for (Map.Entry<String, FieldValue> entry : context.getObjectState().entrySet()) {
-            ObjectInfo fieldObjectInfo = objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
+            ObjectInfo fieldObjectInfo = objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), entry.getValue().getValue());
             fieldObjectInfos.add(fieldObjectInfo);
             fieldsInitCode.append(new StringGenerator()
                     .setTemplate("{{objectName}}.{{fieldName}} = {{fieldInlineCode}};\n")

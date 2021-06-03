@@ -6,10 +6,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
 
-    public ObjectInfoFactoryForHashSetImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+    public ObjectInfoFactoryForHashSetImpl(ObjectInfoFactoryManager objectInfoFactoryManager) {
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .collect(Collectors.toList());
 
             objectInfo.elements = elements.stream()
-                    .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             objectInfo.dependencies = objectInfo.elements;
@@ -43,7 +43,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .map(element ->  new StringGenerator()
                             .setTemplate("{{objectName}}.add({{element}});\n")
                             .addAttribute("objectName", context.getObjectName())
-                            .addAttribute("element", objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element).getInlineCode())
+                            .addAttribute("element", objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element).getInlineCode())
                             .generate())
                     .collect(Collectors.joining(""));
 

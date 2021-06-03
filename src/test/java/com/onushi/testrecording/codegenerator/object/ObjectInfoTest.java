@@ -21,23 +21,23 @@ import static org.mockito.Mockito.mock;
 
 class ObjectInfoTest {
     TestGenerator testGenerator;
-    ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    ObjectInfoFactoryManager objectInfoFactoryManager;
 
     @BeforeEach
     void setUp() {
         testGenerator = mock(TestGenerator.class);
-        objectCodeGeneratorFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
+        objectInfoFactoryManager = ServiceCreatorUtils.createObjectCodeGeneratorFactoryManager();
     }
 
     @Test
     void testNull() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator,null, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator,null, "test");
         assertEquals("null", objectInfo.getInlineCode());
     }
 
     @Test
     void testFloat() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator,1f, "testFloat");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator,1f, "testFloat");
         assertEquals("testFloat", objectInfo.getObjectName());
         assertEquals("1.0f", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -47,49 +47,49 @@ class ObjectInfoTest {
 
     @Test
     void testLong() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 1L, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, 1L, "test");
         assertEquals("1L", objectInfo.getInlineCode());
     }
 
     @Test
     void testByte() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, (byte)11, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, (byte)11, "test");
         assertEquals("(byte)11", objectInfo.getInlineCode());
     }
 
     @Test
     void testShort() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, (short)100, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, (short)100, "test");
         assertEquals("(short)100", objectInfo.getInlineCode());
     }
 
     @Test
     void testCharacter() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 'a', "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, 'a', "test");
         assertEquals("'a'", objectInfo.getInlineCode());
     }
 
     @Test
     void testString() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, "Hello World", "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, "Hello World", "test");
         assertEquals("\"Hello World\"", objectInfo.getInlineCode());
     }
 
     @Test
     void testBoolean() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, true, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, true, "test");
         assertEquals("true", objectInfo.getInlineCode());
     }
 
     @Test
     void testInt() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 2, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, 2, "test");
         assertEquals("2", objectInfo.getInlineCode());
     }
 
     @Test
     void testDouble() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, 2.5, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, 2.5, "test");
         assertEquals("2.5", objectInfo.getInlineCode());
     }
 
@@ -98,7 +98,7 @@ class ObjectInfoTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = simpleDateFormat.parse("2021-01-01");
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, date1, "date1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, date1, "date1");
         assertEquals("date1", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.getRequiredHelperObjects().size());
         assertEquals(2, objectInfo.getRequiredImports().size());
@@ -109,7 +109,7 @@ class ObjectInfoTest {
     void testArray() {
         int[] array = {1, 2, 4};
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, array, "array1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, array, "array1");
         assertEquals("array1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals(0, objectInfo.getRequiredImports().size());
@@ -120,7 +120,7 @@ class ObjectInfoTest {
     void testList() {
         List<String> list = Arrays.asList("1", "2", "3");
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, list, "list1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, list, "list1");
         assertEquals("list1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals(2, objectInfo.getRequiredImports().size());
@@ -158,7 +158,7 @@ class ObjectInfoTest {
     void testNoArgsConstruction() {
         Person person = new Person();
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, person, "person1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, person, "person1");
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.Person", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -173,7 +173,7 @@ class ObjectInfoTest {
         student.lastName = "Aris";
         student.age = 30;
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -187,7 +187,7 @@ class ObjectInfoTest {
     void testAllArgsConstruction2() {
         PersonService personService = new PersonService(new PersonRepositoryImpl());
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, personService, "person1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, personService, "person1");
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.services.PersonService", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -203,7 +203,7 @@ class ObjectInfoTest {
         student.lastName = "Ln";
         student.age = 20;
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, student, "student1");
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields2", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -223,7 +223,7 @@ class ObjectInfoTest {
                 .age(35)
                 .build();
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, studentWithBuilder1, "studentWithBuilder1");
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -254,7 +254,7 @@ class ObjectInfoTest {
             .setA(false);
         studentWithSetters.setOtherField("Other");
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, studentWithSetters, "studentWithSetters1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, studentWithSetters, "studentWithSetters1");
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithSetters", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -282,7 +282,7 @@ class ObjectInfoTest {
         OtherStudent student = new OtherStudent();
         student.myInitSecretMethod("FN");
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, student, "student");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, student, "student");
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.OtherStudent", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -297,7 +297,7 @@ class ObjectInfoTest {
     @Test
     void testNoSuchElementException() {
         ObjectInfo objectInfo =
-                objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, new NoSuchElementException(), "ex");
+                objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, new NoSuchElementException(), "ex");
         assertEquals("ex", objectInfo.getObjectName());
         assertEquals("ex", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
@@ -309,7 +309,7 @@ class ObjectInfoTest {
 
     @Test
     void testEnum() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, Color.BLUE, "test");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, Color.BLUE, "test");
         assertEquals("Color.BLUE", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.Color", objectInfo.getRequiredImports().get(0));
@@ -317,7 +317,7 @@ class ObjectInfoTest {
 
     @Test
     void testUUID() {
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "uuid1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "uuid1");
         assertEquals("uuid1", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("java.util.UUID", objectInfo.getRequiredImports().get(0));
@@ -332,7 +332,7 @@ class ObjectInfoTest {
         map.put("2", 2);
         map.put("3", 3);
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, map, "map1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, map, "map1");
         assertEquals("map1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals(2, objectInfo.getRequiredImports().size());
@@ -353,7 +353,7 @@ class ObjectInfoTest {
         set1.add("2");
         set1.add("3");
 
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryManager.createObjectCodeGenerator(testGenerator, set1, "set1");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectCodeGenerator(testGenerator, set1, "set1");
         assertEquals("set1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals(2, objectInfo.getRequiredImports().size());

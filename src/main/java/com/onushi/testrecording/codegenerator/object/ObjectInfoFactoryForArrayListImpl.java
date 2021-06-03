@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
 
-    public ObjectInfoFactoryForArrayListImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+    public ObjectInfoFactoryForArrayListImpl(ObjectInfoFactoryManager objectInfoFactoryManager) {
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
             objectInfo.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
             objectInfo.elements = ((List<Object>) context.getObject()).stream()
-                    .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             objectInfo.dependencies = objectInfo.elements.stream()

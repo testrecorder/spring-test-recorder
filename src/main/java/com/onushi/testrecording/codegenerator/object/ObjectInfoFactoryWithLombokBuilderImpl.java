@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
     private final ClassInfoService classInfoService;
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
-    public ObjectInfoFactoryWithLombokBuilderImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+    public ObjectInfoFactoryWithLombokBuilderImpl(ObjectInfoFactoryManager objectInfoFactoryManager,
                                                   ClassInfoService classInfoService,
                                                   ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
@@ -40,7 +40,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
                     .distinct()
                     .filter(fieldValue -> fieldValue.getFieldValueStatus() != FieldValueStatus.COULD_NOT_READ)
                     .map(FieldValue::getValue)
-                    .map(fieldValue -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
+                    .map(fieldValue -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
             objectInfo.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
             return objectInfo;
@@ -74,7 +74,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
                 FieldValue fieldValue = objectState.get(fieldName);
                 if (fieldValue.getFieldValueStatus() == FieldValueStatus.VALUE_READ) {
                     ObjectInfo objectInfo =
-                            objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
+                            objectInfoFactoryManager.getCommonObjectCodeGenerator(testGenerator, objectState.get(fieldName).getValue());
                     stringGenerator.addAttribute("fieldValue", objectInfo.inlineCode);
                 } else {
                     stringGenerator.addAttribute("fieldValue", "??? could not read field");

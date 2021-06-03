@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectInfoFactoryWithAllArgsConstructorImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+    public ObjectInfoFactoryWithAllArgsConstructorImpl(ObjectInfoFactoryManager objectInfoFactoryManager,
                                                        ObjectCreationAnalyzerService objectCreationAnalyzerService) {
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
@@ -29,7 +29,7 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
             List<ObjectInfo> args = matchingConstructor.getArgsInOrder().stream()
-                    .map(argument -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), argument.getValue()))
+                    .map(argument -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), argument.getValue()))
                     .collect(Collectors.toList());
 
             String argsInlineCode = args.stream()

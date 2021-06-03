@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
 
-    public ObjectInfoFactoryForMockedDependencyImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+    public ObjectInfoFactoryForMockedDependencyImpl(ObjectInfoFactoryManager objectInfoFactoryManager) {
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
     }
 
     @Override
@@ -42,12 +42,12 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
                                              List<DependencyMethodRunInfo> dependencyMethodRuns) {
         List<ObjectInfo> allArgs = dependencyMethodRuns.stream()
                 .flatMap(x -> x.getArguments().stream())
-                .map(arg -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), arg))
+                .map(arg -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), arg))
                 .collect(Collectors.toList());
 
         List<ObjectInfo> allResults = dependencyMethodRuns.stream()
                 .map(DependencyMethodRunInfo::getResult)
-                .map(result -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), result))
+                .map(result -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), result))
                 .collect(Collectors.toList());
 
         List<ObjectInfo> allDependencies = new ArrayList<>(allArgs);
@@ -75,7 +75,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
 
     private String getWhenClause(ObjectInfoCreationContext context, DependencyMethodRunInfo dependencyMethodRunInfo) {
         String methodArgsInline = dependencyMethodRunInfo.getArguments().stream()
-                .map(arg -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), arg))
+                .map(arg -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), arg))
                 .map(ObjectInfo::getInlineCode)
                 .collect(Collectors.joining(", "));
 
@@ -89,7 +89,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
                     .addAttribute("methodArgsInline", methodArgsInline)
                     .generate();
         } else {
-            ObjectInfo resultCodeGenerator = objectCodeGeneratorFactoryManager
+            ObjectInfo resultCodeGenerator = objectInfoFactoryManager
                     .getCommonObjectCodeGenerator(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
             String thenClause = new StringGenerator()
                         .setTemplate(".thenReturn({{resultInlineCode}})")

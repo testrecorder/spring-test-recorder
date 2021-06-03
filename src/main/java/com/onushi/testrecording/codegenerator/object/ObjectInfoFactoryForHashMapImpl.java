@@ -6,10 +6,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
 
-    public ObjectInfoFactoryForHashMapImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager) {
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+    public ObjectInfoFactoryForHashMapImpl(ObjectInfoFactoryManager objectInfoFactoryManager) {
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
     }
 
     @Override
@@ -34,12 +34,12 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
             List<Object> values = new ArrayList<>(hashMap.values());
 
             List<ObjectInfo> keyGenerators = keys.stream()
-                    .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             List<ObjectInfo> valueGenerators = values.stream()
                     .distinct()
-                    .map(element -> objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
             List<ObjectInfo> allDependencies = new ArrayList<>(keyGenerators);
@@ -55,8 +55,8 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .map(key ->  new StringGenerator()
                             .setTemplate("{{objectName}}.put({{key}}, {{value}});\n")
                             .addAttribute("objectName", context.getObjectName())
-                            .addAttribute("key", objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), key).getInlineCode())
-                            .addAttribute("value", objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), hashMap.get(key)).getInlineCode())
+                            .addAttribute("key", objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), key).getInlineCode())
+                            .addAttribute("value", objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), hashMap.get(key)).getInlineCode())
                             .generate())
                     .collect(Collectors.joining(""));
 

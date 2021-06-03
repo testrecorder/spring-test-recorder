@@ -13,15 +13,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory {
-    private final ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager;
+    private final ObjectInfoFactoryManager objectInfoFactoryManager;
     private final ClassInfoService classInfoService;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
 
-    public ObjectInfoFactoryWithNoArgsAndSettersImpl(ObjectCodeGeneratorFactoryManager objectCodeGeneratorFactoryManager,
+    public ObjectInfoFactoryWithNoArgsAndSettersImpl(ObjectInfoFactoryManager objectInfoFactoryManager,
                                                      ClassInfoService classInfoService,
                                                      ObjectCreationAnalyzerService objectCreationAnalyzerService) {
         this.classInfoService = classInfoService;
-        this.objectCodeGeneratorFactoryManager = objectCodeGeneratorFactoryManager;
+        this.objectInfoFactoryManager = objectInfoFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
     }
 
@@ -46,7 +46,7 @@ public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory
                 .collect(Collectors.toList());
         for (FieldValue field : sortedFields) {
             ObjectInfo fieldObjectInfo =
-                    objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), field.getValue());
+                    objectInfoFactoryManager.getCommonObjectCodeGenerator(context.getTestGenerator(), field.getValue());
             fieldObjectInfos.add(fieldObjectInfo);
             SetterInfo setterInfo = settersForFields.get(field.getField().getName());
             if (setterInfo.isForBuilder()) {
