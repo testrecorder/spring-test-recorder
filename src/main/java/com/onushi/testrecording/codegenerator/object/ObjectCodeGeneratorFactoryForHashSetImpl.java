@@ -37,7 +37,7 @@ public class ObjectCodeGeneratorFactoryForHashSetImpl extends ObjectCodeGenerato
 
             objectCodeGenerator.dependencies = objectCodeGenerator.elements;
 
-            String elementClassName = getElementsDeclaringType(objectCodeGenerator.dependencies);
+            String elementClassName = getElementsClassName(objectCodeGenerator.dependencies);
 
             String elementsInlineCode = elements.stream()
                     .map(element ->  new StringGenerator()

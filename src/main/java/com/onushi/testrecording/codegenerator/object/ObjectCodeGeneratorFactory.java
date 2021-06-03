@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public abstract class ObjectCodeGeneratorFactory {
     abstract ObjectCodeGenerator createObjectCodeGenerator(ObjectCodeGeneratorCreationContext context);
 
-    protected String getElementsDeclaringType(List<ObjectCodeGenerator> objectCodeGenerators) {
+    protected String getElementsClassName(List<ObjectCodeGenerator> objectCodeGenerators) {
         List<String> distinct = objectCodeGenerators.stream()
                 .filter(x -> !x.inlineCode.equals("null"))
                 .map(ObjectCodeGenerator::getDeclareClassName)

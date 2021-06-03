@@ -3,7 +3,6 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGeneratorFactory {
@@ -28,21 +27,21 @@ public class ObjectCodeGeneratorFactoryForArrayListImpl extends ObjectCodeGenera
                     .distinct()
                     .collect(Collectors.toList());
 
-            String elementClassSimpleName = getElementsDeclaringType(objectCodeGenerator.elements);
+            String elementClassName = getElementsClassName(objectCodeGenerator.elements);
 
             String elementsInlineCode = objectCodeGenerator.elements.stream()
                     .map(ObjectCodeGenerator::getInlineCode).collect(Collectors.joining(", "));
 
             objectCodeGenerator.initCode = new StringGenerator()
-                    .setTemplate("List<{{elementClassSimpleName}}> {{objectName}} = Arrays.asList({{elementsInlineCode}});")
-                    .addAttribute("elementClassSimpleName", elementClassSimpleName)
+                    .setTemplate("List<{{elementClassName}}> {{objectName}} = Arrays.asList({{elementsInlineCode}});")
+                    .addAttribute("elementClassName", elementClassName)
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
             objectCodeGenerator.declareClassName = new StringGenerator()
-                    .setTemplate("List<{{elementClassSimpleName}}>")
-                    .addAttribute("elementClassSimpleName", elementClassSimpleName)
+                    .setTemplate("List<{{elementClassName}}>")
+                    .addAttribute("elementClassName", elementClassName)
                     .generate();
 
             return objectCodeGenerator;

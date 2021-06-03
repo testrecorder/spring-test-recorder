@@ -48,8 +48,8 @@ public class ObjectCodeGeneratorFactoryForHashMapImpl extends ObjectCodeGenerato
             objectCodeGenerator.elements = keyGenerators;
             objectCodeGenerator.dependencies = allDependencies;
 
-            String keyClassName = getElementsDeclaringType(keyGenerators);
-            String valueClassName = getElementsDeclaringType(valueGenerators);
+            String keyClassName = getElementsClassName(keyGenerators);
+            String valueClassName = getElementsClassName(valueGenerators);
 
             String elementsInlineCode = keys.stream()
                     .map(key ->  new StringGenerator()
