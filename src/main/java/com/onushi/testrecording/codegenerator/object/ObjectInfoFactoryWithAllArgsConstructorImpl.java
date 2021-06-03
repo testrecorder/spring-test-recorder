@@ -18,7 +18,7 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         List<MatchingConstructor> matchingAllArgsConstructors =
                 objectCreationAnalyzerService.getMatchingAllArgsConstructors(context.getObject(), context.getObjectState());
         if (matchingAllArgsConstructors.size() > 0) {

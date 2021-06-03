@@ -4,7 +4,7 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
 public class ObjectInfoFactoryFallbackImpl extends ObjectInfoFactory {
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
 
         objectInfo.initCode = new StringGenerator()

@@ -10,7 +10,7 @@ public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         String fullClassName = context.getObject().getClass().getName();
         switch (fullClassName) {
             case "java.lang.Float":

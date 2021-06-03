@@ -145,7 +145,7 @@ class ObjectInfoTest {
         context.setObjectState(objectState);
 
         ObjectInfoFactoryForNotRedFields objectCodeGeneratorFactoryForNotRedFields = new ObjectInfoFactoryForNotRedFields();
-        ObjectInfo objectInfo = objectCodeGeneratorFactoryForNotRedFields.createObjectCodeGenerator(context);
+        ObjectInfo objectInfo = objectCodeGeneratorFactoryForNotRedFields.createObjectInfo(context);
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectInfo.getRequiredImports().get(0));
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());

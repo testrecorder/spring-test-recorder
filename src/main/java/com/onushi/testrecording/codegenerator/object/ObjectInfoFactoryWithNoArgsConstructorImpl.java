@@ -11,7 +11,7 @@ public class ObjectInfoFactoryWithNoArgsConstructorImpl extends ObjectInfoFactor
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(context.getObject(), context.getObjectState())){
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);
             objectInfo.initCode = new StringGenerator()

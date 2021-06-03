@@ -88,7 +88,7 @@ public class ObjectInfoFactoryManager {
         context.setObjectName(objectName);
 
         for (ObjectInfoFactory factory : knownClassesFactoriesList) {
-            ObjectInfo objectInfo = factory.createObjectCodeGenerator(context);
+            ObjectInfo objectInfo = factory.createObjectInfo(context);
             if (objectInfo != null) {
                 return objectInfo;
             }
@@ -98,7 +98,7 @@ public class ObjectInfoFactoryManager {
             unproxyObject(context);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ObjectInfoFactoryForNotRedFields().createObjectCodeGenerator(context);
+            return new ObjectInfoFactoryForNotRedFields().createObjectInfo(context);
         }
 
         // after we tried knownClassesFactoriesList and we unproxy we getObjectState to try creating in a generic way
@@ -106,17 +106,17 @@ public class ObjectInfoFactoryManager {
         boolean allFieldsAreRead = context.getObjectState().values().stream()
                 .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);
         if (!allFieldsAreRead) {
-            return new ObjectInfoFactoryForNotRedFields().createObjectCodeGenerator(context);
+            return new ObjectInfoFactoryForNotRedFields().createObjectInfo(context);
         }
 
         for (ObjectInfoFactory factory : unknownClassesFactoriesList) {
-            ObjectInfo objectInfo = factory.createObjectCodeGenerator(context);
+            ObjectInfo objectInfo = factory.createObjectInfo(context);
             if (objectInfo != null) {
                 return objectInfo;
             }
         }
 
-        return new ObjectInfoFactoryFallbackImpl().createObjectCodeGenerator(context);
+        return new ObjectInfoFactoryFallbackImpl().createObjectInfo(context);
     }
 
     private void unproxyObject(ObjectInfoCreationContext context) throws Exception {

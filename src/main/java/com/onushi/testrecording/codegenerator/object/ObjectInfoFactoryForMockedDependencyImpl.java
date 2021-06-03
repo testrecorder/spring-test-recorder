@@ -16,7 +16,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         List<DependencyMethodRunInfo> dependencyMethodRuns =
                 context.getTestGenerator().getDependencyMethodRuns().stream()
                 .filter(x -> x.getTarget().getClass() == context.getObject().getClass())

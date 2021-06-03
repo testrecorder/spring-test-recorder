@@ -25,7 +25,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(context.getObject())) {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(),

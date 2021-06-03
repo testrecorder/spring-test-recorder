@@ -25,7 +25,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject().getClass().getName().startsWith("[")) {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName(), false);

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class ObjectInfoFactory {
-    abstract ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context);
+    abstract ObjectInfo createObjectInfo(ObjectInfoCreationContext context);
 
     protected String getElementsClassName(List<ObjectInfo> objectInfos) {
         List<String> distinct = objectInfos.stream()

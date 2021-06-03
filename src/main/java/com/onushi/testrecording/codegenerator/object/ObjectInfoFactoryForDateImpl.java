@@ -5,7 +5,7 @@ import java.util.*;
 
 public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject().getClass().getName().equals("java.util.Date")) {
 
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(),

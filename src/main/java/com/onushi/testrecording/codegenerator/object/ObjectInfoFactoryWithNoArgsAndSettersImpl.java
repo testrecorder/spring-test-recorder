@@ -26,7 +26,7 @@ public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory
     }
 
     @Override
-    public ObjectInfo createObjectCodeGenerator(ObjectInfoCreationContext context) {
+    public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (!classInfoService.hasPublicNoArgsConstructor(context.getObject().getClass())) {
             return null;
         }
