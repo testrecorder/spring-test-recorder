@@ -89,11 +89,11 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
                     .addAttribute("methodArgsInline", methodArgsInline)
                     .generate();
         } else {
-            ObjectInfo resultCodeGenerator = objectInfoFactoryManager
+            ObjectInfo resultObjectInfo = objectInfoFactoryManager
                     .getCommonObjectInfo(context.getTestGenerator(), dependencyMethodRunInfo.getResult());
             String thenClause = new StringGenerator()
                         .setTemplate(".thenReturn({{resultInlineCode}})")
-                        .addAttribute("resultInlineCode", resultCodeGenerator.getInlineCode())
+                        .addAttribute("resultInlineCode", resultObjectInfo.getInlineCode())
                         .generate();
             return new StringGenerator()
                     .setTemplate("when({{objectName}}.{{methodName}}({{methodArgsInline}})){{thenClause}};\n")

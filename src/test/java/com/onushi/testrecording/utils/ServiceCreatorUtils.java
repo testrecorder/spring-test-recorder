@@ -26,7 +26,7 @@ public class ServiceCreatorUtils {
                 new ClassInfoService());
     }
 
-    public static ObjectInfoFactoryManager createObjectCodeGeneratorFactoryManager() {
+    public static ObjectInfoFactoryManager createObjectInfoFactoryManager() {
         return new ObjectInfoFactoryManager(
                 new ClassInfoService(),
                 new ObjectStateReaderService(),
@@ -39,7 +39,7 @@ public class ServiceCreatorUtils {
     public static TestGeneratorFactory createTestGeneratorFactory() {
         return new TestGeneratorFactory(
                 createObjectNameGenerator(),
-                createObjectCodeGeneratorFactoryManager(),
+                createObjectInfoFactoryManager(),
                 createTestGeneratorService());
     }
 }

@@ -10,7 +10,7 @@ import java.util.*;
 public class TestGenerator {
     // TODO IB simplify this and refactor towards this being a Context
     protected ObjectInfo targetObjectInfo;
-    // TODO IB these 2 should be in targetObjectCodeGenerator
+    // TODO IB these 2 should be in targetObjectInfo
     protected String packageName;
     protected String shortClassName;
     protected String methodName;
@@ -24,7 +24,7 @@ public class TestGenerator {
     protected List<String> argumentsInlineCode;
     protected List<DependencyMethodRunInfo> dependencyMethodRuns = new ArrayList<>();
 
-    protected final Map<Object, ObjectInfo> objectCodeGeneratorCache = new LinkedHashMap<>();
+    protected final Map<Object, ObjectInfo> objectInfoCache = new LinkedHashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
     protected TestGenerator() {}
@@ -33,7 +33,7 @@ public class TestGenerator {
         return lastIndexForObjectName;
     }
 
-    public Map<Object, ObjectInfo> getObjectCodeGeneratorCache() {
-        return objectCodeGeneratorCache;
+    public Map<Object, ObjectInfo> getObjectInfoCache() {
+        return objectInfoCache;
     }
 }

@@ -64,24 +64,24 @@ public class ObjectInfoFactoryManager {
 
     // Cannot be moved to a separate cache class since it will result in cyclic dependency
     // TODO IB if target is already in cache ... I should use it
-    public ObjectInfo getNamedObjectCodeGenerator(TestGenerator testGenerator, Object object, String preferredName) {
-        return createObjectCodeGenerator(testGenerator, object, preferredName);
+    public ObjectInfo getNamedObjectInfo(TestGenerator testGenerator, Object object, String preferredName) {
+        return createObjectInfo(testGenerator, object, preferredName);
     }
 
     public ObjectInfo getCommonObjectInfo(TestGenerator testGenerator, Object object) {
-        Map<Object, ObjectInfo> objectCache = testGenerator.getObjectCodeGeneratorCache();
+        Map<Object, ObjectInfo> objectCache = testGenerator.getObjectInfoCache();
         ObjectInfo existingObject = objectCache.get(object);
         if (existingObject != null) {
             return existingObject;
         } else {
             String objectName = objectNameGenerator.getNewObjectName(testGenerator, object);
-            ObjectInfo objectInfo = createObjectCodeGenerator(testGenerator, object, objectName);
+            ObjectInfo objectInfo = createObjectInfo(testGenerator, object, objectName);
             objectCache.put(object, objectInfo);
             return objectInfo;
         }
     }
 
-    protected ObjectInfo createObjectCodeGenerator(TestGenerator testGenerator, Object object, String objectName) {
+    protected ObjectInfo createObjectInfo(TestGenerator testGenerator, Object object, String objectName) {
         ObjectInfoCreationContext context = new ObjectInfoCreationContext();
         context.setTestGenerator(testGenerator);
         context.setObject(object);

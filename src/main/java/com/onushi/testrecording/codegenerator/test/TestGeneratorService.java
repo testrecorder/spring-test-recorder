@@ -175,7 +175,7 @@ public class TestGeneratorService {
                 Object value = publicGetter.invoke(objectInfo.getObject());
                 // TODO IB call this
                 // TODO IB do I have the dependents of this object?
-                // objectCodeGeneratorFactoryManager.getCommonObjectCodeGenerator(testGenerator, value)
+                // objectInfoFactoryManager.getCommonObjectInfo(testGenerator, value)
             }
 
             List<Field> publicFields = classInfoService.getPublicFields(objectInfo.getObject().getClass());

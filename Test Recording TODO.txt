@@ -52,7 +52,7 @@ DONE ==========================
 	OK - handle ArrayList<>
 
 	OK - the dependencies (also dependencies of dependencies ...)
-		keep all dependencies in the test to avoid creation of 2 ObjectCodeGenerator for the same object
+		keep all dependencies in the test to avoid creation of 2 ObjectInfo for the same object
 	OK - different objects can have common dependencies
 		we need a dependency sorter
 	OK - why args types are generated as 
@@ -146,7 +146,7 @@ DONE ==========================
 		OK - Enum
 		OK - UUID
 		OK - Fix getVariableName
-		OK - Fix ObjectCodeGenerator constructor
+		OK - Fix ObjectInfo constructor
 
 	------
 		OK - HashMap<>

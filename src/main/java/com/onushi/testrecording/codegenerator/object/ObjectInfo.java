@@ -17,7 +17,7 @@ public class ObjectInfo {
     protected List<String> requiredImports = new ArrayList<>();
     protected final List<String> requiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
-    // these 2 are used to traverse the ObjectCodeGenerator graph
+    // these 2 are used to traverse the ObjectInfo graph
     private boolean initPrepared = false;
     private boolean initDone = false;
     protected boolean canUseDoubleEqualForComparison;
