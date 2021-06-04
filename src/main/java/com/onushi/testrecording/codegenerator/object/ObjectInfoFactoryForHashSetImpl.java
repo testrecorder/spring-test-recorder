@@ -21,7 +21,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
 
             HashSet<Object> hashSet = (HashSet<Object>)context.getObject();
 
-            List<Object> elements = Arrays.stream(hashSet.toArray())
+            List<Object> objects = Arrays.stream(hashSet.toArray())
                     .sorted(Comparator.comparing(k -> {
                         if (k == null) {
                             return "";
@@ -31,15 +31,13 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     }))
                     .collect(Collectors.toList());
 
-            objectInfo.elements = elements.stream()
-                    .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
+            objectInfo.initDependencies = objects.stream()
+                    .map(element1 -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element1))
                     .collect(Collectors.toList());
-
-            objectInfo.initDependencies = objectInfo.elements;
 
             String elementClassName = getElementsClassName(objectInfo.initDependencies);
 
-            String elementsInlineCode = elements.stream()
+            String elementsInlineCode = objects.stream()
                     .map(element ->  new StringGenerator()
                             .setTemplate("{{objectName}}.add({{element}});\n")
                             .addAttribute("objectName", context.getObjectName())

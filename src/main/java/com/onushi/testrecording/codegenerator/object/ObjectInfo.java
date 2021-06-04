@@ -11,8 +11,6 @@ public class ObjectInfo {
     protected final String inlineCode;
     // this contains more info than the object.getClass() for generics
     protected String actualClassName;
-    // TOD IB remove elements
-    protected List<ObjectInfo> elements = new ArrayList<>();
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
     // TODO IB !!!! use this for each ObjectInfoFactory and test
     protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
