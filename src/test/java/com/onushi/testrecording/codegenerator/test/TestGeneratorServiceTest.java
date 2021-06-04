@@ -589,7 +589,7 @@ class TestGeneratorServiceTest {
 
 
 
-    // TODO IB !!!! @Test
+    @Test
     void generateTestForMethodThatReturnsArray() throws Exception {
         // Arrange
         int[] result = {3, 4};

@@ -170,6 +170,11 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals(0, objectInfo.getRequiredImports().size());
         assertEquals("int[] array1 = {1, 2, 4};", objectInfo.getInitCode());
+        assertFalse(objectInfo.canUseDoubleEqualForComparison);
+        assertEquals(4, objectInfo.visibleProperties.size());
+        assertEquals("3", objectInfo.visibleProperties.get(".length").getFinalValue().getString());
+        ObjectInfo element = objectInfo.visibleProperties.get("[0]").getFinalValue().getObjectInfo();
+        assertEquals("1", element.visibleProperties.get("").getFinalValue().getString());
     }
 
     @Test
@@ -184,6 +189,8 @@ class ObjectInfoTest {
         assertFalse(objectInfo.canUseDoubleEqualForComparison);
         assertEquals(4, objectInfo.visibleProperties.size());
         assertEquals("3", objectInfo.visibleProperties.get(".size()").getFinalValue().getString());
+        ObjectInfo element = objectInfo.visibleProperties.get(".get(0)").getFinalValue().getObjectInfo();
+        assertEquals("\"1\"", element.visibleProperties.get("").getFinalValue().getString());
     }
 
     @Test

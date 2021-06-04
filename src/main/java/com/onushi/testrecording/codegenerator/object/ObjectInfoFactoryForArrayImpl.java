@@ -32,12 +32,12 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
 
             ArrayAsList arrayAsList = getElementList(context.getObject());
 
-            objectInfo.elements = arrayAsList.list
+            List<ObjectInfo> elements = arrayAsList.list
                     .stream()
                     .map(fieldValue -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
 
-            objectInfo.initDependencies = objectInfo.elements.stream()
+            objectInfo.initDependencies = elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
@@ -50,8 +50,22 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
                     .setTemplate("{{elementClassShort}}[] {{objectName}} = {{{elementsInlineCode}}};")
                     .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
                     .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("elementsInlineCode", getElementsInlineCode(objectInfo.elements))
+                    .addAttribute("elementsInlineCode", getElementsInlineCode(elements))
                     .generate();
+
+            objectInfo.addVisibleProperty(".length", VisibleProperty.builder()
+                    .finalValue(ObjectInfoOrString.fromString(String.valueOf(elements.size())))
+                    .build());
+            for (int i = 0; i < elements.size(); i++) {
+                ObjectInfo element = elements.get(i);
+                String key = new StringGenerator()
+                        .setTemplate("[{{index}}]")
+                        .addAttribute("index", i)
+                        .generate();
+                objectInfo.addVisibleProperty(key, VisibleProperty.builder()
+                        .finalValue(ObjectInfoOrString.fromObjectInfo(element))
+                        .build());
+            }
 
             return objectInfo;
         } else {
