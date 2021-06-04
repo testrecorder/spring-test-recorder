@@ -41,12 +41,12 @@ public class ObjectInfoFactoryManager {
                 new ObjectInfoFactoryForNullImpl(),
                 new ObjectInfoFactoryForPrimitiveImpl(stringService),
                 new ObjectInfoFactoryForEnumImpl(),
+                new ObjectInfoFactoryForUUIDImpl(),
                 new ObjectInfoFactoryForDateImpl(),
                 new ObjectInfoFactoryForArrayImpl(this),
                 new ObjectInfoFactoryForArrayListImpl(this),
                 new ObjectInfoFactoryForHashMapImpl(this),
-                new ObjectInfoFactoryForHashSetImpl(this),
-                new ObjectInfoFactoryForUUIDImpl()
+                new ObjectInfoFactoryForHashSetImpl(this)
         );
         unknownClassesFactoriesList = Arrays.asList(
                 new ObjectInfoFactoryForMockedDependencyImpl(this),

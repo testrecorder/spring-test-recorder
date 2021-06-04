@@ -8,13 +8,23 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
         String fullClassName = context.getObject().getClass().getName();
         if (fullClassName.equals("java.util.UUID")) {
             ObjectInfo objectInfo =
-                    new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+                    new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName())
+                    .setCanUseDoubleEqualForComparison(true);
 
             objectInfo.initCode = new StringGenerator()
                     .setTemplate("UUID {{objectName}} = UUID.fromString(\"{{uuid}}\");")
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("uuid", context.getObject().toString())
                     .generate();
+
+            String value = new StringGenerator()
+                    .setTemplate("UUID.fromString(\"{{uuid}}\");")
+                    .addAttribute("uuid", context.getObject().toString())
+                    .generate();
+
+            objectInfo.addVisibleProperty("", VisibleProperty.builder()
+                    .finalValue(value)
+                    .build());
 
             objectInfo.requiredImports.add("java.util.UUID");
 

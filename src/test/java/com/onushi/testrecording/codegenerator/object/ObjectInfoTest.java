@@ -134,6 +134,19 @@ class ObjectInfoTest {
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
+    @Test
+    void testUUID() {
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "uuid1");
+        assertEquals("uuid1", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.getRequiredImports().size());
+        assertEquals("java.util.UUID", objectInfo.getRequiredImports().get(0));
+        assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.getInitCode());
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
+    }
+
+
     // TODO IB !!!! !!!! test all
     @Test
     void testDate() throws Exception {
@@ -347,15 +360,6 @@ class ObjectInfoTest {
         assertEquals("java.util.NoSuchElementException", objectInfo.getRequiredImports().get(0));
         assertEquals("// TODO Create this object\n" +
                 "// NoSuchElementException ex = new NoSuchElementException();\n", objectInfo.getInitCode());
-    }
-
-    @Test
-    void testUUID() {
-        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "uuid1");
-        assertEquals("uuid1", objectInfo.getInlineCode());
-        assertEquals(1, objectInfo.getRequiredImports().size());
-        assertEquals("java.util.UUID", objectInfo.getRequiredImports().get(0));
-        assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.getInitCode());
     }
 
     @Test

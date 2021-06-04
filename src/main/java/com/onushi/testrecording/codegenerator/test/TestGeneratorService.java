@@ -2,6 +2,7 @@ package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
+import com.onushi.testrecording.codegenerator.object.VisibleProperty;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -139,84 +140,89 @@ public class TestGeneratorService {
             return "";
         } else {
             return "        // Assert\n" +
-                getAssertCode(testGenerator, attributes, testGenerator.getExpectedResultObjectInfo(), "result");
+                getAssertCode(testGenerator, testGenerator.getExpectedResultObjectInfo(), "result");
         }
     }
 
-    // TODO IB !!!! this part should be moved slowly to ObjectInfo factories
-    // TODO IB do I need the attributes?
-    private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes,
-                                 ObjectInfo objectInfo, String assertPath) throws InvocationTargetException, IllegalAccessException {
-        if (objectInfo.getObject() == null) {
-            return "        assertNull(result);\n";
-        } else if (objectInfo.isCanUseDoubleEqualForComparison()) {
-            return new StringGenerator()
-                    .addAttribute("assertPath", assertPath)
-                    .addAttribute("inlineCode", objectInfo.getInlineCode())
-                    .setTemplate("        assertEquals({{inlineCode}}, {{assertPath}});\n")
-                    .generate();
-        } else if (classInfoService.hasEquals(objectInfo.getObject().getClass())) {
-            return new StringGenerator()
-                    .addAttribute("objectsInit", getObjectsInit(Collections.singletonList(objectInfo)).stream()
-                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")))
-                    .addAttribute("assertPath", assertPath)
-                    .addAttribute("inlineCode", objectInfo.getInlineCode())
-                    .setTemplate("{{objectsInit}}" +
-                        "        assertEquals({{inlineCode}}, {{assertPath}});\n")
-                    .generate();
-        } else if (objectInfo.getObject().getClass().getName().startsWith("[")) {
-            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, "[{{index}}]", ".length");
-        } if (objectInfo.getObject() instanceof List<?>) {
-            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, ".get({{index}})", ".size()");
-        // TODO IB continue here with other known types
-        } else {
-            List<Method> publicGetters = classInfoService.getPublicGetters(objectInfo.getObject().getClass());
-            for (Method publicGetter : publicGetters) {
-                Object value = publicGetter.invoke(objectInfo.getObject());
-                // TODO IB call this
-                // TODO IB do I have the dependents of this object?
-                // objectInfoFactoryManager.getCommonObjectInfo(testGenerator, value)
+    private String getAssertCode(TestGenerator testGenerator,
+                                 ObjectInfo objectInfo, String assertPath) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
+            if (entry.getValue().getFinalValue().equals("null")) {
+                stringBuilder.append("        assertNull(result);\n");
+            } else {
+                String assertString = new StringGenerator()
+                        .setTemplate("        assertEquals({{expected}}, {{actual}});\n")
+                        .addAttribute("expected", entry.getValue().getFinalValue())
+                        .addAttribute("actual", assertPath + entry.getKey())
+                        .generate();
+                stringBuilder.append(assertString);
             }
-
-            List<Field> publicFields = classInfoService.getPublicFields(objectInfo.getObject().getClass());
-            for (Field publicField : publicFields) {
-                Object value = publicField.get(objectInfo.getObject());
-            }
-
-            return new StringGenerator()
-                    .addAttribute("assertPath", assertPath)
-                    .setTemplate("        // TODO Add assert for {{assertPath}} object \n")
-                    .generate();
         }
+        return stringBuilder.toString();
     }
-
-    private String getAssertForCollection(TestGenerator testGenerator,
-                                          Map<String, String> attributes,
-                                          ObjectInfo objectInfo,
-                                          String assertPath,
-                                          String indexSyntax,
-                                          String sizeSyntax) throws InvocationTargetException, IllegalAccessException {
-        List<ObjectInfo> elements = objectInfo.getElements();
-        StringBuilder elementsAssert = new StringBuilder();
-        for (int i = 0, elementsSize = elements.size(); i < elementsSize; i++) {
-            ObjectInfo element = elements.get(i);
-            String elementAssertPath =  new StringGenerator()
-                    .addAttribute("index", i)
-                    .addAttribute("assertPath", assertPath)
-                    .setTemplate("{{assertPath}}" + indexSyntax)
-                    .generate();
-            elementsAssert.append(getAssertCode(testGenerator, attributes, element, elementAssertPath));
-        }
-        return new StringGenerator()
-                .addAttribute("size", elements.size())
-                .addAttribute("assertPath", assertPath)
-                .addAttribute("elementsAssert", elementsAssert.toString())
-                .addAttribute("sizeSyntax", sizeSyntax)
-                .setTemplate(
-                        "        assertEquals({{size}}, {{assertPath}}" + sizeSyntax + ");\n" +
-                        "{{elementsAssert}}")
-                .generate();
-    }
+    // TODO IB !!!! use parts from here
+//        } else if (classInfoService.hasEquals(objectInfo.getObject().getClass())) {
+//            return new StringGenerator()
+//                    .addAttribute("objectsInit", getObjectsInit(Collections.singletonList(objectInfo)).stream()
+//                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")))
+//                    .addAttribute("assertPath", assertPath)
+//                    .addAttribute("inlineCode", objectInfo.getInlineCode())
+//                    .setTemplate("{{objectsInit}}" +
+//                        "        assertEquals({{inlineCode}}, {{assertPath}});\n")
+//                    .generate();
+//        } else if (objectInfo.getObject().getClass().getName().startsWith("[")) {
+//            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, "[{{index}}]", ".length");
+//        } if (objectInfo.getObject() instanceof List<?>) {
+//            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, ".get({{index}})", ".size()");
+//        // TODO IB continue here with other known types
+//        } else {
+//            List<Method> publicGetters = classInfoService.getPublicGetters(objectInfo.getObject().getClass());
+//            for (Method publicGetter : publicGetters) {
+//                Object value = publicGetter.invoke(objectInfo.getObject());
+//                // TODO IB call this
+//                // TODO IB do I have the dependents of this object?
+//                // objectInfoFactoryManager.getCommonObjectInfo(testGenerator, value)
+//            }
+//
+//            List<Field> publicFields = classInfoService.getPublicFields(objectInfo.getObject().getClass());
+//            for (Field publicField : publicFields) {
+//                Object value = publicField.get(objectInfo.getObject());
+//            }
+//
+//            return new StringGenerator()
+//                    .addAttribute("assertPath", assertPath)
+//                    .setTemplate("        // TODO Add assert for {{assertPath}} object \n")
+//                    .generate();
+//        }
+//    }
+//    private String getAssertForCollection(TestGenerator testGenerator,
+//                                          Map<String, String> attributes,
+//                                          ObjectInfo objectInfo,
+//                                          String assertPath,
+//                                          String indexSyntax,
+//                                          String sizeSyntax) throws InvocationTargetException, IllegalAccessException {
+//        List<ObjectInfo> elements = objectInfo.getElements();
+//        StringBuilder elementsAssert = new StringBuilder();
+//        for (int i = 0, elementsSize = elements.size(); i < elementsSize; i++) {
+//            ObjectInfo element = elements.get(i);
+//            String elementAssertPath =  new StringGenerator()
+//                    .addAttribute("index", i)
+//                    .addAttribute("assertPath", assertPath)
+//                    .setTemplate("{{assertPath}}" + indexSyntax)
+//                    .generate();
+//            elementsAssert.append(getAssertCode(testGenerator, attributes, element, elementAssertPath));
+//        }
+//        return new StringGenerator()
+//                .addAttribute("size", elements.size())
+//                .addAttribute("assertPath", assertPath)
+//                .addAttribute("elementsAssert", elementsAssert.toString())
+//                .addAttribute("sizeSyntax", sizeSyntax)
+//                .setTemplate(
+//                        "        assertEquals({{size}}, {{assertPath}}" + sizeSyntax + ");\n" +
+//                        "{{elementsAssert}}")
+//                .generate();
+//    }
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
