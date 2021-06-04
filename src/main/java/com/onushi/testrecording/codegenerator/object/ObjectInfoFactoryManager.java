@@ -117,7 +117,8 @@ public class ObjectInfoFactoryManager {
             }
         }
 
-        return new ObjectInfoFactoryFallbackImpl().createObjectInfo(context);
+        return new ObjectInfoFactoryFallbackImpl(this, classInfoService)
+                .createObjectInfo(context);
     }
 
     private void unproxyObject(ObjectInfoCreationContext context) throws Exception {
