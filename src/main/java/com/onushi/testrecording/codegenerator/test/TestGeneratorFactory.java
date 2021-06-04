@@ -52,8 +52,6 @@ public class TestGeneratorFactory {
 
         testGenerator.requiredHelperObjects = getRequiredHelperObjects(testGenerator);
 
-        testGenerator.argumentsInlineCode = getArgumentsInlineCode(testGenerator);
-
         testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, recordedMethodRunInfo.getFallBackResultType());
 
         return testGenerator;
@@ -90,9 +88,4 @@ public class TestGeneratorFactory {
                 .collect(Collectors.toList());
     }
 
-    private List<String> getArgumentsInlineCode(TestGenerator testGenerator) {
-        return testGenerator.argumentObjectInfos.stream()
-                .map(ObjectInfo::getInlineCode)
-                .collect(Collectors.toList());
-    }
 }
