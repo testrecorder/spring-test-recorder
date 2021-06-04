@@ -7,7 +7,7 @@ public class ObjectInfoFactoryForNullImpl extends ObjectInfoFactory {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), "null", "null")
                     .setCanUseDoubleEqualForComparison(true);
             objectInfo.visibleProperties.put("", VisibleProperty.builder()
-                    .finalValue(ObjectInfoOrString.fromString("null"))
+                    .finalValue(PropertyValue.fromString("null"))
                     .build());
             return objectInfo;
         }

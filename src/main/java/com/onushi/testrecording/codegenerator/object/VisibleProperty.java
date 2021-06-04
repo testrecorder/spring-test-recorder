@@ -12,7 +12,7 @@ import java.util.List;
 public class VisibleProperty {
     protected AccessibleObject fieldOrMethod = null;
     // protected String initialValue = null;
-    protected ObjectInfoOrString finalValue = null;
+    protected PropertyValue finalValue = null;
     // dependencies that not come from value, like the key of a map
     // protected List<ObjectInfo> initialDependencies = new ArrayList<>();
     protected List<ObjectInfo> finalDependencies = new ArrayList<>();

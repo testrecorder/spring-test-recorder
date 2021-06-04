@@ -2,7 +2,7 @@ package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
-import com.onushi.testrecording.codegenerator.object.ObjectInfoOrString;
+import com.onushi.testrecording.codegenerator.object.PropertyValue;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
@@ -156,7 +156,7 @@ public class TestGeneratorService {
                         .generate();
                 stringBuilder.append(assertString);
             } else {
-                ObjectInfoOrString finalValue = visibleProperty.getFinalValue();
+                PropertyValue finalValue = visibleProperty.getFinalValue();
                 String composedPath = assertPath + entry.getKey();
                 if (finalValue.getObjectInfo() != null) {
                     String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);

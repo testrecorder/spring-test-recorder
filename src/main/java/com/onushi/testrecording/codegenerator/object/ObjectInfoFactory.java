@@ -1,10 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
-import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +35,7 @@ public abstract class ObjectInfoFactory {
                         objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), value);
                 String key = "." + publicGetter.getName() + "()";
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
-                        .finalValue(ObjectInfoOrString.fromObjectInfo(valueObjectInfo))
+                        .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
             } catch (Exception ex) {
                 // TODO IB !!!! add a comment
@@ -52,7 +50,7 @@ public abstract class ObjectInfoFactory {
                         objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), value);
                 String key = "." + publicField.getName();
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
-                        .finalValue(ObjectInfoOrString.fromObjectInfo(valueObjectInfo))
+                        .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
             } catch(Exception ex) {
                 // TODO IB !!!! add a comment

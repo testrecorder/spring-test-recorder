@@ -54,7 +54,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
                     .generate();
 
             objectInfo.addVisibleProperty(".length", VisibleProperty.builder()
-                    .finalValue(ObjectInfoOrString.fromString(String.valueOf(elements.size())))
+                    .finalValue(PropertyValue.fromString(String.valueOf(elements.size())))
                     .build());
             for (int i = 0; i < elements.size(); i++) {
                 ObjectInfo element = elements.get(i);
@@ -63,7 +63,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
                         .addAttribute("index", i)
                         .generate();
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
-                        .finalValue(ObjectInfoOrString.fromObjectInfo(element))
+                        .finalValue(PropertyValue.fromObjectInfo(element))
                         .build());
             }
 

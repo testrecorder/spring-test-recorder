@@ -16,7 +16,7 @@ public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
         if (objectInfo != null) {
             return objectInfo.setCanUseDoubleEqualForComparison(true)
                 .addVisibleProperty("", VisibleProperty.builder()
-                    .finalValue(ObjectInfoOrString.fromString(objectInfo.inlineCode))
+                    .finalValue(PropertyValue.fromString(objectInfo.inlineCode))
                     .build());
         }
         return null;
