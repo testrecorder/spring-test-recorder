@@ -14,8 +14,8 @@ public class ObjectInfo {
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
     // TODO IB !!!! use this for each ObjectInfoFactory and test
     protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
-    protected List<String> requiredImports = new ArrayList<>();
-    protected final List<String> requiredHelperObjects = new ArrayList<>();
+    protected List<String> initRequiredImports = new ArrayList<>();
+    protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     // these 2 are used to traverse the ObjectInfo graph
     private boolean initPrepared = false;

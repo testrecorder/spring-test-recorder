@@ -25,7 +25,7 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
                     .finalValue(PropertyValue.fromString(value))
                     .build());
 
-            objectInfo.requiredImports.add("java.util.UUID");
+            objectInfo.initRequiredImports.add("java.util.UUID");
 
             return objectInfo;
         }

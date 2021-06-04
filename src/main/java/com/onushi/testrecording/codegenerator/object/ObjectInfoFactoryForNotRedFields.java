@@ -15,7 +15,7 @@ public class ObjectInfoFactoryForNotRedFields extends ObjectInfoFactory {
                 .addAttribute("objectName", context.getObjectName())
                 .generate();
 
-        objectInfo.requiredImports.add(context.getObject().getClass().getName());
+        objectInfo.initRequiredImports.add(context.getObject().getClass().getName());
         return objectInfo;
     }
 }

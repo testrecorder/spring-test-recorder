@@ -1,7 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
-import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
 public class ObjectInfoFactoryFallbackImpl extends ObjectInfoFactory {
@@ -24,7 +23,7 @@ public class ObjectInfoFactoryFallbackImpl extends ObjectInfoFactory {
                 .addAttribute("objectName", context.getObjectName())
                 .generate();
 
-        objectInfo.requiredImports.add(context.getObject().getClass().getName());
+        objectInfo.initRequiredImports.add(context.getObject().getClass().getName());
 
         setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
 

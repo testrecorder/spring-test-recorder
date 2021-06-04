@@ -11,7 +11,7 @@ public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
                     .addVisibleProperty("", VisibleProperty.builder()
                     .finalValue(PropertyValue.fromString(inlineCode))
                     .build());
-            objectInfo.requiredImports.add(clazz.getName());
+            objectInfo.initRequiredImports.add(clazz.getName());
 
             return objectInfo;
         }

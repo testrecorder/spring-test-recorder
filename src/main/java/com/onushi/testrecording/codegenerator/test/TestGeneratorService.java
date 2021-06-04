@@ -1,6 +1,5 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.object.PropertyValue;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
@@ -46,7 +45,7 @@ public class TestGeneratorService {
         result.add("org.junit.jupiter.api.Test");
         result.add("static org.junit.jupiter.api.Assertions.*");
         result.addAll(testGenerator.getObjectInfoCache().values().stream()
-                .flatMap(x -> x.getRequiredImports().stream())
+                .flatMap(x -> x.getInitRequiredImports().stream())
                 .collect(Collectors.toList()));
 
         return result.stream()
@@ -188,7 +187,7 @@ public class TestGeneratorService {
 
     private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {
         return testGenerator.getObjectInfoCache().values().stream()
-                .flatMap(x -> x.getRequiredHelperObjects().stream())
+                .flatMap(x -> x.getInitRequiredHelperObjects().stream())
                 .distinct()
                 .collect(Collectors.toList());
     }

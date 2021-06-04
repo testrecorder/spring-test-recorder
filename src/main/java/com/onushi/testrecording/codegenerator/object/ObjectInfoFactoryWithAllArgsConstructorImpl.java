@@ -52,7 +52,7 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
                     .distinct()
                     .collect(Collectors.toList());
 
-            objectInfo.requiredImports.add(context.getObject().getClass().getName());
+            objectInfo.initRequiredImports.add(context.getObject().getClass().getName());
 
             setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
 

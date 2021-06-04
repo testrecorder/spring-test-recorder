@@ -11,10 +11,10 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(),
                     context.getObjectName());
 
-            objectInfo.requiredImports.add("java.text.SimpleDateFormat");
-            objectInfo.requiredImports.add("java.util.Date");
+            objectInfo.initRequiredImports.add("java.text.SimpleDateFormat");
+            objectInfo.initRequiredImports.add("java.util.Date");
 
-            objectInfo.requiredHelperObjects.add("SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");");
+            objectInfo.initRequiredHelperObjects.add("SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");");
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             String dateStr = simpleDateFormat.format((Date) context.getObject());
