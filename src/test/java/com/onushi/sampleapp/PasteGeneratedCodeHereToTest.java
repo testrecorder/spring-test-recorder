@@ -2,8 +2,8 @@ package com.onushi.sampleapp.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import com.onushi.sampleapp.model.Color;
 import com.onushi.sampleapp.model.Employee;
+import com.onushi.sampleapp.model.Color;
 
 class SampleServiceTest {
     //TODO rename the test to describe the use case

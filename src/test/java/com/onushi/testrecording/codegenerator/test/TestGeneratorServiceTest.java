@@ -896,14 +896,14 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import static org.mockito.Mockito.*;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
-                        "import static org.mockito.Mockito.*;\n" +
-                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -971,14 +971,14 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import static org.mockito.Mockito.*;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
-                        "import static org.mockito.Mockito.*;\n" +
-                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1043,10 +1043,10 @@ class TestGeneratorServiceTest {
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import static org.mockito.Mockito.*;\n" +
-                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1094,13 +1094,14 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
                         "import java.util.Map;\n" +
                         "import java.util.HashMap;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void processMap() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1293,9 +1294,8 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.Department;\n" +
-                        "import com.onushi.sampleapp.model.Color;\n" +
                         "import com.onushi.sampleapp.model.Employee;\n" +
+                        "import com.onushi.sampleapp.model.Color;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
