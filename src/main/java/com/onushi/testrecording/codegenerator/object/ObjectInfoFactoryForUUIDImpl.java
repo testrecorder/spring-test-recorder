@@ -8,8 +8,7 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
         String fullClassName = context.getObject().getClass().getName();
         if (fullClassName.equals("java.util.UUID")) {
             ObjectInfo objectInfo =
-                    new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName())
-                    .setCanUseDoubleEqualForComparison(true);
+                    new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
             objectInfo.initCode = new StringGenerator()
                     .setTemplate("UUID {{objectName}} = UUID.fromString(\"{{uuid}}\");")

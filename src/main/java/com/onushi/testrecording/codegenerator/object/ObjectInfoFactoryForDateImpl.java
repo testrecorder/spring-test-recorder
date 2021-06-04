@@ -11,7 +11,6 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(),
                     context.getObjectName());
 
-            objectInfo.setCanUseDoubleEqualForComparison(true);
             objectInfo.requiredImports.add("java.text.SimpleDateFormat");
             objectInfo.requiredImports.add("java.util.Date");
 
