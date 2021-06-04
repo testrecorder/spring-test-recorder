@@ -1,5 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
+import java.util.Collections;
+
 public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
@@ -9,8 +11,10 @@ public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), inlineCode)
                     .setCanUseDoubleEqualForComparison(true)
                     .addVisibleProperty("", VisibleProperty.builder()
-                    .finalValue(PropertyValue.fromString(inlineCode))
-                    .build());
+                        .finalValue(PropertyValue.fromString(inlineCode))
+                        .requiredImports(Collections.singletonList(clazz.getName()))
+                        .build()
+                    );
             objectInfo.initRequiredImports.add(clazz.getName());
 
             return objectInfo;

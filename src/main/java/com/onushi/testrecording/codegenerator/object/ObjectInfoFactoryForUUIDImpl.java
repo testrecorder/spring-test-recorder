@@ -2,6 +2,8 @@ package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
+import java.util.Collections;
+
 public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
@@ -21,9 +23,11 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
                     .addAttribute("uuid", context.getObject().toString())
                     .generate();
 
-            objectInfo.addVisibleProperty("", VisibleProperty.builder()
-                    .finalValue(PropertyValue.fromString(value))
-                    .build());
+            objectInfo.addVisibleProperty("",
+                    VisibleProperty.builder()
+                        .finalValue(PropertyValue.fromString(value))
+                        .requiredImports(Collections.singletonList(fullClassName))
+                        .build());
 
             objectInfo.initRequiredImports.add("java.util.UUID");
 

@@ -3,7 +3,6 @@ package com.onushi.testrecording.codegenerator.object;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.lang.reflect.AccessibleObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,4 +15,6 @@ public class VisibleProperty {
     // dependencies that not come from value, like the key of a map
     // protected List<ObjectInfo> initialDependencies = new ArrayList<>();
     protected List<ObjectInfo> finalDependencies = new ArrayList<>();
+    protected List<String> requiredImports = new ArrayList<>();
+    protected List<String> requiredHelperObjects = new ArrayList<>();
 }
