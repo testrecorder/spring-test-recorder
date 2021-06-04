@@ -1258,8 +1258,7 @@ class TestGeneratorServiceTest {
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB finish this test after finishing ObjectReadAnalyzerService
-    // @Test
+    @Test
     void generateAssertTestForObjectsWithGetters() throws Exception {
         // Arrange
         Employee employee = Employee.builder()
@@ -1268,6 +1267,7 @@ class TestGeneratorServiceTest {
                 .lastName("Doe")
                 .salaryParam1(1000)
                 .salaryParam2(1500)
+                .teamColor(Color.BLUE)
                 .department(Department.builder()
                         .id(100)
                         .name("IT")
@@ -1287,7 +1287,42 @@ class TestGeneratorServiceTest {
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        assertEquals(StringUtils.prepareForCompare(""),
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import com.onushi.sampleapp.model.Department;\n" +
+                        "import com.onushi.sampleapp.model.Color;\n" +
+                        "import com.onushi.sampleapp.model.Employee;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        "    @Test\n" +
+                        "    void getEmployee() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        Employee result = sampleService.getEmployee();\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(100, result.getDepartment().getId());\n" +
+                        "        assertEquals(\"IT\", result.getDepartment().getName());\n" +
+                        "        assertEquals(\"John\", result.getFirstName());\n" +
+                        "        assertEquals(1, result.getId());\n" +
+                        "        assertEquals(\"Doe\", result.getLastName());\n" +
+                        "        assertEquals(1000.0, result.getSalaryParam1());\n" +
+                        "        assertEquals(1500.0, result.getSalaryParam2());\n" +
+                        "        assertEquals(0.0, result.getSalaryParam3());\n" +
+                        "        assertEquals(Color.BLUE, result.getTeamColor());\n" +
+                        "        assertEquals(Color.BLUE, result.teamColor);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 }

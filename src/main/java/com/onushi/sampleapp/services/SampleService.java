@@ -167,6 +167,7 @@ public class SampleService {
                 .lastName("Doe")
                 .salaryParam1(1000)
                 .salaryParam2(1500)
+                .teamColor(Color.BLUE)
                 .department(Department.builder()
                         .id(100)
                         .name("IT")

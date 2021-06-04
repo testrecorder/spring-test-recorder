@@ -15,4 +15,6 @@ public class Employee {
     private double salaryParam1;
     private double salaryParam2;
     private double salaryParam3;
+    // made public for test purposes
+    public Color teamColor;
 }

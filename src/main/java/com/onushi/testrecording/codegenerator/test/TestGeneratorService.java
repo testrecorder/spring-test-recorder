@@ -149,7 +149,11 @@ public class TestGeneratorService {
             VisibleProperty visibleProperty = entry.getValue();
             if (visibleProperty.getFinalValue().getString() != null &&
                     visibleProperty.getFinalValue().getString().equals("null")) {
-                stringBuilder.append("        assertNull(result);\n");
+                String assertString = new StringGenerator()
+                        .setTemplate("        assertNull({{assertPath}});\n")
+                        .addAttribute("assertPath", assertPath)
+                        .generate();
+                stringBuilder.append(assertString);
             } else {
                 ObjectInfoOrString finalValue = visibleProperty.getFinalValue();
                 String composedPath = assertPath + entry.getKey();
@@ -158,9 +162,9 @@ public class TestGeneratorService {
                     stringBuilder.append(elementAssertCode);
                 } else if (visibleProperty.getFinalValue().getString() != null) {
                     String assertString = new StringGenerator()
-                            .setTemplate("        assertEquals({{expected}}, {{actual}});\n")
+                            .setTemplate("        assertEquals({{expected}}, {{composedPath}});\n")
                             .addAttribute("expected", visibleProperty.getFinalValue().getString())
-                            .addAttribute("actual", composedPath)
+                            .addAttribute("composedPath", composedPath)
                             .generate();
                     stringBuilder.append(assertString);
                 }
@@ -178,58 +182,9 @@ public class TestGeneratorService {
 //                    .setTemplate("{{objectsInit}}" +
 //                        "        assertEquals({{inlineCode}}, {{assertPath}});\n")
 //                    .generate();
-//        } else if (objectInfo.getObject().getClass().getName().startsWith("[")) {
-//            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, "[{{index}}]", ".length");
-//        } if (objectInfo.getObject() instanceof List<?>) {
-//            return getAssertForCollection(testGenerator, attributes, objectInfo, assertPath, ".get({{index}})", ".size()");
-//        // TODO IB continue here with other known types
 //        } else {
-//            List<Method> publicGetters = classInfoService.getPublicGetters(objectInfo.getObject().getClass());
-//            for (Method publicGetter : publicGetters) {
-//                Object value = publicGetter.invoke(objectInfo.getObject());
-//                // TODO IB call this
-//                // TODO IB do I have the dependents of this object?
-//                // objectInfoFactoryManager.getCommonObjectInfo(testGenerator, value)
-//            }
-//
-//            List<Field> publicFields = classInfoService.getPublicFields(objectInfo.getObject().getClass());
-//            for (Field publicField : publicFields) {
-//                Object value = publicField.get(objectInfo.getObject());
-//            }
-//
-//            return new StringGenerator()
-//                    .addAttribute("assertPath", assertPath)
-//                    .setTemplate("        // TODO Add assert for {{assertPath}} object \n")
-//                    .generate();
-//        }
 //    }
-//    private String getAssertForCollection(TestGenerator testGenerator,
-//                                          Map<String, String> attributes,
-//                                          ObjectInfo objectInfo,
-//                                          String assertPath,
-//                                          String indexSyntax,
-//                                          String sizeSyntax) throws InvocationTargetException, IllegalAccessException {
-//        List<ObjectInfo> elements = objectInfo.getElements();
-//        StringBuilder elementsAssert = new StringBuilder();
-//        for (int i = 0, elementsSize = elements.size(); i < elementsSize; i++) {
-//            ObjectInfo element = elements.get(i);
-//            String elementAssertPath =  new StringGenerator()
-//                    .addAttribute("index", i)
-//                    .addAttribute("assertPath", assertPath)
-//                    .setTemplate("{{assertPath}}" + indexSyntax)
-//                    .generate();
-//            elementsAssert.append(getAssertCode(testGenerator, attributes, element, elementAssertPath));
-//        }
-//        return new StringGenerator()
-//                .addAttribute("size", elements.size())
-//                .addAttribute("assertPath", assertPath)
-//                .addAttribute("elementsAssert", elementsAssert.toString())
-//                .addAttribute("sizeSyntax", sizeSyntax)
-//                .setTemplate(
-//                        "        assertEquals({{size}}, {{assertPath}}" + sizeSyntax + ");\n" +
-//                        "{{elementsAssert}}")
-//                .generate();
-//    }
+
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");

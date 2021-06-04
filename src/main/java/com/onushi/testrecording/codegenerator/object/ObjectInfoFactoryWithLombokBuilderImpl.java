@@ -42,6 +42,8 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
                     .map(fieldValue -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), fieldValue))
                     .collect(Collectors.toList());
             objectInfo.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
+
+            setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
             return objectInfo;
         } else {
             return null;
