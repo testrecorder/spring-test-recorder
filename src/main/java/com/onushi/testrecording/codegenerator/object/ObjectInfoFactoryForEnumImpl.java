@@ -9,7 +9,7 @@ public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), inlineCode)
                     .setCanUseDoubleEqualForComparison(true)
                     .addVisibleProperty("", VisibleProperty.builder()
-                    .finalValue(inlineCode)
+                    .finalValue(ObjectInfoOrString.fromString(inlineCode))
                     .build());
             objectInfo.requiredImports.add(clazz.getName());
 

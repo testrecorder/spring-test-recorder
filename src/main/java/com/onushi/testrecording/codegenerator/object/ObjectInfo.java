@@ -2,10 +2,7 @@ package com.onushi.testrecording.codegenerator.object;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class ObjectInfo {
@@ -18,7 +15,7 @@ public class ObjectInfo {
     protected List<ObjectInfo> elements = new ArrayList<>();
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
     // TODO IB !!!! use this for each ObjectInfoFactory and test
-    protected Map<String, VisibleProperty> visibleProperties = new HashMap<>();
+    protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
     protected List<String> requiredImports = new ArrayList<>();
     protected final List<String> requiredHelperObjects = new ArrayList<>();
     protected String initCode = "";

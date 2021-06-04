@@ -19,17 +19,17 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
 
             objectInfo.requiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
 
-            objectInfo.elements = ((List<Object>) context.getObject()).stream()
+            List<ObjectInfo> elements = ((List<Object>) context.getObject()).stream()
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            objectInfo.initDependencies = objectInfo.elements.stream()
+            objectInfo.initDependencies = elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
 
-            String elementClassName = getElementsClassName(objectInfo.elements);
+            String elementClassName = getElementsClassName(elements);
 
-            String elementsInlineCode = objectInfo.elements.stream()
+            String elementsInlineCode = elements.stream()
                     .map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
 
             objectInfo.initCode = new StringGenerator()
@@ -43,6 +43,20 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .setTemplate("List<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();
+
+            objectInfo.addVisibleProperty(".size()", VisibleProperty.builder()
+                    .finalValue(ObjectInfoOrString.fromString(String.valueOf(elements.size())))
+                    .build());
+            for (int i = 0; i < elements.size(); i++) {
+                ObjectInfo element = elements.get(i);
+                String key = new StringGenerator()
+                        .setTemplate(".get({{index}})")
+                        .addAttribute("index", i)
+                        .generate();
+                objectInfo.addVisibleProperty(key, VisibleProperty.builder()
+                        .finalValue(ObjectInfoOrString.fromObjectInfo(element))
+                        .build());
+            }
 
             return objectInfo;
         } else {

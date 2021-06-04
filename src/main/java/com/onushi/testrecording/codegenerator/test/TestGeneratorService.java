@@ -2,14 +2,13 @@ package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
+import com.onushi.testrecording.codegenerator.object.ObjectInfoOrString;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -140,23 +139,31 @@ public class TestGeneratorService {
             return "";
         } else {
             return "        // Assert\n" +
-                getAssertCode(testGenerator, testGenerator.getExpectedResultObjectInfo(), "result");
+                getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result");
         }
     }
 
-    private String getAssertCode(TestGenerator testGenerator,
-                                 ObjectInfo objectInfo, String assertPath) {
+    private String getAssertCode(ObjectInfo objectInfo, String assertPath) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
-            if (entry.getValue().getFinalValue().equals("null")) {
+            VisibleProperty visibleProperty = entry.getValue();
+            if (visibleProperty.getFinalValue().getString() != null &&
+                    visibleProperty.getFinalValue().getString().equals("null")) {
                 stringBuilder.append("        assertNull(result);\n");
             } else {
-                String assertString = new StringGenerator()
-                        .setTemplate("        assertEquals({{expected}}, {{actual}});\n")
-                        .addAttribute("expected", entry.getValue().getFinalValue())
-                        .addAttribute("actual", assertPath + entry.getKey())
-                        .generate();
-                stringBuilder.append(assertString);
+                ObjectInfoOrString finalValue = visibleProperty.getFinalValue();
+                String composedPath = assertPath + entry.getKey();
+                if (finalValue.getObjectInfo() != null) {
+                    String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);
+                    stringBuilder.append(elementAssertCode);
+                } else if (visibleProperty.getFinalValue().getString() != null) {
+                    String assertString = new StringGenerator()
+                            .setTemplate("        assertEquals({{expected}}, {{actual}});\n")
+                            .addAttribute("expected", visibleProperty.getFinalValue().getString())
+                            .addAttribute("actual", composedPath)
+                            .generate();
+                    stringBuilder.append(assertString);
+                }
             }
         }
         return stringBuilder.toString();

@@ -34,7 +34,7 @@ class ObjectInfoTest {
         assertEquals("null", objectInfo.getInlineCode());
         // TODO IB !!!! add to all cases
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("null", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("null", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -47,7 +47,7 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getRequiredImports().size());
         assertEquals("", objectInfo.getInitCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("1.0f", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("1.0f", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -56,7 +56,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 1L, "test");
         assertEquals("1L", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("1L", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("1L", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -65,7 +65,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, (byte)11, "test");
         assertEquals("(byte)11", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("(byte)11", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("(byte)11", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -74,7 +74,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, (short)100, "test");
         assertEquals("(short)100", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("(short)100", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("(short)100", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -83,7 +83,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 'a', "test");
         assertEquals("'a'", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("'a'", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("'a'", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -92,7 +92,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, "Hello World", "test");
         assertEquals("\"Hello World\"", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("\"Hello World\"", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("\"Hello World\"", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -101,7 +101,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, true, "test");
         assertEquals("true", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("true", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("true", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -110,7 +110,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 2, "test");
         assertEquals("2", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("2", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("2", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -119,7 +119,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 2.5, "test");
         assertEquals("2.5", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("2.5", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("2.5", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -130,7 +130,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getRequiredImports().size());
         assertEquals("com.onushi.sampleapp.model.Color", objectInfo.getRequiredImports().get(0));
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("Color.BLUE", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("Color.BLUE", objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -142,7 +142,8 @@ class ObjectInfoTest {
         assertEquals("java.util.UUID", objectInfo.getRequiredImports().get(0));
         assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.getInitCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.visibleProperties.get("").finalValue);
+        assertEquals("UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");",
+                objectInfo.visibleProperties.get("").getFinalValue().getString());
         assertFalse(objectInfo.canUseDoubleEqualForComparison);
     }
 
@@ -180,6 +181,9 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals(2, objectInfo.getRequiredImports().size());
         assertEquals("List<String> list1 = Arrays.asList(\"1\", \"2\", \"3\");", objectInfo.getInitCode());
+        assertFalse(objectInfo.canUseDoubleEqualForComparison);
+        assertEquals(4, objectInfo.visibleProperties.size());
+        assertEquals("3", objectInfo.visibleProperties.get(".size()").getFinalValue().getString());
     }
 
     @Test

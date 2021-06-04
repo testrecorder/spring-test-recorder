@@ -22,7 +22,7 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
                     .generate();
 
             objectInfo.addVisibleProperty("", VisibleProperty.builder()
-                    .finalValue(value)
+                    .finalValue(ObjectInfoOrString.fromString(value))
                     .build());
 
             objectInfo.requiredImports.add("java.util.UUID");
