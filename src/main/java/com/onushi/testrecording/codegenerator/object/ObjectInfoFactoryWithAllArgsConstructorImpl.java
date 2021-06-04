@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.object;
 
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.analyzer.object.ObjectCreationAnalyzerService;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
@@ -10,11 +11,14 @@ import java.util.stream.Collectors;
 public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFactory {
     private final ObjectInfoFactoryManager objectInfoFactoryManager;
     private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
+    private final ClassInfoService classInfoService;
 
     public ObjectInfoFactoryWithAllArgsConstructorImpl(ObjectInfoFactoryManager objectInfoFactoryManager,
-                                                       ObjectCreationAnalyzerService objectCreationAnalyzerService) {
+                                                       ObjectCreationAnalyzerService objectCreationAnalyzerService,
+                                                       ClassInfoService classInfoService) {
         this.objectInfoFactoryManager = objectInfoFactoryManager;
         this.objectCreationAnalyzerService = objectCreationAnalyzerService;
+        this.classInfoService = classInfoService;
     }
 
     @Override
@@ -49,6 +53,10 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
                     .collect(Collectors.toList());
 
             objectInfo.requiredImports.add(context.getObject().getClass().getName());
+
+            // TODO IB !!!! activate after I understand all needed imports and helpers
+            // setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
+
             return objectInfo;
         } else {
             return null;

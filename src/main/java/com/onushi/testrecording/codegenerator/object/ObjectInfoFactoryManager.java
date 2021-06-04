@@ -50,15 +50,16 @@ public class ObjectInfoFactoryManager {
         );
         unknownClassesFactoriesList = Arrays.asList(
                 new ObjectInfoFactoryForMockedDependencyImpl(this),
-                new ObjectInfoFactoryWithNoArgsConstructorImpl(objectCreationAnalyzerService),
+                new ObjectInfoFactoryWithNoArgsConstructorImpl(this,
+                        classInfoService, objectCreationAnalyzerService),
                 new ObjectInfoFactoryWithLombokBuilderImpl(this,
                         classInfoService, objectCreationAnalyzerService),
                 new ObjectInfoFactoryWithAllArgsConstructorImpl(this,
-                        objectCreationAnalyzerService),
+                        objectCreationAnalyzerService, classInfoService),
                 new ObjectInfoFactoryWithNoArgsAndSettersImpl(this,
                         classInfoService, objectCreationAnalyzerService),
                 new ObjectInfoFactoryWithNoArgsAndFieldsImpl(this,
-                        objectCreationAnalyzerService)
+                        objectCreationAnalyzerService, classInfoService)
         );
     }
 

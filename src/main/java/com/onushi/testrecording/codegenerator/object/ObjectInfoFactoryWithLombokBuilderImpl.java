@@ -43,7 +43,9 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
                     .collect(Collectors.toList());
             objectInfo.initCode = getInitCode(context.getTestGenerator(), context.getObject(), context.getObjectName(), objectState);
 
-            setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
+            // TODO IB !!!! activate after I understand all needed imports and helpers
+            // setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
+
             return objectInfo;
         } else {
             return null;
