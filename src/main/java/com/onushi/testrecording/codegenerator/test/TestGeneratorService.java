@@ -170,19 +170,6 @@ public class TestGeneratorService {
         }
         return stringBuilder.toString();
     }
-    // TODO IB !!!! use parts from here
-//        } else if (classInfoService.hasEquals(objectInfo.getObject().getClass())) {
-//            return new StringGenerator()
-//                    .addAttribute("objectsInit", getObjectsInit(Collections.singletonList(objectInfo)).stream()
-//                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")))
-//                    .addAttribute("assertPath", assertPath)
-//                    .addAttribute("inlineCode", objectInfo.getInlineCode())
-//                    .setTemplate("{{objectsInit}}" +
-//                        "        assertEquals({{inlineCode}}, {{assertPath}});\n")
-//                    .generate();
-//        } else {
-//    }
-
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
