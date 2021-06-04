@@ -143,7 +143,7 @@ class ObjectInfoTest {
         assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.getInitCode());
         assertEquals(1, objectInfo.visibleProperties.size());
         assertEquals("UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.visibleProperties.get("").finalValue);
-        assertTrue(objectInfo.canUseDoubleEqualForComparison);
+        assertFalse(objectInfo.canUseDoubleEqualForComparison);
     }
 
 

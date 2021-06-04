@@ -25,7 +25,7 @@ public class ObjectInfo {
     // these 2 are used to traverse the ObjectInfo graph
     private boolean initPrepared = false;
     private boolean initDone = false;
-    // TODO IB !!!! needed for the case when result == arg1 or result.date == date1 ???
+    // TODO IB !!!! needed??? maybe when result == arg1 or result.date == date1 ???
     protected boolean canUseDoubleEqualForComparison = false;
 
     public ObjectInfo setInitPrepared(boolean initPrepared) {
