@@ -57,8 +57,7 @@ public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory 
 
         objectInfo.requiredImports.add(context.getObject().getClass().getName());
 
-        // TODO IB !!!! activate after I understand all needed imports and helpers
-        // setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
+        setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
 
         return objectInfo;
     }

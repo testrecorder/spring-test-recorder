@@ -544,7 +544,7 @@ class TestGeneratorServiceTest {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("getList")
+                .methodName("createList")
                 .arguments(Collections.emptyList())
                 .result(Arrays.asList(1, 2, 3))
                 .dependencyMethodRuns(new ArrayList<>())
@@ -568,12 +568,12 @@ class TestGeneratorServiceTest {
                         "    //TODO rename the test to describe the use case\n" +
                         "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
-                        "    void getList() throws Exception {\n" +
+                        "    void createList() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        List<Integer> result = sampleService.getList();\n" +
+                        "        List<Integer> result = sampleService.createList();\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(3, result.size());\n" +
@@ -1199,7 +1199,7 @@ class TestGeneratorServiceTest {
 
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("getListOfPersonList")
+                .methodName("createListOfPersonList")
                 .arguments(Collections.emptyList())
                 .result(Collections.singletonList(personList))
                 .dependencyMethodRuns(new ArrayList<>())
@@ -1226,13 +1226,13 @@ class TestGeneratorServiceTest {
                         "    //TODO rename the test to describe the use case\n" +
                         "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
-                        "    void getListOfPersonList() throws Exception {\n" +
+                        "    void createListOfPersonList() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        List<List<Person>> result = sampleService.getListOfPersonList();\n" +
+                        "        List<List<Person>> result = sampleService.createListOfPersonList();\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(1, result.size());\n" +
@@ -1258,7 +1258,7 @@ class TestGeneratorServiceTest {
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! activate @Test
+    @Test
     void generateAssertTestForObjectsWithGetters() throws Exception {
         // Arrange
         Employee employee = Employee.builder()
@@ -1276,7 +1276,7 @@ class TestGeneratorServiceTest {
 
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("getEmployee")
+                .methodName("createEmployee")
                 .arguments(Collections.emptyList())
                 .result(employee)
                 .dependencyMethodRuns(new ArrayList<>())
@@ -1301,12 +1301,12 @@ class TestGeneratorServiceTest {
                         "    //TODO rename the test to describe the use case\n" +
                         "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
-                        "    void getEmployee() throws Exception {\n" +
+                        "    void createEmployee() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Employee result = sampleService.getEmployee();\n" +
+                        "        Employee result = sampleService.createEmployee();\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(100, result.getDepartment().getId());\n" +

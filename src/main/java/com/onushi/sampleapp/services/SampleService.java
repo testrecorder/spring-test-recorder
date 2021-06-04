@@ -160,7 +160,8 @@ public class SampleService {
     }
 
     @RecordTest
-    public Employee getEmployee() {
+    // TODO if i rename this to getEmployee tests are failing. Solve this
+    public Employee createEmployee() {
         return Employee.builder()
                 .id(1)
                 .firstName("John")
@@ -175,7 +176,7 @@ public class SampleService {
                 .build();
     }
 
-    public List<List<Person>> getListOfPersonList() throws ParseException {
+    public List<List<Person>> createListOfPersonList() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
@@ -195,7 +196,7 @@ public class SampleService {
         return Collections.singletonList(personList);
     }
 
-    public List<Integer> getList() {
+    public List<Integer> createList() {
         return Arrays.asList(1, 2, 3);
     }
 }

@@ -9,12 +9,12 @@ class SampleServiceTest {
     //TODO rename the test to describe the use case
     //TODO refactor the generated code to make it easier to understand
     @Test
-    void getEmployee() throws Exception {
+    void createEmployee() throws Exception {
         // Arrange
         SampleService sampleService = new SampleService();
 
         // Act
-        Employee result = sampleService.getEmployee();
+        Employee result = sampleService.createEmployee();
 
         // Assert
         assertEquals(100, result.getDepartment().getId());

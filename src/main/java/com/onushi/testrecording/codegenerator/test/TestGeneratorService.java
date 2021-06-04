@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class TestGeneratorService {
     private final StringService stringService;
+    // TODO IB !!!! not needed
     private final ClassInfoService classInfoService;
     public TestGeneratorService(StringService stringService, ClassInfoService classInfoService) {
         this.stringService = stringService;
