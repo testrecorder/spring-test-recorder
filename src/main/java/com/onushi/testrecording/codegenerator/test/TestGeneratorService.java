@@ -42,7 +42,15 @@ public class TestGeneratorService {
     }
 
     private String getImportsString(TestGenerator testGenerator) {
-        return testGenerator.getRequiredImports().stream()
+        List<String> result = new ArrayList<>();
+        result.add("org.junit.jupiter.api.Test");
+        result.add("static org.junit.jupiter.api.Assertions.*");
+        result.addAll(testGenerator.getObjectInfoCache().values().stream()
+                .flatMap(x -> x.getRequiredImports().stream())
+                .collect(Collectors.toList()));
+
+        return result.stream()
+                .distinct()
                 .map(x -> String.format("import %s;%n", x))
                 .collect(Collectors.joining(""));
     }
@@ -77,8 +85,9 @@ public class TestGeneratorService {
         Map<String, String> attributes = new HashMap<>();
         attributes.put("testClassName", testGenerator.getShortClassName() + "Test");
         attributes.put("methodName", testGenerator.getMethodName());
-        attributes.put("requiredHelperObjects", testGenerator.getRequiredHelperObjects().stream()
-                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
+        attributes.put("requiredHelperObjects", getRequiredHelperObjects(testGenerator).stream()
+                        .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
+                        .collect(Collectors.joining("")));
 
         List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
         objectsToInit.add(testGenerator.targetObjectInfo);
@@ -175,6 +184,13 @@ public class TestGeneratorService {
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
+    }
+
+    private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {
+        return testGenerator.getObjectInfoCache().values().stream()
+                .flatMap(x -> x.getRequiredHelperObjects().stream())
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public List<String> getObjectsInit(List<ObjectInfo> objectInfos) {

@@ -48,9 +48,7 @@ public class TestGeneratorFactory {
                 recordedMethodRunInfo.getResult());
         testGenerator.expectedException = recordedMethodRunInfo.getException();
 
-        testGenerator.requiredImports = getRequiredImports(testGenerator);
 
-        testGenerator.requiredHelperObjects = getRequiredHelperObjects(testGenerator);
 
         testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, recordedMethodRunInfo.getFallBackResultType());
 
@@ -70,22 +68,4 @@ public class TestGeneratorFactory {
         }
         return "Object";
     }
-
-    private List<String> getRequiredImports(TestGenerator testGenerator) {
-        List<String> result = new ArrayList<>();
-        result.add("org.junit.jupiter.api.Test");
-        result.add("static org.junit.jupiter.api.Assertions.*");
-        result.addAll(testGenerator.getObjectInfoCache().values().stream()
-                .flatMap(x -> x.getRequiredImports().stream())
-                .collect(Collectors.toList()));
-        return result.stream().distinct().collect(Collectors.toList());
-    }
-
-    private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {
-        return testGenerator.getObjectInfoCache().values().stream()
-                .flatMap(x -> x.getRequiredHelperObjects().stream())
-                .distinct()
-                .collect(Collectors.toList());
-    }
-
 }

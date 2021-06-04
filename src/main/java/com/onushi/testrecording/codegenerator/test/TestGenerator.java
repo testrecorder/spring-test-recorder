@@ -19,8 +19,6 @@ public class TestGenerator {
     protected String resultDeclareClassName;
     protected Exception expectedException;
 
-    protected List<String> requiredImports;
-    protected List<String> requiredHelperObjects;
     protected List<DependencyMethodRunInfo> dependencyMethodRuns = new ArrayList<>();
 
     protected final Map<Object, ObjectInfo> objectInfoCache = new LinkedHashMap<>();
