@@ -123,6 +123,17 @@ class ObjectInfoTest {
         assertTrue(objectInfo.canUseDoubleEqualForComparison);
     }
 
+    @Test
+    void testEnum() {
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, Color.BLUE, "test");
+        assertEquals("Color.BLUE", objectInfo.getInlineCode());
+        assertEquals(1, objectInfo.getRequiredImports().size());
+        assertEquals("com.onushi.sampleapp.model.Color", objectInfo.getRequiredImports().get(0));
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("Color.BLUE", objectInfo.visibleProperties.get("").finalValue);
+        assertTrue(objectInfo.canUseDoubleEqualForComparison);
+    }
+
     // TODO IB !!!! !!!! test all
     @Test
     void testDate() throws Exception {
@@ -336,14 +347,6 @@ class ObjectInfoTest {
         assertEquals("java.util.NoSuchElementException", objectInfo.getRequiredImports().get(0));
         assertEquals("// TODO Create this object\n" +
                 "// NoSuchElementException ex = new NoSuchElementException();\n", objectInfo.getInitCode());
-    }
-
-    @Test
-    void testEnum() {
-        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, Color.BLUE, "test");
-        assertEquals("Color.BLUE", objectInfo.getInlineCode());
-        assertEquals(1, objectInfo.getRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.Color", objectInfo.getRequiredImports().get(0));
     }
 
     @Test

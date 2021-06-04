@@ -25,6 +25,7 @@ public class ObjectInfo {
     // these 2 are used to traverse the ObjectInfo graph
     private boolean initPrepared = false;
     private boolean initDone = false;
+    // TODO IB !!!! needed?
     protected boolean canUseDoubleEqualForComparison = false;
 
     public ObjectInfo setInitPrepared(boolean initPrepared) {
@@ -42,6 +43,7 @@ public class ObjectInfo {
         return this;
     }
 
+    // TODO IB !!!! needed like this? it's not like others
     protected ObjectInfo addVisibleProperty(String key, VisibleProperty visibleProperty) {
         this.visibleProperties.put(key, visibleProperty);
         return this;

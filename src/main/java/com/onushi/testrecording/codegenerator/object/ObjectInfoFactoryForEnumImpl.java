@@ -7,7 +7,10 @@ public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
         if (clazz.isEnum()) {
             String inlineCode = clazz.getSimpleName() + "." + context.getObject().toString();
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), inlineCode)
-                    .setCanUseDoubleEqualForComparison(true);
+                    .setCanUseDoubleEqualForComparison(true)
+                    .addVisibleProperty("", VisibleProperty.builder()
+                    .finalValue(inlineCode)
+                    .build());
             objectInfo.requiredImports.add(clazz.getName());
 
             return objectInfo;
