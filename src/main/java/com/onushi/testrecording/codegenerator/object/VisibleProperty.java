@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Builder
 public class VisibleProperty {
-    protected AccessibleObject fieldOrMethod = null;
+    protected PropertySource propertySource = null;
     // protected String initialValue = null;
     protected PropertyValue finalValue = null;
     // dependencies that not come from value, like the key of a map

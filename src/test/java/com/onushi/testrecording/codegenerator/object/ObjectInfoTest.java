@@ -12,6 +12,8 @@ import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -230,6 +232,14 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getRequiredHelperObjects().size());
         assertEquals("Person person1 = new Person();", objectInfo.getInitCode());
         assertEquals("person1", objectInfo.getInlineCode());
+
+        assertFalse(objectInfo.canUseDoubleEqualForComparison);
+        assertEquals(3, objectInfo.visibleProperties.size());
+        ObjectInfo element = objectInfo.visibleProperties.get(".getFirstName()").getFinalValue().getObjectInfo();
+        assertEquals("null", element.visibleProperties.get("").getFinalValue().getString());
+        Method method = objectInfo.visibleProperties.get(".getFirstName()").getPropertySource().getGetter();
+        assertNotNull(method);
+        assertEquals("getFirstName", method.getName());
     }
 
     @Test
@@ -279,6 +289,14 @@ class ObjectInfoTest {
                 "student1.lastName = \"Ln\";\n" +
                 "student1.age = 20;\n", objectInfo.getInitCode());
         assertEquals("student1", objectInfo.getInlineCode());
+
+        assertFalse(objectInfo.canUseDoubleEqualForComparison);
+        assertEquals(3, objectInfo.visibleProperties.size());
+        ObjectInfo element = objectInfo.visibleProperties.get(".firstName").getFinalValue().getObjectInfo();
+        assertEquals("\"Fn\"", element.visibleProperties.get("").getFinalValue().getString());
+        Field field = objectInfo.visibleProperties.get(".firstName").getPropertySource().getField();
+        assertNotNull(field);
+        assertEquals("firstName", field.getName());
     }
 
     @Test

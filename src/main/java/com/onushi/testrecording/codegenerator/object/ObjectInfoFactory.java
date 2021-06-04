@@ -35,6 +35,7 @@ public abstract class ObjectInfoFactory {
                         objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), value);
                 String key = "." + publicGetter.getName() + "()";
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
+                        .propertySource(PropertySource.fromGetter(publicGetter))
                         .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
             } catch (Exception ex) {
@@ -50,6 +51,7 @@ public abstract class ObjectInfoFactory {
                         objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), value);
                 String key = "." + publicField.getName();
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
+                        .propertySource(PropertySource.fromField(publicField))
                         .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
             } catch(Exception ex) {
