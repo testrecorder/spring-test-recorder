@@ -465,13 +465,13 @@ class TestGeneratorServiceTest {
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
         Person paul = Person.builder()
                 .firstName("Paul")
-                .lastName("Marculescu")
+                .lastName("Thompson")
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
         Person gica = Person.builder()
-                .firstName("Gica")
-                .lastName("Fulgerica")
+                .firstName("Tom")
+                .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
@@ -513,13 +513,13 @@ class TestGeneratorServiceTest {
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Paul\")\n" +
-                        "            .lastName(\"Marculescu\")\n" +
+                        "            .lastName(\"Thompson\")\n" +
                         "            .build();\n" +
                         "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
                         "        Person person2 = Person.builder()\n" +
                         "            .dateOfBirth(date2)\n" +
-                        "            .firstName(\"Gica\")\n" +
-                        "            .lastName(\"Fulgerica\")\n" +
+                        "            .firstName(\"Tom\")\n" +
+                        "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
                         "        List<Person> arrayList1 = Arrays.asList(person1, person2);\n" +
                         "        Person[] array1 = {person1, person2};\n" +
@@ -642,8 +642,8 @@ class TestGeneratorServiceTest {
         Date dateOfBirth = simpleDateFormat.parse("2021-01-01");
 
         Person person = Person.builder()
-                .firstName("Gica")
-                .lastName("Fulgerica")
+                .firstName("Tom")
+                .lastName("Richardson")
                 .dateOfBirth(dateOfBirth)
                 .build();
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
@@ -684,8 +684,8 @@ class TestGeneratorServiceTest {
                         "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
-                        "            .firstName(\"Gica\")\n" +
-                        "            .lastName(\"Fulgerica\")\n" +
+                        "            .firstName(\"Tom\")\n" +
+                        "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
                         "        assertEquals(person1, result);\n" +
                         "    }\n" +
@@ -1185,13 +1185,13 @@ class TestGeneratorServiceTest {
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
         Person paul = Person.builder()
                 .firstName("Paul")
-                .lastName("Marculescu")
+                .lastName("Thompson")
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
         Person gica = Person.builder()
-                .firstName("Gica")
-                .lastName("Fulgerica")
+                .firstName("Tom")
+                .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
@@ -1241,14 +1241,14 @@ class TestGeneratorServiceTest {
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Paul\")\n" +
-                        "            .lastName(\"Marculescu\")\n" +
+                        "            .lastName(\"Thompson\")\n" +
                         "            .build();\n" +
                         "        assertEquals(person1, result.get(0).get(0));\n" +
                         "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
                         "        Person person2 = Person.builder()\n" +
                         "            .dateOfBirth(date2)\n" +
-                        "            .firstName(\"Gica\")\n" +
-                        "            .lastName(\"Fulgerica\")\n" +
+                        "            .firstName(\"Tom\")\n" +
+                        "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
                         "        assertEquals(person2, result.get(0).get(1));\n" +
                         "    }\n" +

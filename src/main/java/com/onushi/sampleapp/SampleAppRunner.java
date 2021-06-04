@@ -118,8 +118,8 @@ public class SampleAppRunner implements CommandLineRunner {
                 .build();
 
         Person gica = Person.builder()
-                .firstName("Gica")
-                .lastName("Fulgerica")
+                .firstName("Tom")
+                .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
                 .build();
 

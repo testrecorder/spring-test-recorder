@@ -103,8 +103,8 @@ public class SampleService {
         Date dateOfBirth = simpleDateFormat.parse("2021-01-01");
 
         return Person.builder()
-                .firstName("Gica")
-                .lastName("Fulgerica")
+                .firstName("Tom")
+                .lastName("Richardson")
                 .dateOfBirth(dateOfBirth)
                 .build();
     }
@@ -180,13 +180,13 @@ public class SampleService {
         Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
         Person paul = Person.builder()
                 .firstName("Paul")
-                .lastName("Marculescu")
+                .lastName("Thompson")
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
         Person gica = Person.builder()
-                .firstName("Gica")
-                .lastName("Fulgerica")
+                .firstName("Tom")
+                .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
                 .build();
 

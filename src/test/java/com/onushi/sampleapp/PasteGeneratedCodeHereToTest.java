@@ -27,14 +27,14 @@ class SampleServiceTest {
         Person person1 = Person.builder()
                 .dateOfBirth(date1)
                 .firstName("Paul")
-                .lastName("Marculescu")
+                .lastName("Thompson")
                 .build();
         assertEquals(person1, result.get(0).get(0));
         Date date2 = simpleDateFormat.parse("1970-02-03 00:00:00.000");
         Person person2 = Person.builder()
                 .dateOfBirth(date2)
-                .firstName("Gica")
-                .lastName("Fulgerica")
+                .firstName("Tom")
+                .lastName("Richardson")
                 .build();
         assertEquals(person2, result.get(0).get(1));
     }
