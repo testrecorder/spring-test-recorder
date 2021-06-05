@@ -164,56 +164,51 @@ DONE ==========================
 			Test Generated on ... with @RecordTest
 		
 	------
-
-		
-TODO ==========================
 	OK - Write a demo to understand how the equality should behave
 	
 	OK - I need to do something about the expected result
 		Should be treated as a normal object in the TextGenerator context
-	
-	Assert part
-		call checkObjectValue("result");
 
-		checkObjectValue(String path, Object object)
-			OK - if exception was thrown
-				no expectedResult init
-				no check
+	OK - if exception was thrown
+		no expectedResult init
+		no check
+
+	OK - object is void
+		no expectedResult init
+		no check
+
+	OK - object is null
+		no expectedResult init
+		simple assertNull
 		
-			OK - object is void
-				no expectedResult init
-				no check
+	OK - primitive
+		no expectedResult init
+		simple assertEquals
 		
-			OK - object is null
-				no expectedResult init
-				simple assertNull
-				
-			OK - primitive
-				no expectedResult init
-				simple assertEquals
-				
-			OK - result == one of the known objects
-				assertEquals(object, result)
+	OK - result == one of the known objects
+		assertEquals(object, result)
 
-			OK - object has equals
-				expectedResult init if it's not in the Context already
-				simple assertEquals
-				
-			!!!! object has public (protected) getters / public (protected) fields
-				create an ObjectReadAnalyzerService()
-					return all getters 
-					return all public fields
-					don't care about the objectState
-					don't care about calculating the name of getters for fields
-					
+	OK - object has equals
+		expectedResult init if it's not in the Context already
+		simple assertEquals
+		
+	OK object has public (protected) getters / public (protected) fields
+		create an ObjectReadAnalyzerService()
+			return all getters 
+			return all public fields
+			don't care about the objectState
+			don't care about calculating the name of getters for fields	
 
-			!!!! - handle assert for other known types
-				HashMap
-				HashSet
-				UUID? has equals?
-				Class
 			
-			sometimes I can use protected setters/properties/getters if the namespace is correct
+TODO ==========================
+	Assert part
+
+		!!!! - handle assert for other known types
+			HashMap
+			HashSet
+			Class
+		
+		sometimes I can use protected setters/properties/getters if the namespace is correct
 				
 			
 

@@ -183,13 +183,13 @@ public class SampleService {
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
-        Person gica = Person.builder()
+        Person tom = Person.builder()
                 .firstName("Tom")
                 .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
-        List<Person> personList = Arrays.asList(paul, gica);
+        List<Person> personList = Arrays.asList(paul, tom);
         return Collections.singletonList(personList);
     }
 

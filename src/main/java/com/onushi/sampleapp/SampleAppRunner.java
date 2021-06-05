@@ -117,7 +117,7 @@ public class SampleAppRunner implements CommandLineRunner {
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
-        Person gica = Person.builder()
+        Person tom = Person.builder()
                 .firstName("Tom")
                 .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
@@ -129,7 +129,7 @@ public class SampleAppRunner implements CommandLineRunner {
                 .setStudent(true);
 
         OtherEmployee[] otherEmployeeArray = {otherEmployee};
-        this.sampleService.demoFunction(Arrays.asList(gica, marco), otherEmployeeArray);
+        this.sampleService.demoFunction(Arrays.asList(tom, marco), otherEmployeeArray);
     }
 
     private void demo2() throws Exception {

@@ -421,14 +421,14 @@ class TestGeneratorServiceTest {
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
-        Person gica = Person.builder()
+        Person tom = Person.builder()
                 .firstName("Tom")
                 .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
-        List<Person> personList = Arrays.asList(paul, gica);
-        Person[] personArray = {paul, gica};
+        List<Person> personList = Arrays.asList(paul, tom);
+        Person[] personArray = {paul, tom};
 
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
@@ -1134,13 +1134,13 @@ class TestGeneratorServiceTest {
                 .dateOfBirth(dateOfBirth1)
                 .build();
 
-        Person gica = Person.builder()
+        Person tom = Person.builder()
                 .firstName("Tom")
                 .lastName("Richardson")
                 .dateOfBirth(dateOfBirth2)
                 .build();
 
-        List<Person> personList = Arrays.asList(paul, gica);
+        List<Person> personList = Arrays.asList(paul, tom);
 
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
