@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.object.PropertyValue;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
@@ -15,8 +16,11 @@ import java.util.stream.Collectors;
 @Service
 public class TestGeneratorService {
     private final StringService stringService;
-    public TestGeneratorService(StringService stringService) {
+    private final ClassInfoService classInfoService;
+
+    public TestGeneratorService(StringService stringService, ClassInfoService classInfoService) {
         this.stringService = stringService;
+        this.classInfoService = classInfoService;
     }
 
     public final String COMMENT_BEFORE_TEST =
@@ -57,7 +61,7 @@ public class TestGeneratorService {
                 "    void {{methodName}}() throws Exception {\n" +
                         getArrangeCode(testGenerator, attributes) +
                         getActCode(testGenerator, attributes) +
-                        getAssertCode(testGenerator, attributes) +
+                        getAssertCode(testGenerator) +
                 "    }\n" +
                 "}\n");
         stringGenerator.addAttributes(attributes);
@@ -132,7 +136,7 @@ public class TestGeneratorService {
         return stringGenerator.generate();
     }
 
-    private String getAssertCode(TestGenerator testGenerator, Map<String, String> attributes) throws InvocationTargetException, IllegalAccessException {
+    private String getAssertCode(TestGenerator testGenerator) {
         if (testGenerator.getExpectedException() != null) {
             return "";
         } else if (testGenerator.getResultDeclareClassName().equals("void")) {
@@ -144,33 +148,44 @@ public class TestGeneratorService {
     }
 
     private String getAssertCode(ObjectInfo objectInfo, String assertPath) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
-            VisibleProperty visibleProperty = entry.getValue();
-            if (visibleProperty.getFinalValue().getString() != null &&
-                    visibleProperty.getFinalValue().getString().equals("null")) {
-                String assertString = new StringGenerator()
-                        .setTemplate("        assertNull({{assertPath}});\n")
-                        .addAttribute("assertPath", assertPath)
-                        .generate();
-                stringBuilder.append(assertString);
-            } else {
-                PropertyValue finalValue = visibleProperty.getFinalValue();
-                String composedPath = assertPath + entry.getKey();
-                if (finalValue.getObjectInfo() != null) {
-                    String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);
-                    stringBuilder.append(elementAssertCode);
-                } else if (visibleProperty.getFinalValue().getString() != null) {
+        if (objectInfo.getObject() != null &&
+                classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
+                !objectInfo.getInitCode().equals("") &&
+                objectInfo.isInitDone()) {
+            return new StringGenerator()
+                    .setTemplate("        assertEquals({{objectInfoName}}, {{assertPath}});\n")
+                    .addAttribute("objectInfoName", objectInfo.getObjectName())
+                    .addAttribute("assertPath", assertPath)
+                    .generate();
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
+                VisibleProperty visibleProperty = entry.getValue();
+                if (visibleProperty.getFinalValue().getString() != null &&
+                        visibleProperty.getFinalValue().getString().equals("null")) {
                     String assertString = new StringGenerator()
-                            .setTemplate("        assertEquals({{expected}}, {{composedPath}});\n")
-                            .addAttribute("expected", visibleProperty.getFinalValue().getString())
-                            .addAttribute("composedPath", composedPath)
+                            .setTemplate("        assertNull({{assertPath}});\n")
+                            .addAttribute("assertPath", assertPath)
                             .generate();
                     stringBuilder.append(assertString);
+                } else {
+                    PropertyValue finalValue = visibleProperty.getFinalValue();
+                    String composedPath = assertPath + entry.getKey();
+                    if (finalValue.getObjectInfo() != null) {
+                        String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);
+                        stringBuilder.append(elementAssertCode);
+                    } else if (visibleProperty.getFinalValue().getString() != null) {
+                        String assertString = new StringGenerator()
+                                .setTemplate("        assertEquals({{expected}}, {{composedPath}});\n")
+                                .addAttribute("expected", visibleProperty.getFinalValue().getString())
+                                .addAttribute("composedPath", composedPath)
+                                .generate();
+                        stringBuilder.append(assertString);
+                    }
                 }
             }
+            return stringBuilder.toString();
         }
-        return stringBuilder.toString();
     }
 
     private String getEndMarkerString() {
