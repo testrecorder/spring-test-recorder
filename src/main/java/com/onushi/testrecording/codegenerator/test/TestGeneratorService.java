@@ -41,50 +41,9 @@ public class TestGeneratorService {
     }
 
     private String getImportsString(TestGenerator testGenerator) {
-        List<String> result = new ArrayList<>();
-        result.add("org.junit.jupiter.api.Test");
-        result.add("static org.junit.jupiter.api.Assertions.*");
-
-        List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
-        objectsToInit.add(testGenerator.targetObjectInfo);
-
-        result.addAll(objectsToInit.stream()
-                .flatMap(x -> getInitRequiredImports(x).stream())
-                .collect(Collectors.toList()));
-
-        result.addAll(testGenerator.getExpectedResultObjectInfo().getInitRequiredImports());
-
-        result.addAll(getVisiblePropsRequiredImports(testGenerator.getExpectedResultObjectInfo()));
-
-        return result.stream()
-                .distinct()
-                .filter(x -> !x.startsWith(testGenerator.getPackageName() + "."))
+        return getRequiredImports(testGenerator).stream()
                 .map(x -> String.format("import %s;%n", x))
                 .collect(Collectors.joining(""));
-    }
-
-    // TODO IB !!!! test cyclic
-    private List<String> getInitRequiredImports(ObjectInfo objectInfo) {
-        List<String> result = new ArrayList<>(objectInfo.getInitRequiredImports());
-        for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
-            result.addAll(getInitRequiredImports(initDependency));
-        }
-        return result;
-    }
-
-    // TODO IB !!!! test cyclic
-    private List<String> getVisiblePropsRequiredImports(ObjectInfo objectInfo) {
-        List<String> result = new ArrayList<>();
-        for (String key : objectInfo.getVisibleProperties().keySet()) {
-            VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
-            if (visibleProperty.getRequiredImports() != null) {
-                result.addAll(visibleProperty.getRequiredImports());
-            }
-            if (visibleProperty.getFinalValue().getObjectInfo() != null) {
-                result.addAll(getVisiblePropsRequiredImports(visibleProperty.getFinalValue().getObjectInfo()));
-            }
-        }
-        return result;
     }
 
     private String getClassAndTestString(TestGenerator testGenerator) throws InvocationTargetException, IllegalAccessException {
@@ -216,6 +175,53 @@ public class TestGeneratorService {
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
+    }
+
+    private List<String> getRequiredImports(TestGenerator testGenerator) {
+        List<String> result = new ArrayList<>();
+        result.add("org.junit.jupiter.api.Test");
+        result.add("static org.junit.jupiter.api.Assertions.*");
+
+        List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
+        objectsToInit.add(testGenerator.targetObjectInfo);
+
+        result.addAll(objectsToInit.stream()
+                .flatMap(x -> getInitRequiredImports(x).stream())
+                .collect(Collectors.toList()));
+
+        result.addAll(testGenerator.getExpectedResultObjectInfo().getInitRequiredImports());
+
+        result.addAll(getVisiblePropsRequiredImports(testGenerator.getExpectedResultObjectInfo()));
+
+        result = result.stream()
+                .distinct()
+                .filter(x -> !x.startsWith(testGenerator.getPackageName() + "."))
+                .collect(Collectors.toList());
+        return result;
+    }
+
+    // TODO IB !!!! test cyclic
+    private List<String> getInitRequiredImports(ObjectInfo objectInfo) {
+        List<String> result = new ArrayList<>(objectInfo.getInitRequiredImports());
+        for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
+            result.addAll(getInitRequiredImports(initDependency));
+        }
+        return result;
+    }
+
+    // TODO IB !!!! test cyclic
+    private List<String> getVisiblePropsRequiredImports(ObjectInfo objectInfo) {
+        List<String> result = new ArrayList<>();
+        for (String key : objectInfo.getVisibleProperties().keySet()) {
+            VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
+            if (visibleProperty.getRequiredImports() != null) {
+                result.addAll(visibleProperty.getRequiredImports());
+            }
+            if (visibleProperty.getFinalValue().getObjectInfo() != null) {
+                result.addAll(getVisiblePropsRequiredImports(visibleProperty.getFinalValue().getObjectInfo()));
+            }
+        }
+        return result;
     }
 
     private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {
