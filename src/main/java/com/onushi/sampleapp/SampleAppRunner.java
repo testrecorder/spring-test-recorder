@@ -1,9 +1,6 @@
 package com.onushi.sampleapp;
 
-import com.onushi.sampleapp.model.Department;
-import com.onushi.sampleapp.model.Employee;
-import com.onushi.sampleapp.model.OtherEmployee;
-import com.onushi.sampleapp.model.Person;
+import com.onushi.sampleapp.model.*;
 import com.onushi.sampleapp.services.PersonService;
 import com.onushi.sampleapp.services.SalaryService;
 import com.onushi.sampleapp.services.SampleService;
@@ -104,7 +101,9 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // demoSideEffects();
 
-        demoAssert();
+        // demoAssert();
+
+        demoCyclic();
     }
 
     private void demo1() throws Exception {
@@ -159,5 +158,13 @@ public class SampleAppRunner implements CommandLineRunner {
     private void demoAssert() throws Exception {
         // sampleService.createListOfPersonList();
         sampleService.createDate();
+    }
+
+    private void demoCyclic() {
+        CyclicParent cyclicParent = new CyclicParent();
+        CyclicChild cyclicChild = new CyclicChild();
+        cyclicChild.parent = cyclicParent;
+        cyclicParent.childList = Arrays.asList(cyclicChild);
+        sampleService.processCyclicObjects(cyclicParent);
     }
 }

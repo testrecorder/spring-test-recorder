@@ -70,14 +70,22 @@ public class ObjectInfoFactoryManager {
     }
 
     public ObjectInfo getCommonObjectInfo(TestGenerator testGenerator, Object object) {
-        Map<Object, ObjectInfo> objectCache = testGenerator.getObjectInfoCache();
-        ObjectInfo existingObject = objectCache.get(object);
+        ObjectInfo existingObject = testGenerator.getObjectInfoCache().get(object);
         if (existingObject != null) {
             return existingObject;
         } else {
+            if (testGenerator.getObjectsPendingInit().contains(object)) {
+                ObjectInfoCreationContext context = new ObjectInfoCreationContext();
+                context.setTestGenerator(testGenerator);
+                context.setObject(object);
+                context.setObjectName("dummy");
+                return new ObjectInfoFactoryForCyclicDependencyImpl().createObjectInfo(context);
+            }
+            testGenerator.getObjectsPendingInit().add(object);
             String objectName = objectNameGenerator.getNewObjectName(testGenerator, object);
             ObjectInfo objectInfo = createObjectInfo(testGenerator, object, objectName);
-            objectCache.put(object, objectInfo);
+            testGenerator.getObjectInfoCache().put(object, objectInfo);
+            testGenerator.getObjectsPendingInit().remove(object);
             return objectInfo;
         }
     }

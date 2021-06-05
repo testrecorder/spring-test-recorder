@@ -22,7 +22,6 @@ public class SampleService {
         return this;
     }
 
-    @RecordTest
     public int add(int x, int y) {
         return addInternal(x, y);
     }
@@ -129,7 +128,6 @@ public class SampleService {
         return 42;
     }
 
-    @RecordTest
     public int doSomething(String a, String b) {
         return 42;
     }
@@ -159,7 +157,6 @@ public class SampleService {
         department.setName(department.getName() + " New");
     }
 
-    @RecordTest
     // TODO if i rename this to getEmployee tests are failing. Solve this
     public Employee createEmployee() {
         return Employee.builder()
@@ -200,9 +197,13 @@ public class SampleService {
         return Arrays.asList(1, 2, 3);
     }
 
-    @RecordTest
     public Date createDate() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.parse("1980-01-02");
+    }
+
+    @RecordTest
+    public int processCyclicObjects(CyclicParent cyclicParent) {
+        return 42;
     }
 }

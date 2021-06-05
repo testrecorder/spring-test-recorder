@@ -16,7 +16,6 @@ public class PersonService {
         return personRepository.getPersonFromDB(id);
     }
 
-    @RecordTest
     public String getPersonFirstName(int id) {
 //        personRepository.getPersonsCountFromDB("a", null);
         try {

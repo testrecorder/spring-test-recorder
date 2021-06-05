@@ -23,14 +23,7 @@ public class TestGenerator {
 
     protected final Map<Object, ObjectInfo> objectInfoCache = new LinkedHashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
+    protected final Set<Object> objectsPendingInit = new HashSet<>();
 
     protected TestGenerator() {}
-
-    protected Map<String, Integer> getLastIndexForObjectName() {
-        return lastIndexForObjectName;
-    }
-
-    public Map<Object, ObjectInfo> getObjectInfoCache() {
-        return objectInfoCache;
-    }
 }

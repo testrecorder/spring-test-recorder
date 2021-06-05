@@ -12,7 +12,6 @@ public class SalaryService {
         this.employeeRepository = employeeRepository;
     }
 
-    @RecordTest
     public double computeEmployeeSalary(int employeeId) throws Exception {
         Employee employee = employeeRepository.loadEmployee(employeeId);
         return employee.getSalaryParam1() + 2 * employee.getSalaryParam2();
