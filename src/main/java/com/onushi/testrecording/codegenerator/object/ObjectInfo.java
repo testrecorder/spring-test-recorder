@@ -17,10 +17,10 @@ public class ObjectInfo {
     protected List<String> initRequiredImports = new ArrayList<>();
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
+    protected boolean initAdded = false;
 
     // TODO IB !!!! needed??? maybe when result == arg1 or result.date == date1 ???
     protected boolean canUseDoubleEqualForComparison = false;
-    protected ObjectInfoStatus objectInfoStatus = new ObjectInfoStatus();
 
     protected ObjectInfo setCanUseDoubleEqualForComparison(boolean canUseDoubleEqualForComparison) {
         this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
@@ -33,7 +33,10 @@ public class ObjectInfo {
         return this;
     }
 
-    // TODO IB !!!! I should have setters for other props too
+    public ObjectInfo setInitAdded(boolean initAdded) {
+        this.initAdded = initAdded;
+        return this;
+    }
 
     protected ObjectInfo(Object object, String objectName, String inlineCode) {
         this.object = object;
