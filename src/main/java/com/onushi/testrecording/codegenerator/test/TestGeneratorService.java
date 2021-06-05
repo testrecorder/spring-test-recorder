@@ -225,10 +225,42 @@ public class TestGeneratorService {
     }
 
     private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {
-        return testGenerator.getObjectInfoCache().values().stream()
-                .flatMap(x -> x.getInitRequiredHelperObjects().stream())
-                .distinct()
-                .collect(Collectors.toList());
+        List<String> result = new ArrayList<>();
+
+        List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
+        objectsToInit.add(testGenerator.targetObjectInfo);
+
+        result.addAll(objectsToInit.stream()
+                .flatMap(x -> getInitRequiredHelperObjects(x).stream())
+                .collect(Collectors.toList()));
+
+        result.addAll(getVisiblePropsRequiredHelperObjects(testGenerator.getExpectedResultObjectInfo()));
+
+        return result.stream().distinct().collect(Collectors.toList());
+    }
+
+    // TODO IB !!!! test cyclic
+    private List<String> getInitRequiredHelperObjects(ObjectInfo objectInfo) {
+        List<String> result = new ArrayList<>(objectInfo.getInitRequiredHelperObjects());
+        for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
+            result.addAll(getInitRequiredHelperObjects(initDependency));
+        }
+        return result;
+    }
+
+    // TODO IB !!!! test cyclic
+    private List<String> getVisiblePropsRequiredHelperObjects(ObjectInfo objectInfo) {
+        List<String> result = new ArrayList<>();
+        for (String key : objectInfo.getVisibleProperties().keySet()) {
+            VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
+            if (visibleProperty.getRequiredHelperObjects() != null) {
+                result.addAll(visibleProperty.getRequiredHelperObjects());
+            }
+            if (visibleProperty.getFinalValue().getObjectInfo() != null) {
+                result.addAll(getVisiblePropsRequiredHelperObjects(visibleProperty.getFinalValue().getObjectInfo()));
+            }
+        }
+        return result;
     }
 
     public List<String> getObjectsInit(List<ObjectInfo> objectInfos) {
