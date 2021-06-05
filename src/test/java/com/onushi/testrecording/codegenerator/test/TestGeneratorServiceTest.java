@@ -1131,7 +1131,7 @@ class TestGeneratorServiceTest {
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! @Test
+    @Test
     void generateAssertTestForListOfListOfPerson() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -1170,11 +1170,9 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
-                        "import java.util.Date;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import java.util.List;\n" +
                         "import java.util.Arrays;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -1191,20 +1189,12 @@ class TestGeneratorServiceTest {
                         "        // Assert\n" +
                         "        assertEquals(1, result.size());\n" +
                         "        assertEquals(2, result.get(0).size());\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
-                        "        Person person1 = Person.builder()\n" +
-                        "            .dateOfBirth(date1)\n" +
-                        "            .firstName(\"Paul\")\n" +
-                        "            .lastName(\"Thompson\")\n" +
-                        "            .build();\n" +
-                        "        assertEquals(person1, result.get(0).get(0));\n" +
-                        "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
-                        "        Person person2 = Person.builder()\n" +
-                        "            .dateOfBirth(date2)\n" +
-                        "            .firstName(\"Tom\")\n" +
-                        "            .lastName(\"Richardson\")\n" +
-                        "            .build();\n" +
-                        "        assertEquals(person2, result.get(0).get(1));\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1980-01-02 00:00:00.000\"), result.get(0).get(0).getDateOfBirth());\n" +
+                        "        assertEquals(\"Paul\", result.get(0).get(0).getFirstName());\n" +
+                        "        assertEquals(\"Thompson\", result.get(0).get(0).getLastName());\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1970-02-03 00:00:00.000\"), result.get(0).get(1).getDateOfBirth());\n" +
+                        "        assertEquals(\"Tom\", result.get(0).get(1).getFirstName());\n" +
+                        "        assertEquals(\"Richardson\", result.get(0).get(1).getLastName());\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

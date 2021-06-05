@@ -27,6 +27,7 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
 
             objectInfo.addVisibleProperty("", VisibleProperty.builder()
                             .finalValue(PropertyValue.fromString(String.format("simpleDateFormat.parse(\"%s\")", dateStr)))
+                            .requiredImports(Collections.singletonList("java.text.SimpleDateFormat"))
                             .requiredHelperObjects(Collections.singletonList(SIMPLE_DATE_FORMAT_HELPER))
                             .build()
                     );
