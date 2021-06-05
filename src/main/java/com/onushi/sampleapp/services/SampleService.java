@@ -206,4 +206,16 @@ public class SampleService {
     public int processCyclicObjects(CyclicParent cyclicParent) {
         return 42;
     }
+
+    @RecordTest
+    public CyclicParent createCyclicObjects() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        CyclicParent cyclicParent = new CyclicParent();
+        CyclicChild cyclicChild = new CyclicChild();
+        cyclicChild.parent = cyclicParent;
+        cyclicChild.date = simpleDateFormat.parse("1980-01-02");
+        cyclicParent.id = 1;
+        cyclicParent.childList = Collections.singletonList(cyclicChild);
+        return cyclicParent;
+    }
 }

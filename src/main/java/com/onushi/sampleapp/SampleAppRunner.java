@@ -7,6 +7,7 @@ import com.onushi.sampleapp.services.SampleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -103,7 +104,7 @@ public class SampleAppRunner implements CommandLineRunner {
 
         // demoAssert();
 
-        demoCyclic();
+        demoCyclic2();
     }
 
     private void demo1() throws Exception {
@@ -160,11 +161,18 @@ public class SampleAppRunner implements CommandLineRunner {
         sampleService.createDate();
     }
 
-    private void demoCyclic() {
+    private void demoCyclic1() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         CyclicParent cyclicParent = new CyclicParent();
         CyclicChild cyclicChild = new CyclicChild();
         cyclicChild.parent = cyclicParent;
-        cyclicParent.childList = Arrays.asList(cyclicChild);
+        cyclicChild.date = simpleDateFormat.parse("1980-01-02");
+        cyclicParent.id = 1;
+        cyclicParent.childList = Collections.singletonList(cyclicChild);
         sampleService.processCyclicObjects(cyclicParent);
+    }
+
+    private void demoCyclic2() throws ParseException {
+        sampleService.createCyclicObjects();
     }
 }
