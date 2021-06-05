@@ -2,30 +2,22 @@ package com.onushi.sampleapp.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import com.onushi.sampleapp.model.Employee;
-import com.onushi.sampleapp.model.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 class SampleServiceTest {
     //TODO rename the test to describe the use case
     //TODO refactor the generated code to make it easier to understand
     @Test
-    void createEmployee() throws Exception {
+    void createDate() throws Exception {
         // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         SampleService sampleService = new SampleService();
 
         // Act
-        Employee result = sampleService.createEmployee();
+        Date result = sampleService.createDate();
 
         // Assert
-        assertEquals(100, result.getDepartment().getId());
-        assertEquals("IT", result.getDepartment().getName());
-        assertEquals("John", result.getFirstName());
-        assertEquals(1, result.getId());
-        assertEquals("Doe", result.getLastName());
-        assertEquals(1000.0, result.getSalaryParam1());
-        assertEquals(1500.0, result.getSalaryParam2());
-        assertEquals(0.0, result.getSalaryParam3());
-        assertEquals(Color.BLUE, result.getTeamColor());
-        assertEquals(Color.BLUE, result.teamColor);
+        assertEquals(simpleDateFormat.parse("1980-01-02 00:00:00.000"), result);
     }
 }

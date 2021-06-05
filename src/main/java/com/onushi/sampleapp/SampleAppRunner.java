@@ -158,6 +158,6 @@ public class SampleAppRunner implements CommandLineRunner {
 
     private void demoAssert() throws Exception {
         // sampleService.createListOfPersonList();
-        sampleService.createEmployee();
+        sampleService.createDate();
     }
 }

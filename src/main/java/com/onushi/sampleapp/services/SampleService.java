@@ -199,4 +199,10 @@ public class SampleService {
     public List<Integer> createList() {
         return Arrays.asList(1, 2, 3);
     }
+
+    @RecordTest
+    public Date createDate() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.parse("1980-01-02");
+    }
 }

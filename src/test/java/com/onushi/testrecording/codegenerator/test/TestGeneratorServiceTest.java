@@ -1278,4 +1278,51 @@ class TestGeneratorServiceTest {
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void generateAssertTestForNonInitDate() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("createDate")
+                .arguments(Collections.emptyList())
+                .result(simpleDateFormat.parse("1980-01-02"))
+                .dependencyMethodRuns(new ArrayList<>())
+                .build();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sampleapp.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Date;\n" +
+                        "\n" +
+                        "class SampleServiceTest {\n" +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        "    @Test\n" +
+                        "    void createDate() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "        SampleService sampleService = new SampleService();\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        Date result = sampleService.createDate();\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1980-01-02 00:00:00.000\"), result);\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.prepareForCompare(testString));
+    }
 }
