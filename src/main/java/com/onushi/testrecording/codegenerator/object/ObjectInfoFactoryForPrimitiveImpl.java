@@ -14,8 +14,7 @@ public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
         String fullClassName = context.getObject().getClass().getName();
         ObjectInfo objectInfo = getObjectInfo(context, fullClassName);
         if (objectInfo != null) {
-            return objectInfo.setCanUseDoubleEqualForComparison(true)
-                .addVisibleProperty("", VisibleProperty.builder()
+            return objectInfo.addVisibleProperty("", VisibleProperty.builder()
                     .finalValue(PropertyValue.fromString(objectInfo.inlineCode))
                     .build());
         }

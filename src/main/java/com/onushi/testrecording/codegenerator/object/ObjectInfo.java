@@ -19,14 +19,6 @@ public class ObjectInfo {
     protected String initCode = "";
     protected boolean initAdded = false;
 
-    // TODO IB !!!! needed??? maybe when result == arg1 or result.date == date1 ???
-    protected boolean canUseDoubleEqualForComparison = false;
-
-    protected ObjectInfo setCanUseDoubleEqualForComparison(boolean canUseDoubleEqualForComparison) {
-        this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;
-        return this;
-    }
-
     // TODO IB !!!! needed like this? it's not like others
     protected ObjectInfo addVisibleProperty(String key, VisibleProperty visibleProperty) {
         this.visibleProperties.put(key, visibleProperty);
