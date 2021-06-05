@@ -1261,14 +1261,21 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateAssertTestForNonInitDate() throws Exception {
+    void testCyclicDependenciesInArgs() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        CyclicParent cyclicParent = new CyclicParent();
+        CyclicChild cyclicChild = new CyclicChild();
+        cyclicChild.parent = cyclicParent;
+        cyclicChild.date = simpleDateFormat.parse("1980-01-02");
+        cyclicParent.id = 1;
+        cyclicParent.childList = Collections.singletonList(cyclicChild);
+
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("createDate")
-                .arguments(Collections.emptyList())
-                .result(simpleDateFormat.parse("1980-01-02"))
+                .methodName("processCyclicObjects")
+                .arguments(Collections.singletonList(cyclicParent))
+                .result(42)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -1283,6 +1290,10 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import com.onushi.sampleapp.model.CyclicParent;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.Arrays;\n" +
+                        "import com.onushi.sampleapp.model.CyclicChild;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
                         "\n" +
@@ -1290,20 +1301,31 @@ class TestGeneratorServiceTest {
                         "    //TODO rename the test to describe the use case\n" +
                         "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
-                        "    void createDate() throws Exception {\n" +
+                        "    void processCyclicObjects() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
+                        "        // TODO Solve initialisation for cyclic dependency in com.onushi.sampleapp.model.CyclicParent\n" +
+                        "        CyclicChild cyclicChild1 = new CyclicChild();\n" +
+                        "        cyclicChild1.date = date1;\n" +
+                        "        cyclicChild1.parent = ...;\n" +
+                        "        List<CyclicChild> singletonList1 = Arrays.asList(cyclicChild1);\n" +
+                        "        CyclicParent cyclicParent1 = new CyclicParent();\n" +
+                        "        cyclicParent1.childList = singletonList1;\n" +
+                        "        cyclicParent1.id = 1;\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Date result = sampleService.createDate();\n" +
+                        "        Integer result = sampleService.processCyclicObjects(cyclicParent1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(simpleDateFormat.parse(\"1980-01-02 00:00:00.000\"), result);\n" +
+                        "        assertEquals(42, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+
 }
