@@ -17,21 +17,10 @@ public class ObjectInfo {
     protected List<String> initRequiredImports = new ArrayList<>();
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
-    // these 2 are used to traverse the ObjectInfo graph
-    private boolean initPrepared = false;
-    private boolean initDone = false;
+
     // TODO IB !!!! needed??? maybe when result == arg1 or result.date == date1 ???
     protected boolean canUseDoubleEqualForComparison = false;
-
-    public ObjectInfo setInitPrepared(boolean initPrepared) {
-        this.initPrepared = initPrepared;
-        return this;
-    }
-
-    public ObjectInfo setInitDone(boolean initDone) {
-        this.initDone = initDone;
-        return this;
-    }
+    protected ObjectInfoStatus objectInfoStatus = new ObjectInfoStatus();
 
     protected ObjectInfo setCanUseDoubleEqualForComparison(boolean canUseDoubleEqualForComparison) {
         this.canUseDoubleEqualForComparison = canUseDoubleEqualForComparison;

@@ -151,7 +151,7 @@ public class TestGeneratorService {
         if (objectInfo.getObject() != null &&
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
                 !objectInfo.getInitCode().equals("") &&
-                objectInfo.isInitDone()) {
+                objectInfo.getObjectInfoStatus().isInitDone()) {
             return new StringGenerator()
                     .setTemplate("        assertEquals({{objectInfoName}}, {{assertPath}});\n")
                     .addAttribute("objectInfoName", objectInfo.getObjectName())
@@ -287,11 +287,12 @@ public class TestGeneratorService {
     }
 
     public List<String> getObjectsInit(ObjectInfo objectInfo) {
-        if (objectInfo.isInitPrepared() || objectInfo.isInitDone()) {
+        if (objectInfo.getObjectInfoStatus().isInitPrepared() ||
+                objectInfo.getObjectInfoStatus().isInitDone()) {
             // to avoid cyclic traversal
             return new ArrayList<>();
         }
-        objectInfo.setInitPrepared(true);
+        objectInfo.getObjectInfoStatus().setInitPrepared(true);
         List<String> allObjectsInit = new ArrayList<>();
         for (ObjectInfo dependency : objectInfo.getInitDependencies()) {
             allObjectsInit.addAll(getObjectsInit(dependency));
@@ -299,7 +300,7 @@ public class TestGeneratorService {
         if (!objectInfo.getInitCode().equals("")) {
             allObjectsInit.add(objectInfo.getInitCode());
         }
-        objectInfo.setInitDone(true);
+        objectInfo.getObjectInfoStatus().setInitDone(true);
         return allObjectsInit;
     }
 }
