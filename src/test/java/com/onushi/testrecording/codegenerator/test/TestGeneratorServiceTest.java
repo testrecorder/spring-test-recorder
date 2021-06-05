@@ -409,7 +409,7 @@ class TestGeneratorServiceTest {
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! @Test
+    @Test
     void testDependenciesOfDependencies() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -449,14 +449,15 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
-                        "import java.util.Date;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import java.util.List;\n" +
                         "import java.util.Arrays;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Date;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void someFunction() throws Exception {\n" +
                         "        // Arrange\n" +
