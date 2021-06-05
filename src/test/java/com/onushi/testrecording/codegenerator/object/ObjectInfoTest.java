@@ -161,6 +161,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(2, objectInfo.getInitRequiredImports().size());
         assertNotEquals("", objectInfo.getInitCode());
+        // TODO IB !!!! add test of visible props
     }
 
     @Test

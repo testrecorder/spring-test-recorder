@@ -215,7 +215,6 @@ public class TestGeneratorService {
         return result;
     }
 
-    // TODO IB !!!! test cyclic
     private List<String> getInitRequiredImports(ObjectInfo objectInfo) {
         List<String> result = new ArrayList<>(objectInfo.getInitRequiredImports());
         for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
@@ -224,7 +223,6 @@ public class TestGeneratorService {
         return result;
     }
 
-    // TODO IB !!!! test cyclic
     private List<String> getVisiblePropsRequiredImports(ObjectInfo objectInfo) {
         List<String> result = new ArrayList<>();
         for (String key : objectInfo.getVisibleProperties().keySet()) {
@@ -254,7 +252,6 @@ public class TestGeneratorService {
         return result.stream().distinct().collect(Collectors.toList());
     }
 
-    // TODO IB !!!! test cyclic
     private List<String> getInitRequiredHelperObjects(ObjectInfo objectInfo) {
         List<String> result = new ArrayList<>(objectInfo.getInitRequiredHelperObjects());
         for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
@@ -263,7 +260,6 @@ public class TestGeneratorService {
         return result;
     }
 
-    // TODO IB !!!! test cyclic
     private List<String> getVisiblePropsRequiredHelperObjects(ObjectInfo objectInfo) {
         List<String> result = new ArrayList<>();
         for (String key : objectInfo.getVisibleProperties().keySet()) {

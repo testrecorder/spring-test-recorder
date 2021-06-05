@@ -23,7 +23,6 @@ public abstract class ObjectInfoFactory {
         }
     }
 
-    // TODO IB !!!! care with cyclic
     protected void setVisiblePropertiesForUnknown(ObjectInfo objectInfo,
                 ObjectInfoCreationContext context, ObjectInfoFactoryManager objectInfoFactoryManager,
                 ClassInfoService classInfoService) {

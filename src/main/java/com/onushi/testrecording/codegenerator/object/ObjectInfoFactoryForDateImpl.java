@@ -23,7 +23,6 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
             String dateStr = simpleDateFormat.format((Date) context.getObject());
 
             objectInfo.initCode = String.format("Date %s = simpleDateFormat.parse(\"%s\");", context.getObjectName(), dateStr);
-            objectInfo.setCanUseDoubleEqualForComparison(false);
 
             objectInfo.addVisibleProperty("", VisibleProperty.builder()
                             .finalValue(PropertyValue.fromString(String.format("simpleDateFormat.parse(\"%s\")", dateStr)))
