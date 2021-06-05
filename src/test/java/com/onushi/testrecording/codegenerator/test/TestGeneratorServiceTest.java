@@ -68,7 +68,7 @@ class TestGeneratorServiceTest {
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! @Test
+    @Test
     void generateTestForMinDate() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -406,54 +406,6 @@ class TestGeneratorServiceTest {
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST =========\n"),
-                StringUtils.prepareForCompare(testString));
-    }
-
-    // TODO IB !!!! @Test
-    void testObjectCaching() throws Exception {
-        // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = simpleDateFormat.parse("2021-01-01");
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
-                .target(new SampleService())
-                .methodName("minDate")
-                .arguments(Arrays.asList(d1, d1))
-                .result(d1)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
-
-        // Act
-        String testString = testGeneratorService.generateTestCode(testGenerator);
-
-        // Assert
-        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
-                        "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
-                        "\n" +
-                        "import org.junit.jupiter.api.Test;\n" +
-                        "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
-                        "import java.util.Date;\n" +
-                        "\n" +
-                        "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
-                        "    @Test\n" +
-                        "    void minDate() throws Exception {\n" +
-                        "        // Arrange\n" +
-                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
-                        "        SampleService sampleService = new SampleService();\n" +
-                        "\n" +
-                        "        // Act\n" +
-                        "        Date result = sampleService.minDate(date1, date1);\n" +
-                        "\n" +
-                        "        // Assert\n" +
-                        "        assertEquals(date1, result);\n" +
-                        "    }\n" +
-                        "}\n" +
-                        "\n" +
-                        "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 
