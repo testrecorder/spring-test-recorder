@@ -588,7 +588,7 @@ class TestGeneratorServiceTest {
     }
 
 
-    // TODO IB !!!! @Test
+    @Test
     void generateTestForMethodThatReturnsPerson() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -618,12 +618,12 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
-                        "import java.util.Date;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void returnPerson() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -634,13 +634,9 @@ class TestGeneratorServiceTest {
                         "        Person result = sampleService.returnPerson();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
-                        "        Person person1 = Person.builder()\n" +
-                        "            .dateOfBirth(date1)\n" +
-                        "            .firstName(\"Tom\")\n" +
-                        "            .lastName(\"Richardson\")\n" +
-                        "            .build();\n" +
-                        "        assertEquals(person1, result);\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"2021-01-01 00:00:00.000\"), result.getDateOfBirth());\n" +
+                        "        assertEquals(\"Tom\", result.getFirstName());\n" +
+                        "        assertEquals(\"Richardson\", result.getLastName());\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
