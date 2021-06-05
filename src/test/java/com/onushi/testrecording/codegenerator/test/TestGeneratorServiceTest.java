@@ -753,7 +753,7 @@ class TestGeneratorServiceTest {
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! @Test
+    @Test
     void generateTestTargetWithDependencies() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -781,13 +781,12 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.services.PersonRepositoryImpl;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
-                        "import java.util.Date;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void loadPerson() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -799,13 +798,9 @@ class TestGeneratorServiceTest {
                         "        Person result = personService.loadPerson(2);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"1940-11-27 00:00:00.000\");\n" +
-                        "        Person person1 = Person.builder()\n" +
-                        "            .dateOfBirth(date1)\n" +
-                        "            .firstName(\"Bruce\")\n" +
-                        "            .lastName(\"Lee\")\n" +
-                        "            .build();\n" +
-                        "        assertEquals(person1, result);\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1940-11-27 00:00:00.000\"), result.getDateOfBirth());\n" +
+                        "        assertEquals(\"Bruce\", result.getFirstName());\n" +
+                        "        assertEquals(\"Lee\", result.getLastName());\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
