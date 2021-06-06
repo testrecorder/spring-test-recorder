@@ -35,7 +35,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .map(element1 -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element1))
                     .collect(Collectors.toList());
 
-            String elementClassName = getElementsFullClassNameForDeclare(objectInfo.initDependencies);
+            String elementClassName = getElementsComposedClassNameForDeclare(objectInfo.initDependencies);
 
             String elementsInlineCode = objects.stream()
                     .map(element ->  new StringGenerator()
@@ -45,15 +45,15 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                             .generate())
                     .collect(Collectors.joining(""));
 
-            objectInfo.fullClassNameForDeclare = new StringGenerator()
+            objectInfo.composedClassNameForDeclare = new StringGenerator()
                     .setTemplate("Set<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();
 
             objectInfo.initCode = new StringGenerator()
-                    .setTemplate("{{fullClassNameForDeclare}} {{objectName}} = new HashSet<>();\n" +
+                    .setTemplate("{{composedClassNameForDeclare}} {{objectName}} = new HashSet<>();\n" +
                             "{{elementsInlineCode}}")
-                    .addAttribute("fullClassNameForDeclare", objectInfo.fullClassNameForDeclare)
+                    .addAttribute("composedClassNameForDeclare", objectInfo.composedClassNameForDeclare)
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();

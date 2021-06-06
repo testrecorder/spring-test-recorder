@@ -9,7 +9,7 @@ public class ObjectInfo {
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
-    protected String fullClassNameForDeclare;
+    protected String composedClassNameForDeclare;
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
     // TODO IB !!!! use this for each ObjectInfoFactory and test
     protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
@@ -33,14 +33,14 @@ public class ObjectInfo {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
-        this.fullClassNameForDeclare = object.getClass().getSimpleName();
+        this.composedClassNameForDeclare = object.getClass().getSimpleName();
     }
 
-    protected ObjectInfo(Object object, String objectName, String inlineCode, String fullClassNameForDeclare) {
+    protected ObjectInfo(Object object, String objectName, String inlineCode, String composedClassNameForDeclare) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
-        this.fullClassNameForDeclare = fullClassNameForDeclare;
+        this.composedClassNameForDeclare = composedClassNameForDeclare;
     }
 }
 
