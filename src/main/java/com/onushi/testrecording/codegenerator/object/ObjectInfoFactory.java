@@ -24,7 +24,6 @@ public abstract class ObjectInfoFactory {
         }
     }
 
-    // TODO IB !!!! use this for Map and Set
     protected List<String> getElementsDeclareRequiredImports(List<ObjectInfo> elements) {
         List<ObjectInfo> distinct = elements.stream()
                 .filter(x -> !x.inlineCode.equals("null"))

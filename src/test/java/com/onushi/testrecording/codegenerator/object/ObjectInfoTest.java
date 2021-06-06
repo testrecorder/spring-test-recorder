@@ -138,7 +138,6 @@ class ObjectInfoTest {
     }
 
 
-    // TODO IB test visibleProperties for all
     @Test
     void testDate() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -397,6 +396,7 @@ class ObjectInfoTest {
                 "map1.put(\"2\", 2);\n" +
                 "map1.put(\"3\", 3);\n", objectInfo.getInitCode());
         assertEquals("Map<String, Integer>", objectInfo.getComposedClassNameForDeclare());
+        // TODO IB !!!! add test of visible props
     }
 
     @Test
@@ -418,5 +418,6 @@ class ObjectInfoTest {
                 "set1.add(\"2\");\n" +
                 "set1.add(\"3\");\n", objectInfo.getInitCode());
         assertEquals("Set<String>", objectInfo.getComposedClassNameForDeclare());
+        // TODO IB !!!! add test of visible props
     }
 }
