@@ -47,8 +47,8 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
 
             objectInfo.initDependencies = allDependencies;
 
-            String keyClassName = getElementsFullClassNameForDeclare(keyGenerators);
-            String valueClassName = getElementsFullClassNameForDeclare(valueGenerators);
+            String keyClassName = getElementsComposedClassNameForDeclare(keyGenerators);
+            String valueClassName = getElementsComposedClassNameForDeclare(valueGenerators);
 
             String elementsInlineCode = keys.stream()
                     .map(key ->  new StringGenerator()
@@ -59,16 +59,16 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                             .generate())
                     .collect(Collectors.joining(""));
 
-            objectInfo.fullClassNameForDeclare = new StringGenerator()
+            objectInfo.composedClassNameForDeclare = new StringGenerator()
                     .setTemplate("Map<{{keyClassName}}, {{valueClassName}}>")
                     .addAttribute("keyClassName", keyClassName)
                     .addAttribute("valueClassName", valueClassName)
                     .generate();
 
             objectInfo.initCode = new StringGenerator()
-                    .setTemplate("{{fullClassNameForDeclare}} {{objectName}} = new HashMap<>();\n" +
+                    .setTemplate("{{composedClassNameForDeclare}} {{objectName}} = new HashMap<>();\n" +
                             "{{elementsInlineCode}}")
-                    .addAttribute("fullClassNameForDeclare", objectInfo.fullClassNameForDeclare)
+                    .addAttribute("composedClassNameForDeclare", objectInfo.composedClassNameForDeclare)
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();

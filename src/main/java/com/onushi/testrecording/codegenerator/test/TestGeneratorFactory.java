@@ -5,7 +5,6 @@ import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.object.ObjectInfoFactoryManager;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,7 +56,7 @@ public class TestGeneratorFactory {
 
     private String getResultDeclareClassName(ObjectInfo expectedResultObjectInfo, Class<?> fallBackResultType) {
         if (expectedResultObjectInfo.getObject() != null) {
-            return expectedResultObjectInfo.getFullClassNameForDeclare();
+            return expectedResultObjectInfo.getComposedClassNameForDeclare();
         }
         if (fallBackResultType != null) {
             if (fallBackResultType.isPrimitive()) {

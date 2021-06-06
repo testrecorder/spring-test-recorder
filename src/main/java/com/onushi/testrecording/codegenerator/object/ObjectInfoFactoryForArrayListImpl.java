@@ -27,19 +27,19 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .distinct()
                     .collect(Collectors.toList());
 
-            String elementClassName = getElementsFullClassNameForDeclare(elements);
+            String elementClassName = getElementsComposedClassNameForDeclare(elements);
 
             String elementsInlineCode = elements.stream()
                     .map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
 
-            objectInfo.fullClassNameForDeclare = new StringGenerator()
+            objectInfo.composedClassNameForDeclare = new StringGenerator()
                     .setTemplate("List<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();
 
             objectInfo.initCode = new StringGenerator()
-                    .setTemplate("{{fullClassNameForDeclare}} {{objectName}} = Arrays.asList({{elementsInlineCode}});")
-                    .addAttribute("fullClassNameForDeclare", objectInfo.fullClassNameForDeclare)
+                    .setTemplate("{{composedClassNameForDeclare}} {{objectName}} = Arrays.asList({{elementsInlineCode}});")
+                    .addAttribute("composedClassNameForDeclare", objectInfo.composedClassNameForDeclare)
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
