@@ -27,7 +27,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .distinct()
                     .collect(Collectors.toList());
 
-            String elementClassName = getElementsClassName(elements);
+            String elementClassName = getElementsFullClassNameForDeclare(elements);
 
             String elementsInlineCode = elements.stream()
                     .map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));

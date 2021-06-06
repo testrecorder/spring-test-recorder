@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public abstract class ObjectInfoFactory {
     abstract ObjectInfo createObjectInfo(ObjectInfoCreationContext context);
 
-    protected String getElementsClassName(List<ObjectInfo> objectInfos) {
-        List<String> distinct = objectInfos.stream()
+    protected String getElementsFullClassNameForDeclare(List<ObjectInfo> elements) {
+        List<String> distinct = elements.stream()
                 .filter(x -> !x.inlineCode.equals("null"))
                 .map(ObjectInfo::getFullClassNameForDeclare)
                 .distinct()
