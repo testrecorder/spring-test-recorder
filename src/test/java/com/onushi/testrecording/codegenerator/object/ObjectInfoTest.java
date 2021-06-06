@@ -175,7 +175,8 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, list, "list1");
         assertEquals("list1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
-        assertEquals(2, objectInfo.getDeclareRequiredImports().size());
+        assertEquals(1, objectInfo.getDeclareRequiredImports().size());
+        assertEquals(1, objectInfo.getInitRequiredImports().size());
         assertEquals("List<String> list1 = Arrays.asList(\"1\", \"2\", \"3\");", objectInfo.getInitCode());
         assertEquals(4, objectInfo.visibleProperties.size());
         assertEquals("3", objectInfo.visibleProperties.get(".size()").getFinalValue().getString());
@@ -388,7 +389,8 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, map, "map1");
         assertEquals("map1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
-        assertEquals(2, objectInfo.getDeclareRequiredImports().size());
+        assertEquals(1, objectInfo.getDeclareRequiredImports().size());
+        assertEquals(1, objectInfo.getInitRequiredImports().size());
         assertEquals("Map<String, Integer> map1 = new HashMap<>();\n" +
                 "map1.put(null, 0);\n" +
                 "map1.put(\"1\", 1);\n" +
@@ -408,7 +410,8 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, set1, "set1");
         assertEquals("set1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
-        assertEquals(2, objectInfo.getDeclareRequiredImports().size());
+        assertEquals(1, objectInfo.getDeclareRequiredImports().size());
+        assertEquals(1, objectInfo.getInitRequiredImports().size());
         assertEquals("Set<String> set1 = new HashSet<>();\n" +
                 "set1.add(null);\n" +
                 "set1.add(\"1\");\n" +

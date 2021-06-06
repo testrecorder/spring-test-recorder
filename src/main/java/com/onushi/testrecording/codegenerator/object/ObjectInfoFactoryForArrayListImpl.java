@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.object;
 
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +17,8 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof List<?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
-            objectInfo.declareRequiredImports = Arrays.asList("java.util.List", "java.util.Arrays");
+            objectInfo.declareRequiredImports = Collections.singletonList("java.util.List");
+            objectInfo.initRequiredImports = Collections.singletonList("java.util.Arrays");
 
             List<ObjectInfo> elements = ((List<Object>) context.getObject()).stream()
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))

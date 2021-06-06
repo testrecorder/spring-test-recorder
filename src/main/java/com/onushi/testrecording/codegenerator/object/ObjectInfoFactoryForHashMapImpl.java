@@ -17,7 +17,8 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof HashMap<?, ?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
-            objectInfo.declareRequiredImports = Arrays.asList("java.util.Map", "java.util.HashMap");
+            objectInfo.declareRequiredImports = Collections.singletonList("java.util.Map");
+            objectInfo.initRequiredImports = Collections.singletonList("java.util.HashMap");
 
             HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
 

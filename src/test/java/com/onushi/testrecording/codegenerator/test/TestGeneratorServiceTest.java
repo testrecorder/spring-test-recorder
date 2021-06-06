@@ -516,7 +516,6 @@ class TestGeneratorServiceTest {
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -1163,7 +1162,6 @@ class TestGeneratorServiceTest {
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
