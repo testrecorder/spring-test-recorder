@@ -68,7 +68,7 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectInfo.actualClassName = new StringGenerator()
+            objectInfo.fullClassNameForDeclare = new StringGenerator()
                     .setTemplate("Map<{{keyClassName}}, {{valueClassName}}>")
                     .addAttribute("keyClassName", keyClassName)
                     .addAttribute("valueClassName", valueClassName)

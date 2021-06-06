@@ -39,7 +39,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectInfo.actualClassName = new StringGenerator()
+            objectInfo.fullClassNameForDeclare = new StringGenerator()
                     .setTemplate("List<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();

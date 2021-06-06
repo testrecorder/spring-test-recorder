@@ -54,7 +54,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            objectInfo.actualClassName = new StringGenerator()
+            objectInfo.fullClassNameForDeclare = new StringGenerator()
                     .setTemplate("Set<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();

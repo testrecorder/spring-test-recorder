@@ -57,7 +57,7 @@ public class TestGeneratorFactory {
 
     private String getResultDeclareClassName(ObjectInfo expectedResultObjectInfo, Class<?> fallBackResultType) {
         if (expectedResultObjectInfo.getObject() != null) {
-            return expectedResultObjectInfo.getActualClassName();
+            return expectedResultObjectInfo.getFullClassNameForDeclare();
         }
         if (fallBackResultType != null) {
             if (fallBackResultType.isPrimitive()) {

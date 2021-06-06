@@ -393,7 +393,7 @@ class ObjectInfoTest {
                 "map1.put(\"1\", 1);\n" +
                 "map1.put(\"2\", 2);\n" +
                 "map1.put(\"3\", 3);\n", objectInfo.getInitCode());
-        assertEquals("Map<String, Integer>", objectInfo.getActualClassName());
+        assertEquals("Map<String, Integer>", objectInfo.getFullClassNameForDeclare());
     }
 
     @Test
@@ -414,6 +414,6 @@ class ObjectInfoTest {
                 "set1.add(\"1\");\n" +
                 "set1.add(\"2\");\n" +
                 "set1.add(\"3\");\n", objectInfo.getInitCode());
-        assertEquals("Set<String>", objectInfo.getActualClassName());
+        assertEquals("Set<String>", objectInfo.getFullClassNameForDeclare());
     }
 }

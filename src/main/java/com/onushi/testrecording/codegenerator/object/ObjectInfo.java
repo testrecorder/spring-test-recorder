@@ -9,8 +9,7 @@ public class ObjectInfo {
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
-    // this contains more info than the object.getClass() for generics
-    protected String actualClassName;
+    protected String fullClassNameForDeclare;
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
     // TODO IB !!!! use this for each ObjectInfoFactory and test
     protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
@@ -34,14 +33,14 @@ public class ObjectInfo {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
-        this.actualClassName = object.getClass().getSimpleName();
+        this.fullClassNameForDeclare = object.getClass().getSimpleName();
     }
 
-    protected ObjectInfo(Object object, String objectName, String inlineCode, String actualClassName) {
+    protected ObjectInfo(Object object, String objectName, String inlineCode, String fullClassNameForDeclare) {
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;
-        this.actualClassName = actualClassName;
+        this.fullClassNameForDeclare = fullClassNameForDeclare;
     }
 }
 

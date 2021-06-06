@@ -13,7 +13,7 @@ public abstract class ObjectInfoFactory {
     protected String getElementsClassName(List<ObjectInfo> objectInfos) {
         List<String> distinct = objectInfos.stream()
                 .filter(x -> !x.inlineCode.equals("null"))
-                .map(ObjectInfo::getActualClassName)
+                .map(ObjectInfo::getFullClassNameForDeclare)
                 .distinct()
                 .collect(Collectors.toList());
         if (distinct.size() == 1) {

@@ -41,7 +41,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
                     .distinct()
                     .collect(Collectors.toList());
 
-            objectInfo.actualClassName = new StringGenerator()
+            objectInfo.fullClassNameForDeclare = new StringGenerator()
                     .setTemplate("{{elementClassShort}}[]")
                     .addAttribute("elementClassShort", arrayAsList.elementClass.getSimpleName())
                     .generate();
