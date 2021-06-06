@@ -14,7 +14,7 @@ public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
                         .requiredImports(Collections.singletonList(clazz.getName()))
                         .build()
                     );
-            objectInfo.initRequiredImports.add(clazz.getName());
+            objectInfo.declareRequiredImports.add(clazz.getName());
 
             return objectInfo;
         }

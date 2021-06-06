@@ -24,7 +24,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
         if (dependencyMethodRuns.size() > 0) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
-            objectInfo.initRequiredImports = Arrays.asList(
+            objectInfo.declareRequiredImports = Arrays.asList(
                     "static org.mockito.Mockito.*",
                     context.getObject().getClass().getName());
 

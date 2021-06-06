@@ -27,7 +27,7 @@ public class TestGeneratorService {
             "    //TODO rename the test to describe the use case\n" +
             "    //TODO refactor the generated code to make it easier to understand\n";
 
-    public String generateTestCode(TestGenerator testGenerator) throws InvocationTargetException, IllegalAccessException {
+    public String generateTestCode(TestGenerator testGenerator) {
         return getBeginMarkerString() +
                 getPackageString(testGenerator) +
                 getImportsString(testGenerator) +
@@ -50,7 +50,7 @@ public class TestGeneratorService {
                 .collect(Collectors.joining(""));
     }
 
-    private String getClassAndTestString(TestGenerator testGenerator) throws InvocationTargetException, IllegalAccessException {
+    private String getClassAndTestString(TestGenerator testGenerator) {
         StringGenerator stringGenerator = new StringGenerator();
         Map<String, String> attributes = getStringGeneratorAttributes(testGenerator);
         stringGenerator.setTemplate(
@@ -201,10 +201,10 @@ public class TestGeneratorService {
         objectsToInit.add(testGenerator.targetObjectInfo);
 
         result.addAll(objectsToInit.stream()
-                .flatMap(x -> getInitRequiredImports(x).stream())
+                .flatMap(x -> getDeclareAndInitRequiredImports(x).stream())
                 .collect(Collectors.toList()));
 
-        result.addAll(testGenerator.getExpectedResultObjectInfo().getInitRequiredImports());
+        result.addAll(testGenerator.getExpectedResultObjectInfo().getDeclareRequiredImports());
 
         result.addAll(getVisiblePropsRequiredImports(testGenerator.getExpectedResultObjectInfo()));
 
@@ -215,10 +215,11 @@ public class TestGeneratorService {
         return result;
     }
 
-    private List<String> getInitRequiredImports(ObjectInfo objectInfo) {
-        List<String> result = new ArrayList<>(objectInfo.getInitRequiredImports());
+    private List<String> getDeclareAndInitRequiredImports(ObjectInfo objectInfo) {
+        List<String> result = new ArrayList<>(objectInfo.getDeclareRequiredImports());
+        result.addAll(objectInfo.getInitRequiredImports());
         for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
-            result.addAll(getInitRequiredImports(initDependency));
+            result.addAll(getDeclareAndInitRequiredImports(initDependency));
         }
         return result;
     }

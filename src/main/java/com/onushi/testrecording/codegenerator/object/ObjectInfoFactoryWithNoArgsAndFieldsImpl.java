@@ -55,7 +55,7 @@ public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory 
                 .distinct()
                 .collect(Collectors.toList());
 
-        objectInfo.initRequiredImports.add(context.getObject().getClass().getName());
+        objectInfo.declareRequiredImports.add(context.getObject().getClass().getName());
 
         setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
 

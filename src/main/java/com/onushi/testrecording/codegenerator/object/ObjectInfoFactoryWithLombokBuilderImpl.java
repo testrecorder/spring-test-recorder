@@ -32,7 +32,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
                     context.getObjectName(),
                     context.getObjectName());
 
-            objectInfo.initRequiredImports.add(context.getObject().getClass().getName());
+            objectInfo.declareRequiredImports.add(context.getObject().getClass().getName());
 
             Map<String, FieldValue> objectState = context.getObjectState();
             objectInfo.initDependencies = objectState.values().stream()

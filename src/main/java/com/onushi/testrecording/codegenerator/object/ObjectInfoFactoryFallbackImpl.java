@@ -23,7 +23,7 @@ public class ObjectInfoFactoryFallbackImpl extends ObjectInfoFactory {
                 .addAttribute("objectName", context.getObjectName())
                 .generate();
 
-        objectInfo.initRequiredImports.add(context.getObject().getClass().getName());
+        objectInfo.declareRequiredImports.add(context.getObject().getClass().getName());
 
         setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
 

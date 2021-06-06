@@ -93,11 +93,12 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void minDate() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -452,8 +453,8 @@ class TestGeneratorServiceTest {
                         "import java.util.List;\n" +
                         "import java.util.Arrays;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -842,8 +843,8 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import static org.mockito.Mockito.*;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -917,8 +918,8 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import static org.mockito.Mockito.*;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -1294,8 +1295,8 @@ class TestGeneratorServiceTest {
                         "import java.util.List;\n" +
                         "import java.util.Arrays;\n" +
                         "import com.onushi.sampleapp.model.CyclicChild;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
                         "import java.util.Date;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +

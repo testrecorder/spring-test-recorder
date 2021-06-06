@@ -17,7 +17,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof HashSet<?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
-            objectInfo.initRequiredImports = Arrays.asList("java.util.Set", "java.util.HashSet");
+            objectInfo.declareRequiredImports = Arrays.asList("java.util.Set", "java.util.HashSet");
 
             HashSet<Object> hashSet = (HashSet<Object>)context.getObject();
 

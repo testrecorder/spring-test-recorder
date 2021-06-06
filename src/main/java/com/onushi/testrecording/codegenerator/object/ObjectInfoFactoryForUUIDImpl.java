@@ -29,7 +29,7 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
                         .requiredImports(Collections.singletonList(fullClassName))
                         .build());
 
-            objectInfo.initRequiredImports.add("java.util.UUID");
+            objectInfo.declareRequiredImports.add("java.util.UUID");
 
             return objectInfo;
         }

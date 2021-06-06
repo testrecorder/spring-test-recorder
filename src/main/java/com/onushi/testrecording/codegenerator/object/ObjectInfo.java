@@ -13,6 +13,7 @@ public class ObjectInfo {
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
     // TODO IB !!!! use this for each ObjectInfoFactory and test
     protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
+    protected List<String> declareRequiredImports = new ArrayList<>();
     protected List<String> initRequiredImports = new ArrayList<>();
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";

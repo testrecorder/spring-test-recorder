@@ -27,7 +27,7 @@ public class ObjectInfoFactoryWithNoArgsConstructorImpl extends ObjectInfoFactor
                     .addAttribute("objectName", context.getObjectName())
                     .generate();
 
-            objectInfo.initRequiredImports.add(context.getObject().getClass().getName());
+            objectInfo.declareRequiredImports.add(context.getObject().getClass().getName());
 
             setVisiblePropertiesForUnknown(objectInfo, context, objectInfoFactoryManager, classInfoService);
 
