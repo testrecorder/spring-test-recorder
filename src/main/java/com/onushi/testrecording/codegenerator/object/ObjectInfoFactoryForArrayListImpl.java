@@ -32,16 +32,16 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
             String elementsInlineCode = elements.stream()
                     .map(ObjectInfo::getInlineCode).collect(Collectors.joining(", "));
 
-            objectInfo.initCode = new StringGenerator()
-                    .setTemplate("List<{{elementClassName}}> {{objectName}} = Arrays.asList({{elementsInlineCode}});")
-                    .addAttribute("elementClassName", elementClassName)
-                    .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("elementsInlineCode", elementsInlineCode)
-                    .generate();
-
             objectInfo.fullClassNameForDeclare = new StringGenerator()
                     .setTemplate("List<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
+                    .generate();
+
+            objectInfo.initCode = new StringGenerator()
+                    .setTemplate("{{fullClassNameForDeclare}} {{objectName}} = Arrays.asList({{elementsInlineCode}});")
+                    .addAttribute("fullClassNameForDeclare", objectInfo.fullClassNameForDeclare)
+                    .addAttribute("objectName", context.getObjectName())
+                    .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
             objectInfo.addVisibleProperty(".size()", VisibleProperty.builder()

@@ -59,20 +59,21 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                             .generate())
                     .collect(Collectors.joining(""));
 
-            objectInfo.initCode = new StringGenerator()
-                    .setTemplate("Map<{{keyClassName}}, {{valueClassName}}> {{objectName}} = new HashMap<>();\n" +
-                            "{{elementsInlineCode}}")
-                    .addAttribute("keyClassName", keyClassName)
-                    .addAttribute("valueClassName", valueClassName)
-                    .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("elementsInlineCode", elementsInlineCode)
-                    .generate();
-
             objectInfo.fullClassNameForDeclare = new StringGenerator()
                     .setTemplate("Map<{{keyClassName}}, {{valueClassName}}>")
                     .addAttribute("keyClassName", keyClassName)
                     .addAttribute("valueClassName", valueClassName)
                     .generate();
+
+            objectInfo.initCode = new StringGenerator()
+                    .setTemplate("{{fullClassNameForDeclare}} {{objectName}} = new HashMap<>();\n" +
+                            "{{elementsInlineCode}}")
+                    .addAttribute("fullClassNameForDeclare", objectInfo.fullClassNameForDeclare)
+                    .addAttribute("objectName", context.getObjectName())
+                    .addAttribute("elementsInlineCode", elementsInlineCode)
+                    .generate();
+
+
 
             return objectInfo;
         } else {

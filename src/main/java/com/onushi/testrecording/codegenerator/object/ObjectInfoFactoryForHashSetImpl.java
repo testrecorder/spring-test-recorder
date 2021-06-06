@@ -45,19 +45,20 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                             .generate())
                     .collect(Collectors.joining(""));
 
-
-            objectInfo.initCode = new StringGenerator()
-                    .setTemplate("Set<{{elementClassName}}> {{objectName}} = new HashSet<>();\n" +
-                            "{{elementsInlineCode}}")
-                    .addAttribute("elementClassName", elementClassName)
-                    .addAttribute("objectName", context.getObjectName())
-                    .addAttribute("elementsInlineCode", elementsInlineCode)
-                    .generate();
-
             objectInfo.fullClassNameForDeclare = new StringGenerator()
                     .setTemplate("Set<{{elementClassName}}>")
                     .addAttribute("elementClassName", elementClassName)
                     .generate();
+
+            objectInfo.initCode = new StringGenerator()
+                    .setTemplate("{{fullClassNameForDeclare}} {{objectName}} = new HashSet<>();\n" +
+                            "{{elementsInlineCode}}")
+                    .addAttribute("fullClassNameForDeclare", objectInfo.fullClassNameForDeclare)
+                    .addAttribute("objectName", context.getObjectName())
+                    .addAttribute("elementsInlineCode", elementsInlineCode)
+                    .generate();
+
+
 
             return objectInfo;
         } else {
