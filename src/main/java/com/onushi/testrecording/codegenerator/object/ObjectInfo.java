@@ -11,7 +11,6 @@ public class ObjectInfo {
     protected final String inlineCode;
     protected String composedClassNameForDeclare;
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
-    // TODO IB !!!! use this for each ObjectInfoFactory and test
     protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
     protected List<String> declareRequiredImports = new ArrayList<>();
     protected List<String> initRequiredImports = new ArrayList<>();
@@ -19,7 +18,6 @@ public class ObjectInfo {
     protected String initCode = "";
     protected boolean initAdded = false;
 
-    // TODO IB !!!! needed like this? it's not like others
     protected ObjectInfo addVisibleProperty(String key, VisibleProperty visibleProperty) {
         this.visibleProperties.put(key, visibleProperty);
         return this;

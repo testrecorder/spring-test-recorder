@@ -451,8 +451,8 @@ class TestGeneratorServiceTest {
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
                         "import com.onushi.sampleapp.model.Person;\n" +
+                        "import java.util.Arrays;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
@@ -1162,6 +1162,7 @@ class TestGeneratorServiceTest {
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.List;\n" +
+                        "import com.onushi.sampleapp.model.Person;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
@@ -1291,8 +1292,8 @@ class TestGeneratorServiceTest {
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import com.onushi.sampleapp.model.CyclicParent;\n" +
                         "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
                         "import com.onushi.sampleapp.model.CyclicChild;\n" +
+                        "import java.util.Arrays;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +

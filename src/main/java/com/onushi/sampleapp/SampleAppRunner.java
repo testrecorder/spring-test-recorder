@@ -105,8 +105,6 @@ public class SampleAppRunner implements CommandLineRunner {
         // demoAssert();
 
         //demoCyclic2();
-
-        sampleService.createPersonList();
     }
 
     private void demo1() throws Exception {

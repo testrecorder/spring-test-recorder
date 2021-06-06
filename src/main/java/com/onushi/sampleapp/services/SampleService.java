@@ -216,26 +216,4 @@ public class SampleService {
         cyclicParent.childList = Collections.singletonList(cyclicChild);
         return cyclicParent;
     }
-
-    // TODO IB !!!! continue here. Make this test include Person
-    @RecordTest
-    public List<Person> createPersonList() throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
-
-        Person paul = Person.builder()
-                .firstName("Paul")
-                .lastName("Thompson")
-                .dateOfBirth(dateOfBirth1)
-                .build();
-
-        Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
-        Person tom = Person.builder()
-                .firstName("Tom")
-                .lastName("Richardson")
-                .dateOfBirth(dateOfBirth2)
-                .build();
-
-        return Arrays.asList(paul, tom);
-    }
 }

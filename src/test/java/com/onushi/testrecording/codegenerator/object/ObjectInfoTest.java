@@ -34,7 +34,7 @@ class ObjectInfoTest {
     void testNull() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator,null, "test");
         assertEquals("null", objectInfo.getInlineCode());
-        // TODO IB !!!! add to all cases
+        // TODO IB add to all cases
         assertEquals(1, objectInfo.visibleProperties.size());
         assertEquals("null", objectInfo.visibleProperties.get("").getFinalValue().getString());
     }
@@ -138,7 +138,7 @@ class ObjectInfoTest {
     }
 
 
-    // TODO IB !!!! !!!! test all
+    // TODO IB test visibleProperties for all
     @Test
     void testDate() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

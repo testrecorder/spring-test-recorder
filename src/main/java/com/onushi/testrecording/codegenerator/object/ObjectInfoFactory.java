@@ -4,6 +4,7 @@ import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,27 @@ public abstract class ObjectInfoFactory {
         }
     }
 
+    // TODO IB !!!! use this for Map and Set
+    protected List<String> getElementsDeclareRequiredImports(List<ObjectInfo> elements) {
+        List<ObjectInfo> distinct = elements.stream()
+                .filter(x -> !x.inlineCode.equals("null"))
+                .distinct()
+                .collect(Collectors.toList());
+        if (distinct.size() == 0) {
+            return new ArrayList<>();
+        } else {
+            List<String> result = distinct.get(0).getDeclareRequiredImports();
+            for (int i = 1; i < distinct.size(); i++) {
+                List<String> toIntersect = distinct.get(i).getDeclareRequiredImports();
+                result = result.stream()
+                        .filter(toIntersect::contains)
+                        .collect(Collectors.toList());
+            }
+            return result;
+        }
+    }
+
+
     protected void setVisiblePropertiesForUnknown(ObjectInfo objectInfo,
                 ObjectInfoCreationContext context, ObjectInfoFactoryManager objectInfoFactoryManager,
                 ClassInfoService classInfoService) {
@@ -38,7 +60,7 @@ public abstract class ObjectInfoFactory {
                         .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
             } catch (Exception ex) {
-                // TODO IB !!!! add a comment
+                // TODO IB add a comment
             }
         }
 
@@ -54,7 +76,7 @@ public abstract class ObjectInfoFactory {
                         .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
             } catch(Exception ex) {
-                // TODO IB !!!! add a comment
+                // TODO IB add a comment
             }
         }
     }
