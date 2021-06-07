@@ -398,7 +398,12 @@ class ObjectInfoTest {
                 "map1.put(\"2\", 2);\n" +
                 "map1.put(\"3\", 3);\n", objectInfo.getInitCode());
         assertEquals("Map<String, Integer>", objectInfo.getComposedClassNameForDeclare());
-        // TODO IB !!!! add test of visible props
+        assertEquals(5, objectInfo.visibleProperties.size());
+        assertEquals("4", objectInfo.visibleProperties.get(".size()").getFinalValue().getString());
+        assertEquals( "0", objectInfo.visibleProperties.get(".get(null)").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
+        assertEquals( "1", objectInfo.visibleProperties.get(".get(\"1\")").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
+        assertEquals( "2", objectInfo.visibleProperties.get(".get(\"2\")").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
+        assertEquals( "3", objectInfo.visibleProperties.get(".get(\"3\")").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
     }
 
     @Test
