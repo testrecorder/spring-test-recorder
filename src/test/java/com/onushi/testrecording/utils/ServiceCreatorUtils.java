@@ -16,10 +16,12 @@ public class ServiceCreatorUtils {
 
     public static TestGeneratorService createTestGeneratorService() {
         return new TestGeneratorService(new StringService(),
-                new ClassInfoService(),
                 new TestImportsGeneratorService(),
                 new TestHelperObjectsGeneratorService(),
-                new TestObjectsInitGeneratorService());
+                new TestObjectsInitGeneratorService(),
+                new TestAssertGeneratorService(new StringService(),
+                        new ClassInfoService(),
+                        new TestObjectsInitGeneratorService()));
     }
 
     public static ObjectCreationAnalyzerService createObjectCreationAnalyzerService() {

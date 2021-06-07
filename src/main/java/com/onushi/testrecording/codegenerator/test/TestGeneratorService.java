@@ -1,9 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
-import com.onushi.testrecording.codegenerator.object.PropertyValue;
-import com.onushi.testrecording.codegenerator.object.VisibleProperty;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -15,21 +12,21 @@ import java.util.stream.Collectors;
 @Service
 public class TestGeneratorService {
     private final StringService stringService;
-    private final ClassInfoService classInfoService;
     private final TestImportsGeneratorService testImportsGeneratorService;
     private final TestHelperObjectsGeneratorService testHelperObjectsGeneratorService;
     private final TestObjectsInitGeneratorService testObjectsInitGeneratorService;
+    private final TestAssertGeneratorService testAssertGeneratorService;
 
     public TestGeneratorService(StringService stringService,
-                                ClassInfoService classInfoService,
                                 TestImportsGeneratorService testImportsGeneratorService,
                                 TestHelperObjectsGeneratorService testHelperObjectsGeneratorService,
-                                TestObjectsInitGeneratorService testObjectsInitGeneratorService) {
+                                TestObjectsInitGeneratorService testObjectsInitGeneratorService,
+                                TestAssertGeneratorService testAssertGeneratorService) {
         this.stringService = stringService;
-        this.classInfoService = classInfoService;
         this.testImportsGeneratorService = testImportsGeneratorService;
         this.testHelperObjectsGeneratorService = testHelperObjectsGeneratorService;
         this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
+        this.testAssertGeneratorService = testAssertGeneratorService;
     }
 
     public final String COMMENT_BEFORE_TEST =
@@ -64,7 +61,7 @@ public class TestGeneratorService {
                 "    void {{methodName}}() throws Exception {\n" +
                         getArrangeCode(attributes) +
                         getActCode(testGenerator, attributes) +
-                        getAssertCode(testGenerator) +
+                        testAssertGeneratorService.getAssertCode(testGenerator) +
                 "    }\n" +
                 "}\n");
         stringGenerator.addAttributes(attributes);
@@ -138,78 +135,6 @@ public class TestGeneratorService {
         }
 
         return stringGenerator.generate();
-    }
-
-    private String getAssertCode(TestGenerator testGenerator) {
-        if (testGenerator.getExpectedException() != null) {
-            return "";
-        } else if (testGenerator.getResultDeclareClassName().equals("void")) {
-            return "";
-        } else {
-            return "        // Assert\n" +
-                getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result");
-        }
-    }
-
-    private String getAssertCode(ObjectInfo objectInfo, String assertPath) {
-        if (objectInfo.getObject() != null &&
-                classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
-                !objectInfo.getInitCode().equals("") &&
-                objectInfo.isInitAdded()) {
-            return new StringGenerator()
-                    .setTemplate("        assertEquals({{objectInfoName}}, {{assertPath}});\n")
-                    .addAttribute("objectInfoName", objectInfo.getObjectName())
-                    .addAttribute("assertPath", assertPath)
-                    .generate();
-        } else {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
-                VisibleProperty visibleProperty = entry.getValue();
-                PropertyValue finalValue = visibleProperty.getFinalValue();
-                String composedPath = assertPath + entry.getKey();
-
-                String objectsInit = "";
-                if (visibleProperty.getFinalDependencies() != null) {
-                    objectsInit = testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()).stream()
-                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining(""));
-                }
-                if (visibleProperty.getFinalValue().getString() != null &&
-                        visibleProperty.getFinalValue().getString().equals("null")) {
-                    String assertString = new StringGenerator()
-                            .setTemplate("{{objectsInit}}" +
-                                    "        assertNull({{composedPath}});\n")
-                            .addAttribute("composedPath", composedPath)
-                            .addAttribute("objectsInit", objectsInit)
-                            .generate();
-                    stringBuilder.append(assertString);
-                } else if (visibleProperty.getFinalValue().getString() != null &&
-                        visibleProperty.getFinalValue().getString().equals("true")) {
-                    String assertString = new StringGenerator()
-                            .setTemplate("{{objectsInit}}" +
-                                    "        assertTrue({{composedPath}});\n")
-                            .addAttribute("objectsInit", objectsInit)
-                            .addAttribute("composedPath", composedPath)
-                            .generate();
-                    stringBuilder.append(assertString);
-                } else {
-                    if (finalValue.getObjectInfo() != null) {
-                        stringBuilder.append(objectsInit);
-                        String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);
-                        stringBuilder.append(elementAssertCode);
-                    } else if (visibleProperty.getFinalValue().getString() != null) {
-                        String assertString = new StringGenerator()
-                                .setTemplate("{{objectsInit}}" +
-                                        "        assertEquals({{expected}}, {{composedPath}});\n")
-                                .addAttribute("objectsInit", objectsInit)
-                                .addAttribute("expected", visibleProperty.getFinalValue().getString())
-                                .addAttribute("composedPath", composedPath)
-                                .generate();
-                        stringBuilder.append(assertString);
-                    }
-                }
-            }
-            return stringBuilder.toString();
-        }
     }
 
     private String getEndMarkerString() {
