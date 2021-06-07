@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.sample.model.*;
+import com.onushi.sample.services.PersonRepository;
 import com.onushi.sample.services.PersonRepositoryImpl;
 import com.onushi.sample.services.PersonService;
 import com.onushi.sample.services.SampleService;
@@ -127,7 +128,7 @@ class TestGeneratorServiceTest {
                 .methodName("returnNull")
                 .arguments(Collections.emptyList())
                 .result(null)
-                .fallBackResultType(Student.class)
+                .fallBackResultType(PersonRepository.class)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -151,7 +152,7 @@ class TestGeneratorServiceTest {
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Student result = sampleService.returnNull();\n" +
+                        "        PersonRepository result = sampleService.returnNull();\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertNull(result);\n" +

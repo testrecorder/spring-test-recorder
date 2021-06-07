@@ -38,7 +38,7 @@ public class SampleService {
         return 0;
     }
 
-    public Person returnNull() {
+    public PersonRepository returnNull() {
         return null;
     }
 
