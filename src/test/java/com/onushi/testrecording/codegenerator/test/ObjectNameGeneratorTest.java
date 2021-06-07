@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 class ObjectNameGeneratorTest {
 
     @Test
-    void getObjectName() throws InterruptedException {
+    void getObjectName() {
         Map<String, Integer> lastIndexForObjectName = new HashMap<>();
 
         TestGenerator testGeneratorMock = mock(TestGenerator.class);

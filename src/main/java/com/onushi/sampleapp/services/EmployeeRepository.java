@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 @RecordMockForTest
 @Repository
 public class EmployeeRepository {
-    public Employee loadEmployee(int id) throws Exception {
+    public Employee loadEmployee(int id) {
         if (id == 1) {
             return Employee.builder()
                     .id(1)

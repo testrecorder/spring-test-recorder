@@ -11,7 +11,7 @@ public class ObjectInfo {
     protected final String inlineCode;
     protected String composedClassNameForDeclare;
     protected List<ObjectInfo> initDependencies = new ArrayList<>();
-    protected Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
+    protected final Map<String, VisibleProperty> visibleProperties = new LinkedHashMap<>();
     protected List<String> declareRequiredImports = new ArrayList<>();
     protected List<String> initRequiredImports = new ArrayList<>();
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();

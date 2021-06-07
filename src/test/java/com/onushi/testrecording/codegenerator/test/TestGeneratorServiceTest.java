@@ -27,7 +27,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForAddFloats() throws Exception {
+    void generateTestForAddFloats() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
@@ -120,7 +120,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForReturnNull() throws Exception {
+    void generateTestForReturnNull() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
@@ -164,7 +164,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForWhenHavingObjectAsArgument() throws Exception {
+    void generateTestForWhenHavingObjectAsArgument() {
         // Arrange
         Person person = Person.builder()
                 .firstName("Mary")
@@ -216,7 +216,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestWhenExceptionIsThrown() throws Exception {
+    void generateTestWhenExceptionIsThrown() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
@@ -257,7 +257,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestWhenResultIsVoid() throws Exception {
+    void generateTestWhenResultIsVoid() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
@@ -299,7 +299,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForArrays() throws Exception {
+    void generateTestForArrays() {
         // Arrange
         boolean[] boolArray = {true, false};
         byte[] byteArray = {1, 2};
@@ -363,7 +363,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForArrayLists() throws Exception {
+    void generateTestForArrayLists() {
         // Arrange
         List<String> stringList = Arrays.asList("a", "b");
         List<Object> objectList = Arrays.asList(1, "b", null);
@@ -494,7 +494,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void testListOfIntegers() throws Exception {
+    void testListOfIntegers() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
@@ -543,7 +543,7 @@ class TestGeneratorServiceTest {
 
 
     @Test
-    void generateTestForMethodThatReturnsArray() throws Exception {
+    void generateTestForMethodThatReturnsArray() {
         // Arrange
         int[] result = {3, 4};
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
@@ -646,7 +646,7 @@ class TestGeneratorServiceTest {
 
 
     @Test
-    void generateTestWithRepeatedArgs() throws Exception {
+    void generateTestWithRepeatedArgs() {
         // Arrange
         int[] intArray = {3, 4, 3};
         List<Float> floatList = Arrays.asList(3.0f, 3.0f);
@@ -694,7 +694,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForNoArgsConstructor() throws Exception {
+    void generateTestForNoArgsConstructor() {
         // Arrange
         StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
         StudentWithBuilder student2 = StudentWithBuilder.builder()
@@ -951,7 +951,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestWithExceptionThrownByMockCall() throws Exception {
+    void generateTestWithExceptionThrownByMockCall() {
         // Arrange
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
         DependencyMethodRunInfo dependencyMethodRunInfo1 = DependencyMethodRunInfo.builder()
@@ -1013,7 +1013,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForHashMaps() throws Exception {
+    void generateTestForHashMaps() {
         // Arrange
         Map<String, List<String>> map = new HashMap<>();
         map.put("1", Arrays.asList("0", "1"));
@@ -1071,7 +1071,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForHashSets() throws Exception {
+    void generateTestForHashSets() {
         // Arrange
         Set<Double> set = new HashSet<>();
         set.add(null);
@@ -1195,7 +1195,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateAssertTestForObjectsWithGetters() throws Exception {
+    void generateAssertTestForObjectsWithGetters() {
         // Arrange
         Employee employee = Employee.builder()
                 .id(1)

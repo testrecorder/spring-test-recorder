@@ -17,6 +17,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof HashSet<?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
+            @SuppressWarnings("unchecked")
             HashSet<Object> hashSet = (HashSet<Object>)context.getObject();
 
             List<ObjectInfo> elements = Arrays.stream(hashSet.toArray())

@@ -17,7 +17,7 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof HashMap<?, ?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
-
+            @SuppressWarnings("unchecked")
             HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
 
             List<Object> keys = hashMap.keySet()

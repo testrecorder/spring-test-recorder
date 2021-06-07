@@ -6,6 +6,6 @@ public class StringUtils {
             .trim()
             .replace("\n\r", "\n")
             .replace("\r", "")
-            .replaceAll("\\s{4}//Test Generated on [0-9\\-\\s:\\.]* with @RecordTest\n", "");
+            .replaceAll("\\s{4}//Test Generated on [0-9\\-\\s:.]* with @RecordTest\n", "");
     }
 }

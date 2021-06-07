@@ -19,6 +19,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof List<?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
+            @SuppressWarnings("unchecked")
             List<ObjectInfo> elements = ((List<Object>) context.getObject()).stream()
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());

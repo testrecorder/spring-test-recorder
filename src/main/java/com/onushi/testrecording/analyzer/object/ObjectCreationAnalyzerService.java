@@ -3,7 +3,6 @@ package com.onushi.testrecording.analyzer.object;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.codegenerator.template.StringService;
-import org.springframework.cglib.core.ClassInfo;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
