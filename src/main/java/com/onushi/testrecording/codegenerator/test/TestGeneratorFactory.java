@@ -11,14 +11,11 @@ import java.util.stream.Collectors;
 public class TestGeneratorFactory {
     private final ObjectNameGenerator objectNameGenerator;
     private final ObjectInfoFactoryManager objectInfoFactoryManager;
-    private final TestGeneratorService testGeneratorService;
 
     public TestGeneratorFactory(ObjectNameGenerator objectNameGenerator,
-                                ObjectInfoFactoryManager objectInfoFactoryManager,
-                                TestGeneratorService testGeneratorService) {
+                                ObjectInfoFactoryManager objectInfoFactoryManager) {
         this.objectNameGenerator = objectNameGenerator;
         this.objectInfoFactoryManager = objectInfoFactoryManager;
-        this.testGeneratorService = testGeneratorService;
     }
 
     public TestGenerator createTestGenerator(RecordedMethodRunInfo recordedMethodRunInfo) {

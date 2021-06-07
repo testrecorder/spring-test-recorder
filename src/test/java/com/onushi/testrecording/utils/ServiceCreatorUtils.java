@@ -39,7 +39,6 @@ public class ServiceCreatorUtils {
     public static TestGeneratorFactory createTestGeneratorFactory() {
         return new TestGeneratorFactory(
                 createObjectNameGenerator(),
-                createObjectInfoFactoryManager(),
-                createTestGeneratorService());
+                createObjectInfoFactoryManager());
     }
 }

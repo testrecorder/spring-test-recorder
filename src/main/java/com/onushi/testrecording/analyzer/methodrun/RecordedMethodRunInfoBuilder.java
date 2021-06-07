@@ -47,8 +47,8 @@ public class RecordedMethodRunInfoBuilder {
 
         if (methodInvocation != null) {
             MethodSignature methodSignature = (MethodSignature) methodInvocation.getSignature();
-            recordedMethodRunInfo.target = methodInvocation.getTarget();
             recordedMethodRunInfo.methodName = methodSignature.getName();
+            recordedMethodRunInfo.target = methodInvocation.getTarget();
             recordedMethodRunInfo.arguments = Arrays.asList(methodInvocation.getArgs());
             recordedMethodRunInfo.fallBackResultType = methodSignature.getReturnType();
         }

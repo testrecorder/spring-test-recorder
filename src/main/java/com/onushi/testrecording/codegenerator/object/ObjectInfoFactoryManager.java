@@ -17,11 +17,9 @@ public class ObjectInfoFactoryManager {
     private final ClassInfoService classInfoService;
     private final ObjectStateReaderService objectStateReaderService;
     private final ObjectNameGenerator objectNameGenerator;
-    private final ObjectCreationAnalyzerService objectCreationAnalyzerService;
     private final List<ObjectInfoFactory> knownClassesFactoriesList;
     private final List<ObjectInfoFactory> unknownClassesFactoriesList;
     private final CglibService cglibService;
-    private final StringService stringService;
 
     public ObjectInfoFactoryManager(ClassInfoService classInfoService,
                                     ObjectStateReaderService objectStateReaderService,
@@ -32,9 +30,7 @@ public class ObjectInfoFactoryManager {
         this.classInfoService = classInfoService;
         this.objectStateReaderService = objectStateReaderService;
         this.objectNameGenerator = objectNameGenerator;
-        this.objectCreationAnalyzerService = objectCreationAnalyzerService;
         this.cglibService = cglibService;
-        this.stringService = stringService;
 
         knownClassesFactoriesList = Arrays.asList(
                 new ObjectInfoFactoryForNullImpl(),
