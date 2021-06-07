@@ -17,11 +17,16 @@ public class TestGeneratorService {
     private final StringService stringService;
     private final ClassInfoService classInfoService;
     private final TestImportsGeneratorService testImportsGeneratorService;
+    private final TestHelperObjectsGeneratorService testHelperObjectsGeneratorService;
 
-    public TestGeneratorService(StringService stringService, ClassInfoService classInfoService, TestImportsGeneratorService testImportsGeneratorService) {
+    public TestGeneratorService(StringService stringService,
+                                ClassInfoService classInfoService,
+                                TestImportsGeneratorService testImportsGeneratorService,
+                                TestHelperObjectsGeneratorService testHelperObjectsGeneratorService) {
         this.stringService = stringService;
         this.classInfoService = classInfoService;
         this.testImportsGeneratorService = testImportsGeneratorService;
+        this.testHelperObjectsGeneratorService = testHelperObjectsGeneratorService;
     }
 
     public final String COMMENT_BEFORE_TEST =
@@ -75,7 +80,8 @@ public class TestGeneratorService {
         Map<String, String> attributes = new HashMap<>();
         attributes.put("testClassName", testGenerator.getShortClassName() + "Test");
         attributes.put("methodName", testGenerator.getMethodName());
-        attributes.put("requiredHelperObjects", getRequiredHelperObjects(testGenerator).stream()
+        attributes.put("requiredHelperObjects",
+                this.testHelperObjectsGeneratorService.getRequiredHelperObjects(testGenerator).stream()
                         .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
                         .collect(Collectors.joining("")));
 
@@ -205,48 +211,6 @@ public class TestGeneratorService {
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
-    }
-
-    private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {
-        List<String> result = new ArrayList<>();
-
-        List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
-        objectsToInit.add(testGenerator.targetObjectInfo);
-
-        result.addAll(objectsToInit.stream()
-                .flatMap(x -> getInitRequiredHelperObjects(x).stream())
-                .collect(Collectors.toList()));
-
-        result.addAll(getVisiblePropsRequiredHelperObjects(testGenerator.getExpectedResultObjectInfo()));
-
-        return result.stream().distinct().collect(Collectors.toList());
-    }
-
-    private List<String> getInitRequiredHelperObjects(ObjectInfo objectInfo) {
-        List<String> result = new ArrayList<>(objectInfo.getInitRequiredHelperObjects());
-        for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
-            result.addAll(getInitRequiredHelperObjects(initDependency));
-        }
-        return result;
-    }
-
-    private List<String> getVisiblePropsRequiredHelperObjects(ObjectInfo objectInfo) {
-        List<String> result = new ArrayList<>();
-        for (String key : objectInfo.getVisibleProperties().keySet()) {
-            VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
-            if (visibleProperty.getRequiredHelperObjects() != null) {
-                result.addAll(visibleProperty.getRequiredHelperObjects());
-            }
-            if (visibleProperty.getFinalDependencies() != null) {
-                for (ObjectInfo finalDependency : visibleProperty.getFinalDependencies()) {
-                    result.addAll(getInitRequiredHelperObjects(finalDependency));
-                }
-            }
-            if (visibleProperty.getFinalValue().getObjectInfo() != null) {
-                result.addAll(getVisiblePropsRequiredHelperObjects(visibleProperty.getFinalValue().getObjectInfo()));
-            }
-        }
-        return result;
     }
 
     public List<String> getObjectsInit(List<ObjectInfo> objectInfos) {
