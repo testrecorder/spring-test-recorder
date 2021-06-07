@@ -17,8 +17,6 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof HashMap<?, ?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
-            objectInfo.declareRequiredImports = Collections.singletonList("java.util.Map");
-            objectInfo.initRequiredImports = Collections.singletonList("java.util.HashMap");
 
             HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
 
@@ -34,22 +32,29 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .collect(Collectors.toList());
             List<Object> values = new ArrayList<>(hashMap.values());
 
-            List<ObjectInfo> keyGenerators = keys.stream()
+            List<ObjectInfo> keyElements = keys.stream()
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            List<ObjectInfo> valueGenerators = values.stream()
+            List<ObjectInfo> valueElements = values.stream()
                     .distinct()
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            List<ObjectInfo> allDependencies = new ArrayList<>(keyGenerators);
-            allDependencies.addAll(valueGenerators);
+            List<ObjectInfo> allDependencies = new ArrayList<>(keyElements);
+            allDependencies.addAll(valueElements);
+
+            objectInfo.declareRequiredImports = new ArrayList<>();
+            objectInfo.declareRequiredImports.add("java.util.Map");
+            objectInfo.declareRequiredImports.addAll(getElementsDeclareRequiredImports(keyElements));
+            objectInfo.declareRequiredImports.addAll(getElementsDeclareRequiredImports(valueElements));
+
+            objectInfo.initRequiredImports = Collections.singletonList("java.util.HashMap");
 
             objectInfo.initDependencies = allDependencies;
 
-            String keyClassName = getElementsComposedClassNameForDeclare(keyGenerators);
-            String valueClassName = getElementsComposedClassNameForDeclare(valueGenerators);
+            String keyClassName = getElementsComposedClassNameForDeclare(keyElements);
+            String valueClassName = getElementsComposedClassNameForDeclare(valueElements);
 
             String elementsInlineCode = keys.stream()
                     .map(key ->  new StringGenerator()

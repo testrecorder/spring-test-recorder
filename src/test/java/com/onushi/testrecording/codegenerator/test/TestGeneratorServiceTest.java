@@ -1039,8 +1039,8 @@ class TestGeneratorServiceTest {
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.Map;\n" +
-                        "import java.util.HashMap;\n" +
                         "import java.util.List;\n" +
+                        "import java.util.HashMap;\n" +
                         "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +

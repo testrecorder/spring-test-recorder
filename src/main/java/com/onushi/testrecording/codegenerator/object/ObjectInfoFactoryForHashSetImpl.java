@@ -32,8 +32,10 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
 
             objectInfo.initDependencies = elements;
 
-            objectInfo.declareRequiredImports = Collections.singletonList("java.util.Set");
+            objectInfo.declareRequiredImports = new ArrayList<>();
+            objectInfo.declareRequiredImports.add("java.util.Set");
             objectInfo.declareRequiredImports.addAll(getElementsDeclareRequiredImports(elements));
+
             objectInfo.initRequiredImports = Collections.singletonList("java.util.HashSet");
 
 
