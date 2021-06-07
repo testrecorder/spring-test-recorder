@@ -18,15 +18,18 @@ public class TestGeneratorService {
     private final ClassInfoService classInfoService;
     private final TestImportsGeneratorService testImportsGeneratorService;
     private final TestHelperObjectsGeneratorService testHelperObjectsGeneratorService;
+    private final TestObjectsInitGeneratorService testObjectsInitGeneratorService;
 
     public TestGeneratorService(StringService stringService,
                                 ClassInfoService classInfoService,
                                 TestImportsGeneratorService testImportsGeneratorService,
-                                TestHelperObjectsGeneratorService testHelperObjectsGeneratorService) {
+                                TestHelperObjectsGeneratorService testHelperObjectsGeneratorService,
+                                TestObjectsInitGeneratorService testObjectsInitGeneratorService) {
         this.stringService = stringService;
         this.classInfoService = classInfoService;
         this.testImportsGeneratorService = testImportsGeneratorService;
         this.testHelperObjectsGeneratorService = testHelperObjectsGeneratorService;
+        this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
     }
 
     public final String COMMENT_BEFORE_TEST =
@@ -87,7 +90,7 @@ public class TestGeneratorService {
 
         List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
         objectsToInit.add(testGenerator.targetObjectInfo);
-        attributes.put("objectsInit", getObjectsInit(objectsToInit).stream()
+        attributes.put("objectsInit", testObjectsInitGeneratorService.getObjectsInit(objectsToInit).stream()
                 .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
 
         attributes.put("targetObjectName", testGenerator.getTargetObjectInfo().getObjectName());
@@ -167,7 +170,7 @@ public class TestGeneratorService {
 
                 String objectsInit = "";
                 if (visibleProperty.getFinalDependencies() != null) {
-                    objectsInit = getObjectsInit(visibleProperty.getFinalDependencies()).stream()
+                    objectsInit = testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()).stream()
                             .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining(""));
                 }
                 if (visibleProperty.getFinalValue().getString() != null &&
@@ -211,29 +214,5 @@ public class TestGeneratorService {
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
-    }
-
-    public List<String> getObjectsInit(List<ObjectInfo> objectInfos) {
-        List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectInfo objectInfo : objectInfos) {
-            allObjectsInit.addAll(getObjectsInit(objectInfo));
-        }
-        return allObjectsInit;
-    }
-
-    public List<String> getObjectsInit(ObjectInfo objectInfo) {
-        if (objectInfo.isInitAdded()) {
-            // to avoid double init
-            return new ArrayList<>();
-        }
-        List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectInfo dependency : objectInfo.getInitDependencies()) {
-            allObjectsInit.addAll(getObjectsInit(dependency));
-        }
-        if (!objectInfo.getInitCode().equals("")) {
-            allObjectsInit.add(objectInfo.getInitCode());
-        }
-        objectInfo.setInitAdded(true);
-        return allObjectsInit;
     }
 }

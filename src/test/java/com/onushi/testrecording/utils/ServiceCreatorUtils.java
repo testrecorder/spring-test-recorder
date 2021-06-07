@@ -18,7 +18,8 @@ public class ServiceCreatorUtils {
         return new TestGeneratorService(new StringService(),
                 new ClassInfoService(),
                 new TestImportsGeneratorService(),
-                new TestHelperObjectsGeneratorService());
+                new TestHelperObjectsGeneratorService(),
+                new TestObjectsInitGeneratorService());
     }
 
     public static ObjectCreationAnalyzerService createObjectCreationAnalyzerService() {
