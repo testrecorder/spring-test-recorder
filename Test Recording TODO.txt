@@ -199,18 +199,37 @@ DONE ==========================
 			don't care about the objectState
 			don't care about calculating the name of getters for fields	
 
+	OK - assertTrue
+	
+	Ok - assertNull
+	
+	OK - implement assert and test for HashMap, HashSet
+	
+	OK - Implement dependencies for asserts
+	
+	OK - fix all warnings
 			
 TODO ==========================
-	Assert part
+	Split TestGeneratorService to subservices
+	
+	Is an interface a Class?
+	
+	Maybe I should get visibleProps in phase2 so that the variable names are not phased. Or I could assign names to objects only when adding them to the generated code
 
-		!!!! - handle assert for other known types
-			HashMap
-			HashSet
-			Class
+	Result could contain objects that were sent as parameters and not changed. These should not be asserted unless they change
+
+	How can I know if an object was changed from side effects? 
+		if equals use it
+		if 0bject1 != Object2 => changed
+		else Compare visibleProperties
+
+	Handle Class class 
+	Handle Calendar class
 		
-		sometimes I can use protected setters/properties/getters if the namespace is correct
-				
-			
+	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
+	
+	solve more TODOs
+
 
 	Check side effects on target, arguments, any dependencies
 		OK - Write a demo to understand the problem
@@ -223,15 +242,20 @@ TODO ==========================
 			
 		
 		every object should be tested before and after the call 
-
-	===============================
-
-	Handle Class class 
+		
+		Write tests for different cases of objects reuse, side effects etc
+		
+	Later
+		I could assign context info to generated lines of codes and add space to separate long inits or long asserts. Or simply check if something is longer than x lines and add a enter after
+		Later: There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
+		Later: Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
+		Later: use PropertySource to access protected fields/getters in some cases
+		Later: I could give significant var names from names of fields and getters
+		LATER: For collections I could read 5 props and then if there are more add a comment that a parameter can be set for more
+		Later: For read objects I could limit the depth to 3-4 to avoid stack overflow. Later param + comment
+		Later: Use visibleProperties as fallback for init, in comment
 
 	Rename project to TestRecorder
-
-	Objects creation
-		Calendar
 
 	Could both Annotations be for Class/Function?
 		
@@ -240,14 +264,8 @@ TODO ==========================
 		Add a parameter to specify the path for generation
 
 
-
 	Is there a problem with boxed vs unboxed types?
 		Ex: Float / float
-
-	I should refactor the TestGenerator / TestGeneratorFactory
-	Use @Getter(lazy=true) in TestGenerator/TestGeneratorFactory
-		@Getter(lazy=true) private final double[] cached = expensive();
-
 
 	Read again exception handling best practices
 		checking params 
@@ -264,7 +282,7 @@ TODO ==========================
 		
 	I should add logging for debugging as a param of the Annotation
 	
-	Demo for IonutP, Rares ...
+	Demo for IonutP, Rares
 	 
 	After the demo
 		Package and publish locally
@@ -277,12 +295,7 @@ TODO ==========================
 	Write tests for all the code that could break
 		check coverage again
 
-	JUnit FAQ
-		Use @BeforeEach
-		It's recommended to have one assert per test
-
 	Sa citesc de la rus cum sa pregatesc cod pt Git
-
 	
 LATER ==========================
 	Add the date in the in name of the test function to be able to run them in order
