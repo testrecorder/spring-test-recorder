@@ -420,6 +420,11 @@ class ObjectInfoTest {
                 "set1.add(\"2\");\n" +
                 "set1.add(\"3\");\n", objectInfo.getInitCode());
         assertEquals("Set<String>", objectInfo.getComposedClassNameForDeclare());
-        // TODO IB !!!! add test of visible props
+        assertEquals(5, objectInfo.visibleProperties.size());
+        assertEquals("4", objectInfo.visibleProperties.get(".size()").getFinalValue().getString());
+        assertEquals( "true", objectInfo.visibleProperties.get(".contains(null)").getFinalValue().getString());
+        assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"1\")").getFinalValue().getString());
+        assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"2\")").getFinalValue().getString());
+        assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"3\")").getFinalValue().getString());
     }
 }

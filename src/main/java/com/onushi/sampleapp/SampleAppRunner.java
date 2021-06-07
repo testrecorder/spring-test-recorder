@@ -105,6 +105,8 @@ public class SampleAppRunner implements CommandLineRunner {
         // demoAssert();
 
         //demoCyclic2();
+
+        demoPersonHashSet();
     }
 
     private void demo1() throws Exception {
@@ -174,5 +176,9 @@ public class SampleAppRunner implements CommandLineRunner {
 
     private void demoCyclic2() throws ParseException {
         sampleService.createCyclicObjects();
+    }
+
+    private void demoPersonHashSet() throws ParseException {
+        sampleService.createPersonHashSet();
     }
 }

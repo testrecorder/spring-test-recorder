@@ -161,22 +161,42 @@ public class TestGeneratorService {
             StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
                 VisibleProperty visibleProperty = entry.getValue();
+                PropertyValue finalValue = visibleProperty.getFinalValue();
+                String composedPath = assertPath + entry.getKey();
+
+                String objectsInit = "";
+                if (visibleProperty.getFinalDependencies() != null) {
+                    objectsInit = getObjectsInit(visibleProperty.getFinalDependencies()).stream()
+                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining(""));
+                }
                 if (visibleProperty.getFinalValue().getString() != null &&
                         visibleProperty.getFinalValue().getString().equals("null")) {
+                    // TODO IB !!!! write test for this
                     String assertString = new StringGenerator()
-                            .setTemplate("        assertNull({{assertPath}});\n")
-                            .addAttribute("assertPath", assertPath)
+                            .setTemplate("{{objectsInit}}" +
+                                    "        assertNull({{composedPath}});\n")
+                            .addAttribute("composedPath", composedPath)
+                            .addAttribute("objectsInit", objectsInit)
+                            .generate();
+                    stringBuilder.append(assertString);
+                } else if (visibleProperty.getFinalValue().getString() != null &&
+                        visibleProperty.getFinalValue().getString().equals("true")) {
+                    String assertString = new StringGenerator()
+                            .setTemplate("{{objectsInit}}" +
+                                    "        assertTrue({{composedPath}});\n")
+                            .addAttribute("objectsInit", objectsInit)
+                            .addAttribute("composedPath", composedPath)
                             .generate();
                     stringBuilder.append(assertString);
                 } else {
-                    PropertyValue finalValue = visibleProperty.getFinalValue();
-                    String composedPath = assertPath + entry.getKey();
                     if (finalValue.getObjectInfo() != null) {
                         String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);
                         stringBuilder.append(elementAssertCode);
                     } else if (visibleProperty.getFinalValue().getString() != null) {
                         String assertString = new StringGenerator()
-                                .setTemplate("        assertEquals({{expected}}, {{composedPath}});\n")
+                                .setTemplate("{{objectsInit}}" +
+                                        "        assertEquals({{expected}}, {{composedPath}});\n")
+                                .addAttribute("objectsInit", objectsInit)
                                 .addAttribute("expected", visibleProperty.getFinalValue().getString())
                                 .addAttribute("composedPath", composedPath)
                                 .generate();
@@ -231,6 +251,11 @@ public class TestGeneratorService {
             if (visibleProperty.getRequiredImports() != null) {
                 result.addAll(visibleProperty.getRequiredImports());
             }
+            if (visibleProperty.getFinalDependencies() != null) {
+                for (ObjectInfo finalDependency : visibleProperty.getFinalDependencies()) {
+                    result.addAll(getDeclareAndInitRequiredImports(finalDependency));
+                }
+            }
             if (visibleProperty.getFinalValue().getObjectInfo() != null) {
                 result.addAll(getVisiblePropsRequiredImports(visibleProperty.getFinalValue().getObjectInfo()));
             }
@@ -267,6 +292,11 @@ public class TestGeneratorService {
             VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
             if (visibleProperty.getRequiredHelperObjects() != null) {
                 result.addAll(visibleProperty.getRequiredHelperObjects());
+            }
+            if (visibleProperty.getFinalDependencies() != null) {
+                for (ObjectInfo finalDependency : visibleProperty.getFinalDependencies()) {
+                    result.addAll(getInitRequiredHelperObjects(finalDependency));
+                }
             }
             if (visibleProperty.getFinalValue().getObjectInfo() != null) {
                 result.addAll(getVisiblePropsRequiredHelperObjects(visibleProperty.getFinalValue().getObjectInfo()));

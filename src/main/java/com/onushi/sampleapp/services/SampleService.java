@@ -216,4 +216,28 @@ public class SampleService {
         cyclicParent.childList = Collections.singletonList(cyclicChild);
         return cyclicParent;
     }
+
+    @RecordTest
+    public Set<Person> createPersonHashSet() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
+        Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
+        Person marco = Person.builder()
+                .firstName("Marco")
+                .lastName("Polo")
+                .dateOfBirth(dateOfBirth1)
+                .build();
+
+        Person tom = Person.builder()
+                .firstName("Tom")
+                .lastName("Richardson")
+                .dateOfBirth(dateOfBirth2)
+                .build();
+
+        Set<Person> personSet = new HashSet<>();
+        personSet.add(marco);
+        personSet.add(tom);
+
+        return personSet;
+    }
 }

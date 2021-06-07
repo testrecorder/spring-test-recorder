@@ -38,7 +38,6 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
 
             objectInfo.initRequiredImports = Collections.singletonList("java.util.HashSet");
 
-
             String elementClassName = getElementsComposedClassNameForDeclare(objectInfo.initDependencies);
 
             String elementsInlineCode = elements.stream()
@@ -61,6 +60,21 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
+
+            objectInfo.addVisibleProperty(".size()", VisibleProperty.builder()
+                    .finalValue(PropertyValue.fromString(String.valueOf(elements.size())))
+                    .build());
+
+            for (ObjectInfo element : elements) {
+                String key = new StringGenerator()
+                        .setTemplate(".contains({{inline}})")
+                        .addAttribute("inline", element.getInlineCode())
+                        .generate();
+                objectInfo.addVisibleProperty(key, VisibleProperty.builder()
+                        .finalValue(PropertyValue.fromString("true"))
+                        .finalDependencies(Collections.singletonList(element))
+                        .build());
+            }
 
             return objectInfo;
         } else {

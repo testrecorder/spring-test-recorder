@@ -14,7 +14,7 @@ public class VisibleProperty {
     protected PropertyValue finalValue;
     // dependencies that not come from value, like the key of a map
     // protected List<ObjectInfo> initialDependencies = new ArrayList<>();
-    // protected List<ObjectInfo> finalDependencies;
+    protected List<ObjectInfo> finalDependencies;
     protected List<String> requiredImports;
     protected List<String> requiredHelperObjects;
 }

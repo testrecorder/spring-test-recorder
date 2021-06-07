@@ -2,29 +2,38 @@ package com.onushi.sampleapp.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import com.onushi.sampleapp.model.CyclicParent;
-import java.util.List;
-import java.util.Arrays;
-import com.onushi.sampleapp.model.CyclicChild;
+import java.util.Set;
+import com.onushi.sampleapp.model.Person;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 class SampleServiceTest {
-    //Test Generated on 2021-06-05 13:14:59.372 with @RecordTest
     //TODO rename the test to describe the use case
     //TODO refactor the generated code to make it easier to understand
     @Test
-    void processCyclicObjects() throws Exception {
+    void createPersonHashSet() throws Exception {
         // Arrange
-        CyclicChild cyclicChild1 = new CyclicChild();
-        List<CyclicChild> arrayList1 = Arrays.asList(cyclicChild1);
-        CyclicParent cyclicParent1 = new CyclicParent();
-        cyclicParent1.childList = arrayList1;
-        cyclicChild1.parent = cyclicParent1;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         SampleService sampleService = new SampleService();
 
         // Act
-        Integer result = sampleService.processCyclicObjects(cyclicParent1);
+        Set<Person> result = sampleService.createPersonHashSet();
 
         // Assert
-        assertEquals(42, result);
+        assertEquals(2, result.size());
+        Date date1 = simpleDateFormat.parse("1980-01-02 00:00:00.000");
+        Person person1 = Person.builder()
+                .dateOfBirth(date1)
+                .firstName("Marco")
+                .lastName("Polo")
+                .build();
+        assertTrue(result.contains(person1));
+        Date date2 = simpleDateFormat.parse("1970-02-03 00:00:00.000");
+        Person person2 = Person.builder()
+                .dateOfBirth(date2)
+                .firstName("Tom")
+                .lastName("Richardson")
+                .build();
+        assertTrue(result.contains(person2));
     }
 }
