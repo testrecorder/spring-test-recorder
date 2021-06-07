@@ -17,12 +17,9 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
         if (context.getObject() instanceof HashSet<?>) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
-            objectInfo.declareRequiredImports = Collections.singletonList("java.util.Set");
-            objectInfo.initRequiredImports = Collections.singletonList("java.util.HashSet");
-
             HashSet<Object> hashSet = (HashSet<Object>)context.getObject();
 
-            List<Object> objects = Arrays.stream(hashSet.toArray())
+            List<ObjectInfo> elements = Arrays.stream(hashSet.toArray())
                     .sorted(Comparator.comparing(k -> {
                         if (k == null) {
                             return "";
@@ -30,19 +27,23 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                             return k.toString();
                         }
                     }))
+                    .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
-            objectInfo.initDependencies = objects.stream()
-                    .map(element1 -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element1))
-                    .collect(Collectors.toList());
+            objectInfo.initDependencies = elements;
+
+            objectInfo.declareRequiredImports = Collections.singletonList("java.util.Set");
+            objectInfo.declareRequiredImports.addAll(getElementsDeclareRequiredImports(elements));
+            objectInfo.initRequiredImports = Collections.singletonList("java.util.HashSet");
+
 
             String elementClassName = getElementsComposedClassNameForDeclare(objectInfo.initDependencies);
 
-            String elementsInlineCode = objects.stream()
+            String elementsInlineCode = elements.stream()
                     .map(element ->  new StringGenerator()
                             .setTemplate("{{objectName}}.add({{element}});\n")
                             .addAttribute("objectName", context.getObjectName())
-                            .addAttribute("element", objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element).getInlineCode())
+                            .addAttribute("element", element.getInlineCode())
                             .generate())
                     .collect(Collectors.joining(""));
 
@@ -58,8 +59,6 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
-
-
 
             return objectInfo;
         } else {
