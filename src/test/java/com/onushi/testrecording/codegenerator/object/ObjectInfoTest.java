@@ -133,7 +133,7 @@ class ObjectInfoTest {
         assertEquals("java.util.UUID", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.getInitCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");",
+        assertEquals("UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\")",
                 objectInfo.visibleProperties.get("").getFinalValue().getString());
     }
 
@@ -149,7 +149,9 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
         assertEquals(1, objectInfo.getInitRequiredImports().size());
         assertNotEquals("", objectInfo.getInitCode());
-        // TODO IB !!!! add test of visible props
+        assertEquals(1, objectInfo.visibleProperties.size());
+        assertEquals("simpleDateFormat.parse(\"2021-01-01 00:00:00.000\")",
+                objectInfo.visibleProperties.get("").getFinalValue().getString());
     }
 
     @Test

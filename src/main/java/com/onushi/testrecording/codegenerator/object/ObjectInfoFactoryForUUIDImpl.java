@@ -19,7 +19,7 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
                     .generate();
 
             String value = new StringGenerator()
-                    .setTemplate("UUID.fromString(\"{{uuid}}\");")
+                    .setTemplate("UUID.fromString(\"{{uuid}}\")")
                     .addAttribute("uuid", context.getObject().toString())
                     .generate();
 
