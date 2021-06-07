@@ -106,8 +106,9 @@ public class SampleAppRunner implements CommandLineRunner {
 
         //demoCyclic2();
 
-        demoPersonHashSet();
+        demoPersonHashMap();
     }
+
 
     private void demo1() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -182,4 +183,9 @@ public class SampleAppRunner implements CommandLineRunner {
         Set<Person> personSet = sampleService.createPersonHashSet();
         sampleService.processPersonsSet(personSet);
     }
+
+    private void demoPersonHashMap() throws ParseException {
+        sampleService.createPersonHashMap();
+    }
+
 }

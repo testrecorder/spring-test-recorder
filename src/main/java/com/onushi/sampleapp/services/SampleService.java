@@ -240,8 +240,45 @@ public class SampleService {
         return personSet;
     }
 
-    @RecordTest
     public int processPersonsSet(Set<Person> persons) {
         return 42;
+    }
+
+    @RecordTest
+    public Map<Person, Person> createPersonHashMap() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth1 = simpleDateFormat.parse("1970-01-02");
+        Date dateOfBirth2 = simpleDateFormat.parse("1970-01-02");
+        Date dateOfBirth3 = simpleDateFormat.parse("1920-02-03");
+        Date dateOfBirth4 = simpleDateFormat.parse("1920-02-04");
+        Person marco = Person.builder()
+                .firstName("Marco")
+                .lastName("Polo")
+                .dateOfBirth(dateOfBirth1)
+                .build();
+
+        Person marcosFather = Person.builder()
+                .firstName("Marco'")
+                .lastName("Father")
+                .dateOfBirth(dateOfBirth3)
+                .build();
+
+        Person tom = Person.builder()
+                .firstName("Tom")
+                .lastName("Richardson")
+                .dateOfBirth(dateOfBirth2)
+                .build();
+
+        Person tomsFather = Person.builder()
+                .firstName("Tom's")
+                .lastName("Father")
+                .dateOfBirth(dateOfBirth4)
+                .build();
+
+        Map<Person, Person> personMap = new HashMap<>();
+        personMap.put(marco, marcosFather);
+        personMap.put(tom, tomsFather);
+
+        return personMap;
     }
 }
