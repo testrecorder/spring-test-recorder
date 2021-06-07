@@ -58,7 +58,7 @@ public class TestGeneratorService {
                 COMMENT_BEFORE_TEST +
                 "    @Test\n" +
                 "    void {{methodName}}() throws Exception {\n" +
-                        getArrangeCode(testGenerator, attributes) +
+                        getArrangeCode(attributes) +
                         getActCode(testGenerator, attributes) +
                         getAssertCode(testGenerator) +
                 "    }\n" +
@@ -102,7 +102,7 @@ public class TestGeneratorService {
         return attributes;
     }
 
-    private String getArrangeCode(TestGenerator testGenerator, Map<String, String> attributes) {
+    private String getArrangeCode(Map<String, String> attributes) {
         return new StringGenerator()
             .addAttributes(attributes)
             .setTemplate(

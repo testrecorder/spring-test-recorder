@@ -23,9 +23,8 @@ public class ObjectInfo {
         return this;
     }
 
-    public ObjectInfo setInitAdded(boolean initAdded) {
+    public void setInitAdded(boolean initAdded) {
         this.initAdded = initAdded;
-        return this;
     }
 
     protected ObjectInfo(Object object, String objectName, String inlineCode) {

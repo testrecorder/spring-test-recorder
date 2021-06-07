@@ -11,9 +11,8 @@ public class DependencyMethodRunInfoBuilder {
     private Exception exception;
     protected long threadId;
 
-    public DependencyMethodRunInfoBuilder setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
+    public void setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
         this.methodInvocation = methodInvocation;
-        return this;
     }
 
     public DependencyMethodRunInfoBuilder setResult(Object result) {

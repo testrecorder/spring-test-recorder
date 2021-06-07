@@ -22,11 +22,11 @@ public class RecordMockForTestAspect {
         this.recordingContext = recordingContext;
     }
 
-    @SuppressWarnings("EmptyMethod")
+    @SuppressWarnings({"EmptyMethod", "unused"})
     @Pointcut("within(@com.onushi.testrecording.aspect.RecordMockForTest *)")
     public void beanAnnotatedWithMonitor() {}
 
-    @SuppressWarnings("EmptyMethod")
+    @SuppressWarnings({"EmptyMethod", "unused"})
     @Pointcut("execution(public * *(..))")
     public void publicMethod() {}
 

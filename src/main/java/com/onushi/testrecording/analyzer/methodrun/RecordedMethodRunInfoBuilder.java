@@ -15,9 +15,8 @@ public class RecordedMethodRunInfoBuilder {
     private final List<DependencyMethodRunInfo> dependencyMethodRuns = Collections.synchronizedList(new ArrayList<>());
     private long threadId;
 
-    public RecordedMethodRunInfoBuilder setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
+    public void setMethodInvocation(MethodInvocationProceedingJoinPoint methodInvocation) {
         this.methodInvocation = methodInvocation;
-        return this;
     }
 
     public RecordedMethodRunInfoBuilder setResult(Object result) {
