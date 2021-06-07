@@ -34,7 +34,6 @@ class ObjectInfoTest {
     void testNull() {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator,null, "test");
         assertEquals("null", objectInfo.getInlineCode());
-        // TODO IB add to all cases
         assertEquals(1, objectInfo.visibleProperties.size());
         assertEquals("null", objectInfo.visibleProperties.get("").getFinalValue().getString());
     }
