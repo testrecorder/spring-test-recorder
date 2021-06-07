@@ -199,6 +199,7 @@ DONE ==========================
 			don't care about the objectState
 			don't care about calculating the name of getters for fields	
 
+	------
 	OK - assertTrue
 	
 	OK - assertNull
@@ -213,15 +214,18 @@ DONE ==========================
 
 	OK - Split TestGeneratorService to subservices
 
+	------
 			
 TODO ==========================
+	Exceptions thrown are not added to includes
+		in mocks
+		in test
+
+
 	!!!! Bug. If I modify the params, the test will have them already modified
 		I should get the values of params + target before the function is run
 		I should get the values again after the function call to be able to assert
 
-	Exceptions thrown are not added to includes
-		in mocks
-		in test
 
 	Handle more classes
 		Class class 
