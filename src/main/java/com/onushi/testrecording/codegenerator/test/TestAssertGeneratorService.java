@@ -62,21 +62,22 @@ public class TestAssertGeneratorService {
                 } else {
                     if (finalValue.getObjectInfo() != null) {
                         stringBuilder.append(objectsInit);
-                        String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);
-                        stringBuilder.append(elementAssertCode);
+                        stringBuilder.append(getAssertCode(finalValue.getObjectInfo(), composedPath));
                     } else if (finalValue.getString() != null) {
                         stringBuilder.append(getAssertEqualsForString(visibleProperty, composedPath, objectsInit));
                     }
                 }
             }
         }
-        // TODO IB !!!! finish here
-//            String result = stringBuilder.toString();
-//            if (countLines(result) >= 3) {
-//            } else {
-//                return result;
-//            }
-        return stringBuilder.toString();
+        // TODO IB !!!! add enter before and after any block that is bigger than 3 lines. also inside for
+        // TODO IB !!!! finally remove double enters from assert and enters from start and from end
+        // TODO IB !!!! create functions for this and add them to StringService
+//        String result = stringBuilder.toString();
+//        if (countLines(result) >= 3) {
+//            return "\n" + stringBuilder.toString() + "\n";
+//        } else {
+            return stringBuilder.toString();
+//        }
     }
 
     private String getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {
