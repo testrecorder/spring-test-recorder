@@ -3,7 +3,7 @@ package com.onushi.testrecording.codegenerator.object;
 import com.onushi.testrecording.codegenerator.template.StringService;
 
 public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
-    private StringService stringService;
+    private final StringService stringService;
 
     public ObjectInfoFactoryForPrimitiveImpl(StringService stringService) {
         this.stringService = stringService;
