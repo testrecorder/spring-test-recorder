@@ -9,7 +9,7 @@ import java.util.Arrays;
 @Service
 public class CglibService {
 
-    public Object getUnproxiedObject(Object object) throws Exception {
+    public Object getProxyTargetObject(Object object) throws Exception {
         if (object == null) {
             return null;
         }

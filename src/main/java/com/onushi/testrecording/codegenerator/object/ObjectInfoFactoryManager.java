@@ -99,13 +99,14 @@ public class ObjectInfoFactoryManager {
         }
 
         try {
-            unproxyObject(context);
+            removeProxy(context);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ObjectInfoFactoryForNotRedFields().createObjectInfo(context);
         }
 
-        // after we tried knownClassesFactoriesList and we unproxy we getObjectState to try creating in a generic way
+        // after we tried knownClassesFactoriesList and we removed the proxy
+        // getObjectState to try creating in a generic way
         context.setObjectState(objectStateReaderService.getObjectState(context.getObject()));
         boolean allFieldsAreRead = context.getObjectState().values().stream()
                 .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);
@@ -124,8 +125,8 @@ public class ObjectInfoFactoryManager {
                 .createObjectInfo(context);
     }
 
-    private void unproxyObject(ObjectInfoCreationContext context) throws Exception {
-        context.setObject(cglibService.getUnproxiedObject(context.getObject()));
+    private void removeProxy(ObjectInfoCreationContext context) throws Exception {
+        context.setObject(cglibService.getProxyTargetObject(context.getObject()));
         int $$index = context.getObjectName().indexOf("$$");
         if ($$index != -1) {
             context.setObjectName(context.getObjectName().substring(0, $$index));
