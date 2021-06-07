@@ -32,22 +32,18 @@ public class TestAssertGeneratorService {
             return "";
         } else {
             return "        // Assert\n" +
-                    getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result");
+                getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result");
         }
     }
 
     private String getAssertCode(ObjectInfo objectInfo, String assertPath) {
+        StringBuilder stringBuilder = new StringBuilder();
         if (objectInfo.getObject() != null &&
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
                 !objectInfo.isInlineOnly() &&
                 objectInfo.isInitAdded()) {
-            return new StringGenerator()
-                    .setTemplate("        assertEquals({{objectInfoName}}, {{assertPath}});\n")
-                    .addAttribute("objectInfoName", objectInfo.getObjectName())
-                    .addAttribute("assertPath", assertPath)
-                    .generate();
+            stringBuilder.append(getAssertEqualsForObject(objectInfo, assertPath));
         } else {
-            StringBuilder stringBuilder = new StringBuilder();
             for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
                 VisibleProperty visibleProperty = entry.getValue();
                 PropertyValue finalValue = visibleProperty.getFinalValue();
@@ -73,8 +69,23 @@ public class TestAssertGeneratorService {
                     }
                 }
             }
-            return stringBuilder.toString();
         }
+        // TODO IB !!!! finish here
+//            String result = stringBuilder.toString();
+//            if (countLines(result) >= 3) {
+//            } else {
+//                return result;
+//            }
+        return stringBuilder.toString();
+    }
+
+    private String getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {
+        String getAssertEqualsForObject = new StringGenerator()
+                .setTemplate("        assertEquals({{objectInfoName}}, {{assertPath}});\n")
+                .addAttribute("objectInfoName", objectInfo.getObjectName())
+                .addAttribute("assertPath", assertPath)
+                .generate();
+        return getAssertEqualsForObject;
     }
 
     private String getAssertNull(String composedPath, String objectsInit) {
@@ -103,5 +114,10 @@ public class TestAssertGeneratorService {
                 .addAttribute("expected", visibleProperty.getFinalValue().getString())
                 .addAttribute("composedPath", composedPath)
                 .generate();
+    }
+
+    // TODO IB !!!! move somewhere else
+    private static int countLines(String str){
+        return str.split("\r\n|\r|\n").length;
     }
 }
