@@ -15,17 +15,23 @@ public class TestGeneratorService {
     private final TestImportsGeneratorService testImportsGeneratorService;
     private final TestHelperObjectsGeneratorService testHelperObjectsGeneratorService;
     private final TestObjectsInitGeneratorService testObjectsInitGeneratorService;
+    private final TestArrangeGeneratorService testArrangeGeneratorService;
+    private final TestActGeneratorService testActGeneratorService;
     private final TestAssertGeneratorService testAssertGeneratorService;
 
     public TestGeneratorService(StringService stringService,
                                 TestImportsGeneratorService testImportsGeneratorService,
                                 TestHelperObjectsGeneratorService testHelperObjectsGeneratorService,
                                 TestObjectsInitGeneratorService testObjectsInitGeneratorService,
+                                TestArrangeGeneratorService testArrangeGeneratorService,
+                                TestActGeneratorService testActGeneratorService,
                                 TestAssertGeneratorService testAssertGeneratorService) {
         this.stringService = stringService;
         this.testImportsGeneratorService = testImportsGeneratorService;
         this.testHelperObjectsGeneratorService = testHelperObjectsGeneratorService;
         this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
+        this.testArrangeGeneratorService = testArrangeGeneratorService;
+        this.testActGeneratorService = testActGeneratorService;
         this.testAssertGeneratorService = testAssertGeneratorService;
     }
 
@@ -59,8 +65,8 @@ public class TestGeneratorService {
                 COMMENT_BEFORE_TEST +
                 "    @Test\n" +
                 "    void {{methodName}}() throws Exception {\n" +
-                        getArrangeCode(attributes) +
-                        getActCode(testGenerator, attributes) +
+                        testArrangeGeneratorService.getArrangeCode(attributes) +
+                        testActGeneratorService.getActCode(testGenerator, attributes) +
                         testAssertGeneratorService.getAssertCode(testGenerator) +
                 "    }\n" +
                 "}\n");
@@ -102,39 +108,6 @@ public class TestGeneratorService {
             attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
         }
         return attributes;
-    }
-
-    private String getArrangeCode(Map<String, String> attributes) {
-        return new StringGenerator()
-            .addAttributes(attributes)
-            .setTemplate(
-                "        // Arrange\n" +
-                        "{{requiredHelperObjects}}" +
-                        "{{objectsInit}}\n"
-            ).generate();
-    }
-
-    private String getActCode(TestGenerator testGenerator, Map<String, String> attributes) {
-        StringGenerator stringGenerator = new StringGenerator();
-        stringGenerator.addAttributes(attributes);
-        if (testGenerator.getExpectedException() == null) {
-            if (testGenerator.getResultDeclareClassName().equals("void")) {
-                stringGenerator.setTemplate(
-                    "        // Act\n" +
-                    "        {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
-            } else {
-                stringGenerator.setTemplate(
-                    "        // Act\n" +
-                    "        {{resultDeclareClassName}} result = {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}});\n\n");
-            }
-        } else {
-            stringGenerator.setTemplate(
-                "        // Act & Assert\n" +
-                "        assertThrows({{expectedExceptionClassName}}.class, () -> {{targetObjectName}}.{{methodName}}({{argumentsInlineCode}}));\n");
-
-        }
-
-        return stringGenerator.generate();
     }
 
     private String getEndMarkerString() {

@@ -19,6 +19,8 @@ public class ServiceCreatorUtils {
                 new TestImportsGeneratorService(),
                 new TestHelperObjectsGeneratorService(),
                 new TestObjectsInitGeneratorService(),
+                new TestArrangeGeneratorService(),
+                new TestActGeneratorService(),
                 new TestAssertGeneratorService(new StringService(),
                         new ClassInfoService(),
                         new TestObjectsInitGeneratorService()));
