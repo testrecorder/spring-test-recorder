@@ -208,9 +208,11 @@ DONE ==========================
 	OK - Implement dependencies for asserts
 	
 	OK - fix all warnings
+
+	OK - What happens when the target method returns an interface?
+
 			
 TODO ==========================
-	What happens when the target method returns an interface?
 
 	Split TestGeneratorService to subservices
 
@@ -237,7 +239,7 @@ TODO ==========================
 		OK - Write a demo to understand the problem
 
 		How can I know if an object was changed from side effects? 
-			add equals to SintringOrObjectInfo
+			add equals to StringOrObjectInfo
 			if initial
 			else Compare visibleProperties
 

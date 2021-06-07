@@ -16,10 +16,12 @@ import java.util.stream.Collectors;
 public class TestGeneratorService {
     private final StringService stringService;
     private final ClassInfoService classInfoService;
+    private final TestImportsGeneratorService testImportsGeneratorService;
 
-    public TestGeneratorService(StringService stringService, ClassInfoService classInfoService) {
+    public TestGeneratorService(StringService stringService, ClassInfoService classInfoService, TestImportsGeneratorService testImportsGeneratorService) {
         this.stringService = stringService;
         this.classInfoService = classInfoService;
+        this.testImportsGeneratorService = testImportsGeneratorService;
     }
 
     public final String COMMENT_BEFORE_TEST =
@@ -29,7 +31,7 @@ public class TestGeneratorService {
     public String generateTestCode(TestGenerator testGenerator) {
         return getBeginMarkerString() +
                 getPackageString(testGenerator) +
-                getImportsString(testGenerator) +
+                this.testImportsGeneratorService.getImportsString(testGenerator) +
                 "\n" +
                 getClassAndTestString(testGenerator) +
                 getEndMarkerString();
@@ -41,12 +43,6 @@ public class TestGeneratorService {
 
     private String getPackageString(TestGenerator testGenerator) {
         return String.format("package %s;%n%n", testGenerator.getPackageName());
-    }
-
-    private String getImportsString(TestGenerator testGenerator) {
-        return getRequiredImports(testGenerator).stream()
-                .map(x -> String.format("import %s;%n", x))
-                .collect(Collectors.joining(""));
     }
 
     private String getClassAndTestString(TestGenerator testGenerator) {
@@ -209,57 +205,6 @@ public class TestGeneratorService {
 
     private String getEndMarkerString() {
         return String.format("%nEND GENERATED TEST =========%n%n");
-    }
-
-    private List<String> getRequiredImports(TestGenerator testGenerator) {
-        List<String> result = new ArrayList<>();
-        result.add("org.junit.jupiter.api.Test");
-        result.add("static org.junit.jupiter.api.Assertions.*");
-
-        List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
-        objectsToInit.add(testGenerator.targetObjectInfo);
-
-        result.addAll(objectsToInit.stream()
-                .flatMap(x -> getDeclareAndInitRequiredImports(x).stream())
-                .collect(Collectors.toList()));
-
-        result.addAll(testGenerator.getExpectedResultObjectInfo().getDeclareRequiredImports());
-
-        result.addAll(getVisiblePropsRequiredImports(testGenerator.getExpectedResultObjectInfo()));
-
-        result = result.stream()
-                .distinct()
-                .filter(x -> !x.startsWith(testGenerator.getPackageName() + "."))
-                .collect(Collectors.toList());
-        return result;
-    }
-
-    private List<String> getDeclareAndInitRequiredImports(ObjectInfo objectInfo) {
-        List<String> result = new ArrayList<>(objectInfo.getDeclareRequiredImports());
-        result.addAll(objectInfo.getInitRequiredImports());
-        for (ObjectInfo initDependency : objectInfo.getInitDependencies()) {
-            result.addAll(getDeclareAndInitRequiredImports(initDependency));
-        }
-        return result;
-    }
-
-    private List<String> getVisiblePropsRequiredImports(ObjectInfo objectInfo) {
-        List<String> result = new ArrayList<>();
-        for (String key : objectInfo.getVisibleProperties().keySet()) {
-            VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
-            if (visibleProperty.getRequiredImports() != null) {
-                result.addAll(visibleProperty.getRequiredImports());
-            }
-            if (visibleProperty.getFinalDependencies() != null) {
-                for (ObjectInfo finalDependency : visibleProperty.getFinalDependencies()) {
-                    result.addAll(getDeclareAndInitRequiredImports(finalDependency));
-                }
-            }
-            if (visibleProperty.getFinalValue().getObjectInfo() != null) {
-                result.addAll(getVisiblePropsRequiredImports(visibleProperty.getFinalValue().getObjectInfo()));
-            }
-        }
-        return result;
     }
 
     private List<String> getRequiredHelperObjects(TestGenerator testGenerator) {

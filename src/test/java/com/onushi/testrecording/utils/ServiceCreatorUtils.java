@@ -9,6 +9,7 @@ import com.onushi.testrecording.codegenerator.template.StringService;
 import com.onushi.testrecording.codegenerator.test.ObjectNameGenerator;
 import com.onushi.testrecording.codegenerator.test.TestGeneratorFactory;
 import com.onushi.testrecording.codegenerator.test.TestGeneratorService;
+import com.onushi.testrecording.codegenerator.test.TestImportsGeneratorService;
 
 
 public class ServiceCreatorUtils {
@@ -17,7 +18,7 @@ public class ServiceCreatorUtils {
     }
 
     public static TestGeneratorService createTestGeneratorService() {
-        return new TestGeneratorService(new StringService(), new ClassInfoService());
+        return new TestGeneratorService(new StringService(), new ClassInfoService(), new TestImportsGeneratorService());
     }
 
     public static ObjectCreationAnalyzerService createObjectCreationAnalyzerService() {
