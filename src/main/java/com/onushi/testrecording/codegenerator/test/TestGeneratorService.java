@@ -190,6 +190,7 @@ public class TestGeneratorService {
                     stringBuilder.append(assertString);
                 } else {
                     if (finalValue.getObjectInfo() != null) {
+                        stringBuilder.append(objectsInit);
                         String elementAssertCode = getAssertCode(finalValue.getObjectInfo(), composedPath);
                         stringBuilder.append(elementAssertCode);
                     } else if (visibleProperty.getFinalValue().getString() != null) {

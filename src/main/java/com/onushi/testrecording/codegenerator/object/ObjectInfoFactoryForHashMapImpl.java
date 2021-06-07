@@ -79,7 +79,21 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
+            objectInfo.addVisibleProperty(".size()", VisibleProperty.builder()
+                    .finalValue(PropertyValue.fromString(String.valueOf(keyElements.size())))
+                    .build());
 
+            for (ObjectInfo element : keyElements) {
+                String key = new StringGenerator()
+                        .setTemplate(".get({{inline}})")
+                        .addAttribute("inline", element.getInlineCode())
+                        .generate();
+                ObjectInfo valueElement = objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), hashMap.get(element.getObject()));
+                objectInfo.addVisibleProperty(key, VisibleProperty.builder()
+                        .finalValue(PropertyValue.fromObjectInfo(valueElement))
+                        .finalDependencies(Collections.singletonList(element))
+                        .build());
+            }
 
             return objectInfo;
         } else {
