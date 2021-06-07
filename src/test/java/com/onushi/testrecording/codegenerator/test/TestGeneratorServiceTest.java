@@ -1146,7 +1146,7 @@ class TestGeneratorServiceTest {
                 .target(new SampleService())
                 .methodName("createListOfPersonList")
                 .arguments(Collections.emptyList())
-                .result(Collections.singletonList(personList))
+                .result(Arrays.asList(personList, null))
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -1178,7 +1178,7 @@ class TestGeneratorServiceTest {
                         "        List<List<Person>> result = sampleService.createListOfPersonList();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(1, result.size());\n" +
+                        "        assertEquals(2, result.size());\n" +
                         "        assertEquals(2, result.get(0).size());\n" +
                         "        assertEquals(simpleDateFormat.parse(\"1980-01-02 00:00:00.000\"), result.get(0).get(0).getDateOfBirth());\n" +
                         "        assertEquals(\"Paul\", result.get(0).get(0).getFirstName());\n" +
@@ -1186,6 +1186,7 @@ class TestGeneratorServiceTest {
                         "        assertEquals(simpleDateFormat.parse(\"1970-02-03 00:00:00.000\"), result.get(0).get(1).getDateOfBirth());\n" +
                         "        assertEquals(\"Tom\", result.get(0).get(1).getFirstName());\n" +
                         "        assertEquals(\"Richardson\", result.get(0).get(1).getLastName());\n" +
+                        "        assertNull(result.get(1));\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

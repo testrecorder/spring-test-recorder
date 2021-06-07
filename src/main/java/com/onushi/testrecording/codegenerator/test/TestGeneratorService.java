@@ -171,7 +171,6 @@ public class TestGeneratorService {
                 }
                 if (visibleProperty.getFinalValue().getString() != null &&
                         visibleProperty.getFinalValue().getString().equals("null")) {
-                    // TODO IB !!!! write test for this
                     String assertString = new StringGenerator()
                             .setTemplate("{{objectsInit}}" +
                                     "        assertNull({{composedPath}});\n")

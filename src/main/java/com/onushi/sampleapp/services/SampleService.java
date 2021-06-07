@@ -190,7 +190,7 @@ public class SampleService {
                 .build();
 
         List<Person> personList = Arrays.asList(paul, tom);
-        return Collections.singletonList(personList);
+        return Arrays.asList(personList, null);
     }
 
     public List<Integer> createList() {
