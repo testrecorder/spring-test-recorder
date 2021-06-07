@@ -201,7 +201,7 @@ DONE ==========================
 
 	OK - assertTrue
 	
-	Ok - assertNull
+	OK - assertNull
 	
 	OK - implement assert and test for HashMap, HashSet
 	
@@ -210,54 +210,51 @@ DONE ==========================
 	OK - fix all warnings
 			
 TODO ==========================
+	What happens when the target method returns an interface?
+
 	Split TestGeneratorService to subservices
-	
-	Is an interface a Class?
-	
-	Maybe I should get visibleProps in phase2 so that the variable names are not phased. Or I could assign names to objects only when adding them to the generated code
 
-	Result could contain objects that were sent as parameters and not changed. These should not be asserted unless they change
+	!!!! Bug. If I modify the params, the test will have them already modified
+		I should get the values of params + target before the function is run
+		I should get the values again after the function call to be able to assert
 
-	How can I know if an object was changed from side effects? 
-		if equals use it
-		if 0bject1 != Object2 => changed
-		else Compare visibleProperties
+	Exceptions thrown are not added to includes
+		in mocks
+		in test
 
-	Handle Class class 
-	Handle Calendar class
-		
+	Handle more classes
+		Class class 
+		Calendar class
+		All List<> from java.utils
+		All Set<> from java.utils
+		All HashMap<> from java.utils
+
 	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
 	
 	solve more TODOs
 
-
 	Check side effects on target, arguments, any dependencies
 		OK - Write a demo to understand the problem
 
+		How can I know if an object was changed from side effects? 
+			add equals to SintringOrObjectInfo
+			if initial
+			else Compare visibleProperties
+
+		Result could contain objects that were sent as parameters and not changed. These should not be asserted unless they change
+
 		create assertEquals() for all the changed values
 
-		!!!! Bug. If I modify the params, the test will have them already modified
-			I should get the values of params + target before the function is run
-			I should get the values again after the function call to be able to assert
-			
-		
-		every object should be tested before and after the call 
+		VisibleProps should be computed for every object before and after the call 
 		
 		Write tests for different cases of objects reuse, side effects etc
 		
-	Later
-		I could assign context info to generated lines of codes and add space to separate long inits or long asserts. Or simply check if something is longer than x lines and add a enter after
-		Later: There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
-		Later: Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
-		Later: use PropertySource to access protected fields/getters in some cases
-		Later: I could give significant var names from names of fields and getters
-		LATER: For collections I could read 5 props and then if there are more add a comment that a parameter can be set for more
-		Later: For read objects I could limit the depth to 3-4 to avoid stack overflow. Later param + comment
-		Later: Use visibleProperties as fallback for init, in comment
 
-	Rename project to TestRecorder
+	Sometimes variable names are phased: list1, list4, list5
+		I could assign names to objects only when adding them to the generated code
 
-	Could both Annotations be for Class/Function?
+
+	Maybe I should use both Annotations be for Class/Function?
 		
 	I should generate the code on disk. 
 		If not possible, write to console
@@ -274,12 +271,6 @@ TODO ==========================
 	
 	Test what happens when you call a void returning method and want to mock it?
 
-
-	Exceptions thrown are not added to includes
-		in mocks
-		in test
-	
-		
 	I should add logging for debugging as a param of the Annotation
 	
 	Demo for IonutP, Rares
@@ -290,7 +281,7 @@ TODO ==========================
 	Test in a real project
 		See what problems appear
 
-	Move all the test classes within the testrecording package
+	Move all the test classes within the testrecording package? Why?
 	
 	Write tests for all the code that could break
 		check coverage again
@@ -298,13 +289,28 @@ TODO ==========================
 	Sa citesc de la rus cum sa pregatesc cod pt Git
 	
 LATER ==========================
+	Rename project to TestRecorder
+
+	I could assign context info to generated lines of codes and add space to separate long inits or long asserts. Or simply check if something is longer than x lines and add a enter after
+	
+	There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
+	
+	Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
+	
+	use PropertySource to access protected fields/getters in some cases
+	
+	I could give significant var names from names of fields and getters
+	
+	For collections I could read 5 props and then if there are more add a comment that a parameter can be set for more
+	
+	For read objects I could limit the depth to 3-4 to avoid stack overflow. Later param + comment
+	
+	Use visibleProperties as fallback for init, in comment
+
 	Add the date in the in name of the test function to be able to run them in order
 		make it a parameter
 
-
 	I could have a fallback with serializable
-
-	when expectedResult is one of the inited objects it's not reused
 
 	if you have a Component with multiple instances called from the RecordTest method, mocks will be duplicated
 	
@@ -324,30 +330,18 @@ LATER ==========================
 	
 	see what happens with the fields static
 
-	test cyclic dependencies after I have other ways of object creation
-		I tried with Lombok, but Lombok could not handle it
-
 	Use JavaPoet to generate java code instead of my library
 
 	if needed object initialisation code could be learned from github	
 	
 	Handle Generics
 
-	there will be a case when the dependencies are circular
-
-	create non-components with factory
-	
-	
 	arrays of arrays
 	
 	global variables changed - but this is not ok
 	
 	static fields are not handled yet
 	
-	Daca mut calculul cazului si al dependințelor intr-un pas pregatitor, nu mai am ciclic dep.
-	Pot sa fol object creation context
-	
-	Mai am undeva cyclic dep intre componente?
 	
 	
 	
