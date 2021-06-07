@@ -1,10 +1,10 @@
 package com.onushi.testrecording.analyzer.classinfo;
 
-import com.onushi.sampleapp.model.Person;
-import com.onushi.sampleapp.model.Student;
-import com.onushi.sampleapp.model.StudentWithBuilder;
-import com.onushi.sampleapp.model.StudentWithPublicFields;
-import com.onushi.sampleapp.services.PersonRepositoryImpl;
+import com.onushi.sample.model.Person;
+import com.onushi.sample.model.Student;
+import com.onushi.sample.model.StudentWithBuilder;
+import com.onushi.sample.model.StudentWithPublicFields;
+import com.onushi.sample.services.PersonRepositoryImpl;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
 

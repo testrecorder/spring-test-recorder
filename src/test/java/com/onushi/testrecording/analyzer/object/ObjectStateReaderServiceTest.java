@@ -1,7 +1,7 @@
 package com.onushi.testrecording.analyzer.object;
 
-import com.onushi.sampleapp.model.StudentWithPrivateFields;
-import com.onushi.sampleapp.model.StudentWithPublicFields;
+import com.onushi.sample.model.StudentWithPrivateFields;
+import com.onushi.sample.model.StudentWithPublicFields;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

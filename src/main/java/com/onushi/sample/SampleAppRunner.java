@@ -1,9 +1,9 @@
-package com.onushi.sampleapp;
+package com.onushi.sample;
 
-import com.onushi.sampleapp.model.*;
-import com.onushi.sampleapp.services.PersonService;
-import com.onushi.sampleapp.services.SalaryService;
-import com.onushi.sampleapp.services.SampleService;
+import com.onushi.sample.model.*;
+import com.onushi.sample.services.PersonService;
+import com.onushi.sample.services.SalaryService;
+import com.onushi.sample.services.SampleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

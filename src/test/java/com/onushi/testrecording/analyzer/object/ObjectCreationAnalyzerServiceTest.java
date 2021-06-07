@@ -1,8 +1,8 @@
 package com.onushi.testrecording.analyzer.object;
 
-import com.onushi.sampleapp.model.*;
-import com.onushi.sampleapp.services.PersonRepositoryImpl;
-import com.onushi.sampleapp.services.PersonService;
+import com.onushi.sample.model.*;
+import com.onushi.sample.services.PersonRepositoryImpl;
+import com.onushi.sample.services.PersonService;
 import com.onushi.testrecording.analyzer.classInfo.MatchingConstructor;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.Test;

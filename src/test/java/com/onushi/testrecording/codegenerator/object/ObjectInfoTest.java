@@ -1,8 +1,8 @@
 package com.onushi.testrecording.codegenerator.object;
 
-import com.onushi.sampleapp.model.*;
-import com.onushi.sampleapp.services.PersonRepositoryImpl;
-import com.onushi.sampleapp.services.PersonService;
+import com.onushi.sample.model.*;
+import com.onushi.sample.services.PersonRepositoryImpl;
+import com.onushi.sample.services.PersonService;
 import com.onushi.testrecording.analyzer.object.FieldValue;
 import com.onushi.testrecording.analyzer.object.FieldValueStatus;
 import com.onushi.testrecording.analyzer.object.ObjectStateReaderService;
@@ -119,7 +119,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, Color.BLUE, "test");
         assertEquals("Color.BLUE", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.Color", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.Color", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(1, objectInfo.visibleProperties.size());
         assertEquals("Color.BLUE", objectInfo.visibleProperties.get("").getFinalValue().getString());
     }
@@ -204,7 +204,7 @@ class ObjectInfoTest {
         ObjectInfoFactoryForNotRedFields objectInfoFactoryForNotRedFields = new ObjectInfoFactoryForNotRedFields();
         ObjectInfo objectInfo = objectInfoFactoryForNotRedFields.createObjectInfo(context);
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.StudentWithBuilder", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals("// TODO Create this object\n" +
                 "// StudentWithBuilder student1 = new StudentWithBuilder();", objectInfo.getInitCode());
@@ -217,7 +217,7 @@ class ObjectInfoTest {
 
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, person, "person1");
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.Person", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.Person", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals("Person person1 = new Person();", objectInfo.getInitCode());
         assertEquals("person1", objectInfo.getInlineCode());
@@ -239,7 +239,7 @@ class ObjectInfoTest {
 
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, student, "student1");
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.StudentWithPublicFields", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(3, objectInfo.getInitDependencies().size());
         assertEquals("// TODO Check order of arguments\n" +
@@ -253,7 +253,7 @@ class ObjectInfoTest {
 
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, personService, "person1");
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.services.PersonService", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.services.PersonService", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(1, objectInfo.getInitDependencies().size());
         assertEquals("PersonService person1 = new PersonService(personRepositoryImpl1);", objectInfo.getInitCode());
@@ -269,7 +269,7 @@ class ObjectInfoTest {
 
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, student, "student1");
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.StudentWithPublicFields2", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.StudentWithPublicFields2", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(3, objectInfo.getInitDependencies().size());
         assertEquals("StudentWithPublicFields2 student1 = new StudentWithPublicFields2();\n" +
@@ -296,7 +296,7 @@ class ObjectInfoTest {
 
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, studentWithBuilder1, "studentWithBuilder1");
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.StudentWithBuilder", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.StudentWithBuilder", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(3, objectInfo.getInitDependencies().size());
         assertEquals("studentWithBuilder1", objectInfo.getInlineCode());
@@ -327,7 +327,7 @@ class ObjectInfoTest {
 
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, studentWithSetters, "studentWithSetters1");
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.StudentWithSetters", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.StudentWithSetters", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(12, objectInfo.getInitDependencies().size());
         assertEquals("studentWithSetters1", objectInfo.getInlineCode());
@@ -355,7 +355,7 @@ class ObjectInfoTest {
 
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, student, "student");
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
-        assertEquals("com.onushi.sampleapp.model.OtherStudent", objectInfo.getDeclareRequiredImports().get(0));
+        assertEquals("com.onushi.sample.model.OtherStudent", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(0, objectInfo.getInitDependencies().size());
         assertEquals("student", objectInfo.getInlineCode());

@@ -1,6 +1,6 @@
-package com.onushi.sampleapp.services;
+package com.onushi.sample.services;
 
-import com.onushi.sampleapp.model.Employee;
+import com.onushi.sample.model.Employee;
 import org.springframework.stereotype.Service;
 
 @Service

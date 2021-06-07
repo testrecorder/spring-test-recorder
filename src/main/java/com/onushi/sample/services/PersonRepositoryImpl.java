@@ -1,6 +1,6 @@
-package com.onushi.sampleapp.services;
+package com.onushi.sample.services;
 
-import com.onushi.sampleapp.model.Person;
+import com.onushi.sample.model.Person;
 import com.onushi.testrecording.aspect.RecordMockForTest;
 import org.springframework.stereotype.Repository;
 

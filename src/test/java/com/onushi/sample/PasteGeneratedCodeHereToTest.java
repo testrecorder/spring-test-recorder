@@ -1,9 +1,9 @@
-package com.onushi.sampleapp.services;
+package com.onushi.sample.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Set;
-import com.onushi.sampleapp.model.Person;
+import com.onushi.sample.model.Person;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 

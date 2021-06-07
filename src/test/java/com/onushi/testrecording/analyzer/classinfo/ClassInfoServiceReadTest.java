@@ -1,7 +1,7 @@
 package com.onushi.testrecording.analyzer.classinfo;
 
-import com.onushi.sampleapp.model.Department;
-import com.onushi.sampleapp.model.Programmer;
+import com.onushi.sample.model.Department;
+import com.onushi.sample.model.Programmer;
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

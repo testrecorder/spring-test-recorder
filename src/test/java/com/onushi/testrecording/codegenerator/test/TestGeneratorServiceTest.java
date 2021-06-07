@@ -1,9 +1,9 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.sampleapp.model.*;
-import com.onushi.sampleapp.services.PersonRepositoryImpl;
-import com.onushi.sampleapp.services.PersonService;
-import com.onushi.sampleapp.services.SampleService;
+import com.onushi.sample.model.*;
+import com.onushi.sample.services.PersonRepositoryImpl;
+import com.onushi.sample.services.PersonService;
+import com.onushi.sample.services.SampleService;
 import com.onushi.testrecording.analyzer.methodrun.DependencyMethodRunInfo;
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
@@ -44,7 +44,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -89,7 +89,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -138,7 +138,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -185,11 +185,11 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
@@ -235,7 +235,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -276,7 +276,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -328,7 +328,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -382,7 +382,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -446,12 +446,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.List;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.util.Arrays;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
@@ -511,7 +511,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -561,7 +561,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -614,11 +614,11 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
@@ -665,7 +665,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -719,12 +719,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.StudentWithDefaultInitFields;\n" +
-                        "import com.onushi.sampleapp.model.StudentWithBuilder;\n" +
+                        "import com.onushi.sample.model.StudentWithDefaultInitFields;\n" +
+                        "import com.onushi.sample.model.StudentWithBuilder;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
@@ -773,11 +773,11 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
@@ -836,12 +836,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import static org.mockito.Mockito.*;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
@@ -911,12 +911,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import static org.mockito.Mockito.*;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
@@ -982,7 +982,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -1034,7 +1034,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -1092,7 +1092,7 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
@@ -1157,12 +1157,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.List;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
@@ -1225,12 +1225,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.Employee;\n" +
-                        "import com.onushi.sampleapp.model.Color;\n" +
+                        "import com.onushi.sample.model.Employee;\n" +
+                        "import com.onushi.sample.model.Color;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -1287,13 +1287,13 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.CyclicParent;\n" +
+                        "import com.onushi.sample.model.CyclicParent;\n" +
                         "import java.util.List;\n" +
-                        "import com.onushi.sampleapp.model.CyclicChild;\n" +
+                        "import com.onushi.sample.model.CyclicChild;\n" +
                         "import java.util.Arrays;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
@@ -1306,7 +1306,7 @@ class TestGeneratorServiceTest {
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
-                        "        // TODO Solve initialisation for cyclic dependency in com.onushi.sampleapp.model.CyclicParent\n" +
+                        "        // TODO Solve initialisation for cyclic dependency in com.onushi.sample.model.CyclicParent\n" +
                         "        CyclicChild cyclicChild1 = new CyclicChild();\n" +
                         "        cyclicChild1.date = date1;\n" +
                         "        cyclicChild1.parent = ...;\n" +
@@ -1354,11 +1354,11 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sampleapp.model.CyclicParent;\n" +
+                        "import com.onushi.sample.model.CyclicParent;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
@@ -1422,12 +1422,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.Set;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
@@ -1517,12 +1517,12 @@ class TestGeneratorServiceTest {
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
-                        "package com.onushi.sampleapp.services;\n" +
+                        "package com.onushi.sample.services;\n" +
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import java.util.Map;\n" +
-                        "import com.onushi.sampleapp.model.Person;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +

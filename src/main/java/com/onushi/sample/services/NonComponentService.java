@@ -1,4 +1,4 @@
-package com.onushi.sampleapp.services;
+package com.onushi.sample.services;
 
 public class NonComponentService {
     public int add(int x, int y) {
