@@ -179,6 +179,7 @@ public class SampleAppRunner implements CommandLineRunner {
     }
 
     private void demoPersonHashSet() throws ParseException {
-        sampleService.createPersonHashSet();
+        Set<Person> personSet = sampleService.createPersonHashSet();
+        sampleService.processPersonsSet(personSet);
     }
 }

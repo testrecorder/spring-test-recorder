@@ -217,7 +217,6 @@ public class SampleService {
         return cyclicParent;
     }
 
-    @RecordTest
     public Set<Person> createPersonHashSet() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
@@ -239,5 +238,10 @@ public class SampleService {
         personSet.add(tom);
 
         return personSet;
+    }
+
+    @RecordTest
+    public int processPersonsSet(Set<Person> persons) {
+        return 42;
     }
 }
