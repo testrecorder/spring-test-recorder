@@ -27,6 +27,10 @@ public class ObjectInfo {
         this.initAdded = initAdded;
     }
 
+    public boolean isInlineOnly() {
+        return initCode.equals("");
+    }
+
     protected ObjectInfo(Object object, String objectName, String inlineCode) {
         this.object = object;
         this.objectName = objectName;

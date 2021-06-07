@@ -39,10 +39,8 @@ public class TestAssertGeneratorService {
     private String getAssertCode(ObjectInfo objectInfo, String assertPath) {
         if (objectInfo.getObject() != null &&
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
-                // TODO IB !!!! create isInlineOnlu()
-                !objectInfo.getInitCode().equals("") &&
+                !objectInfo.isInlineOnly() &&
                 objectInfo.isInitAdded()) {
-            // TODO IB !!!! if !isInitAdded => objectsInit
             return new StringGenerator()
                     .setTemplate("        assertEquals({{objectInfoName}}, {{assertPath}});\n")
                     .addAttribute("objectInfoName", objectInfo.getObjectName())
