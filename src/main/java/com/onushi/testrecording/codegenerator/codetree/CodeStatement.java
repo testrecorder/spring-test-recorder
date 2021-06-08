@@ -16,4 +16,9 @@ public class CodeStatement extends CodeNode {
     public int getRawLinesCount() {
         return countStringLines(code);
     }
+
+    @Override
+    public String toString() {
+        return "CodeStatement { rawLinesOfCode = " + getRawLinesCount() + " }";
+    }
 }

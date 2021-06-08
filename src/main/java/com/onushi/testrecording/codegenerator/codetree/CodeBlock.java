@@ -1,5 +1,7 @@
 package com.onushi.testrecording.codegenerator.codetree;
 
+import com.onushi.testrecording.codegenerator.template.StringGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +69,20 @@ public class CodeBlock extends CodeNode {
             result += codeNode.getRawLinesCount();
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        List<CodeNode> allChildren = new ArrayList<>(prerequisite);
+        allChildren.addAll(children);
+        return new StringGenerator()
+                .setTemplate("CodeBlock {" +
+                        "rawLinesOfCode = {{rawLinesOfCode}}, " +
+                        "childrenCount = {{childrenCount}}, " +
+                        "shouldSplitBlock = {{shouldSplitBlock}}}")
+                .addAttribute("rawLinesOfCode", getRawLinesCount())
+                .addAttribute("childrenCount", allChildren.size())
+                .addAttribute("shouldSplitBlock", String.valueOf(shouldSplitBlock(allChildren)))
+                .generate();
     }
 }

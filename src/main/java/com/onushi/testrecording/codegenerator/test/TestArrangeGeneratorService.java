@@ -7,6 +7,7 @@ import java.util.Map;
 
 @Service
 public class TestArrangeGeneratorService {
+    // TODO IB !!!! apply CodeNodes
     public String getArrangeCode(Map<String, String> attributes) {
         return new StringGenerator()
                 .addAttributes(attributes)
