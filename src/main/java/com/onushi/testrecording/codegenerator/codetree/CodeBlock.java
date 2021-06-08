@@ -8,8 +8,9 @@ import java.util.List;
 public class CodeBlock extends CodeNode {
     private final List<CodeNode> prerequisite = new ArrayList<>();
     private final List<CodeNode> children = new ArrayList<>();
-    static final int RAW_LINES_COUNT_FOR_SPLIT_BLOCK = 6;
+    static final int CHILD_RAW_LINES_COUNT_FOR_SPLIT_BLOCK = 6;
     static final int CHILDREN_COUNT_FOR_SPLIT_BLOCK = 5;
+    static final int TOTAL_RAW_LINES_COUNT_FOR_SPLIT_BLOCK = 7;
 
     public CodeBlock addPrerequisite(CodeNode codeNode) {
         this.prerequisite.add(codeNode);
@@ -40,10 +41,11 @@ public class CodeBlock extends CodeNode {
     }
 
     private boolean shouldSplitBlock(List<CodeNode> allChildren) {
-        boolean result = false;
         int childrenCount = children.size();
         if (childrenCount >= CHILDREN_COUNT_FOR_SPLIT_BLOCK) {
-            result = true;
+            return true;
+        } else if (getRawLinesCount() >= TOTAL_RAW_LINES_COUNT_FOR_SPLIT_BLOCK) {
+            return true;
         } else {
             int maxChildLinesCount = 0;
             for (CodeNode codeNode : allChildren) {
@@ -52,11 +54,11 @@ public class CodeBlock extends CodeNode {
                     maxChildLinesCount = childLinesCount;
                 }
             }
-            if (maxChildLinesCount >= RAW_LINES_COUNT_FOR_SPLIT_BLOCK) {
-                result = true;
+            if (maxChildLinesCount >= CHILD_RAW_LINES_COUNT_FOR_SPLIT_BLOCK) {
+                return true;
             }
         }
-        return result;
+        return false;
     }
 
     @Override

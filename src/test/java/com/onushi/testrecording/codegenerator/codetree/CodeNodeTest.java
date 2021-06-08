@@ -39,29 +39,32 @@ class CodeNodeTest {
         assertEquals(18, root.getRawLinesCount());
 
         assertEquals(StringUtils.prepareForCompareNoTrim(
-                         "assertEquals(2, result.size());\n" +
-                              "\n" +
-                              "Date date1 = simpleDateFormat.parse(\"1970-01-02 00:00:00.000\");\n" +
-                              "Person person1 = Person.builder()\n" +
-                              "    .dateOfBirth(date1)\n" +
-                              "    .firstName(\"Marco\")\n" +
-                              "    .lastName(\"Polo\")\n" +
-                              "    .build();\n" +
-                              "\n" +
-                              "assertEquals(simpleDateFormat.parse(\"1920-02-03 00:00:00.000\"), result.get(person1).getDateOfBirth());\n" +
-                              "\n" +
-                              "assertEquals(\"Marco'\", result.get(person1).getFirstName());\n" +
-                              "\n" +
-                              "assertEquals(\"Father\", result.get(person1).getLastName());\n" +
-                              "\n" +
-                              "Person person2 = Person.builder()\n" +
-                              "    .dateOfBirth(date1)\n" +
-                              "    .firstName(\"Tom\")\n" +
-                              "    .lastName(\"Richardson\")\n" +
-                              "    .build();\n" +
-                              "assertEquals(simpleDateFormat.parse(\"1920-02-04 00:00:00.000\"), result.get(person2).getDateOfBirth());\n" +
-                              "assertEquals(\"Tom's\", result.get(person2).getFirstName());\n" +
-                              "assertEquals(\"Father\", result.get(person2).getLastName());\n"),
+                "assertEquals(2, result.size());\n" +
+                     "\n" +
+                     "Date date1 = simpleDateFormat.parse(\"1970-01-02 00:00:00.000\");\n" +
+                     "Person person1 = Person.builder()\n" +
+                     "    .dateOfBirth(date1)\n" +
+                     "    .firstName(\"Marco\")\n" +
+                     "    .lastName(\"Polo\")\n" +
+                     "    .build();\n" +
+                     "\n" +
+                     "assertEquals(simpleDateFormat.parse(\"1920-02-03 00:00:00.000\"), result.get(person1).getDateOfBirth());\n" +
+                     "\n" +
+                     "assertEquals(\"Marco'\", result.get(person1).getFirstName());\n" +
+                     "\n" +
+                     "assertEquals(\"Father\", result.get(person1).getLastName());\n" +
+                     "\n" +
+                     "Person person2 = Person.builder()\n" +
+                     "    .dateOfBirth(date1)\n" +
+                     "    .firstName(\"Tom\")\n" +
+                     "    .lastName(\"Richardson\")\n" +
+                     "    .build();\n" +
+                     "\n" +
+                     "assertEquals(simpleDateFormat.parse(\"1920-02-04 00:00:00.000\"), result.get(person2).getDateOfBirth());\n" +
+                     "\n" +
+                     "assertEquals(\"Tom's\", result.get(person2).getFirstName());\n" +
+                     "\n" +
+                     "assertEquals(\"Father\", result.get(person2).getLastName());\n"),
                 StringUtils.prepareForCompareNoTrim(code));
     }
 
