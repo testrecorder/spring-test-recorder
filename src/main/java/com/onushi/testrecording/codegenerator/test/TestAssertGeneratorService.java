@@ -36,17 +36,17 @@ public class TestAssertGeneratorService {
             return "";
         } else {
             return "        // Assert\n" +
-                getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result");
+                getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result").getCode();
         }
     }
 
-    private String getAssertCode(ObjectInfo objectInfo, String assertPath) {
-        StringBuilder stringBuilder = new StringBuilder();
+    private CodeNode getAssertCode(ObjectInfo objectInfo, String assertPath) {
+        CodeBlock result = new CodeBlock();
         if (objectInfo.getObject() != null &&
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
                 !objectInfo.isInlineOnly() &&
                 objectInfo.isInitAdded()) {
-            stringBuilder.append(getAssertEqualsForObject(objectInfo, assertPath).getCode());
+            result.addChild(getAssertEqualsForObject(objectInfo, assertPath));
         } else {
             for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
                 VisibleProperty visibleProperty = entry.getValue();
@@ -60,23 +60,22 @@ public class TestAssertGeneratorService {
                 }
 
                 if (finalValue.getString() != null && finalValue.getString().equals("null")) {
-                    stringBuilder.append(getAssertNull(composedPath, objectsInit).getCode());
+                    result.addChild(getAssertNull(composedPath, objectsInit));
                 } else if (finalValue.getString() != null && finalValue.getString().equals("true")) {
-                    stringBuilder.append(getAssertTrue(composedPath, objectsInit).getCode());
+                    result.addChild(getAssertTrue(composedPath, objectsInit));
                 } else {
                     if (finalValue.getObjectInfo() != null) {
                         if (objectsInit != null) {
-                            stringBuilder.append(objectsInit.getCode());
+                            result.addPrerequisite(objectsInit);
                         }
-                        stringBuilder.append(getAssertCode(finalValue.getObjectInfo(), composedPath));
+                        result.addChild(getAssertCode(finalValue.getObjectInfo(), composedPath));
                     } else if (finalValue.getString() != null) {
-                        stringBuilder.append(getAssertEqualsForString(visibleProperty, composedPath, objectsInit).getCode());
+                        result.addChild(getAssertEqualsForString(visibleProperty, composedPath, objectsInit));
                     }
                 }
             }
         }
-        // TODO IB !!!! apply CodeTree here
-        return stringBuilder.toString();
+        return result;
     }
 
     private CodeNode getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {

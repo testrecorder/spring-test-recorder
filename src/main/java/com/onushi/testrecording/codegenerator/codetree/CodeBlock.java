@@ -6,7 +6,7 @@ import java.util.List;
 public class CodeBlock extends CodeNode {
     private final List<CodeNode> prerequisite = new ArrayList<>();
     private final List<CodeNode> children = new ArrayList<>();
-    static final int RAW_LINES_COUNT_FOR_SPLIT_BLOCK = 7;
+    static final int RAW_LINES_COUNT_FOR_SPLIT_BLOCK = 6;
     static final int CHILDREN_COUNT_FOR_SPLIT_BLOCK = 5;
 
     public CodeBlock addPrerequisite(CodeNode codeNode) {

@@ -1247,13 +1247,21 @@ class TestGeneratorServiceTest {
                         "        // Assert\n" +
                         "        assertEquals(100, result.getDepartment().getId());\n" +
                         "        assertEquals(\"IT\", result.getDepartment().getName());\n" +
+                        "\n" +
                         "        assertEquals(\"John\", result.getFirstName());\n" +
+                        "\n" +
                         "        assertEquals(1, result.getId());\n" +
+                        "\n" +
                         "        assertEquals(\"Doe\", result.getLastName());\n" +
+                        "\n" +
                         "        assertEquals(1000.0, result.getSalaryParam1());\n" +
+                        "\n" +
                         "        assertEquals(1500.0, result.getSalaryParam2());\n" +
+                        "\n" +
                         "        assertEquals(0.0, result.getSalaryParam3());\n" +
+                        "\n" +
                         "        assertEquals(Color.BLUE, result.getTeamColor());\n" +
+                        "\n" +
                         "        assertEquals(Color.BLUE, result.teamColor);\n" +
                         "    }\n" +
                         "}\n" +
@@ -1446,19 +1454,23 @@ class TestGeneratorServiceTest {
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(2, result.size());\n" +
+                        "\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Marco\")\n" +
                         "            .lastName(\"Polo\")\n" +
                         "            .build();\n" +
+                        "\n" +
                         "        assertTrue(result.contains(person1));\n" +
+                        "\n" +
                         "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
                         "        Person person2 = Person.builder()\n" +
                         "            .dateOfBirth(date2)\n" +
                         "            .firstName(\"Tom\")\n" +
                         "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
+                        "\n" +
                         "        assertTrue(result.contains(person2));\n" +
                         "    }\n" +
                         "}\n" +
@@ -1540,21 +1552,25 @@ class TestGeneratorServiceTest {
                         "        Map<Person, Person> result = sampleService.createPersonHashMap();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(2, result.size());\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1970-01-02 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Marco\")\n" +
                         "            .lastName(\"Polo\")\n" +
                         "            .build();\n" +
-                        "        assertEquals(simpleDateFormat.parse(\"1920-02-03 00:00:00.000\"), result.get(person1).getDateOfBirth());\n" +
-                        "        assertEquals(\"Marco'\", result.get(person1).getFirstName());\n" +
-                        "        assertEquals(\"Father\", result.get(person1).getLastName());\n" +
+                        "\n" +
                         "        Person person2 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Tom\")\n" +
                         "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
+                        "\n" +
+                        "        assertEquals(2, result.size());\n" +
+                        "\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1920-02-03 00:00:00.000\"), result.get(person1).getDateOfBirth());\n" +
+                        "        assertEquals(\"Marco'\", result.get(person1).getFirstName());\n" +
+                        "        assertEquals(\"Father\", result.get(person1).getLastName());\n" +
+                        "\n" +
                         "        assertEquals(simpleDateFormat.parse(\"1920-02-04 00:00:00.000\"), result.get(person2).getDateOfBirth());\n" +
                         "        assertEquals(\"Tom's\", result.get(person2).getFirstName());\n" +
                         "        assertEquals(\"Father\", result.get(person2).getLastName());\n" +
