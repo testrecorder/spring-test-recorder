@@ -26,20 +26,9 @@ public class CodeBlock extends CodeNode {
     @Override
     public String getCode() {
         StringBuilder stringBuilder = new StringBuilder();
-        List<CodeNode> allChildren = new ArrayList<>(prerequisite);
-        allChildren.addAll(children);
+        boolean splitBlock = shouldSplitBlock();
 
-        boolean splitBlock = shouldSplitBlock(allChildren);
-
-        List<String> codeList = new ArrayList<>();
-        for (int i = 0; i < allChildren.size(); i++) {
-            CodeNode codeNode = allChildren.get(i);
-            codeList.add(codeNode.getCode());
-        }
-
-        // TODO IB !!!! improve. do not could empty lines in shouldSplitBlock
-        codeList = codeList.stream().filter(x -> !x.equals(""))
-                .collect(Collectors.toList());
+        List<String> codeList = getGetCodeForNonEmptyChildren();
 
         for (int i = 0; i < codeList.size(); i++) {
             String code = codeList.get(i);
@@ -51,9 +40,36 @@ public class CodeBlock extends CodeNode {
         return stringBuilder.toString();
     }
 
-    private boolean shouldSplitBlock(List<CodeNode> allChildren) {
-        int childrenCount = children.size();
-        if (childrenCount >= CHILDREN_COUNT_FOR_SPLIT_BLOCK) {
+    @Override
+    public int getRawLinesCount() {
+        int result = 0;
+        for (CodeNode codeNode : prerequisite) {
+            result += codeNode.getRawLinesCount();
+        }
+        for (CodeNode codeNode : children) {
+            result += codeNode.getRawLinesCount();
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        List<CodeNode> allChildren = getAllChildren();
+        return new StringGenerator()
+                .setTemplate("CodeBlock {" +
+                        "rawLinesOfCode = {{rawLinesOfCode}}, " +
+                        "childrenCount = {{childrenCount}}, " +
+                        "shouldSplitBlock = {{shouldSplitBlock}}}")
+                .addAttribute("rawLinesOfCode", getRawLinesCount())
+                .addAttribute("childrenCount", allChildren.size())
+                .addAttribute("shouldSplitBlock", String.valueOf(shouldSplitBlock()))
+                .generate();
+    }
+
+    private boolean shouldSplitBlock() {
+        List<CodeNode> allChildren = getAllChildren();
+        List<String> codeForNonEmptyChildren = getGetCodeForNonEmptyChildren();
+        if (codeForNonEmptyChildren.size() >= CHILDREN_COUNT_FOR_SPLIT_BLOCK) {
             return true;
         } else if (getRawLinesCount() >= TOTAL_RAW_LINES_COUNT_FOR_SPLIT_BLOCK) {
             return true;
@@ -72,30 +88,21 @@ public class CodeBlock extends CodeNode {
         return false;
     }
 
-    @Override
-    public int getRawLinesCount() {
-        int result = 0;
-        for (CodeNode codeNode : prerequisite) {
-            result += codeNode.getRawLinesCount();
-        }
-        for (CodeNode codeNode : children) {
-            result += codeNode.getRawLinesCount();
-        }
-        return result;
-    }
-
-    @Override
-    public String toString() {
+    private List<CodeNode> getAllChildren() {
         List<CodeNode> allChildren = new ArrayList<>(prerequisite);
         allChildren.addAll(children);
-        return new StringGenerator()
-                .setTemplate("CodeBlock {" +
-                        "rawLinesOfCode = {{rawLinesOfCode}}, " +
-                        "childrenCount = {{childrenCount}}, " +
-                        "shouldSplitBlock = {{shouldSplitBlock}}}")
-                .addAttribute("rawLinesOfCode", getRawLinesCount())
-                .addAttribute("childrenCount", allChildren.size())
-                .addAttribute("shouldSplitBlock", String.valueOf(shouldSplitBlock(allChildren)))
-                .generate();
+        return allChildren;
+    }
+
+    private List<String> getGetCodeForNonEmptyChildren() {
+        List<CodeNode> allChildren = getAllChildren();
+        List<String> codeList = new ArrayList<>();
+        for (int i = 0; i < allChildren.size(); i++) {
+            CodeNode codeNode = allChildren.get(i);
+            codeList.add(codeNode.getCode());
+        }
+
+        return codeList.stream().filter(x -> !x.equals(""))
+                .collect(Collectors.toList());
     }
 }
