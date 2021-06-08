@@ -79,13 +79,6 @@ public class TestGeneratorService {
         Map<String, String> attributes = new HashMap<>();
         attributes.put("methodName", testGenerator.getMethodName());
 
-        attributes.put("targetObjectName", testGenerator.getTargetObjectInfo().getObjectName());
-
-        attributes.put("resultDeclareClassName", testGenerator.getResultDeclareClassName());
-
-        attributes.put("argumentsInlineCode", testGenerator.argumentObjectInfos.stream()
-                .map(ObjectInfo::getInlineCode)
-                .collect(Collectors.joining(", ")));
         attributes.put("expectedResult", testGenerator.getExpectedResultObjectInfo().getInlineCode());
         if (testGenerator.getExpectedException() != null) {
             attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
