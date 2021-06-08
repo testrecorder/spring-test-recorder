@@ -69,15 +69,8 @@ public class TestAssertGeneratorService {
                 }
             }
         }
-        // TODO IB !!!! add enter before and after any block that is bigger than 3 lines. also inside for
-        // TODO IB !!!! finally remove double enters from assert and enters from start and from end
-        // TODO IB !!!! create functions for this and add them to StringService
-//        String result = stringBuilder.toString();
-//        if (countLines(result) >= 3) {
-//            return "\n" + stringBuilder.toString() + "\n";
-//        } else {
-            return stringBuilder.toString();
-//        }
+        // TODO IB !!!! apply CodeTree here
+        return stringBuilder.toString();
     }
 
     private String getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {
@@ -115,10 +108,5 @@ public class TestAssertGeneratorService {
                 .addAttribute("expected", visibleProperty.getFinalValue().getString())
                 .addAttribute("composedPath", composedPath)
                 .generate();
-    }
-
-    // TODO IB !!!! move somewhere else
-    private static int countLines(String str){
-        return str.split("\r\n|\r|\n").length;
     }
 }
