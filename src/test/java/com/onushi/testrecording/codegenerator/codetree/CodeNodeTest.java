@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CodeNodeTest {
     @Test
-    void createCodeTree() {
-
+    void splitBigBlock() {
         CodeNode root = new CodeBlock()
                 .addChild(new CodeStatement("assertEquals(2, result.size());\n"))
                 .addChild(new CodeBlock()
@@ -61,5 +60,46 @@ class CodeNodeTest {
                            "assertEquals(\"Tom's\", result.get(person2).getFirstName());\n" +
                            "assertEquals(\"Father\", result.get(person2).getLastName());\n"),
                 StringUtils.prepareForCompareNoTrim(code));
+    }
+
+    @Test
+    void splitChildren() {
+        CodeNode root = new CodeBlock()
+                .addChild(new CodeBlock()
+                        .addChild(new CodeStatement("assertEquals(100, result.getDepartment().getId());\n"))
+                        .addChild(new CodeStatement("assertEquals(\"IT\", result.getDepartment().getName());\n")))
+                .addChild(new CodeStatement("assertEquals(\"John\", result.getFirstName());\n"))
+                .addChild(new CodeStatement("assertEquals(1, result.getId());\n"))
+                .addChild(new CodeStatement("assertEquals(\"Doe\", result.getLastName());\n"))
+                .addChild(new CodeStatement("assertEquals(1000.0, result.getSalaryParam1());\n"))
+                .addChild(new CodeStatement("assertEquals(1500.0, result.getSalaryParam2());\n"))
+                .addChild(new CodeStatement("assertEquals(0.0, result.getSalaryParam3());\n"))
+                .addChild(new CodeStatement("assertEquals(Color.BLUE, result.getTeamColor());\n"))
+                .addChild(new CodeStatement("assertEquals(Color.BLUE, result.teamColor);\n"));
+
+        String code = root.getCode();
+        assertEquals(10, root.getRawLinesCount());
+
+        assertEquals(StringUtils.prepareForCompareNoTrim(
+                   "assertEquals(100, result.getDepartment().getId());\n" +
+                        "assertEquals(\"IT\", result.getDepartment().getName());\n" +
+                        "\n" +
+                        "assertEquals(\"John\", result.getFirstName());\n" +
+                        "\n" +
+                        "assertEquals(1, result.getId());\n" +
+                        "\n" +
+                        "assertEquals(\"Doe\", result.getLastName());\n" +
+                        "\n" +
+                        "assertEquals(1000.0, result.getSalaryParam1());\n" +
+                        "\n" +
+                        "assertEquals(1500.0, result.getSalaryParam2());\n" +
+                        "\n" +
+                        "assertEquals(0.0, result.getSalaryParam3());\n" +
+                        "\n" +
+                        "assertEquals(Color.BLUE, result.getTeamColor());\n" +
+                        "\n" +
+                        "assertEquals(Color.BLUE, result.teamColor);\n"),
+                StringUtils.prepareForCompareNoTrim(code));
+
     }
 }
