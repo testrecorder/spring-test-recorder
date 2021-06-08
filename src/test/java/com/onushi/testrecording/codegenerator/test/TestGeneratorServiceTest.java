@@ -103,6 +103,7 @@ class TestGeneratorServiceTest {
                         "    void minDate() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
                         "        Date date2 = simpleDateFormat.parse(\"2021-02-02 00:00:00.000\");\n" +
                         "        SampleService sampleService = new SampleService();\n" +
@@ -472,6 +473,7 @@ class TestGeneratorServiceTest {
                         "    void someFunction() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
@@ -639,6 +641,7 @@ class TestGeneratorServiceTest {
                         "    void returnPerson() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -799,6 +802,7 @@ class TestGeneratorServiceTest {
                         "    void loadPerson() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = new PersonRepositoryImpl();\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
@@ -863,6 +867,7 @@ class TestGeneratorServiceTest {
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1940-11-27 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
@@ -939,6 +944,7 @@ class TestGeneratorServiceTest {
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1940-11-27 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
@@ -1187,6 +1193,7 @@ class TestGeneratorServiceTest {
                         "    void createListOfPersonList() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -1330,6 +1337,7 @@ class TestGeneratorServiceTest {
                         "    void processCyclicObjects() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
                         "        // TODO Solve initialisation for cyclic dependency in com.onushi.sample.model.CyclicParent\n" +
                         "        CyclicChild cyclicChild1 = new CyclicChild();\n" +
@@ -1394,6 +1402,7 @@ class TestGeneratorServiceTest {
                         "    void createCyclicObjects() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -1463,6 +1472,7 @@ class TestGeneratorServiceTest {
                         "    void createPersonHashSet() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -1561,6 +1571,7 @@ class TestGeneratorServiceTest {
                         "    void createPersonHashMap() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +

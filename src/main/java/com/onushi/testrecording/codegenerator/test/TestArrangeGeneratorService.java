@@ -23,10 +23,16 @@ public class TestArrangeGeneratorService {
         this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
     }
 
-    // TODO IB !!!! apply CodeNodes
     public String getArrangeCode(TestGenerator testGenerator) {
         List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
         objectsToInit.add(testGenerator.targetObjectInfo);
+
+        String requiredHelperObjects = this.testHelperObjectsGeneratorService.getRequiredHelperObjects(testGenerator).stream()
+                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
+                .collect(Collectors.joining(""));
+        if (!requiredHelperObjects.equals("")) {
+            requiredHelperObjects += "\n";
+        }
 
         return new StringGenerator()
             .setTemplate(
@@ -34,9 +40,7 @@ public class TestArrangeGeneratorService {
                     "{{requiredHelperObjects}}" +
                     "{{objectsInit}}\n"
             )
-            .addAttribute("requiredHelperObjects", this.testHelperObjectsGeneratorService.getRequiredHelperObjects(testGenerator).stream()
-                    .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
-                    .collect(Collectors.joining("")))
+            .addAttribute("requiredHelperObjects", requiredHelperObjects)
             .addAttribute("objectsInit", testObjectsInitGeneratorService.getObjectsInit(objectsToInit).getCode())
             .generate();
     }
