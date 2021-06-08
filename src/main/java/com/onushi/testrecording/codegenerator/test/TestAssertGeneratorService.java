@@ -1,6 +1,8 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.codegenerator.codetree.CodeNode;
+import com.onushi.testrecording.codegenerator.codetree.CodeStatement;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.object.PropertyValue;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
@@ -42,7 +44,7 @@ public class TestAssertGeneratorService {
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
                 !objectInfo.isInlineOnly() &&
                 objectInfo.isInitAdded()) {
-            stringBuilder.append(getAssertEqualsForObject(objectInfo, assertPath));
+            stringBuilder.append(getAssertEqualsForObject(objectInfo, assertPath).getCode());
         } else {
             for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
                 VisibleProperty visibleProperty = entry.getValue();
@@ -73,13 +75,13 @@ public class TestAssertGeneratorService {
         return stringBuilder.toString();
     }
 
-    private String getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {
-        String getAssertEqualsForObject = new StringGenerator()
+    private CodeNode getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {
+        String statement = new StringGenerator()
                 .setTemplate("        assertEquals({{objectInfoName}}, {{assertPath}});\n")
                 .addAttribute("objectInfoName", objectInfo.getObjectName())
                 .addAttribute("assertPath", assertPath)
                 .generate();
-        return getAssertEqualsForObject;
+        return new CodeStatement(statement);
     }
 
     private String getAssertNull(String composedPath, String objectsInit) {

@@ -58,7 +58,7 @@ public class CodeBlock extends CodeNode {
     }
 
     @Override
-    int getRawLinesCount() {
+    public int getRawLinesCount() {
         int result = 0;
         for (CodeNode codeNode : prerequisite) {
             result += codeNode.getRawLinesCount();

@@ -1,8 +1,8 @@
 package com.onushi.testrecording.codegenerator.codetree;
 
 public abstract class CodeNode {
-    abstract String getCode();
-    abstract int getRawLinesCount();
+    public abstract String getCode();
+    public abstract int getRawLinesCount();
 
     protected int countStringLines(String str) {
         if (str == null) {
