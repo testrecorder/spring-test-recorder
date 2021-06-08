@@ -1,6 +1,7 @@
 package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.testrecording.analyzer.classInfo.ClassInfoService;
+import com.onushi.testrecording.codegenerator.codetree.CodeBlock;
 import com.onushi.testrecording.codegenerator.codetree.CodeNode;
 import com.onushi.testrecording.codegenerator.codetree.CodeStatement;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
@@ -8,6 +9,7 @@ import com.onushi.testrecording.codegenerator.object.PropertyValue;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -51,22 +53,24 @@ public class TestAssertGeneratorService {
                 PropertyValue finalValue = visibleProperty.getFinalValue();
                 String composedPath = assertPath + entry.getKey();
 
-                String objectsInit = "";
+                CodeNode objectsInit = null;
                 if (visibleProperty.getFinalDependencies() != null) {
-                    objectsInit = testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()).stream()
-                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining(""));
+                    objectsInit = new CodeStatement(testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()).stream()
+                            .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
                 }
 
                 if (finalValue.getString() != null && finalValue.getString().equals("null")) {
-                    stringBuilder.append(getAssertNull(composedPath, objectsInit));
+                    stringBuilder.append(getAssertNull(composedPath, objectsInit).getCode());
                 } else if (finalValue.getString() != null && finalValue.getString().equals("true")) {
-                    stringBuilder.append(getAssertTrue(composedPath, objectsInit));
+                    stringBuilder.append(getAssertTrue(composedPath, objectsInit).getCode());
                 } else {
                     if (finalValue.getObjectInfo() != null) {
-                        stringBuilder.append(objectsInit);
+                        if (objectsInit != null) {
+                            stringBuilder.append(objectsInit.getCode());
+                        }
                         stringBuilder.append(getAssertCode(finalValue.getObjectInfo(), composedPath));
                     } else if (finalValue.getString() != null) {
-                        stringBuilder.append(getAssertEqualsForString(visibleProperty, composedPath, objectsInit));
+                        stringBuilder.append(getAssertEqualsForString(visibleProperty, composedPath, objectsInit).getCode());
                     }
                 }
             }
@@ -84,31 +88,43 @@ public class TestAssertGeneratorService {
         return new CodeStatement(statement);
     }
 
-    private String getAssertNull(String composedPath, String objectsInit) {
-        return new StringGenerator()
-                .setTemplate("{{objectsInit}}" +
-                        "        assertNull({{composedPath}});\n")
-                .addAttribute("composedPath", composedPath)
-                .addAttribute("objectsInit", objectsInit)
-                .generate();
-    }
-
-    private String getAssertTrue(String composedPath, String objectsInit) {
-        return new StringGenerator()
-                .setTemplate("{{objectsInit}}" +
-                        "        assertTrue({{composedPath}});\n")
-                .addAttribute("objectsInit", objectsInit)
+    private CodeNode getAssertNull(String composedPath, CodeNode objectsInit) {
+        CodeBlock result = new CodeBlock();
+        if (objectsInit != null) {
+            result.addPrerequisite(objectsInit);
+        }
+        String statement = new StringGenerator()
+                .setTemplate("        assertNull({{composedPath}});\n")
                 .addAttribute("composedPath", composedPath)
                 .generate();
+        result.addChild(new CodeStatement(statement));
+        return result;
     }
 
-    private String getAssertEqualsForString(VisibleProperty visibleProperty, String composedPath, String objectsInit) {
-        return new StringGenerator()
-                .setTemplate("{{objectsInit}}" +
-                        "        assertEquals({{expected}}, {{composedPath}});\n")
-                .addAttribute("objectsInit", objectsInit)
+    private CodeNode getAssertTrue(String composedPath, CodeNode objectsInit) {
+        CodeBlock result = new CodeBlock();
+        if (objectsInit != null) {
+            result.addPrerequisite(objectsInit);
+        }
+        String statement = new StringGenerator()
+                .setTemplate("        assertTrue({{composedPath}});\n")
+                .addAttribute("composedPath", composedPath)
+                .generate();
+        result.addChild(new CodeStatement(statement));
+        return result;
+    }
+
+    private CodeNode getAssertEqualsForString(VisibleProperty visibleProperty, String composedPath, CodeNode objectsInit) {
+        CodeBlock result = new CodeBlock();
+        if (objectsInit != null) {
+            result.addPrerequisite(objectsInit);
+        }
+        String statement = new StringGenerator()
+                .setTemplate("        assertEquals({{expected}}, {{composedPath}});\n")
                 .addAttribute("expected", visibleProperty.getFinalValue().getString())
                 .addAttribute("composedPath", composedPath)
                 .generate();
+        result.addChild(new CodeStatement(statement));
+        return result;
     }
 }
