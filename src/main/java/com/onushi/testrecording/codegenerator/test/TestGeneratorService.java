@@ -1,13 +1,10 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
-import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class TestGeneratorService {
@@ -48,22 +45,21 @@ public class TestGeneratorService {
     }
 
     private String getClassAndTestString(TestGenerator testGenerator) {
-        Map<String, String> attributes = getStringGeneratorAttributes(testGenerator);
         return new StringGenerator()
-                .setTemplate(
-                    "class {{testClassName}} {\n" +
-                    getTestGeneratedDateTime() +
-                    COMMENT_BEFORE_TEST +
-                    "    @Test\n" +
-                    "    void {{methodName}}() throws Exception {\n" +
-                            testArrangeGeneratorService.getArrangeCode(testGenerator) +
-                            testActGeneratorService.getActCode(testGenerator, attributes) +
-                            testAssertGeneratorService.getAssertCode(testGenerator) +
-                    "    }\n" +
-                    "}\n")
-                .addAttributes(attributes)
-                .addAttribute("testClassName", testGenerator.getShortClassName() + "Test")
-                .generate();
+            .setTemplate(
+                "class {{testClassName}} {\n" +
+                getTestGeneratedDateTime() +
+                COMMENT_BEFORE_TEST +
+                "    @Test\n" +
+                "    void {{methodName}}() throws Exception {\n" +
+                        testArrangeGeneratorService.getArrangeCode(testGenerator) +
+                        testActGeneratorService.getActCode(testGenerator) +
+                        testAssertGeneratorService.getAssertCode(testGenerator) +
+                "    }\n" +
+                "}\n")
+            .addAttribute("testClassName", testGenerator.getShortClassName() + "Test")
+            .addAttribute("methodName", testGenerator.getMethodName())
+            .generate();
     }
 
     private String getTestGeneratedDateTime() {
@@ -72,18 +68,6 @@ public class TestGeneratorService {
                 .setTemplate("    //Test Generated on {{datetime}} with @RecordTest\n")
                 .addAttribute("datetime", simpleDateFormat.format(new Date()))
                 .generate();
-    }
-
-    // TODO IB !!!! suspect
-    private Map<String, String> getStringGeneratorAttributes(TestGenerator testGenerator) {
-        Map<String, String> attributes = new HashMap<>();
-        attributes.put("methodName", testGenerator.getMethodName());
-
-        attributes.put("expectedResult", testGenerator.getExpectedResultObjectInfo().getInlineCode());
-        if (testGenerator.getExpectedException() != null) {
-            attributes.put("expectedExceptionClassName", testGenerator.getExpectedException().getClass().getName());
-        }
-        return attributes;
     }
 
     private String getEndMarkerString() {

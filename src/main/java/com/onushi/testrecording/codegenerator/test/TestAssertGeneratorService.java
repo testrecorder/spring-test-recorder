@@ -9,7 +9,6 @@ import com.onushi.testrecording.codegenerator.object.PropertyValue;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
 import com.onushi.testrecording.codegenerator.template.StringService;
-import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
