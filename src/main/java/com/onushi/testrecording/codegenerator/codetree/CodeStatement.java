@@ -1,7 +1,7 @@
 package com.onushi.testrecording.codegenerator.codetree;
 
 public class CodeStatement extends CodeNode {
-    private String code;
+    private final String code;
 
     public CodeStatement(String code) {
         this.code = code;
