@@ -19,12 +19,12 @@ public class ServiceCreatorUtils {
                 new TestArrangeGeneratorService(
                         new TestHelperObjectsGeneratorService(),
                         new StringService(),
-                        new TestObjectsInitGeneratorService()),
+                        new TestObjectsInitGeneratorService(new StringService())),
                 new TestActGeneratorService(),
                 new TestAssertGeneratorService(
                         new StringService(),
                         new ClassInfoService(),
-                        new TestObjectsInitGeneratorService()));
+                        new TestObjectsInitGeneratorService(new StringService())));
     }
 
     public static ObjectCreationAnalyzerService createObjectCreationAnalyzerService() {

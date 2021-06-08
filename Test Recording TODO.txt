@@ -215,17 +215,33 @@ DONE ==========================
 	OK - Split TestGeneratorService to subservices
 
 	------
+	OK - create CodeTree classes + test
+	
+	OK - move attributes from TestGeneratorService to subservices
+	
+	OK - split asserts to be more readable
+	
+	
+	
+	
+	
+	
 			
 TODO ==========================
+	split ObjectsInit to be more readable
+	
 	Exceptions thrown are not added to includes
 		in mocks
 		in test
 
+	Is there a problem with boxed vs unboxed types?
+		Ex: Float / float
+
+	Test what happens when you call a void returning method and want to mock it?
 
 	!!!! Bug. If I modify the params, the test will have them already modified
 		I should get the values of params + target before the function is run
 		I should get the values again after the function call to be able to assert
-
 
 	Handle more classes
 		Class class 
@@ -254,10 +270,8 @@ TODO ==========================
 		
 		Write tests for different cases of objects reuse, side effects etc
 		
-
 	Sometimes variable names are phased: list1, list4, list5
 		I could assign names to objects only when adding them to the generated code
-
 
 	Maybe I should use both Annotations be for Class/Function?
 		
@@ -265,16 +279,10 @@ TODO ==========================
 		If not possible, write to console
 		Add a parameter to specify the path for generation
 
-
-	Is there a problem with boxed vs unboxed types?
-		Ex: Float / float
-
 	Read again exception handling best practices
 		checking params 
 		raising exceptions
 		where to treat exceptions
-	
-	Test what happens when you call a void returning method and want to mock it?
 
 	I should add logging for debugging as a param of the Annotation
 	
@@ -296,13 +304,9 @@ TODO ==========================
 LATER ==========================
 	Rename project to TestRecorder
 
-	I could assign context info to generated lines of codes and add space to separate long inits or long asserts. Or simply check if something is longer than x lines and add a enter after
-	
 	There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
 	
 	Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
-	
-	use PropertySource to access protected fields/getters in some cases
 	
 	I could give significant var names from names of fields and getters
 	
@@ -331,12 +335,7 @@ LATER ==========================
 	Handle other Java common classes
 
 	full injection for factories?
-		for test have a util that creates the factory
 	
-	see what happens with the fields static
-
-	Use JavaPoet to generate java code instead of my library
-
 	if needed object initialisation code could be learned from github	
 	
 	Handle Generics
@@ -348,8 +347,4 @@ LATER ==========================
 	static fields are not handled yet
 	
 	
-	
-	
-	
-
 	

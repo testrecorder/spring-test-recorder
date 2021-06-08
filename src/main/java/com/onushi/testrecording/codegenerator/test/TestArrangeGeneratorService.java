@@ -29,16 +29,15 @@ public class TestArrangeGeneratorService {
         objectsToInit.add(testGenerator.targetObjectInfo);
 
         return new StringGenerator()
-                .setTemplate(
-                        "        // Arrange\n" +
-                        "{{requiredHelperObjects}}" +
-                        "{{objectsInit}}\n"
-                )
-                .addAttribute("requiredHelperObjects", this.testHelperObjectsGeneratorService.getRequiredHelperObjects(testGenerator).stream()
-                        .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
-                        .collect(Collectors.joining("")))
-                .addAttribute("objectsInit", testObjectsInitGeneratorService.getObjectsInit(objectsToInit).stream()
-                        .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")))
-                .generate();
+            .setTemplate(
+                    "        // Arrange\n" +
+                    "{{requiredHelperObjects}}" +
+                    "{{objectsInit}}\n"
+            )
+            .addAttribute("requiredHelperObjects", this.testHelperObjectsGeneratorService.getRequiredHelperObjects(testGenerator).stream()
+                    .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
+                    .collect(Collectors.joining("")))
+            .addAttribute("objectsInit", testObjectsInitGeneratorService.getObjectsInit(objectsToInit))
+            .generate();
     }
 }
