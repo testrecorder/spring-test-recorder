@@ -8,22 +8,17 @@ import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.object.PropertyValue;
 import com.onushi.testrecording.codegenerator.object.VisibleProperty;
 import com.onushi.testrecording.codegenerator.template.StringGenerator;
-import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class TestAssertGeneratorService {
-    private final StringService stringService;
     private final ClassInfoService classInfoService;
     private final TestObjectsInitGeneratorService testObjectsInitGeneratorService;
 
-    public TestAssertGeneratorService(StringService stringService,
-                                      ClassInfoService classInfoService,
+    public TestAssertGeneratorService(ClassInfoService classInfoService,
                                       TestObjectsInitGeneratorService testObjectsInitGeneratorService) {
-        this.stringService = stringService;
         this.classInfoService = classInfoService;
         this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
     }
@@ -43,7 +38,7 @@ public class TestAssertGeneratorService {
         CodeBlock result = new CodeBlock();
         if (objectInfo.getObject() != null &&
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
-                !objectInfo.isInlineOnly() &&
+                objectInfo.hasInitCode() &&
                 objectInfo.isInitAdded()) {
             result.addChild(getAssertEqualsForObject(objectInfo, assertPath));
         } else {

@@ -81,11 +81,8 @@ public class CodeBlock extends CodeNode {
                     maxChildLinesCount = childLinesCount;
                 }
             }
-            if (maxChildLinesCount >= CHILD_RAW_LINES_COUNT_FOR_SPLIT_BLOCK) {
-                return true;
-            }
+            return maxChildLinesCount >= CHILD_RAW_LINES_COUNT_FOR_SPLIT_BLOCK;
         }
-        return false;
     }
 
     private List<CodeNode> getAllChildren() {
@@ -95,12 +92,9 @@ public class CodeBlock extends CodeNode {
     }
 
     private List<String> getGetCodeForNonEmptyChildren() {
-        List<CodeNode> allChildren = getAllChildren();
-        List<String> codeList = new ArrayList<>();
-        for (int i = 0; i < allChildren.size(); i++) {
-            CodeNode codeNode = allChildren.get(i);
-            codeList.add(codeNode.getCode());
-        }
+        List<String> codeList = getAllChildren().stream()
+                .map(CodeNode::getCode)
+                .collect(Collectors.toList());
 
         return codeList.stream().filter(x -> !x.equals(""))
                 .collect(Collectors.toList());

@@ -7,9 +7,7 @@ import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TestObjectsInitGeneratorService {
@@ -33,7 +31,7 @@ public class TestObjectsInitGeneratorService {
             for (ObjectInfo dependency : objectInfo.getInitDependencies()) {
                 result.addPrerequisite(getObjectsInit(dependency));
             }
-            if (!objectInfo.isInlineOnly()) {
+            if (objectInfo.hasInitCode()) {
                 String initCode = objectInfo.getInitCode();
                 initCode = stringService.addPrefixOnAllLines(initCode, "        ") + "\n";
                 result.addChild(new CodeStatement(initCode));

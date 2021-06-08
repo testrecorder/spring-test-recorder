@@ -25,12 +25,6 @@ public class StringGenerator {
         return this;
     }
 
-    public StringGenerator addAttributes(Map<String, String> attributes) {
-        context.putAll(attributes);
-        return this;
-    }
-
-
     public String generate() {
         String result = template;
         for (String key: context.keySet()) {
