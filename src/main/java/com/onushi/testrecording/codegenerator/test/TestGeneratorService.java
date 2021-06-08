@@ -11,25 +11,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class TestGeneratorService {
-    private final StringService stringService;
     private final TestImportsGeneratorService testImportsGeneratorService;
-    private final TestHelperObjectsGeneratorService testHelperObjectsGeneratorService;
-    private final TestObjectsInitGeneratorService testObjectsInitGeneratorService;
     private final TestArrangeGeneratorService testArrangeGeneratorService;
     private final TestActGeneratorService testActGeneratorService;
     private final TestAssertGeneratorService testAssertGeneratorService;
 
-    public TestGeneratorService(StringService stringService,
-                                TestImportsGeneratorService testImportsGeneratorService,
-                                TestHelperObjectsGeneratorService testHelperObjectsGeneratorService,
-                                TestObjectsInitGeneratorService testObjectsInitGeneratorService,
+    public TestGeneratorService(TestImportsGeneratorService testImportsGeneratorService,
                                 TestArrangeGeneratorService testArrangeGeneratorService,
                                 TestActGeneratorService testActGeneratorService,
                                 TestAssertGeneratorService testAssertGeneratorService) {
-        this.stringService = stringService;
         this.testImportsGeneratorService = testImportsGeneratorService;
-        this.testHelperObjectsGeneratorService = testHelperObjectsGeneratorService;
-        this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
         this.testArrangeGeneratorService = testArrangeGeneratorService;
         this.testActGeneratorService = testActGeneratorService;
         this.testAssertGeneratorService = testAssertGeneratorService;
@@ -57,21 +48,22 @@ public class TestGeneratorService {
     }
 
     private String getClassAndTestString(TestGenerator testGenerator) {
-        StringGenerator stringGenerator = new StringGenerator();
         Map<String, String> attributes = getStringGeneratorAttributes(testGenerator);
-        stringGenerator.setTemplate(
-                "class {{testClassName}} {\n" +
-                getTestGeneratedDateTime() +
-                COMMENT_BEFORE_TEST +
-                "    @Test\n" +
-                "    void {{methodName}}() throws Exception {\n" +
-                        testArrangeGeneratorService.getArrangeCode(attributes) +
-                        testActGeneratorService.getActCode(testGenerator, attributes) +
-                        testAssertGeneratorService.getAssertCode(testGenerator) +
-                "    }\n" +
-                "}\n");
-        stringGenerator.addAttributes(attributes);
-        return stringGenerator.generate();
+        return new StringGenerator()
+                .setTemplate(
+                    "class {{testClassName}} {\n" +
+                    getTestGeneratedDateTime() +
+                    COMMENT_BEFORE_TEST +
+                    "    @Test\n" +
+                    "    void {{methodName}}() throws Exception {\n" +
+                            testArrangeGeneratorService.getArrangeCode(testGenerator) +
+                            testActGeneratorService.getActCode(testGenerator, attributes) +
+                            testAssertGeneratorService.getAssertCode(testGenerator) +
+                    "    }\n" +
+                    "}\n")
+                .addAttributes(attributes)
+                .addAttribute("testClassName", testGenerator.getShortClassName() + "Test")
+                .generate();
     }
 
     private String getTestGeneratedDateTime() {
@@ -82,19 +74,10 @@ public class TestGeneratorService {
                 .generate();
     }
 
+    // TODO IB !!!! suspect
     private Map<String, String> getStringGeneratorAttributes(TestGenerator testGenerator) {
         Map<String, String> attributes = new HashMap<>();
-        attributes.put("testClassName", testGenerator.getShortClassName() + "Test");
         attributes.put("methodName", testGenerator.getMethodName());
-        attributes.put("requiredHelperObjects",
-                this.testHelperObjectsGeneratorService.getRequiredHelperObjects(testGenerator).stream()
-                        .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
-                        .collect(Collectors.joining("")));
-
-        List<ObjectInfo> objectsToInit = new ArrayList<>(testGenerator.argumentObjectInfos);
-        objectsToInit.add(testGenerator.targetObjectInfo);
-        attributes.put("objectsInit", testObjectsInitGeneratorService.getObjectsInit(objectsToInit).stream()
-                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n").collect(Collectors.joining("")));
 
         attributes.put("targetObjectName", testGenerator.getTargetObjectInfo().getObjectName());
 

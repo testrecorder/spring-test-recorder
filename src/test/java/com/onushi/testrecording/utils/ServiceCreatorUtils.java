@@ -15,13 +15,14 @@ public class ServiceCreatorUtils {
     }
 
     public static TestGeneratorService createTestGeneratorService() {
-        return new TestGeneratorService(new StringService(),
-                new TestImportsGeneratorService(),
-                new TestHelperObjectsGeneratorService(),
-                new TestObjectsInitGeneratorService(),
-                new TestArrangeGeneratorService(),
+        return new TestGeneratorService(new TestImportsGeneratorService(),
+                new TestArrangeGeneratorService(
+                        new TestHelperObjectsGeneratorService(),
+                        new StringService(),
+                        new TestObjectsInitGeneratorService()),
                 new TestActGeneratorService(),
-                new TestAssertGeneratorService(new StringService(),
+                new TestAssertGeneratorService(
+                        new StringService(),
                         new ClassInfoService(),
                         new TestObjectsInitGeneratorService()));
     }
