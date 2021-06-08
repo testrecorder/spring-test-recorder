@@ -82,7 +82,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
         if (dependencyMethodRunInfo.getException() != null) {
             return new StringGenerator()
                     .setTemplate("doThrow({{exceptionClassName}}.class)\n" + "" +
-                            "    .when({{objectName}}).{{methodName}}({{methodArgsInline}});")
+                            "    .when({{objectName}}).{{methodName}}({{methodArgsInline}});\n")
                     .addAttribute("exceptionClassName", dependencyMethodRunInfo.getException().getClass().getSimpleName())
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("methodName", dependencyMethodRunInfo.getMethodName())

@@ -22,7 +22,7 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             String dateStr = simpleDateFormat.format((Date) context.getObject());
 
-            objectInfo.initCode = String.format("Date %s = simpleDateFormat.parse(\"%s\");", context.getObjectName(), dateStr);
+            objectInfo.initCode = String.format("Date %s = simpleDateFormat.parse(\"%s\");\n", context.getObjectName(), dateStr);
 
             objectInfo.addVisibleProperty("", VisibleProperty.builder()
                             .finalValue(PropertyValue.fromString(String.format("simpleDateFormat.parse(\"%s\")", dateStr)))

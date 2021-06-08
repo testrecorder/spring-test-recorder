@@ -4,6 +4,7 @@ import com.onushi.testrecording.codegenerator.template.StringGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CodeBlock extends CodeNode {
     private final List<CodeNode> prerequisite = new ArrayList<>();
@@ -30,12 +31,22 @@ public class CodeBlock extends CodeNode {
 
         boolean splitBlock = shouldSplitBlock(allChildren);
 
+        List<String> codeList = new ArrayList<>();
         for (int i = 0; i < allChildren.size(); i++) {
             CodeNode codeNode = allChildren.get(i);
+            codeList.add(codeNode.getCode());
+        }
+
+        // TODO IB !!!! improve. do not could empty lines in shouldSplitBlock
+        codeList = codeList.stream().filter(x -> !x.equals(""))
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < codeList.size(); i++) {
+            String code = codeList.get(i);
             if (splitBlock && i != 0) {
                 stringBuilder.append("\n");
             }
-            stringBuilder.append(codeNode.getCode());
+            stringBuilder.append(code);
         }
         return stringBuilder.toString();
     }

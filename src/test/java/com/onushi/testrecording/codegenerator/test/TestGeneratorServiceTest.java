@@ -98,8 +98,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void minDate() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -340,15 +339,25 @@ class TestGeneratorServiceTest {
                         "    void processArrays() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        boolean[] array1 = {true, false};\n" +
+                        "\n" +
                         "        byte[] array2 = {(byte)1, (byte)2};\n" +
+                        "\n" +
                         "        char[] array3 = {'a', 'z'};\n" +
+                        "\n" +
                         "        double[] array4 = {1.0, 2.0};\n" +
+                        "\n" +
                         "        float[] array5 = {1.0f, 2.0f};\n" +
+                        "\n" +
                         "        int[] array6 = {3, 4};\n" +
+                        "\n" +
                         "        long[] array7 = {3L, 4L};\n" +
+                        "\n" +
                         "        short[] array8 = {(short)3, (short)4};\n" +
+                        "\n" +
                         "        String[] array9 = {\"a\", \"z\"};\n" +
+                        "\n" +
                         "        Object[] array10 = {\"a\", 2};\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -458,8 +467,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void someFunction() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -470,14 +478,18 @@ class TestGeneratorServiceTest {
                         "            .firstName(\"Paul\")\n" +
                         "            .lastName(\"Thompson\")\n" +
                         "            .build();\n" +
+                        "\n" +
                         "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
                         "        Person person2 = Person.builder()\n" +
                         "            .dateOfBirth(date2)\n" +
                         "            .firstName(\"Tom\")\n" +
                         "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
+                        "\n" +
                         "        List<Person> arrayList1 = Arrays.asList(person1, person2);\n" +
+                        "\n" +
                         "        Person[] array1 = {person1, person2};\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -519,8 +531,7 @@ class TestGeneratorServiceTest {
                         "import java.util.List;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void createList() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -623,8 +634,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void returnPerson() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -733,11 +743,13 @@ class TestGeneratorServiceTest {
                         "    void processStudents() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        StudentWithDefaultInitFields studentWithDefaultInitFields1 = new StudentWithDefaultInitFields();\n" +
+                        "\n" +
                         "        StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
                         "            .age(60)\n" +
                         "            .firstName(\"John\")\n" +
                         "            .lastName(\"Wayne\")\n" +
                         "            .build();\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -782,8 +794,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void loadPerson() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -847,8 +858,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -859,8 +869,10 @@ class TestGeneratorServiceTest {
                         "            .firstName(\"Bruce\")\n" +
                         "            .lastName(\"Lee\")\n" +
                         "            .build();\n" +
+                        "\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
                         "        when(personRepositoryImpl1.getPersonFromDB(2)).thenReturn(person1);\n" +
+                        "\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +
@@ -922,8 +934,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -934,9 +945,11 @@ class TestGeneratorServiceTest {
                         "            .firstName(\"Bruce\")\n" +
                         "            .lastName(\"Lee\")\n" +
                         "            .build();\n" +
+                        "\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
                         "        when(personRepositoryImpl1.getPersonsCountFromDB(\"a\", null)).thenReturn(2);\n" +
                         "        when(personRepositoryImpl1.getPersonFromDB(2)).thenReturn(person1);\n" +
+                        "\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +
@@ -990,8 +1003,7 @@ class TestGeneratorServiceTest {
                         "import static org.mockito.Mockito.*;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void getPersonFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1045,18 +1057,21 @@ class TestGeneratorServiceTest {
                         "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void processMap() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        List<String> arrayList1 = Arrays.asList(\"0\", \"1\");\n" +
+                        "\n" +
                         "        List<String> arrayList2 = Arrays.asList(\"0\", \"1\", \"2\");\n" +
+                        "\n" +
                         "        List<String> arrayList3 = Arrays.asList(\"0\", \"1\", \"2\", \"3\");\n" +
+                        "\n" +
                         "        Map<String, List<String>> hashMap1 = new HashMap<>();\n" +
                         "        hashMap1.put(\"1\", arrayList1);\n" +
                         "        hashMap1.put(\"2\", arrayList2);\n" +
                         "        hashMap1.put(\"3\", arrayList3);\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -1167,8 +1182,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void createListOfPersonList() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1238,8 +1252,7 @@ class TestGeneratorServiceTest {
                         "import com.onushi.sample.model.Color;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void createEmployee() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1312,8 +1325,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void processCyclicObjects() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1324,9 +1336,11 @@ class TestGeneratorServiceTest {
                         "        cyclicChild1.date = date1;\n" +
                         "        cyclicChild1.parent = ...;\n" +
                         "        List<CyclicChild> singletonList1 = Arrays.asList(cyclicChild1);\n" +
+                        "\n" +
                         "        CyclicParent cyclicParent1 = new CyclicParent();\n" +
                         "        cyclicParent1.childList = singletonList1;\n" +
                         "        cyclicParent1.id = 1;\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
@@ -1375,8 +1389,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void createCyclicObjects() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1445,8 +1458,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void createPersonHashSet() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -1544,8 +1556,7 @@ class TestGeneratorServiceTest {
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
                         "    void createPersonHashMap() throws Exception {\n" +
                         "        // Arrange\n" +

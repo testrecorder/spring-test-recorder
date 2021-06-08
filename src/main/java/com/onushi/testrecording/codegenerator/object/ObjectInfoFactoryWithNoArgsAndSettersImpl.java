@@ -68,7 +68,7 @@ public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory
         objectInfo.initCode = new StringGenerator()
                 .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}()" +
                         "{{builderSetters}};\n" +
-                        "{{simpleSetters}}")
+                        "{{simpleSetters}}\n")
                 .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                 .addAttribute("objectName", context.getObjectName())
                 .addAttribute("builderSetters", builderSetters.toString())

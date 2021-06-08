@@ -41,7 +41,7 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
 
             boolean addCheckOrderOfArgs = matchingConstructor.isFieldsCouldHaveDifferentOrder() || moreConstructorsAvailable;
             objectInfo.initCode = new StringGenerator()
-                    .setTemplate("{{commentLine}}{{shortClassName}} {{objectName}} = new {{shortClassName}}({{argsInlineCode}});")
+                    .setTemplate("{{commentLine}}{{shortClassName}} {{objectName}} = new {{shortClassName}}({{argsInlineCode}});\n")
                     .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                     .addAttribute("argsInlineCode", argsInlineCode)
                     .addAttribute("objectName", context.getObjectName())

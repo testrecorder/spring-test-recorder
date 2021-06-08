@@ -1,5 +1,8 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.testrecording.codegenerator.codetree.CodeBlock;
+import com.onushi.testrecording.codegenerator.codetree.CodeNode;
+import com.onushi.testrecording.codegenerator.codetree.CodeStatement;
 import com.onushi.testrecording.codegenerator.object.ObjectInfo;
 import com.onushi.testrecording.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -16,29 +19,27 @@ public class TestObjectsInitGeneratorService {
         this.stringService = stringService;
     }
 
-    public String getObjectsInit(List<ObjectInfo> objectInfos) {
-        List<String> allObjectsInit = new ArrayList<>();
+    public CodeNode getObjectsInit(List<ObjectInfo> objectInfos) {
+        CodeBlock result = new CodeBlock();
         for (ObjectInfo objectInfo : objectInfos) {
-            allObjectsInit.addAll(getObjectsInit(objectInfo));
+            result.addChild(getObjectsInit(objectInfo));
         }
-        return allObjectsInit.stream()
-                .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
-                .collect(Collectors.joining(""));
+        return result;
     }
 
-    private List<String> getObjectsInit(ObjectInfo objectInfo) {
-        if (objectInfo.isInitAdded()) {
-            // to avoid double init
-            return new ArrayList<>();
+    private CodeNode getObjectsInit(ObjectInfo objectInfo) {
+        CodeBlock result = new CodeBlock();
+        if (!objectInfo.isInitAdded()) {
+            for (ObjectInfo dependency : objectInfo.getInitDependencies()) {
+                result.addPrerequisite(getObjectsInit(dependency));
+            }
+            if (!objectInfo.isInlineOnly()) {
+                String initCode = objectInfo.getInitCode();
+                initCode = stringService.addPrefixOnAllLines(initCode, "        ") + "\n";
+                result.addChild(new CodeStatement(initCode));
+            }
+            objectInfo.setInitAdded(true);
         }
-        List<String> allObjectsInit = new ArrayList<>();
-        for (ObjectInfo dependency : objectInfo.getInitDependencies()) {
-            allObjectsInit.addAll(getObjectsInit(dependency));
-        }
-        if (!objectInfo.getInitCode().equals("")) {
-            allObjectsInit.add(objectInfo.getInitCode());
-        }
-        objectInfo.setInitAdded(true);
-        return allObjectsInit;
+        return result;
     }
 }

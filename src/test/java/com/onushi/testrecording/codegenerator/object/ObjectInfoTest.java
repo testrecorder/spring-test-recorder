@@ -219,7 +219,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
         assertEquals("com.onushi.sample.model.Person", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
-        assertEquals("Person person1 = new Person();", objectInfo.getInitCode());
+        assertEquals("Person person1 = new Person();\n", objectInfo.getInitCode());
         assertEquals("person1", objectInfo.getInlineCode());
 
         assertEquals(3, objectInfo.visibleProperties.size());
@@ -243,7 +243,7 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(3, objectInfo.getInitDependencies().size());
         assertEquals("// TODO Check order of arguments\n" +
-                "StudentWithPublicFields student1 = new StudentWithPublicFields(\"John\", \"Aris\", 30);", objectInfo.getInitCode());
+                "StudentWithPublicFields student1 = new StudentWithPublicFields(\"John\", \"Aris\", 30);\n", objectInfo.getInitCode());
         assertEquals("student1", objectInfo.getInlineCode());
     }
 
@@ -256,7 +256,7 @@ class ObjectInfoTest {
         assertEquals("com.onushi.sample.services.PersonService", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(1, objectInfo.getInitDependencies().size());
-        assertEquals("PersonService person1 = new PersonService(personRepositoryImpl1);", objectInfo.getInitCode());
+        assertEquals("PersonService person1 = new PersonService(personRepositoryImpl1);\n", objectInfo.getInitCode());
         assertEquals("person1", objectInfo.getInlineCode());
     }
 

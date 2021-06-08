@@ -54,7 +54,7 @@ public class TestAssertGeneratorService {
 
                 CodeNode objectsInit = null;
                 if (visibleProperty.getFinalDependencies() != null) {
-                    objectsInit = new CodeStatement(testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()));
+                    objectsInit = new CodeStatement(testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()).getCode());
                 }
 
                 if (finalValue.getString() != null && finalValue.getString().equals("null")) {

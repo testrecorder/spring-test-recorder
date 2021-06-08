@@ -22,7 +22,7 @@ public class ObjectInfoFactoryWithNoArgsConstructorImpl extends ObjectInfoFactor
         if (objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(context.getObject(), context.getObjectState())){
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
             objectInfo.initCode = new StringGenerator()
-                    .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}();")
+                    .setTemplate("{{shortClassName}} {{objectName}} = new {{shortClassName}}();\n")
                     .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                     .addAttribute("objectName", context.getObjectName())
                     .generate();

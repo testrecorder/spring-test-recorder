@@ -37,7 +37,7 @@ public class TestArrangeGeneratorService {
             .addAttribute("requiredHelperObjects", this.testHelperObjectsGeneratorService.getRequiredHelperObjects(testGenerator).stream()
                     .map(x -> stringService.addPrefixOnAllLines(x, "        ") + "\n")
                     .collect(Collectors.joining("")))
-            .addAttribute("objectsInit", testObjectsInitGeneratorService.getObjectsInit(objectsToInit))
+            .addAttribute("objectsInit", testObjectsInitGeneratorService.getObjectsInit(objectsToInit).getCode())
             .generate();
     }
 }
