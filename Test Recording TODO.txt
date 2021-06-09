@@ -221,39 +221,27 @@ DONE ==========================
 	
 	OK - split asserts to be more readable
 	
-	
-	
-	
+	OK - split ObjectsInit to be more readable
 	
 	
 			
 TODO ==========================
-	split ObjectsInit to be more readable
-	
-	Exceptions thrown are not added to includes
-		in mocks
-		in test
-
-	Is there a problem with boxed vs unboxed types?
-		Ex: Float / float
-
-	Test what happens when you call a void returning method and want to mock it?
 
 	!!!! Bug. If I modify the params, the test will have them already modified
-		I should get the values of params + target before the function is run
-		I should get the values again after the function call to be able to assert
-
-	Handle more classes
-		Class class 
-		Calendar class
-		All List<> from java.utils
-		All Set<> from java.utils
-		All HashMap<> from java.utils
-
-	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
+		To solve
 	
-	solve more TODOs
-
+		for the args + target
+			construct ObjectInfos
+			fill initialValue for all objects in the context
+			
+		call the target.method()
+		
+		For all existing objects 
+			get objects for result + dependencies
+			fill finalValue for all objects in the context
+			
+	
+		
 	Check side effects on target, arguments, any dependencies
 		OK - Write a demo to understand the problem
 
@@ -269,6 +257,30 @@ TODO ==========================
 		VisibleProps should be computed for every object before and after the call 
 		
 		Write tests for different cases of objects reuse, side effects etc
+	
+
+	
+	Exceptions thrown are not added to includes
+		in mocks
+		in test
+
+	Is there a problem with boxed vs unboxed types?
+		Ex: Float / float
+
+	Test what happens when you call a void returning method and want to mock it?
+
+
+	Handle more classes
+		Class class 
+		Calendar class
+		All List<> from java.utils
+		All Set<> from java.utils
+		All HashMap<> from java.utils
+
+	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
+	
+	solve more TODOs
+
 		
 	Sometimes variable names are phased: list1, list4, list5
 		I could assign names to objects only when adding them to the generated code
