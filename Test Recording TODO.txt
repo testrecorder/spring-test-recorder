@@ -223,9 +223,14 @@ DONE ==========================
 	
 	OK - split ObjectsInit to be more readable
 	
+	------
+	
+	
 	
 			
 TODO ==========================
+	Create the complex demo
+	
 
 	!!!! Bug. If I modify the params, the test will have them already modified
 		To solve
@@ -240,8 +245,6 @@ TODO ==========================
 			get objects for result + dependencies
 			fill finalValue for all objects in the context
 			
-	
-		
 	Check side effects on target, arguments, any dependencies
 		OK - Write a demo to understand the problem
 

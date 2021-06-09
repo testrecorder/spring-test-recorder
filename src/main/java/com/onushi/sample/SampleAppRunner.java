@@ -14,14 +14,16 @@ import java.util.*;
 @Component
 public class SampleAppRunner implements CommandLineRunner {
     private final SampleService sampleService;
+    private final PersonService personService;
 
-    public SampleAppRunner(SampleService sampleService) {
+    public SampleAppRunner(SampleService sampleService, PersonService personService) {
         this.sampleService = sampleService;
+        this.personService = personService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-         demoSideEffects();
+        demo();
     }
 
 
@@ -49,6 +51,14 @@ public class SampleAppRunner implements CommandLineRunner {
 
         OtherEmployee[] otherEmployeeArray = {otherEmployee};
         this.sampleService.demoFunction(Arrays.asList(tom, marco), otherEmployeeArray);
+    }
+
+    private void demo() throws Exception {
+        List<Integer> personIds = new ArrayList<>();
+        personIds.add(1);
+        personIds.add(2);
+
+        Map<Integer, Person> personMap = this.personService.loadPersons(personIds);
     }
 
     private void demoSideEffects() {

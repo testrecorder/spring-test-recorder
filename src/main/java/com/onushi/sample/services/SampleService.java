@@ -244,7 +244,6 @@ public class SampleService {
         return 42;
     }
 
-    @RecordTest
     public Map<Person, Person> createPersonHashMap() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1970-01-02");
