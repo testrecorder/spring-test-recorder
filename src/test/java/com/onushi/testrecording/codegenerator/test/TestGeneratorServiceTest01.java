@@ -2,9 +2,7 @@ package com.onushi.testrecording.codegenerator.test;
 
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
-import com.onushi.testrecording.utils.ServiceCreatorUtils;
 import com.onushi.testrecording.utils.StringUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,16 +10,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest01 {
-    TestGeneratorFactory testGeneratorFactory;
-    TestGeneratorService testGeneratorService;
-
-    @BeforeEach
-    void setUp() {
-        testGeneratorFactory = ServiceCreatorUtils.createTestGeneratorFactory();
-        testGeneratorService = ServiceCreatorUtils.createTestGeneratorService();
-    }
-
+public class TestGeneratorServiceTest01 extends TestGeneratorServiceTest {
     @Test
     void generateTestForAddFloats() {
         // Arrange

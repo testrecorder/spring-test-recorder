@@ -12,16 +12,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest06 {
-    TestGeneratorFactory testGeneratorFactory;
-    TestGeneratorService testGeneratorService;
-
-    @BeforeEach
-    void setUp() {
-        testGeneratorFactory = ServiceCreatorUtils.createTestGeneratorFactory();
-        testGeneratorService = ServiceCreatorUtils.createTestGeneratorService();
-    }
-
+public class TestGeneratorServiceTest06 extends TestGeneratorServiceTest {
     @Test
     void generateTestWhenResultIsVoid() {
         // Arrange

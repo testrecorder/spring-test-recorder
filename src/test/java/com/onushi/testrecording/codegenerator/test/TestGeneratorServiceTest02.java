@@ -14,16 +14,7 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest02 {
-    TestGeneratorFactory testGeneratorFactory;
-    TestGeneratorService testGeneratorService;
-
-    @BeforeEach
-    void setUp() {
-        testGeneratorFactory = ServiceCreatorUtils.createTestGeneratorFactory();
-        testGeneratorService = ServiceCreatorUtils.createTestGeneratorService();
-    }
-
+public class TestGeneratorServiceTest02 extends TestGeneratorServiceTest {
     @Test
     void generateTestForMinDate() throws Exception {
         // Arrange
