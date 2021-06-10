@@ -224,13 +224,13 @@ DONE ==========================
 	OK - split ObjectsInit to be more readable
 	
 	------
-	
+	OK - Create a demo with complex args objects, mock and object asserts
 	
 	
 			
 TODO ==========================
-	Create the complex demo
-	
+	Order in TestGeneratorServiceTests
+
 
 	!!!! Bug. If I modify the params, the test will have them already modified
 		To solve

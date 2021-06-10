@@ -165,7 +165,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateTestForWhenHavingObjectAsArgument() {
+    void generateTestWhenHavingObjectAsArgument() {
         // Arrange
         Person person = Person.builder()
                 .firstName("Mary")
@@ -422,7 +422,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void testDependenciesOfDependencies() throws Exception {
+    void generateTestForDependenciesOfDependencies() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
@@ -509,7 +509,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void testListOfIntegers() {
+    void generateTestForListOfIntegers() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
@@ -1144,7 +1144,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateAssertTestForListOfListOfPerson() throws Exception {
+    void generateTestForListOfListOfPerson() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
@@ -1220,7 +1220,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void generateAssertTestForObjectsWithGetters() {
+    void generateTestForObjectsWithGetters() {
         // Arrange
         Employee employee = Employee.builder()
                 .id(1)
@@ -1294,7 +1294,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void testCyclicDependenciesInArgs() throws Exception {
+    void generateTestForCyclicDependenciesInArgs() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         CyclicParent cyclicParent = new CyclicParent();
@@ -1363,7 +1363,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void testCyclicDependenciesInResult() throws Exception {
+    void generateTestForCyclicDependenciesInResult() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         CyclicParent cyclicParent = new CyclicParent();
@@ -1419,7 +1419,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void testHashSetAssert() throws Exception {
+    void generateTestForHashSetAsserts() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
@@ -1505,7 +1505,7 @@ class TestGeneratorServiceTest {
     }
 
     @Test
-    void testHashMapAssert() throws Exception {
+    void generateAssertTestForHashMap() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth1 = simpleDateFormat.parse("1970-01-02");
