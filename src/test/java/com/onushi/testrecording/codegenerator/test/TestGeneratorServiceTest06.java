@@ -1,6 +1,5 @@
 package com.onushi.testrecording.codegenerator.test;
 
-import com.onushi.sample.services.PersonRepository;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
@@ -13,7 +12,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest3 {
+public class TestGeneratorServiceTest06 {
     TestGeneratorFactory testGeneratorFactory;
     TestGeneratorService testGeneratorService;
 
@@ -24,14 +23,15 @@ public class TestGeneratorServiceTest3 {
     }
 
     @Test
-    void generateTestForReturnNull() {
+    void generateTestWhenResultIsVoid() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("returnNull")
+                .methodName("doNothing")
                 .arguments(Collections.emptyList())
                 .result(null)
-                .fallBackResultType(PersonRepository.class)
+                .fallBackResultType(void.class)
+                .exception(null)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -50,20 +50,17 @@ public class TestGeneratorServiceTest3 {
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void returnNull() throws Exception {\n" +
+                        "    void doNothing() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        PersonRepository result = sampleService.returnNull();\n" +
+                        "        sampleService.doNothing();\n" +
                         "\n" +
-                        "        // Assert\n" +
-                        "        assertNull(result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
-
     }
 }

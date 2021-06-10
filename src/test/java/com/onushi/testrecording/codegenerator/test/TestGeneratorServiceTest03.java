@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.sample.services.PersonRepository;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
@@ -12,7 +13,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest5 {
+public class TestGeneratorServiceTest03 {
     TestGeneratorFactory testGeneratorFactory;
     TestGeneratorService testGeneratorService;
 
@@ -23,15 +24,14 @@ public class TestGeneratorServiceTest5 {
     }
 
     @Test
-    void generateTestWhenExceptionIsThrown() {
+    void generateTestForReturnNull() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("testException")
-                .arguments(Collections.singletonList(5))
+                .methodName("returnNull")
+                .arguments(Collections.emptyList())
                 .result(null)
-                .fallBackResultType(String.class)
-                .exception(new IllegalArgumentException("x"))
+                .fallBackResultType(PersonRepository.class)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -50,16 +50,20 @@ public class TestGeneratorServiceTest5 {
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void testException() throws Exception {\n" +
+                        "    void returnNull() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
-                        "        // Act & Assert\n" +
-                        "        assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));\n" +
+                        "        // Act\n" +
+                        "        PersonRepository result = sampleService.returnNull();\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertNull(result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+
     }
 }

@@ -8,11 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest6 {
+public class TestGeneratorServiceTest01 {
     TestGeneratorFactory testGeneratorFactory;
     TestGeneratorService testGeneratorService;
 
@@ -23,15 +23,13 @@ public class TestGeneratorServiceTest6 {
     }
 
     @Test
-    void generateTestWhenResultIsVoid() {
+    void generateTestForAddFloats() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("doNothing")
-                .arguments(Collections.emptyList())
-                .result(null)
-                .fallBackResultType(void.class)
-                .exception(null)
+                .methodName("addFloats")
+                .arguments(Arrays.asList(2f, 3f))
+                .result(5f)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -50,13 +48,15 @@ public class TestGeneratorServiceTest6 {
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void doNothing() throws Exception {\n" +
+                        "    void addFloats() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        sampleService.doNothing();\n" +
+                        "        Float result = sampleService.addFloats(2.0f, 3.0f);\n" +
                         "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(5.0f, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

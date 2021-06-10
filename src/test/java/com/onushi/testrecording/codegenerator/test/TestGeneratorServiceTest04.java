@@ -1,5 +1,6 @@
 package com.onushi.testrecording.codegenerator.test;
 
+import com.onushi.sample.model.Person;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecording.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecording.utils.ServiceCreatorUtils;
@@ -7,14 +8,12 @@ import com.onushi.testrecording.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest2 {
+public class TestGeneratorServiceTest04 {
     TestGeneratorFactory testGeneratorFactory;
     TestGeneratorService testGeneratorService;
 
@@ -25,16 +24,17 @@ public class TestGeneratorServiceTest2 {
     }
 
     @Test
-    void generateTestForMinDate() throws Exception {
+    void generateTestWhenHavingObjectAsArgument() {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = simpleDateFormat.parse("2021-01-01");
-        Date d2 = simpleDateFormat.parse("2021-02-02");
+        Person person = Person.builder()
+                .firstName("Mary")
+                .lastName("Poe")
+                .build();
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("minDate")
-                .arguments(Arrays.asList(d1, d2))
-                .result(d1)
+                .methodName("getFirstName")
+                .arguments(Collections.singletonList(person))
+                .result("Mary")
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -49,25 +49,25 @@ public class TestGeneratorServiceTest2 {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.util.Date;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void minDate() throws Exception {\n" +
+                        "    void getFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
-                        "\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
-                        "        Date date2 = simpleDateFormat.parse(\"2021-02-02 00:00:00.000\");\n" +
+                        "        Person person1 = Person.builder()\n" +
+                        "            .dateOfBirth(null)\n" +
+                        "            .firstName(\"Mary\")\n" +
+                        "            .lastName(\"Poe\")\n" +
+                        "            .build();\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Date result = sampleService.minDate(date1, date2);\n" +
+                        "        String result = sampleService.getFirstName(person1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(date1, result);\n" +
+                        "        assertEquals(\"Mary\", result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

@@ -8,11 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest1 {
+public class TestGeneratorServiceTest05 {
     TestGeneratorFactory testGeneratorFactory;
     TestGeneratorService testGeneratorService;
 
@@ -23,13 +23,15 @@ public class TestGeneratorServiceTest1 {
     }
 
     @Test
-    void generateTestForAddFloats() {
+    void generateTestWhenExceptionIsThrown() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("addFloats")
-                .arguments(Arrays.asList(2f, 3f))
-                .result(5f)
+                .methodName("testException")
+                .arguments(Collections.singletonList(5))
+                .result(null)
+                .fallBackResultType(String.class)
+                .exception(new IllegalArgumentException("x"))
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -48,15 +50,12 @@ public class TestGeneratorServiceTest1 {
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void addFloats() throws Exception {\n" +
+                        "    void testException() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
-                        "        // Act\n" +
-                        "        Float result = sampleService.addFloats(2.0f, 3.0f);\n" +
-                        "\n" +
-                        "        // Assert\n" +
-                        "        assertEquals(5.0f, result);\n" +
+                        "        // Act & Assert\n" +
+                        "        assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
