@@ -200,49 +200,50 @@ DONE ==========================
 			don't care about calculating the name of getters for fields	
 
 	------
-	OK - assertTrue
-	
-	OK - assertNull
-	
-	OK - implement assert and test for HashMap, HashSet
-	
-	OK - Implement dependencies for asserts
-	
-	OK - fix all warnings
+		OK - assertTrue
+		
+		OK - assertNull
+		
+		OK - implement assert and test for HashMap, HashSet
+		
+		OK - Implement dependencies for asserts
+		
+		OK - fix all warnings
 
-	OK - What happens when the target method returns an interface?
+		OK - What happens when the target method returns an interface?
 
-	OK - Split TestGeneratorService to subservices
-
-	------
-	OK - create CodeTree classes + test
-	
-	OK - move attributes from TestGeneratorService to subservices
-	
-	OK - split asserts to be more readable
-	
-	OK - split ObjectsInit to be more readable
-	
-	------
-	OK - Create a demo with complex args objects, mock and object asserts
-	
-	------
-	OK - Order in TestGeneratorServiceTests
+		OK - Split TestGeneratorService to subservices
 
 	------
-	OK - Clean my github account 
+		OK - create CodeTree classes + test
+		
+		OK - move attributes from TestGeneratorService to subservices
+		
+		OK - split asserts to be more readable
+		
+		OK - split ObjectsInit to be more readable
 	
-	OK - Rename project in gitHub to TestRecorder
+	------
+		OK - Create a demo with complex args objects, mock and object asserts
 	
-	OK - Rename to TestRecorder
-	
-	OK - Transform TestRecorder to library
-	
-	OK - publish library in local repository with mvc clean install
-	
-	OK - add TestRecorder dependency from local repository in a target project
-	
-	OK - manage to generate the first code in another project by importing TestGenerator package from local maven repository
+	10.06.2021 =========
+		OK - Order in TestGeneratorServiceTests
+
+
+	11.06.2021 =========
+		OK - Clean my github account 
+		
+		OK - Rename project in gitHub to TestRecorder
+		
+		OK - Rename to TestRecorder
+		
+		OK - Transform TestRecorder to library
+		
+		OK - publish library in local repository with mvc clean install
+		
+		OK - add TestRecorder dependency from local repository in a target project
+		
+		OK - manage to generate the first code in another project by importing TestGenerator package from local maven repository
 	
 	
 	
