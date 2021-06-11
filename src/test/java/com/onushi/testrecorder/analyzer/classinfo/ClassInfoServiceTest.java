@@ -1,9 +1,6 @@
 package com.onushi.testrecorder.analyzer.classinfo;
 
-import com.onushi.sample.model.Person;
-import com.onushi.sample.model.Student;
-import com.onushi.sample.model.StudentWithBuilder;
-import com.onushi.sample.model.StudentWithPublicFields;
+import com.onushi.sample.model.*;
 import com.onushi.sample.services.PersonRepositoryImpl;
 import com.onushi.testrecorder.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
@@ -34,6 +31,7 @@ class ClassInfoServiceTest {
     void hasPublicNoArgsConstructor() {
         ClassInfoService classInfoService = new ClassInfoService();
         assertTrue(classInfoService.hasPublicNoArgsConstructor(Person.class));
+        assertTrue(classInfoService.hasPublicNoArgsConstructor(Department.class));
         assertFalse(classInfoService.hasPublicNoArgsConstructor(StudentWithBuilder.class));
     }
 

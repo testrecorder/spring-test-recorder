@@ -19,6 +19,11 @@ public class ClassInfoService {
                 x.annotationType().getName().equals("org.springframework.stereotype.Controller"));
     }
 
+    public List<Constructor<?>> getAllConstructors(Class<?> clazz) {
+        return Arrays.stream(clazz.getConstructors())
+                .collect(Collectors.toList());
+    }
+
     public List<Constructor<?>> getPublicConstructors(Class<?> clazz) {
         return Arrays.stream(clazz.getConstructors())
                 .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
@@ -26,9 +31,14 @@ public class ClassInfoService {
     }
 
     public boolean hasPublicNoArgsConstructor(Class<?> clazz) {
-        List<Constructor<?>> publicConstructors = getPublicConstructors(clazz);
-        return publicConstructors.stream()
-                .anyMatch(x -> x.getParameterTypes().length == 0);
+        List<Constructor<?>> allConstructors = getAllConstructors(clazz);
+        if (allConstructors.size() == 0) {
+            return true;
+        } else {
+            return allConstructors.stream()
+                    .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
+                    .anyMatch(x -> x.getParameterTypes().length == 0);
+        }
     }
 
     public boolean hasEquals(Class<?> clazz) {
