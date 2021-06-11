@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+// @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class RecordTestAspect {
     private final TestGeneratorFactory testGeneratorFactory;
     private final TestGeneratorService testGeneratorService;
@@ -24,6 +25,7 @@ public class RecordTestAspect {
 
     @Around("@annotation(com.onushi.testrecorder.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        System.out.println("TODO IB !!!! applyRecordTestForThis 3");
         RecordedMethodRunInfoBuilder recordedMethodRunInfoBuilder = new RecordedMethodRunInfoBuilder();
         recordedMethodRunInfoBuilder
                 .setThreadId(Thread.currentThread().getId())

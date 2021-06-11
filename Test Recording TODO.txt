@@ -230,15 +230,42 @@ DONE ==========================
 	OK - Order in TestGeneratorServiceTests
 
 	------
+	OK - Clean my github account 
+	
+	OK - Rename project in gitHub to TestRecorder
+	
 	OK - Rename to TestRecorder
 	
 	OK - Transform TestRecorder to library
 	
+	OK - publish library in local repository with mvc clean install
+	
+	OK - add TestRecorder dependency from local repository in a target project
+	
+	OK - manage to generate the first code in another project by importing TestGenerator package from local maven repository
+	
+	
+	
 			
 TODO ==========================
+	Could not create RarPublicAppointmentServiceImpl
+	
+	How to use
+		<dependency>
+			<groupId>com.onushi</groupId>
+			<artifactId>testrecorder</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
+		@ComponentScan(basePackages={..., "com.onushi.testrecorder"},
+	
+
+
 	https://stackoverflow.com/questions/35866920/spring-aop-annotation-not-working
 		@Annotation works just in the same context
 
+	Publish a library to MAVEN Repository
+		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
 	
 
 	// The demo should be in a test

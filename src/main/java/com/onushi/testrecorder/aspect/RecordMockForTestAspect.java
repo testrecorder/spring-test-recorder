@@ -15,6 +15,7 @@ import java.util.Set;
 
 @Aspect
 @Component
+// @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class RecordMockForTestAspect {
     private final RecordingContext recordingContext;
 
