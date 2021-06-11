@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.onushi</groupId>
 	<artifactId>testrecorder</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<name>testrecorder</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Spring Test Recorded Library</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -39,22 +39,4 @@
 			<version>2.4.4</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>

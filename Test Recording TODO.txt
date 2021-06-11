@@ -227,22 +227,29 @@ DONE ==========================
 	OK - Create a demo with complex args objects, mock and object asserts
 	
 	------
-		Order in TestGeneratorServiceTests
+	OK - Order in TestGeneratorServiceTests
 
 	------
-		Rename to TestRecorder
+	OK - Rename to TestRecorder
+	
+	OK - Transform TestRecorder to library
+	
 			
 TODO ==========================
-	Split this into 2 projects
-		One library 
-			I need to add the sample classes here
-		
-		One spring boot application that uses the libray
-		
+	https://stackoverflow.com/questions/35866920/spring-aop-annotation-not-working
+		@Annotation works just in the same context
+
 	
-	Move back to Java 8?
-	
-	
+
+	// The demo should be in a test
+    private void demo() throws Exception {
+        List<Integer> personIds = new ArrayList<>();
+        personIds.add(1);
+        personIds.add(2);
+
+        Map<Integer, Person> personMap = this.personService.loadPersons(personIds);
+    }
+
 	
 	Learn about Maven and how to publish a package
 
