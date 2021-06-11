@@ -37,6 +37,16 @@ INFO ==========================
 		Types of functional tests
 			https://www.simform.com/functional-testing-types/
 
+	How to use TestRecorder
+		<dependency>
+			<groupId>com.onushi</groupId>
+			<artifactId>testrecorder</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
+		@ComponentScan(basePackages={..., "com.onushi.testrecorder"},
+		
+		add @TestRecorder to the function you want to record
 
 
 
@@ -245,26 +255,10 @@ DONE ==========================
 		
 		OK - manage to generate the first code in another project by importing TestGenerator package from local maven repository
 	
-	
-	
 			
 TODO ==========================
 	Could not create RarPublicAppointmentServiceImpl
 	
-	How to use
-		<dependency>
-			<groupId>com.onushi</groupId>
-			<artifactId>testrecorder</artifactId>
-			<version>0.1.0</version>
-		</dependency>
-
-		@ComponentScan(basePackages={..., "com.onushi.testrecorder"},
-	
-
-
-	https://stackoverflow.com/questions/35866920/spring-aop-annotation-not-working
-		@Annotation works just in the same context
-
 	Publish a library to MAVEN Repository
 		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
 	
@@ -279,8 +273,6 @@ TODO ==========================
     }
 
 	
-	Learn about Maven and how to publish a package
-
 	!!!! Bug. If I modify the params, the test will have them already modified
 		To solve
 	
@@ -352,14 +344,9 @@ TODO ==========================
 	
 	Demo for IonutP, Rares
 	 
-	After the demo
-		Package and publish locally
-	
 	Test in a real project
 		See what problems appear
 
-	Move all the test classes within the testrecorder package? Why?
-	
 	Write tests for all the code that could break
 		check coverage again
 
