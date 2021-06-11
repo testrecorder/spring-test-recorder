@@ -2,7 +2,7 @@ package com.onushi.sample.services;
 
 import com.onushi.sample.model.Department;
 import com.onushi.sample.model.Employee;
-import com.onushi.testrecording.aspect.RecordMockForTest;
+import com.onushi.testrecorder.aspect.RecordMockForTest;
 import org.springframework.stereotype.Repository;
 
 import java.util.NoSuchElementException;

@@ -226,11 +226,25 @@ DONE ==========================
 	------
 	OK - Create a demo with complex args objects, mock and object asserts
 	
-	
+	------
+		Order in TestGeneratorServiceTests
+
 			
 TODO ==========================
-	Order in TestGeneratorServiceTests
-
+	Split this into 2 projects
+		One library 
+			I need to add the sample classes here
+		
+		One spring boot application that uses the libray
+		
+		
+		
+	
+	Move back to Java 8?
+	
+	
+	
+	Learn about Maven and how to publish a package
 
 	!!!! Bug. If I modify the params, the test will have them already modified
 		To solve
@@ -309,7 +323,7 @@ TODO ==========================
 	Test in a real project
 		See what problems appear
 
-	Move all the test classes within the testrecording package? Why?
+	Move all the test classes within the testrecorder package? Why?
 	
 	Write tests for all the code that could break
 		check coverage again

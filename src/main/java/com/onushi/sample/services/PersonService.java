@@ -1,7 +1,7 @@
 package com.onushi.sample.services;
 
 import com.onushi.sample.model.Person;
-import com.onushi.testrecording.aspect.RecordTest;
+import com.onushi.testrecorder.aspect.RecordTest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
