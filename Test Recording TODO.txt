@@ -229,6 +229,8 @@ DONE ==========================
 	------
 		Order in TestGeneratorServiceTests
 
+	------
+		Rename to TestRecorder
 			
 TODO ==========================
 	Split this into 2 projects
@@ -236,8 +238,6 @@ TODO ==========================
 			I need to add the sample classes here
 		
 		One spring boot application that uses the libray
-		
-		
 		
 	
 	Move back to Java 8?
@@ -331,8 +331,6 @@ TODO ==========================
 	Sa citesc de la rus cum sa pregatesc cod pt Git
 	
 LATER ==========================
-	Rename project to TestRecorder
-
 	There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
 	
 	Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
