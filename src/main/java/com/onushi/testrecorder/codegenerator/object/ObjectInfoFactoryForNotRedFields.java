@@ -9,7 +9,7 @@ public class ObjectInfoFactoryForNotRedFields extends ObjectInfoFactory {
         ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
         objectInfo.initCode = new StringGenerator()
-                .setTemplate("// TODO Create this object\n" +
+                .setTemplate("// TODO Create this object (Could not read object fields)\n" +
                         "// {{shortClassName}} {{objectName}} = new {{shortClassName}}();")
                 .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                 .addAttribute("objectName", context.getObjectName())

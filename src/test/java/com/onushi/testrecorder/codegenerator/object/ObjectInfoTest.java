@@ -206,7 +206,7 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
         assertEquals("com.onushi.sample.model.StudentWithBuilder", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
-        assertEquals("// TODO Create this object\n" +
+        assertEquals("// TODO Create this object (Could not read object fields)\n" +
                 "// StudentWithBuilder student1 = new StudentWithBuilder();", objectInfo.getInitCode());
         assertEquals("student1", objectInfo.getInlineCode());
     }
@@ -360,7 +360,7 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getInitDependencies().size());
         assertEquals("student", objectInfo.getInlineCode());
         assertEquals(StringUtils.prepareForCompare(
-                "// TODO Create this object\n" +
+                "// TODO Create this object (Could not create generic object)\n" +
                      "// OtherStudent student = new OtherStudent();\n"),
                 StringUtils.prepareForCompare(objectInfo.getInitCode()));
     }
@@ -374,7 +374,7 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
         assertEquals("java.util.NoSuchElementException", objectInfo.getDeclareRequiredImports().get(0));
-        assertEquals("// TODO Create this object\n" +
+        assertEquals("// TODO Create this object (Could not create generic object)\n" +
                 "// NoSuchElementException ex = new NoSuchElementException();\n", objectInfo.getInitCode());
     }
 

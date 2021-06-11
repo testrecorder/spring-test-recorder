@@ -43,8 +43,12 @@ INFO ==========================
 			<artifactId>testrecorder</artifactId>
 			<version>0.1.0</version>
 		</dependency>
-
+		
+		Maven refresh
+		
 		@ComponentScan(basePackages={..., "com.onushi.testrecorder"},
+
+		import com.onushi.testrecorder.aspect.RecordTest;
 		
 		add @TestRecorder to the function you want to record
 
@@ -258,6 +262,13 @@ DONE ==========================
 			
 TODO ==========================
 	Could not create RarPublicAppointmentServiceImpl
+		The Default access modifier is package-private (i.e DEFAULT) and it is visible only from the same package
+		
+	How can I debug when using in another project?
+	
+	assertFalse
+	
+	for iterations, generate max 3 items and add a comment about the parameter
 	
 	Publish a library to MAVEN Repository
 		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
@@ -271,7 +282,6 @@ TODO ==========================
 
         Map<Integer, Person> personMap = this.personService.loadPersons(personIds);
     }
-
 	
 	!!!! Bug. If I modify the params, the test will have them already modified
 		To solve

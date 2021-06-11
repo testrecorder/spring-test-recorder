@@ -17,7 +17,7 @@ public class ObjectInfoFactoryFallbackImpl extends ObjectInfoFactory {
         ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
         objectInfo.initCode = new StringGenerator()
-                .setTemplate("// TODO Create this object\n" +
+                .setTemplate("// TODO Create this object (Could not create generic object)\n" +
                         "// {{shortClassName}} {{objectName}} = new {{shortClassName}}();\n")
                 .addAttribute("shortClassName", context.getObject().getClass().getSimpleName())
                 .addAttribute("objectName", context.getObjectName())
