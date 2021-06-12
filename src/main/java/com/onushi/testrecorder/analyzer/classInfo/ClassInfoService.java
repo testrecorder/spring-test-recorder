@@ -19,20 +19,17 @@ public class ClassInfoService {
                 x.annotationType().getName().equals("org.springframework.stereotype.Controller"));
     }
 
-    public List<Constructor<?>> getAllConstructors(Class<?> clazz) {
-        return Arrays.stream(clazz.getDeclaredConstructors())
-                .collect(Collectors.toList());
-    }
-
-    // TODO IB !!!! obsolete
-    public List<Constructor<?>> getPublicConstructors(Class<?> clazz) {
+    // TODO IB !!!! test
+    public List<Constructor<?>> getAccessibleConstructors(Class<?> clazz, boolean allowPackageAndProtected) {
         return Arrays.stream(clazz.getConstructors())
-                .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
+                .filter(constructor ->
+                        allowPackageAndProtected ? (!Modifier.isPrivate(constructor.getModifiers())) : Modifier.isPublic(constructor.getModifiers()))
                 .collect(Collectors.toList());
     }
 
     public boolean hasAccessibleNoArgsConstructor(Class<?> clazz, boolean allowPackageAndProtected) {
-        List<Constructor<?>> allConstructors = getAllConstructors(clazz);
+        List<Constructor<?>> allConstructors = Arrays.stream(clazz.getDeclaredConstructors())
+                .collect(Collectors.toList());
         if (allConstructors.size() == 0) {
             return true;
         } else {

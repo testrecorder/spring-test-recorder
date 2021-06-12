@@ -78,7 +78,7 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public List<MatchingConstructor> getMatchingAllArgsConstructors(Object object, Map<String, FieldValue> objectState) {
+    public List<MatchingConstructor> getMatchingAllArgsConstructors(Object object, Map<String, FieldValue> objectState, boolean allowPackageAndProtected) {
         if (object == null) {
             return new ArrayList<>();
         }
@@ -91,7 +91,7 @@ public class ObjectCreationAnalyzerService {
             return new ArrayList<>();
         }
 
-        List<Constructor<?>> publicConstructorsWithCorrectSize = classInfoService.getPublicConstructors(clazz)
+        List<Constructor<?>> publicConstructorsWithCorrectSize = classInfoService.getAccessibleConstructors(clazz, allowPackageAndProtected)
                 .stream()
                 .filter(x -> x.getParameterTypes().length == fieldValues.size())
                 .collect(Collectors.toList());

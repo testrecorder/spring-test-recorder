@@ -23,8 +23,8 @@ public class ObjectInfoFactoryWithAllArgsConstructorImpl extends ObjectInfoFacto
 
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
-        List<MatchingConstructor> matchingAllArgsConstructors =
-                objectCreationAnalyzerService.getMatchingAllArgsConstructors(context.getObject(), context.getObjectState());
+        List<MatchingConstructor> matchingAllArgsConstructors = objectCreationAnalyzerService.getMatchingAllArgsConstructors(
+                context.getObject(), context.getObjectState(), context.isObjectInSamePackageWithTest());
         if (matchingAllArgsConstructors.size() > 0) {
             MatchingConstructor matchingConstructor = matchingAllArgsConstructors.get(0);
             boolean moreConstructorsAvailable = matchingAllArgsConstructors.size() > 1;
