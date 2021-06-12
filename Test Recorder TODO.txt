@@ -265,23 +265,15 @@ DONE ==========================
 	12.06.2021 =========
 		OK - Manage to run the TestRecorder together with the target project
 		
+		OK - Allow object creation with NoArgsAndFields when same package and fields are package or protected
 		
+		OK - assertFalse
 			
 TODO ==========================
-
-	Allow object creation with NoArgsAndFields when fields are package or protected and same package
-
-	Could not create RarPublicAppointmentServiceImpl
-		The Default access modifier is package-private (i.e DEFAULT) and it is visible only from the same package
-		
-	How can I debug when using in another project?
 	
-	assertFalse
 	
 	for iterations, generate max 3 items and add a comment about the parameter
 	
-	Publish a library to MAVEN Repository
-		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
 	
 
 	// The demo should be in a test
@@ -322,6 +314,8 @@ TODO ==========================
 		
 		Write tests for different cases of objects reuse, side effects etc
 	
+	Publish a library to MAVEN Repository
+		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
 
 	
 	Exceptions thrown are not added to includes

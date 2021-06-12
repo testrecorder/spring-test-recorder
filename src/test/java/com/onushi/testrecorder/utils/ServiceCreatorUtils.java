@@ -23,7 +23,9 @@ public class ServiceCreatorUtils {
                 new TestActGeneratorService(),
                 new TestAssertGeneratorService(
                         new ClassInfoService(),
-                        new TestObjectsInitGeneratorService(new StringService())));
+                        new TestObjectsInitGeneratorService(new StringService()),
+                        new StringService()
+                ));
     }
 
     public static ObjectCreationAnalyzerService createObjectCreationAnalyzerService() {

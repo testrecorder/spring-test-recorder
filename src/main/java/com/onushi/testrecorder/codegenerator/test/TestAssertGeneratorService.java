@@ -8,6 +8,7 @@ import com.onushi.testrecorder.codegenerator.object.ObjectInfo;
 import com.onushi.testrecorder.codegenerator.object.PropertyValue;
 import com.onushi.testrecorder.codegenerator.object.VisibleProperty;
 import com.onushi.testrecorder.codegenerator.template.StringGenerator;
+import com.onushi.testrecorder.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -16,11 +17,14 @@ import java.util.Map;
 public class TestAssertGeneratorService {
     private final ClassInfoService classInfoService;
     private final TestObjectsInitGeneratorService testObjectsInitGeneratorService;
+    private final StringService stringService;
 
     public TestAssertGeneratorService(ClassInfoService classInfoService,
-                                      TestObjectsInitGeneratorService testObjectsInitGeneratorService) {
+                                      TestObjectsInitGeneratorService testObjectsInitGeneratorService,
+                                      StringService stringService) {
         this.classInfoService = classInfoService;
         this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
+        this.stringService = stringService;
     }
 
     public String getAssertCode(TestGenerator testGenerator) {
@@ -52,10 +56,10 @@ public class TestAssertGeneratorService {
                     objectsInit = new CodeStatement(testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()).getCode());
                 }
 
-                if (finalValue.getString() != null && finalValue.getString().equals("null")) {
-                    result.addChild(getAssertNull(composedPath, objectsInit));
-                } else if (finalValue.getString() != null && finalValue.getString().equals("true")) {
-                    result.addChild(getAssertTrue(composedPath, objectsInit));
+                if (finalValue.getString() != null && (finalValue.getString().equals("null") ||
+                                                        finalValue.getString().equals("true") ||
+                                                        finalValue.getString().equals("false"))) {
+                    result.addChild(getSpecificAssert(composedPath, objectsInit, finalValue.getString()));
                 } else {
                     if (finalValue.getObjectInfo() != null) {
                         if (objectsInit != null) {
@@ -80,27 +84,15 @@ public class TestAssertGeneratorService {
         return new CodeStatement(statement);
     }
 
-    private CodeNode getAssertNull(String composedPath, CodeNode objectsInit) {
+    private CodeNode getSpecificAssert(String composedPath, CodeNode objectsInit, String value) {
         CodeBlock result = new CodeBlock();
         if (objectsInit != null) {
             result.addPrerequisite(objectsInit);
         }
         String statement = new StringGenerator()
-                .setTemplate("        assertNull({{composedPath}});\n")
+                .setTemplate("        {{specificAssert}}({{composedPath}});\n")
                 .addAttribute("composedPath", composedPath)
-                .generate();
-        result.addChild(new CodeStatement(statement));
-        return result;
-    }
-
-    private CodeNode getAssertTrue(String composedPath, CodeNode objectsInit) {
-        CodeBlock result = new CodeBlock();
-        if (objectsInit != null) {
-            result.addPrerequisite(objectsInit);
-        }
-        String statement = new StringGenerator()
-                .setTemplate("        assertTrue({{composedPath}});\n")
-                .addAttribute("composedPath", composedPath)
+                .addAttribute("specificAssert", "assert" + stringService.upperCaseFirstLetter(value))
                 .generate();
         result.addChild(new CodeStatement(statement));
         return result;

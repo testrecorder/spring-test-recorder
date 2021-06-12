@@ -53,7 +53,8 @@ public class TestGeneratorServiceTest22 extends TestGeneratorServiceTest {
                         "import com.onushi.sample.model.Color;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
                         "    void createEmployee() throws Exception {\n" +
                         "        // Arrange\n" +
@@ -79,6 +80,10 @@ public class TestGeneratorServiceTest22 extends TestGeneratorServiceTest {
                         "        assertEquals(0.0, result.getSalaryParam3());\n" +
                         "\n" +
                         "        assertEquals(Color.BLUE, result.getTeamColor());\n" +
+                        "\n" +
+                        "        assertFalse(result.isTeamLeader());\n" +
+                        "\n" +
+                        "        assertFalse(result.isTeamLeader);\n" +
                         "\n" +
                         "        assertEquals(Color.BLUE, result.teamColor);\n" +
                         "    }\n" +

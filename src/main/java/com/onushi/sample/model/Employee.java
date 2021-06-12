@@ -17,4 +17,5 @@ public class Employee {
     private double salaryParam3;
     // made public for test purposes
     public Color teamColor;
+    public boolean isTeamLeader;
 }
