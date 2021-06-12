@@ -270,12 +270,21 @@ DONE ==========================
 		OK - assertFalse
 			
 TODO ==========================
-	
-	
-	for iterations, generate max 3 items and add a comment about the parameter
-	
+	when same package allow use of package or protected constructors / setters 
+		OK - ObjectInfoFactoryWithNoArgsAndFieldsImpl
+
+		OK - ObjectInfoFactoryWithLombokBuilderImpl
+
+		ObjectInfoFactoryWithNoArgsConstructorImpl
+
+		ObjectInfoFactoryWithAllArgsConstructorImpl
+		
+		ObjectInfoFactoryWithNoArgsAndSettersImpl
+
 	
 
+	for iterations, generate max 3 items and add a comment about the parameter
+	
 	// The demo should be in a test
     private void demo() throws Exception {
         List<Integer> personIds = new ArrayList<>();
@@ -284,6 +293,12 @@ TODO ==========================
 
         Map<Integer, Person> personMap = this.personService.loadPersons(personIds);
     }
+	
+	Does it work in Spring projects without SpringBoot?
+	
+	Does it work in normal projects?
+		AspectJ should be called somehow
+	
 	
 	!!!! Bug. If I modify the params, the test will have them already modified
 		To solve

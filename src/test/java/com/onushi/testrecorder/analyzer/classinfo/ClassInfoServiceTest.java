@@ -28,11 +28,13 @@ class ClassInfoServiceTest {
     }
 
     @Test
-    void hasPublicNoArgsConstructor() {
+    void hasAccessibleNoArgsConstructor() {
         ClassInfoService classInfoService = new ClassInfoService();
-        assertTrue(classInfoService.hasPublicNoArgsConstructor(Person.class));
-        assertTrue(classInfoService.hasPublicNoArgsConstructor(Department.class));
-        assertFalse(classInfoService.hasPublicNoArgsConstructor(StudentWithBuilder.class));
+        assertTrue(classInfoService.hasAccessibleNoArgsConstructor(Person.class, false));
+        assertFalse(classInfoService.hasAccessibleNoArgsConstructor(Department.class, false));
+        assertFalse(classInfoService.hasAccessibleNoArgsConstructor(StudentWithBuilder.class, false));
+        assertFalse(classInfoService.hasAccessibleNoArgsConstructor(PersonWithProtectedNoArgsConstructor.class, false));
+        assertTrue(classInfoService.hasAccessibleNoArgsConstructor(PersonWithProtectedNoArgsConstructor.class, true));
     }
 
     @Test

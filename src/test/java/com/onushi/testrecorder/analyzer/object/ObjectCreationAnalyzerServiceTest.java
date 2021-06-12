@@ -36,7 +36,7 @@ class ObjectCreationAnalyzerServiceTest {
                 .age(30)
                 .build();
         Map<String, FieldValue> objectState = new ObjectStateReaderService().getObjectState(studentWithBuilder);
-        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithBuilder, objectState));
+        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithBuilder, objectState, false));
     }
 
     @Test
@@ -45,11 +45,15 @@ class ObjectCreationAnalyzerServiceTest {
 
         Person person = new Person();
         Map<String, FieldValue> objectState1 = new ObjectStateReaderService().getObjectState(person);
-        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person, objectState1));
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person, objectState1, false));
 
         StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
         Map<String, FieldValue> objectState2 = new ObjectStateReaderService().getObjectState(person);
-        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithDefaultInitFields, objectState2));
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(studentWithDefaultInitFields, objectState2, false));
+
+        PersonWithProtectedNoArgsConstructor person2 = PersonWithProtectedNoArgsConstructor.createService();
+        Map<String, FieldValue> objectState3 = new ObjectStateReaderService().getObjectState(person2);
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person2, objectState3, true));
     }
 
     @Test

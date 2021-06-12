@@ -19,6 +19,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ObjectInfoTest {
     TestGenerator testGenerator;
@@ -27,6 +28,7 @@ class ObjectInfoTest {
     @BeforeEach
     void setUp() {
         testGenerator = mock(TestGenerator.class);
+        when(testGenerator.getPackageName()).thenReturn("com.onushi.sample.model");
         objectInfoFactoryManager = ServiceCreatorUtils.createObjectInfoFactoryManager();
     }
 
@@ -228,6 +230,15 @@ class ObjectInfoTest {
         Method method = objectInfo.visibleProperties.get(".getFirstName()").getPropertySource().getGetter();
         assertNotNull(method);
         assertEquals("getFirstName", method.getName());
+    }
+
+    @Test
+    void testProtectedNoArgsConstruction() {
+        PersonWithProtectedNoArgsConstructor person = PersonWithProtectedNoArgsConstructor.createService();
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, person, "person1");
+        assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
+        assertEquals("PersonWithProtectedNoArgsConstructor person1 = new PersonWithProtectedNoArgsConstructor();\n", objectInfo.getInitCode());
+        assertEquals("person1", objectInfo.getInlineCode());
     }
 
     @Test

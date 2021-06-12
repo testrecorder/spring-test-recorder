@@ -20,16 +20,18 @@ public class ClassInfoService {
     }
 
     public List<Constructor<?>> getAllConstructors(Class<?> clazz) {
-        return Arrays.stream(clazz.getConstructors())
+        return Arrays.stream(clazz.getDeclaredConstructors())
                 .collect(Collectors.toList());
     }
 
+    // TODO IB !!!! obsolete
     public List<Constructor<?>> getPublicConstructors(Class<?> clazz) {
         return Arrays.stream(clazz.getConstructors())
                 .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
                 .collect(Collectors.toList());
     }
 
+    // TODO IB !!!! obsolete
     public boolean hasPublicNoArgsConstructor(Class<?> clazz) {
         List<Constructor<?>> allConstructors = getAllConstructors(clazz);
         if (allConstructors.size() == 0) {
@@ -38,6 +40,23 @@ public class ClassInfoService {
             return allConstructors.stream()
                     .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
                     .anyMatch(x -> x.getParameterTypes().length == 0);
+        }
+    }
+
+    public boolean hasAccessibleNoArgsConstructor(Class<?> clazz, boolean allowPackageAndProtected) {
+        List<Constructor<?>> allConstructors = getAllConstructors(clazz);
+        if (allConstructors.size() == 0) {
+            return true;
+        } else {
+            if (allowPackageAndProtected) {
+                return allConstructors.stream()
+                        .filter(constructor -> !Modifier.isPrivate(constructor.getModifiers()))
+                        .anyMatch(x -> x.getParameterTypes().length == 0);
+            } else {
+                return allConstructors.stream()
+                        .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
+                        .anyMatch(x -> x.getParameterTypes().length == 0);
+            }
         }
     }
 

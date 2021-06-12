@@ -31,11 +31,11 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public boolean canBeCreatedWithNoArgsConstructor(Object object, Map<String, FieldValue> objectState) {
+    public boolean canBeCreatedWithNoArgsConstructor(Object object, Map<String, FieldValue> objectState, boolean allowPackageAndProtected) {
         if (object == null) {
             return false;
         }
-        if (!classInfoService.hasPublicNoArgsConstructor(object.getClass())) {
+        if (!classInfoService.hasAccessibleNoArgsConstructor(object.getClass(), allowPackageAndProtected)) {
             return false;
         }
 
@@ -180,7 +180,7 @@ public class ObjectCreationAnalyzerService {
         if (object == null) {
             return false;
         }
-        if (!classInfoService.hasPublicNoArgsConstructor(object.getClass())) {
+        if (!classInfoService.hasAccessibleNoArgsConstructor(object.getClass(), allowPackageAndProtected)) {
             return false;
         }
         for (FieldValue x : objectState.values()) {
