@@ -28,12 +28,12 @@ public class TestGeneratorFactory {
             throw new IllegalArgumentException("target");
         }
 
+        testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
+        testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
         testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
         testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
                 recordedMethodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));
-        testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
-        testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
         testGenerator.methodName = recordedMethodRunInfo.getMethodName();
 
         testGenerator.argumentObjectInfos = recordedMethodRunInfo.getArguments().stream()
