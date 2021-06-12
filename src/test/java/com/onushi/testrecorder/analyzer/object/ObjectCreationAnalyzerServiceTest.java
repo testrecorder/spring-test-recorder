@@ -109,7 +109,7 @@ class ObjectCreationAnalyzerServiceTest {
         Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(studentWithSetters);
 
         ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
-        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(studentWithSetters, objectState);
+        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(studentWithSetters, objectState, false);
 
         assertNotNull(settersForFields.get("firstName"));
         assertEquals("setFirstName", settersForFields.get("firstName").getName());
@@ -158,5 +158,22 @@ class ObjectCreationAnalyzerServiceTest {
         assertNotNull(settersForFields.get("otherField"));
         assertEquals("setOtherField", settersForFields.get("otherField").getName());
         assertFalse(settersForFields.get("otherField").isForBuilder());
+    }
+
+    @Test
+    void getProtectedAndPackageFieldSetters() {
+        StudentWithPackageAndProtectedSetters student = StudentWithPackageAndProtectedSetters.createStudent();
+
+        ObjectStateReaderService objectStateReaderService = new ObjectStateReaderService();
+        Map<String, FieldValue> objectState = objectStateReaderService.getObjectState(student);
+
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
+        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(student, objectState, true);
+
+        assertNotNull(settersForFields.get("firstName"));
+        assertEquals("setFirstName", settersForFields.get("firstName").getName());
+
+        assertNotNull(settersForFields.get("lastName"));
+        assertEquals("setLastName", settersForFields.get("lastName").getName());
     }
 }

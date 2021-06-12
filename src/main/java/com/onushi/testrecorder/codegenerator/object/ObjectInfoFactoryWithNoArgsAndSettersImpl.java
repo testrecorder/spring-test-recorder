@@ -27,11 +27,12 @@ public class ObjectInfoFactoryWithNoArgsAndSettersImpl extends ObjectInfoFactory
 
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
-        if (!classInfoService.hasPublicNoArgsConstructor(context.getObject().getClass())) {
+        if (!classInfoService.hasAccessibleNoArgsConstructor(context.getObject().getClass(), context.isObjectInSamePackageWithTest())) {
             return null;
         }
         Map<String, FieldValue> objectState = context.getObjectState();
-        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(context.getObject(), objectState);
+        Map<String, SetterInfo> settersForFields = objectCreationAnalyzerService.getSettersForFields(
+                context.getObject(), objectState, context.isObjectInSamePackageWithTest());
         if (objectState.values().size() != settersForFields.values().size()) {
             return null;
         }

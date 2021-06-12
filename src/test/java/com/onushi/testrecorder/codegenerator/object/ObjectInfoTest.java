@@ -236,9 +236,16 @@ class ObjectInfoTest {
     void testProtectedNoArgsConstruction() {
         PersonWithProtectedNoArgsConstructor person = PersonWithProtectedNoArgsConstructor.createService();
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, person, "person1");
-        assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals("PersonWithProtectedNoArgsConstructor person1 = new PersonWithProtectedNoArgsConstructor();\n", objectInfo.getInitCode());
-        assertEquals("person1", objectInfo.getInlineCode());
+    }
+
+    @Test
+    void testProtectedNoArgsAndSetters() {
+        StudentWithPackageAndProtectedSetters student = StudentWithPackageAndProtectedSetters.createStudent();
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, student, "student1");
+        assertEquals("StudentWithPackageAndProtectedSetters student1 = new StudentWithPackageAndProtectedSetters()\n" +
+                "    .setFirstName(\"fn\")\n" +
+                "    .setLastName(\"ln\");\n\n", objectInfo.getInitCode());
     }
 
     @Test

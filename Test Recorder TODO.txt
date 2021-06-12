@@ -275,11 +275,12 @@ TODO ==========================
 
 		OK - ObjectInfoFactoryWithLombokBuilderImpl
 
-		ObjectInfoFactoryWithNoArgsConstructorImpl
+		OK - ObjectInfoFactoryWithNoArgsConstructorImpl
+
+		OK - ObjectInfoFactoryWithNoArgsAndSettersImpl
 
 		ObjectInfoFactoryWithAllArgsConstructorImpl
 		
-		ObjectInfoFactoryWithNoArgsAndSettersImpl
 
 	
 

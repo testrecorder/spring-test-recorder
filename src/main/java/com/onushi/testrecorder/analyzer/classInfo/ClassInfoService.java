@@ -31,18 +31,6 @@ public class ClassInfoService {
                 .collect(Collectors.toList());
     }
 
-    // TODO IB !!!! obsolete
-    public boolean hasPublicNoArgsConstructor(Class<?> clazz) {
-        List<Constructor<?>> allConstructors = getAllConstructors(clazz);
-        if (allConstructors.size() == 0) {
-            return true;
-        } else {
-            return allConstructors.stream()
-                    .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
-                    .anyMatch(x -> x.getParameterTypes().length == 0);
-        }
-    }
-
     public boolean hasAccessibleNoArgsConstructor(Class<?> clazz, boolean allowPackageAndProtected) {
         List<Constructor<?>> allConstructors = getAllConstructors(clazz);
         if (allConstructors.size() == 0) {

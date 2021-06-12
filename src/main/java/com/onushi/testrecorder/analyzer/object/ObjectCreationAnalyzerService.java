@@ -133,15 +133,14 @@ public class ObjectCreationAnalyzerService {
         }
     }
 
-    public Map<String, SetterInfo> getSettersForFields(Object object, Map<String, FieldValue> fields) {
+    public Map<String, SetterInfo> getSettersForFields(Object object, Map<String, FieldValue> fields, boolean allowPackageAndProtected) {
         // TODO IB I should use @NotNull from lombok instead
         if (object == null) {
             return new HashMap<>();
         }
         List<Method> possibleSetters = Arrays.stream(object.getClass()
-                .getMethods())
-                // TODO IB !!!! everywhere where we allow Public, allow also package and protected for isSamePackage
-                .filter(method -> Modifier.isPublic(method.getModifiers()))
+                .getDeclaredMethods())
+                .filter(method -> allowPackageAndProtected ? (!Modifier.isPrivate(method.getModifiers())) : Modifier.isPublic(method.getModifiers()))
                 .filter(method -> !Modifier.isStatic(method.getModifiers()))
                 // TODO IB sometimes setters don't start with set
                 .filter(method -> method.getName().startsWith("set"))
