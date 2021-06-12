@@ -107,6 +107,8 @@ public class ObjectInfoFactoryManager {
 
         // after we tried knownClassesFactoriesList and we removed the proxy
         // getObjectState to try creating in a generic way
+        boolean objectInSamePackageWithTest = object.getClass().getPackage().getName().equals(testGenerator.getPackageName());
+        context.setObjectInSamePackageWithTest(objectInSamePackageWithTest);
         context.setObjectState(objectStateReaderService.getObjectState(context.getObject()));
         boolean allFieldsAreRead = context.getObjectState().values().stream()
                 .allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ);

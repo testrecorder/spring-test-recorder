@@ -85,11 +85,16 @@ class ObjectCreationAnalyzerServiceTest {
 
         Person person = new Person();
         Map<String, FieldValue> objectState = new ObjectStateReaderService().getObjectState(person);
-        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(person, objectState));
+        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(person, objectState, false));
 
         StudentWithDefaultInitFields studentWithDefaultInitFields = new StudentWithDefaultInitFields();
         objectState = new ObjectStateReaderService().getObjectState(studentWithDefaultInitFields);
-        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields, objectState));
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields, objectState, false));
+
+        StudentWithPackageAndProtectedField studentWithPackageAndProtectedField = new StudentWithPackageAndProtectedField();
+        objectState = new ObjectStateReaderService().getObjectState(studentWithPackageAndProtectedField);
+        assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields, objectState, true));
+        assertFalse(objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(studentWithDefaultInitFields, objectState, false));
     }
 
     @Test

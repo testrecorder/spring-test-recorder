@@ -3,6 +3,6 @@ package com.onushi.sample.model;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class StudentWithPrivateField {
+public class StudentWithProtectedField {
     protected String firstName;
 }

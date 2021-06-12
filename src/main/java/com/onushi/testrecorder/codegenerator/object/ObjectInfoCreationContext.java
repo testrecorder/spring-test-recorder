@@ -13,6 +13,7 @@ import java.util.Map;
 public class ObjectInfoCreationContext {
     private Object object;
     private String objectName;
+    private boolean isObjectInSamePackageWithTest;
     private TestGenerator testGenerator;
     private Map<String, FieldValue> objectState;
 }

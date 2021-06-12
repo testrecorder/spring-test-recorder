@@ -1,6 +1,6 @@
 package com.onushi.sample.model;
 
-public class StudentWithPrivateFields extends StudentWithPrivateField {
+public class StudentWithPrivateFields extends StudentWithProtectedField {
     private final String lastName;
     public static String middleName = "mn";
 

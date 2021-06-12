@@ -140,6 +140,7 @@ public class ObjectCreationAnalyzerService {
         }
         List<Method> possibleSetters = Arrays.stream(object.getClass()
                 .getMethods())
+                // TODO IB !!!! everywhere where we allow Public, allow also package and protected for isSamePackage
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
                 .filter(method -> !Modifier.isStatic(method.getModifiers()))
                 // TODO IB sometimes setters don't start with set
@@ -174,14 +175,28 @@ public class ObjectCreationAnalyzerService {
         return "set" + stringService.upperCaseFirstLetter(fieldName);
     }
 
-    public boolean canBeCreatedWithNoArgsAndFields(Object object, Map<String, FieldValue> objectState) {
+    public boolean canBeCreatedWithNoArgsAndFields(Object object, Map<String, FieldValue> objectState,
+                   boolean allowPackageAndProtected) {
         if (object == null) {
             return false;
         }
         if (!classInfoService.hasPublicNoArgsConstructor(object.getClass())) {
             return false;
         }
-        return objectState.values().stream().allMatch(x -> x.getFieldValueStatus() == FieldValueStatus.VALUE_READ &&
-                Modifier.isPublic(x.getField().getModifiers()));
+        for (FieldValue x : objectState.values()) {
+            if (x.getFieldValueStatus() != FieldValueStatus.VALUE_READ) {
+                return false;
+            }
+            if (allowPackageAndProtected) {
+                if (Modifier.isPrivate(x.getField().getModifiers())) {
+                    return false;
+                }
+            } else {
+                if (!Modifier.isPublic(x.getField().getModifiers())) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

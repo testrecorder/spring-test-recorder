@@ -258,9 +258,19 @@ DONE ==========================
 		OK - add TestRecorder dependency from local repository in a target project
 		
 		OK - manage to generate the first code in another project by importing TestGenerator package from local maven repository
+
+		OK - Test for a class with no constructor
+			do I consider that it has a public NoArgs constructor?
 	
+	12.06.2021 =========
+		OK - Manage to run the TestRecorder together with the target project
+		
+		
 			
 TODO ==========================
+
+	Allow object creation with NoArgsAndFields when fields are package or protected and same package
+
 	Could not create RarPublicAppointmentServiceImpl
 		The Default access modifier is package-private (i.e DEFAULT) and it is visible only from the same package
 		

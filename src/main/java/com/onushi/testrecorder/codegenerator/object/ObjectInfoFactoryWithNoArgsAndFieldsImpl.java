@@ -24,7 +24,8 @@ public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory 
 
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
-        if (!objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(context.getObject(), context.getObjectState())) {
+        if (!objectCreationAnalyzerService.canBeCreatedWithNoArgsAndFields(
+                context.getObject(), context.getObjectState(), context.isObjectInSamePackageWithTest() )) {
             return null;
         }
 
