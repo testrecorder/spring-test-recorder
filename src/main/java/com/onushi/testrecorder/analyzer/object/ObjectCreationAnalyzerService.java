@@ -91,13 +91,13 @@ public class ObjectCreationAnalyzerService {
             return new ArrayList<>();
         }
 
-        List<Constructor<?>> publicConstructorsWithCorrectSize = classInfoService.getAccessibleConstructors(clazz, allowPackageAndProtected)
+        List<Constructor<?>> accessibleConstructorsWithCorrectSize = classInfoService.getAccessibleConstructors(clazz, allowPackageAndProtected)
                 .stream()
                 .filter(x -> x.getParameterTypes().length == fieldValues.size())
                 .collect(Collectors.toList());
 
         List<MatchingConstructor> matchingConstructors = new ArrayList<>();
-        for (Constructor<?> constructor : publicConstructorsWithCorrectSize) {
+        for (Constructor<?> constructor : accessibleConstructorsWithCorrectSize) {
             matchingConstructors.addAll(getMatchingAllArgsConstructors(constructor, fieldValues));
         }
         return matchingConstructors;

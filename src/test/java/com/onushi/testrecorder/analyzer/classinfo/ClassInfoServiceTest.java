@@ -20,12 +20,12 @@ class ClassInfoServiceTest {
         assertFalse(classInfoService.isSpringComponent(Person.class));
     }
 
-    // TODO IB !!!! add test here
     @Test
     void getPublicConstructors() {
         ClassInfoService classInfoService = new ClassInfoService();
-        List<Constructor<?>> publicConstructors = classInfoService.getAccessibleConstructors(Person.class, false);
-        assertEquals(2, publicConstructors.size());
+        assertEquals(2, classInfoService.getAccessibleConstructors(Person.class, false).size());
+        assertEquals(0, classInfoService.getAccessibleConstructors(PersonWithProtectedNoArgsConstructor.class, false).size());
+        assertEquals(1, classInfoService.getAccessibleConstructors(PersonWithProtectedNoArgsConstructor.class, true).size());
     }
 
     @Test

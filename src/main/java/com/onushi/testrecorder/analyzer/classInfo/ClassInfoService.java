@@ -19,9 +19,8 @@ public class ClassInfoService {
                 x.annotationType().getName().equals("org.springframework.stereotype.Controller"));
     }
 
-    // TODO IB !!!! test
     public List<Constructor<?>> getAccessibleConstructors(Class<?> clazz, boolean allowPackageAndProtected) {
-        return Arrays.stream(clazz.getConstructors())
+        return Arrays.stream(clazz.getDeclaredConstructors())
                 .filter(constructor ->
                         allowPackageAndProtected ? (!Modifier.isPrivate(constructor.getModifiers())) : Modifier.isPublic(constructor.getModifiers()))
                 .collect(Collectors.toList());

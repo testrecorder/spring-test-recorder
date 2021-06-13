@@ -249,6 +249,15 @@ class ObjectInfoTest {
     }
 
     @Test
+    void testProtectedAllArgsConstructor() {
+        StudentWithProtectedAllArgsConstructor student = StudentWithProtectedAllArgsConstructor.createStudent("John", "Snow");
+        ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, student, "student1");
+        assertEquals("// TODO Check order of arguments\n" +
+                        "StudentWithProtectedAllArgsConstructor student1 = new StudentWithProtectedAllArgsConstructor(\"John\", \"Snow\");\n",
+                objectInfo.getInitCode());
+    }
+
+    @Test
     void testAllArgsConstruction() {
         StudentWithPublicFields student = new StudentWithPublicFields();
         student.firstName = "John";

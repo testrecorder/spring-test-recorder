@@ -56,7 +56,6 @@ class ObjectCreationAnalyzerServiceTest {
         assertTrue(objectCreationAnalyzerService.canBeCreatedWithNoArgsConstructor(person2, objectState3, true));
     }
 
-    // TODO IB !!!! add here
     @Test
     void getMatchingConstructors() {
         StudentWithPublicFields student = new StudentWithPublicFields();
@@ -82,6 +81,20 @@ class ObjectCreationAnalyzerServiceTest {
                 objectCreationAnalyzerService.getMatchingAllArgsConstructors(personService, objectState, false);
         assertEquals(1, matchingConstructors.size());
         assertFalse(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
+    }
+
+    @Test
+    void getMatchingConstructors3() {
+        StudentWithProtectedAllArgsConstructor student = StudentWithProtectedAllArgsConstructor.createStudent("John", "Snow");
+        Map<String, FieldValue> objectState = new ObjectStateReaderService().getObjectState(student);
+        ObjectCreationAnalyzerService objectCreationAnalyzerService = ServiceCreatorUtils.createObjectCreationAnalyzerService();
+        List<MatchingConstructor> matchingConstructors =
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(student, objectState, false);
+        assertEquals(0, matchingConstructors.size());
+        matchingConstructors =
+                objectCreationAnalyzerService.getMatchingAllArgsConstructors(student, objectState, true);
+        assertEquals(1, matchingConstructors.size());
+        assertTrue(matchingConstructors.get(0).isFieldsCouldHaveDifferentOrder());
     }
 
     @Test

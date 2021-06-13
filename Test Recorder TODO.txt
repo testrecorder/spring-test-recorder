@@ -268,21 +268,21 @@ DONE ==========================
 		OK - Allow object creation with NoArgsAndFields when same package and fields are package or protected
 		
 		OK - assertFalse
+
+		OK - when same package allow use of package or protected constructors / setters 
+			OK - ObjectInfoFactoryWithNoArgsAndFieldsImpl
+
+			OK - ObjectInfoFactoryWithLombokBuilderImpl
+
+			OK - ObjectInfoFactoryWithNoArgsConstructorImpl
+
+			OK - ObjectInfoFactoryWithNoArgsAndSettersImpl
+
+			OK - ObjectInfoFactoryWithAllArgsConstructorImpl
 			
 TODO ==========================
-	when same package allow use of package or protected constructors / setters 
-		OK - ObjectInfoFactoryWithNoArgsAndFieldsImpl
+	Sa incerc sa pun doar modificarile legate de TestRecorder in a separate ChangeList. Is is possible?
 
-		OK - ObjectInfoFactoryWithLombokBuilderImpl
-
-		OK - ObjectInfoFactoryWithNoArgsConstructorImpl
-
-		OK - ObjectInfoFactoryWithNoArgsAndSettersImpl
-
-		ObjectInfoFactoryWithAllArgsConstructorImpl
-		
-
-	
 
 	for iterations, generate max 3 items and add a comment about the parameter
 	
