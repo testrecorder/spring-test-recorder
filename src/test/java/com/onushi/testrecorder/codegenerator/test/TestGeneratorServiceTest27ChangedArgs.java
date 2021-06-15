@@ -5,6 +5,7 @@ import com.onushi.sample.model.Employee;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest27ChangedArgs extends TestGeneratorServiceTest {
-    // TODO IB !!!! activate @Test
+    @Test
     void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() throws Exception {
         Employee employee = Employee.builder()
                 .id(1)
@@ -67,6 +68,7 @@ public class TestGeneratorServiceTest27ChangedArgs extends TestGeneratorServiceT
                         "            .department(department1)\n" +
                         "            .firstName(\"John\")\n" +
                         "            .id(1)\n" +
+                        "            .isTeamLeader(false)\n" +
                         "            .lastName(\"Doe\")\n" +
                         "            .salaryParam1(1000.0)\n" +
                         "            .salaryParam2(1500.0)\n" +
