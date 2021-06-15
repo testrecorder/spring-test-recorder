@@ -23,6 +23,7 @@ public class RecordTestAspect {
         this.recordingContext = recordingContext;
     }
 
+    // TODO IB !!!! 4 how can I make this AOP framework independent?
     @Around("@annotation(com.onushi.testrecorder.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         RecordedMethodRunInfoBuilder recordedMethodRunInfoBuilder = new RecordedMethodRunInfoBuilder();

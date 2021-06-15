@@ -18,6 +18,7 @@ public class TestGeneratorFactory {
         this.objectInfoFactoryManager = objectInfoFactoryManager;
     }
 
+    // TODO IB !!!! 3 create in 2 steps from RecordedMethodRunInfoBefore and RecordedMethodRunInfoAfter
     public TestGenerator createTestGenerator(RecordedMethodRunInfo recordedMethodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
 
@@ -30,7 +31,6 @@ public class TestGeneratorFactory {
 
         testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
         testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
-        testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
         testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
                 recordedMethodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));
@@ -40,11 +40,11 @@ public class TestGeneratorFactory {
                 .map(x -> objectInfoFactoryManager.getCommonObjectInfo(testGenerator, x))
                 .collect(Collectors.toList());
 
+        testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
+
         testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
                 recordedMethodRunInfo.getResult());
         testGenerator.expectedException = recordedMethodRunInfo.getException();
-
-
 
         testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, recordedMethodRunInfo.getFallBackResultType());
 
