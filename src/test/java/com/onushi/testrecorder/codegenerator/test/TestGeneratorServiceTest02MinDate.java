@@ -1,29 +1,29 @@
 package com.onushi.testrecorder.codegenerator.test;
 
-import com.onushi.sample.model.Person;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest04 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest02MinDate extends TestGeneratorServiceTest {
     @Test
-    void generateTestWhenHavingObjectAsArgument() {
+    void generateTestForMinDate() throws Exception {
         // Arrange
-        Person person = Person.builder()
-                .firstName("Mary")
-                .lastName("Poe")
-                .build();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = simpleDateFormat.parse("2021-01-01");
+        Date d2 = simpleDateFormat.parse("2021-02-02");
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("getFirstName")
-                .arguments(Collections.singletonList(person))
-                .result("Mary")
+                .methodName("minDate")
+                .arguments(Arrays.asList(d1, d2))
+                .result(d1)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -38,25 +38,25 @@ public class TestGeneratorServiceTest04 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sample.model.Person;\n" +
+                        "import java.util.Date;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void getFirstName() throws Exception {\n" +
+                        "    void minDate() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        Person person1 = Person.builder()\n" +
-                        "            .dateOfBirth(null)\n" +
-                        "            .firstName(\"Mary\")\n" +
-                        "            .lastName(\"Poe\")\n" +
-                        "            .build();\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
+                        "        Date date2 = simpleDateFormat.parse(\"2021-02-02 00:00:00.000\");\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        String result = sampleService.getFirstName(person1);\n" +
+                        "        Date result = sampleService.minDate(date1, date2);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(\"Mary\", result);\n" +
+                        "        assertEquals(date1, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

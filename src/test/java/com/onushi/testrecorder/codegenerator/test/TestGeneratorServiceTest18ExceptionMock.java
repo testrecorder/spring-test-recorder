@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest18 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest18ExceptionMock extends TestGeneratorServiceTest {
     @Test
     void generateTestWithExceptionThrownByMockCall() {
         // Arrange

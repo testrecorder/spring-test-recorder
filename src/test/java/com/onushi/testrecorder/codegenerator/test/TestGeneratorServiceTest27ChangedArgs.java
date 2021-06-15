@@ -11,7 +11,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest27  extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest27ChangedArgs extends TestGeneratorServiceTest {
     // TODO IB !!!! activate @Test
     void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() throws Exception {
         Employee employee = Employee.builder()

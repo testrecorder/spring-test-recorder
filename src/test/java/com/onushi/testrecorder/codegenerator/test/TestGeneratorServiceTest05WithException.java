@@ -1,34 +1,26 @@
 package com.onushi.testrecorder.codegenerator.test;
 
-import com.onushi.sample.model.StudentWithBuilder;
-import com.onushi.sample.model.StudentWithDefaultInitFields;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest14 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest05WithException extends TestGeneratorServiceTest {
     @Test
-    void generateTestForNoArgsConstructor() {
+    void generateTestWhenExceptionIsThrown() {
         // Arrange
-        StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
-        StudentWithBuilder student2 = StudentWithBuilder.builder()
-                .firstName("John")
-                .lastName("Wayne")
-                .age(60)
-                .build();
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("processStudents")
-                .arguments(Arrays.asList(student1, student2))
+                .methodName("testException")
+                .arguments(Collections.singletonList(5))
                 .result(null)
-                .fallBackResultType(void.class)
-                .exception(null)
+                .fallBackResultType(String.class)
+                .exception(new IllegalArgumentException("x"))
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -43,27 +35,16 @@ public class TestGeneratorServiceTest14 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sample.model.StudentWithDefaultInitFields;\n" +
-                        "import com.onushi.sample.model.StudentWithBuilder;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void processStudents() throws Exception {\n" +
+                        "    void testException() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        StudentWithDefaultInitFields studentWithDefaultInitFields1 = new StudentWithDefaultInitFields();\n" +
-                        "\n" +
-                        "        StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()\n" +
-                        "            .age(60)\n" +
-                        "            .firstName(\"John\")\n" +
-                        "            .lastName(\"Wayne\")\n" +
-                        "            .build();\n" +
-                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
-                        "        // Act\n" +
-                        "        sampleService.processStudents(studentWithDefaultInitFields1, studentWithBuilder1);\n" +
-                        "\n" +
+                        "        // Act & Assert\n" +
+                        "        assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

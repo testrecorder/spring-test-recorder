@@ -10,16 +10,17 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest11 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest06ReturnVoid extends TestGeneratorServiceTest {
     @Test
-    void generateTestForMethodThatReturnsArray() {
+    void generateTestWhenResultIsVoid() {
         // Arrange
-        int[] result = {3, 4};
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("returnIntArray")
+                .methodName("doNothing")
                 .arguments(Collections.emptyList())
-                .result(result)
+                .result(null)
+                .fallBackResultType(void.class)
+                .exception(null)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -38,17 +39,13 @@ public class TestGeneratorServiceTest11 extends TestGeneratorServiceTest {
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void returnIntArray() throws Exception {\n" +
+                        "    void doNothing() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        int[] result = sampleService.returnIntArray();\n" +
+                        "        sampleService.doNothing();\n" +
                         "\n" +
-                        "        // Assert\n" +
-                        "        assertEquals(2, result.length);\n" +
-                        "        assertEquals(3, result[0]);\n" +
-                        "        assertEquals(4, result[1]);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

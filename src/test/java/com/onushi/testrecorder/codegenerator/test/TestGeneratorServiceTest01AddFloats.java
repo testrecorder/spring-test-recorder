@@ -6,21 +6,19 @@ import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest05 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest01AddFloats extends TestGeneratorServiceTest {
     @Test
-    void generateTestWhenExceptionIsThrown() {
+    void generateTestForAddFloats() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("testException")
-                .arguments(Collections.singletonList(5))
-                .result(null)
-                .fallBackResultType(String.class)
-                .exception(new IllegalArgumentException("x"))
+                .methodName("addFloats")
+                .arguments(Arrays.asList(2f, 3f))
+                .result(5f)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -39,12 +37,15 @@ public class TestGeneratorServiceTest05 extends TestGeneratorServiceTest {
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void testException() throws Exception {\n" +
+                        "    void addFloats() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
-                        "        // Act & Assert\n" +
-                        "        assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));\n" +
+                        "        // Act\n" +
+                        "        Float result = sampleService.addFloats(2.0f, 3.0f);\n" +
+                        "\n" +
+                        "        // Assert\n" +
+                        "        assertEquals(5.0f, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

@@ -6,22 +6,20 @@ import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest13 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest11AssertArrays extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithRepeatedArgs() {
+    void generateTestForMethodThatReturnsArray() {
         // Arrange
-        int[] intArray = {3, 4, 3};
-        List<Float> floatList = Arrays.asList(3.0f, 3.0f);
+        int[] result = {3, 4};
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("repeatedArgs")
-                .arguments(Arrays.asList(intArray, floatList))
-                .result(42)
+                .methodName("returnIntArray")
+                .arguments(Collections.emptyList())
+                .result(result)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -36,27 +34,25 @@ public class TestGeneratorServiceTest13 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void repeatedArgs() throws Exception {\n" +
+                        "    void returnIntArray() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        int[] array1 = {3, 4, 3};\n" +
-                        "        List<Float> arrayList1 = Arrays.asList(3.0f, 3.0f);\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Integer result = sampleService.repeatedArgs(array1, arrayList1);\n" +
+                        "        int[] result = sampleService.returnIntArray();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(42, result);\n" +
+                        "        assertEquals(2, result.length);\n" +
+                        "        assertEquals(3, result[0]);\n" +
+                        "        assertEquals(4, result[1]);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
-                        "END GENERATED TEST =========\n"),
+                        "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 }

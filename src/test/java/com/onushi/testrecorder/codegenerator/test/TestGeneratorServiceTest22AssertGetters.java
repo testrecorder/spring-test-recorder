@@ -13,7 +13,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest22 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServiceTest {
     @Test
     void generateTestForObjectsWithGetters() {
         // Arrange

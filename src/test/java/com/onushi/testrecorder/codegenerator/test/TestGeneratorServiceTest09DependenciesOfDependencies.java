@@ -1,7 +1,6 @@
 package com.onushi.testrecorder.codegenerator.test;
 
-import com.onushi.sample.model.CyclicChild;
-import com.onushi.sample.model.CyclicParent;
+import com.onushi.sample.model.Person;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
@@ -9,27 +8,39 @@ import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest23 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest09DependenciesOfDependencies extends TestGeneratorServiceTest {
     @Test
-    void generateTestForCyclicDependenciesInArgs() throws Exception {
+    void generateTestForDependenciesOfDependencies() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        CyclicParent cyclicParent = new CyclicParent();
-        CyclicChild cyclicChild = new CyclicChild();
-        cyclicChild.parent = cyclicParent;
-        cyclicChild.date = simpleDateFormat.parse("1980-01-02");
-        cyclicParent.id = 1;
-        cyclicParent.childList = Collections.singletonList(cyclicChild);
+        Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
+        Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
+        Person paul = Person.builder()
+                .firstName("Paul")
+                .lastName("Thompson")
+                .dateOfBirth(dateOfBirth1)
+                .build();
+
+        Person tom = Person.builder()
+                .firstName("Tom")
+                .lastName("Richardson")
+                .dateOfBirth(dateOfBirth2)
+                .build();
+
+        List<Person> personList = Arrays.asList(paul, tom);
+        Person[] personArray = {paul, tom};
 
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("processCyclicObjects")
-                .arguments(Collections.singletonList(cyclicParent))
-                .result(42)
+                .methodName("someFunction")
+                .arguments(Arrays.asList(personList, personArray))
+                .result(personList)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -44,9 +55,8 @@ public class TestGeneratorServiceTest23 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import com.onushi.sample.model.CyclicParent;\n" +
                         "import java.util.List;\n" +
-                        "import com.onushi.sample.model.CyclicChild;\n" +
+                        "import com.onushi.sample.model.Person;\n" +
                         "import java.util.Arrays;\n" +
                         "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
@@ -54,28 +64,37 @@ public class TestGeneratorServiceTest23 extends TestGeneratorServiceTest {
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void processCyclicObjects() throws Exception {\n" +
+                        "    void someFunction() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
                         "\n" +
                         "        Date date1 = simpleDateFormat.parse(\"1980-01-02 00:00:00.000\");\n" +
-                        "        // TODO Solve initialisation for cyclic dependency in com.onushi.sample.model.CyclicParent\n" +
-                        "        CyclicChild cyclicChild1 = new CyclicChild();\n" +
-                        "        cyclicChild1.date = date1;\n" +
-                        "        cyclicChild1.parent = ...;\n" +
-                        "        List<CyclicChild> singletonList1 = Arrays.asList(cyclicChild1);\n" +
+                        "        Person person1 = Person.builder()\n" +
+                        "            .dateOfBirth(date1)\n" +
+                        "            .firstName(\"Paul\")\n" +
+                        "            .lastName(\"Thompson\")\n" +
+                        "            .build();\n" +
                         "\n" +
-                        "        CyclicParent cyclicParent1 = new CyclicParent();\n" +
-                        "        cyclicParent1.childList = singletonList1;\n" +
-                        "        cyclicParent1.id = 1;\n" +
+                        "        Date date2 = simpleDateFormat.parse(\"1970-02-03 00:00:00.000\");\n" +
+                        "        Person person2 = Person.builder()\n" +
+                        "            .dateOfBirth(date2)\n" +
+                        "            .firstName(\"Tom\")\n" +
+                        "            .lastName(\"Richardson\")\n" +
+                        "            .build();\n" +
+                        "\n" +
+                        "        List<Person> arrayList1 = Arrays.asList(person1, person2);\n" +
+                        "\n" +
+                        "        Person[] array1 = {person1, person2};\n" +
                         "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Integer result = sampleService.processCyclicObjects(cyclicParent1);\n" +
+                        "        List<Person> result = sampleService.someFunction(arrayList1, array1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(42, result);\n" +
+                        "        assertEquals(2, result.size());\n" +
+                        "        assertEquals(person1, result.get(0));\n" +
+                        "        assertEquals(person2, result.get(1));\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

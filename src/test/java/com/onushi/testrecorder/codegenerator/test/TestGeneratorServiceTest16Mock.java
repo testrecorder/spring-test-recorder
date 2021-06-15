@@ -9,26 +9,19 @@ import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest17 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest16Mock extends TestGeneratorServiceTest {
     @Test
-    void generateTestWith2MockCalls() throws Exception {
+    void generateTestWithMock() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
-        DependencyMethodRunInfo dependencyMethodRunInfo1 = DependencyMethodRunInfo.builder()
-                .target(personRepositoryImpl)
-                .methodName("getPersonsCountFromDB")
-                .arguments(Arrays.asList("a", null))
-                .result(2)
-                .build();
         Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
-        DependencyMethodRunInfo dependencyMethodRunInfo2 = DependencyMethodRunInfo.builder()
+        PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
+        DependencyMethodRunInfo dependencyMethodRunInfo = DependencyMethodRunInfo.builder()
                 .target(personRepositoryImpl)
                 .methodName("getPersonFromDB")
                 .arguments(Collections.singletonList(2))
@@ -38,11 +31,12 @@ public class TestGeneratorServiceTest17 extends TestGeneratorServiceTest {
                         .lastName("Lee")
                         .build())
                 .build();
+
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new PersonService(personRepositoryImpl))
                 .methodName("getPersonFirstName")
                 .arguments(Collections.singletonList(2))
-                .dependencyMethodRuns(Arrays.asList(dependencyMethodRunInfo1, dependencyMethodRunInfo2))
+                .dependencyMethodRuns(Collections.singletonList(dependencyMethodRunInfo))
                 .result("Bruce")
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -77,7 +71,6 @@ public class TestGeneratorServiceTest17 extends TestGeneratorServiceTest {
                         "            .build();\n" +
                         "\n" +
                         "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
-                        "        when(personRepositoryImpl1.getPersonsCountFromDB(\"a\", null)).thenReturn(2);\n" +
                         "        when(personRepositoryImpl1.getPersonFromDB(2)).thenReturn(person1);\n" +
                         "\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +

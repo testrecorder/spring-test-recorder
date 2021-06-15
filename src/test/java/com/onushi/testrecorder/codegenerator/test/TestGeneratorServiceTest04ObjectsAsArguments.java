@@ -6,30 +6,24 @@ import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest12 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest04ObjectsAsArguments extends TestGeneratorServiceTest {
     @Test
-    void generateTestForMethodThatReturnsPerson() throws Exception {
+    void generateTestWhenHavingObjectAsArgument() {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth = simpleDateFormat.parse("2021-01-01");
-
         Person person = Person.builder()
-                .firstName("Tom")
-                .lastName("Richardson")
-                .dateOfBirth(dateOfBirth)
+                .firstName("Mary")
+                .lastName("Poe")
                 .build();
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("returnPerson")
-                .arguments(Collections.emptyList())
-                .result(person)
+                .methodName("getFirstName")
+                .arguments(Collections.singletonList(person))
+                .result("Mary")
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -45,24 +39,24 @@ public class TestGeneratorServiceTest12 extends TestGeneratorServiceTest {
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import com.onushi.sample.model.Person;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void returnPerson() throws Exception {\n" +
+                        "    void getFirstName() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
-                        "\n" +
+                        "        Person person1 = Person.builder()\n" +
+                        "            .dateOfBirth(null)\n" +
+                        "            .firstName(\"Mary\")\n" +
+                        "            .lastName(\"Poe\")\n" +
+                        "            .build();\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Person result = sampleService.returnPerson();\n" +
+                        "        String result = sampleService.getFirstName(person1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(simpleDateFormat.parse(\"2021-01-01 00:00:00.000\"), result.getDateOfBirth());\n" +
-                        "        assertEquals(\"Tom\", result.getFirstName());\n" +
-                        "        assertEquals(\"Richardson\", result.getLastName());\n" +
+                        "        assertEquals(\"Mary\", result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

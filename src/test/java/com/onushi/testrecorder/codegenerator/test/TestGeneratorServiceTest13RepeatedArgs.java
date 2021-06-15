@@ -6,25 +6,22 @@ import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest20 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest13RepeatedArgs extends TestGeneratorServiceTest {
     @Test
-    void generateTestForHashSets() {
+    void generateTestWithRepeatedArgs() {
         // Arrange
-        Set<Double> set = new HashSet<>();
-        set.add(null);
-        set.add(1.2);
-        set.add(2.6);
+        int[] intArray = {3, 4, 3};
+        List<Float> floatList = Arrays.asList(3.0f, 3.0f);
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("processSet")
-                .arguments(Collections.singletonList(set))
-                .result(42.42f)
+                .methodName("repeatedArgs")
+                .arguments(Arrays.asList(intArray, floatList))
+                .result(42)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -39,25 +36,23 @@ public class TestGeneratorServiceTest20 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.util.Set;\n" +
-                        "import java.util.HashSet;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void processSet() throws Exception {\n" +
+                        "    void repeatedArgs() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        Set<Double> hashSet1 = new HashSet<>();\n" +
-                        "        hashSet1.add(null);\n" +
-                        "        hashSet1.add(1.2);\n" +
-                        "        hashSet1.add(2.6);\n" +
+                        "        int[] array1 = {3, 4, 3};\n" +
+                        "        List<Float> arrayList1 = Arrays.asList(3.0f, 3.0f);\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Float result = sampleService.processSet(hashSet1);\n" +
+                        "        Integer result = sampleService.repeatedArgs(array1, arrayList1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(42.42f, result);\n" +
+                        "        assertEquals(42, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

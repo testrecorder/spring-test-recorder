@@ -3,41 +3,33 @@ package com.onushi.testrecorder.codegenerator.test;
 import com.onushi.sample.model.Person;
 import com.onushi.sample.services.PersonRepositoryImpl;
 import com.onushi.sample.services.PersonService;
-import com.onushi.testrecorder.analyzer.methodrun.DependencyMethodRunInfo;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest16 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest15TargetWithDependencies extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithMock() throws Exception {
+    void generateTestTargetWithDependencies() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
-        PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
-        DependencyMethodRunInfo dependencyMethodRunInfo = DependencyMethodRunInfo.builder()
-                .target(personRepositoryImpl)
-                .methodName("getPersonFromDB")
+        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+                .target(new PersonService(new PersonRepositoryImpl()))
+                .methodName("loadPerson")
                 .arguments(Collections.singletonList(2))
                 .result(Person.builder()
                         .dateOfBirth(date1)
                         .firstName("Bruce")
                         .lastName("Lee")
                         .build())
-                .build();
-
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
-                .target(new PersonService(personRepositoryImpl))
-                .methodName("getPersonFirstName")
-                .arguments(Collections.singletonList(2))
-                .dependencyMethodRuns(Collections.singletonList(dependencyMethodRunInfo))
-                .result("Bruce")
+                .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
 
@@ -51,35 +43,26 @@ public class TestGeneratorServiceTest16 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import static org.mockito.Mockito.*;\n" +
                         "import com.onushi.sample.model.Person;\n" +
-                        "import java.util.Date;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class PersonServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void getPersonFirstName() throws Exception {\n" +
+                        "    void loadPerson() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
                         "\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"1940-11-27 00:00:00.000\");\n" +
-                        "        Person person1 = Person.builder()\n" +
-                        "            .dateOfBirth(date1)\n" +
-                        "            .firstName(\"Bruce\")\n" +
-                        "            .lastName(\"Lee\")\n" +
-                        "            .build();\n" +
-                        "\n" +
-                        "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
-                        "        when(personRepositoryImpl1.getPersonFromDB(2)).thenReturn(person1);\n" +
-                        "\n" +
+                        "        PersonRepositoryImpl personRepositoryImpl1 = new PersonRepositoryImpl();\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        String result = personService.getPersonFirstName(2);\n" +
+                        "        Person result = personService.loadPerson(2);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(\"Bruce\", result);\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1940-11-27 00:00:00.000\"), result.getDateOfBirth());\n" +
+                        "        assertEquals(\"Bruce\", result.getFirstName());\n" +
+                        "        assertEquals(\"Lee\", result.getLastName());\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

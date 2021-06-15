@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest07 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest07ForArrays extends TestGeneratorServiceTest {
     @Test
     void generateTestForArrays() {
         // Arrange

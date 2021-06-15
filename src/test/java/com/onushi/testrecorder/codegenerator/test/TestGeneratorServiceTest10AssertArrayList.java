@@ -1,26 +1,25 @@
 package com.onushi.testrecorder.codegenerator.test;
 
-import com.onushi.sample.services.PersonRepository;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest03 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest10AssertArrayList extends TestGeneratorServiceTest {
     @Test
-    void generateTestForReturnNull() {
+    void generateTestForAssertListOfIntegers() {
         // Arrange
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("returnNull")
+                .methodName("createList")
                 .arguments(Collections.emptyList())
-                .result(null)
-                .fallBackResultType(PersonRepository.class)
+                .result(Arrays.asList(1, 2, 3))
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -35,24 +34,27 @@ public class TestGeneratorServiceTest03 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.util.List;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void returnNull() throws Exception {\n" +
+                        "    void createList() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        PersonRepository result = sampleService.returnNull();\n" +
+                        "        List<Integer> result = sampleService.createList();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertNull(result);\n" +
+                        "        assertEquals(3, result.size());\n" +
+                        "        assertEquals(1, result.get(0));\n" +
+                        "        assertEquals(2, result.get(1));\n" +
+                        "        assertEquals(3, result.get(2));\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
-
     }
 }

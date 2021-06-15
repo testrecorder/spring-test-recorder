@@ -281,10 +281,23 @@ DONE ==========================
 			OK - ObjectInfoFactoryWithAllArgsConstructorImpl
 			
 TODO ==========================
-	Sa incerc sa pun doar modificarile legate de TestRecorder in a separate ChangeList. Is is possible?
+	!!!! Bug. If I modify the params, the test will have them already modified
+		To solve
+	
+		for the args + target
+			construct ObjectInfos
+			fill initialValue for all objects in the context
+			
+		call the target.method()
+		
+		For all existing objects 
+			get objects for result + dependencies
+			fill finalValue for all objects in the context
 
 
 	for iterations, generate max 3 items and add a comment about the parameter
+	
+	DZone - article about TestRecorder
 	
 	// The demo should be in a test
     private void demo() throws Exception {
@@ -301,18 +314,7 @@ TODO ==========================
 		AspectJ should be called somehow
 	
 	
-	!!!! Bug. If I modify the params, the test will have them already modified
-		To solve
-	
-		for the args + target
-			construct ObjectInfos
-			fill initialValue for all objects in the context
-			
-		call the target.method()
-		
-		For all existing objects 
-			get objects for result + dependencies
-			fill finalValue for all objects in the context
+
 			
 	Check side effects on target, arguments, any dependencies
 		OK - Write a demo to understand the problem

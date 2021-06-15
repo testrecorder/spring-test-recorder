@@ -11,7 +11,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest26 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest26AssertHashMap extends TestGeneratorServiceTest {
     @Test
     void generateAssertTestForHashMap() throws Exception {
         // Arrange

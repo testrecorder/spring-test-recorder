@@ -5,25 +5,26 @@ import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest02 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest20HashSet extends TestGeneratorServiceTest {
     @Test
-    void generateTestForMinDate() throws Exception {
+    void generateTestForHashSets() {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = simpleDateFormat.parse("2021-01-01");
-        Date d2 = simpleDateFormat.parse("2021-02-02");
+        Set<Double> set = new HashSet<>();
+        set.add(null);
+        set.add(1.2);
+        set.add(2.6);
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("minDate")
-                .arguments(Arrays.asList(d1, d2))
-                .result(d1)
+                .methodName("processSet")
+                .arguments(Collections.singletonList(set))
+                .result(42.42f)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -38,29 +39,29 @@ public class TestGeneratorServiceTest02 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.util.Date;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
+                        "import java.util.Set;\n" +
+                        "import java.util.HashSet;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void minDate() throws Exception {\n" +
+                        "    void processSet() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
-                        "\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
-                        "        Date date2 = simpleDateFormat.parse(\"2021-02-02 00:00:00.000\");\n" +
+                        "        Set<Double> hashSet1 = new HashSet<>();\n" +
+                        "        hashSet1.add(null);\n" +
+                        "        hashSet1.add(1.2);\n" +
+                        "        hashSet1.add(2.6);\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Date result = sampleService.minDate(date1, date2);\n" +
+                        "        Float result = sampleService.processSet(hashSet1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(date1, result);\n" +
+                        "        assertEquals(42.42f, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
-                        "END GENERATED TEST ========="),
+                        "END GENERATED TEST =========\n"),
                 StringUtils.prepareForCompare(testString));
     }
 }

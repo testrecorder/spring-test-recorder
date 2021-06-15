@@ -1,27 +1,35 @@
 package com.onushi.testrecorder.codegenerator.test;
 
+import com.onushi.sample.model.CyclicChild;
+import com.onushi.sample.model.CyclicParent;
 import com.onushi.sample.services.SampleService;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest08 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest24CyclicDepsInResult extends TestGeneratorServiceTest {
     @Test
-    void generateTestForArrayLists() {
+    void generateTestForCyclicDependenciesInResult() throws Exception {
         // Arrange
-        List<String> stringList = Arrays.asList("a", "b");
-        List<Object> objectList = Arrays.asList(1, "b", null);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        CyclicParent cyclicParent = new CyclicParent();
+        CyclicChild cyclicChild = new CyclicChild();
+        cyclicChild.parent = cyclicParent;
+        cyclicChild.date = simpleDateFormat.parse("1980-01-02");
+        cyclicParent.id = 1;
+        cyclicParent.childList = Collections.singletonList(cyclicChild);
+
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("processLists")
-                .arguments(Arrays.asList(stringList, objectList))
-                .result(42)
+                .methodName("createCyclicObjects")
+                .arguments(Collections.emptyList())
+                .result(cyclicParent)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -36,27 +44,29 @@ public class TestGeneratorServiceTest08 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
+                        "import com.onushi.sample.model.CyclicParent;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void processLists() throws Exception {\n" +
+                        "    void createCyclicObjects() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        List<String> arrayList1 = Arrays.asList(\"a\", \"b\");\n" +
-                        "        List<Object> arrayList2 = Arrays.asList(1, \"b\", null);\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Integer result = sampleService.processLists(arrayList1, arrayList2);\n" +
+                        "        CyclicParent result = sampleService.createCyclicObjects();\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(42, result);\n" +
+                        "        assertEquals(1, result.childList.size());\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1980-01-02 00:00:00.000\"), result.childList.get(0).date);\n" +
+                        "        assertEquals(1, result.id);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
-                        "END GENERATED TEST =========\n"),
+                        "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 }

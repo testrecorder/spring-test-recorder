@@ -5,20 +5,23 @@ import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest01 extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest19HashMap extends TestGeneratorServiceTest {
     @Test
-    void generateTestForAddFloats() {
+    void generateTestForHashMaps() {
         // Arrange
+        Map<String, List<String>> map = new HashMap<>();
+        map.put("1", Arrays.asList("0", "1"));
+        map.put("2", Arrays.asList("0", "1", "2"));
+        map.put("3", Arrays.asList("0", "1", "2", "3"));
         RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
                 .target(new SampleService())
-                .methodName("addFloats")
-                .arguments(Arrays.asList(2f, 3f))
-                .result(5f)
+                .methodName("processMap")
+                .arguments(Collections.singletonList(map))
+                .result(42)
                 .dependencyMethodRuns(new ArrayList<>())
                 .build();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
@@ -33,19 +36,34 @@ public class TestGeneratorServiceTest01 extends TestGeneratorServiceTest {
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import java.util.Map;\n" +
+                        "import java.util.List;\n" +
+                        "import java.util.HashMap;\n" +
+                        "import java.util.Arrays;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         testGeneratorService.COMMENT_BEFORE_TEST +
                         "    @Test\n" +
-                        "    void addFloats() throws Exception {\n" +
+                        "    void processMap() throws Exception {\n" +
                         "        // Arrange\n" +
+                        "        List<String> arrayList1 = Arrays.asList(\"0\", \"1\");\n" +
+                        "\n" +
+                        "        List<String> arrayList2 = Arrays.asList(\"0\", \"1\", \"2\");\n" +
+                        "\n" +
+                        "        List<String> arrayList3 = Arrays.asList(\"0\", \"1\", \"2\", \"3\");\n" +
+                        "\n" +
+                        "        Map<String, List<String>> hashMap1 = new HashMap<>();\n" +
+                        "        hashMap1.put(\"1\", arrayList1);\n" +
+                        "        hashMap1.put(\"2\", arrayList2);\n" +
+                        "        hashMap1.put(\"3\", arrayList3);\n" +
+                        "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Float result = sampleService.addFloats(2.0f, 3.0f);\n" +
+                        "        Integer result = sampleService.processMap(hashMap1);\n" +
                         "\n" +
                         "        // Assert\n" +
-                        "        assertEquals(5.0f, result);\n" +
+                        "        assertEquals(42, result);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
