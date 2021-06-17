@@ -26,21 +26,29 @@ public class RecordTestAspect {
         this.recordingContext = recordingContext;
     }
 
-    // TODO IB !!!! 4 how can I make this AOP framework independent?
+    // TODO IB how can I make this AOP framework independent?
     @Around("@annotation(com.onushi.springtestrecorder.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        TestGenerator testGenerator = null;
+        try {
+            MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint) proceedingJoinPoint;
+            MethodSignature methodSignature = (MethodSignature) methodInvocation.getSignature();
+            testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+                    .threadId(Thread.currentThread().getId())
+                    .target(methodInvocation.getTarget())
+                    .methodName(methodSignature.getName())
+                    .arguments(Arrays.asList(methodInvocation.getArgs()))
+                    .fallBackResultType(methodSignature.getReturnType())
+                    .build());
+        } catch(Exception ex) {
+            System.out.println("@RecordTest could not record the test");
+            ex.printStackTrace();
+            testGenerator = null;
+        }
 
-        MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint) proceedingJoinPoint;
-        MethodSignature methodSignature = (MethodSignature) methodInvocation.getSignature();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
-                .threadId(Thread.currentThread().getId())
-                .target(methodInvocation.getTarget())
-                .methodName(methodSignature.getName())
-                .arguments(Arrays.asList(methodInvocation.getArgs()))
-                .fallBackResultType(methodSignature.getReturnType())
-                .build());
-
-        recordingContext.getTestGeneratorSet().add(testGenerator);
+        if (testGenerator != null) {
+            recordingContext.getTestGeneratorSet().add(testGenerator);
+        }
         Object result;
         Exception thrownException;
         try {
@@ -49,18 +57,20 @@ public class RecordTestAspect {
         } catch(Exception ex) {
             result = null;
             thrownException = ex;
-        } finally {
-            recordingContext.getTestGeneratorSet().remove(testGenerator);
         }
 
         try {
-            testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
-                    .result(result)
-                    .exception(thrownException)
-                    .build());
+            if (testGenerator != null) {
+                recordingContext.getTestGeneratorSet().remove(testGenerator);
 
-            String testCode = testGeneratorService.generateTestCode(testGenerator);
-            System.out.println(testCode);
+                testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                        .result(result)
+                        .exception(thrownException)
+                        .build());
+
+                String testCode = testGeneratorService.generateTestCode(testGenerator);
+                System.out.println(testCode);
+            }
         } catch (Exception ex) {
             System.out.println("@RecordTest could not record the test");
             ex.printStackTrace();

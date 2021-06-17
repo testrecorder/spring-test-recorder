@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-// TODO IB !!!! rename
 public class RecordingContext {
     private final Set<TestGenerator> testGeneratorSet = Collections.synchronizedSet(new HashSet<>());
 

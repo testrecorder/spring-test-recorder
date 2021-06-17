@@ -17,7 +17,7 @@ public class ObjectInfo {
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     protected boolean initAdded = false;
-    // TODO IB !!!! find a better solution
+    // TODO IB find a better solution
     protected Runnable toRunAfterMethodRun = null;
 
     protected ObjectInfo addVisibleProperty(String key, VisibleProperty visibleProperty) {

@@ -3,7 +3,6 @@ package com.onushi.springtestrecorder.codegenerator.test;
 import com.onushi.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
 import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.analyzer.methodrun.DependencyMethodRunInfo;
-import com.onushi.springtestrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.springtestrecorder.codegenerator.object.ObjectInfo;
 import com.onushi.springtestrecorder.codegenerator.object.ObjectInfoFactoryManager;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,8 @@ public class TestGeneratorFactory {
         TestGenerator testGenerator = new TestGenerator();
         testGenerator.threadId = beforeMethodRunInfo.getThreadId();
 
-        // TODO IB !!!! require threadId.
-        // TODO IB !!!! check the thread in testGeneratorFactory.addDependencyMethodRun and add in all mocking tests
+        // TODO IB !!!! 1 require threadId.
+        // TODO IB !!!! 1 check the thread in testGeneratorFactory.addDependencyMethodRun and add in all mocking tests
         if (beforeMethodRunInfo.getArguments() == null) {
             throw new IllegalArgumentException("arguments");
         }
@@ -52,8 +51,9 @@ public class TestGeneratorFactory {
         return testGenerator;
     }
 
-    // TODO IB !!!! is there a better way to do this?
     public void addDependencyMethodRun(TestGenerator testGenerator, DependencyMethodRunInfo dependencyMethodRunInfo) {
+        // TODO IB LATER this check should be optional
+        // TODO IB !!!! 1 check thread
         testGenerator.dependencyMethodRuns.add(dependencyMethodRunInfo);
     }
 
@@ -72,42 +72,6 @@ public class TestGeneratorFactory {
             }
         }
     }
-
-
-    // TODO IB !!!! obsolete
-//    public TestGenerator createTestGenerator(RecordedMethodRunInfo recordedMethodRunInfo) {
-//        TestGenerator testGenerator = new TestGenerator();
-//
-//        if (recordedMethodRunInfo.getArguments() == null) {
-//            throw new IllegalArgumentException("arguments");
-//        }
-//        if (recordedMethodRunInfo.getTarget() == null) {
-//            throw new IllegalArgumentException("target");
-//        }
-//
-//        testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
-//        testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
-//
-//        // testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
-//
-//        testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
-//                recordedMethodRunInfo.getTarget(),
-//                objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));
-//        testGenerator.methodName = recordedMethodRunInfo.getMethodName();
-//
-//        testGenerator.argumentObjectInfos = recordedMethodRunInfo.getArguments().stream()
-//                .map(x -> objectInfoFactoryManager.getCommonObjectInfo(testGenerator, x))
-//                .collect(Collectors.toList());
-//
-//
-//        testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
-//                recordedMethodRunInfo.getResult());
-//        testGenerator.expectedException = recordedMethodRunInfo.getException();
-//
-//        testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, recordedMethodRunInfo.getFallBackResultType());
-//
-//        return testGenerator;
-//    }
 
     private String getResultDeclareClassName(ObjectInfo expectedResultObjectInfo, Class<?> fallBackResultType) {
         if (expectedResultObjectInfo.getObject() != null) {
