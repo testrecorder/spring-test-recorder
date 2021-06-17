@@ -1,7 +1,7 @@
 package com.onushi.sample.services;
 
 import com.onushi.sample.model.Person;
-import com.onushi.testrecorder.aspect.RecordMockForTest;
+import com.onushi.springtestrecorder.aspect.RecordMockForTest;
 import org.springframework.stereotype.Repository;
 
 import java.text.SimpleDateFormat;

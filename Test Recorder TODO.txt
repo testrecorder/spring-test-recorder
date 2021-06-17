@@ -37,20 +37,20 @@ INFO ==========================
 		Types of functional tests
 			https://www.simform.com/functional-testing-types/
 
-	How to use TestRecorder
+	How to use spring-test-recorder
 		<dependency>
 			<groupId>com.onushi</groupId>
-			<artifactId>testrecorder</artifactId>
+			<artifactId>spring-test-recorder</artifactId>
 			<version>0.1.0</version>
 		</dependency>
 		
 		Maven refresh
 		
-		@ComponentScan(basePackages={..., "com.onushi.testrecorder"},
+		@ComponentScan(basePackages={..., "com.onushi.springtestrecorder"},
 
-		import com.onushi.testrecorder.aspect.RecordTest;
+		import com.onushi.springtestrecorder.aspect.RecordTest;
 		
-		add @TestRecorder to the function you want to record
+		add @RecordTest to the function you want to record
 
 
 
@@ -279,12 +279,25 @@ DONE ==========================
 			OK - ObjectInfoFactoryWithNoArgsAndSettersImpl
 
 			OK - ObjectInfoFactoryWithAllArgsConstructorImpl
+		
+	17.06.2021
+		OK - Why mocking does not work anymore?
+			maybe because I change the order of some init in TestGeneratorFactory
 			
-TODO ==========================
-	Why mocking does not work anymore?
-		maybe because I change the order of some init in TestGeneratorFactory
 	
+		OK -Create spring-test-recorder-demo
+		
+		
+		
+TODO ==========================
+	
+	decide about the project names
+		spring-test-recorder
+		spring-test-recorder-demo
 
+	Split RecordedMethodRunInfo in 2
+			BeforeMethodRunInfo
+			AfterMethodRunInfo
 
 	!!!! Bug. If I modify the params, the test will have them already modified
 		It's ok to construct init objects from current value since 
@@ -311,10 +324,12 @@ TODO ==========================
 			get objects for result + dependencies
 			fill finalValue for all objects in the context
 
+	
+
 
 	for iterations, generate max 3 items and add a comment about the parameter
 	
-	DZone - article about TestRecorder
+	DZone - article about spring-test-recorder
 	
 	// The demo should be in a test
     private void demo() throws Exception {

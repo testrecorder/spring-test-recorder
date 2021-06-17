@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.onushi</groupId>
-	<artifactId>testrecorder</artifactId>
+	<artifactId>spring-test-recorder</artifactId>
 	<version>0.1.0</version>
-	<name>testrecorder</name>
+	<name>spring-test-recorder</name>
 	<description>Spring Test Recorded Library</description>
 	<properties>
 		<java.version>1.8</java.version>
