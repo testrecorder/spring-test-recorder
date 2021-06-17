@@ -11,7 +11,7 @@ import java.util.*;
 @AllArgsConstructor
 @Getter
 @Builder
-// TODO IB !!!! 1 split into RecordedMethodRunInfoBefore and RecordedMethodRunInfoAfter
+// TODO IB !!!! 1 split into BeforeMethodRunInfo and AfterMethodRunInfo
 public class RecordedMethodRunInfo {
     protected Object target;
     protected String methodName;

@@ -31,6 +31,10 @@ public class TestGeneratorFactory {
 
         testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
         testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
+
+        // TODO IB !!!! this info is available during method run only. Mock should be postponed
+        testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
+
         testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
                 recordedMethodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));
@@ -40,7 +44,6 @@ public class TestGeneratorFactory {
                 .map(x -> objectInfoFactoryManager.getCommonObjectInfo(testGenerator, x))
                 .collect(Collectors.toList());
 
-        testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
 
         testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
                 recordedMethodRunInfo.getResult());

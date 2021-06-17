@@ -281,9 +281,26 @@ DONE ==========================
 			OK - ObjectInfoFactoryWithAllArgsConstructorImpl
 			
 TODO ==========================
-	!!!! Bug. If I modify the params, the test will have them already modified
-		To solve
+	Why mocking does not work anymore?
+		maybe because I change the order of some init in TestGeneratorFactory
 	
+
+
+	!!!! Bug. If I modify the params, the test will have them already modified
+		It's ok to construct init objects from current value since 
+			before objects are used in arange
+			after objects are used after
+			if there are some common ones, they are inited before so it's ok
+			keep a bool about when an object is inited
+			also when an object cannot be created, create it's dependencies and add a TODO that the object should be created 
+	
+		Refactor plan
+			RecordedMethodRunInfo should be split in 2 
+				BeforeMethodRunInfo
+				AfterMethodRunInfo
+				
+		TestGenerator and TestGeneratorFactory should use these 2 objects
+				
 		for the args + target
 			construct ObjectInfos
 			fill initialValue for all objects in the context
