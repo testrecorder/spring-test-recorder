@@ -329,11 +329,24 @@ DONE ==========================
 				Map<Integer, Person> personMap = this.personService.loadPersons(personIds);
 			}
 
+		OK - In TestGenerator keep track of TestRecordingPhase
+
 TODO ==========================
+
+	For each object keep track when it was created
+
+	I should create objects as soon as possible
+		this applies to mocked params and returns
+
+
+
 
 	SIDE EFFECTS
 		OK - Write a demo to understand the problem
 
+		Write tests for different cases of objects reuse, side effects etc
+
+		Check side effects on target, arguments, any dependencies
 
 		VisibleProps should be computed for every object before and after the call 
 			fill initialValue for all objects in the context
@@ -347,11 +360,8 @@ TODO ==========================
 			else 
 				Compare visibleProperties
 
-		Check side effects on target, arguments, any dependencies
-
 		create assertEquals() also for all the changed values
 
-		Write tests for different cases of objects reuse, side effects etc
 		
 		
 

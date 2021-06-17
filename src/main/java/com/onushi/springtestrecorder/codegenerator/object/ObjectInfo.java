@@ -1,5 +1,6 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 import lombok.Getter;
 
 import java.util.*;
@@ -17,6 +18,8 @@ public class ObjectInfo {
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     protected boolean initAdded = false;
+    // TODO IB !!!! set this
+    protected TestRecordingPhase creationPhase = TestRecordingPhase.UNKNOWN;
     // TODO IB find a better solution
     protected Runnable toRunAfterMethodRun = null;
 

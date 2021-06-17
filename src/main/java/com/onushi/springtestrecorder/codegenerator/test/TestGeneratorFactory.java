@@ -23,6 +23,7 @@ public class TestGeneratorFactory {
 
     public TestGenerator createTestGenerator(BeforeMethodRunInfo beforeMethodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
+        testGenerator.currentTestRecordingPhase = TestRecordingPhase.BEFORE_METHOD_RUN;
         testGenerator.threadId = Thread.currentThread().getId();
 
         if (beforeMethodRunInfo.getArguments() == null) {
@@ -46,6 +47,7 @@ public class TestGeneratorFactory {
 
         testGenerator.fallBackResultType = beforeMethodRunInfo.getFallBackResultType();
 
+        testGenerator.currentTestRecordingPhase = TestRecordingPhase.DURING_METHOD_RUN;
         return testGenerator;
     }
 
@@ -57,6 +59,7 @@ public class TestGeneratorFactory {
     }
 
     public void addAfterMethodRunInfo(TestGenerator testGenerator, AfterMethodRunInfo afterMethodRunInfo) {
+        testGenerator.currentTestRecordingPhase = TestRecordingPhase.AFTER_METHOD_RUN;
         testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
                 afterMethodRunInfo.getResult());
 

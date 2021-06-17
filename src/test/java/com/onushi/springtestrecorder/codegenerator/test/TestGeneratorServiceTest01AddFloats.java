@@ -19,9 +19,11 @@ public class TestGeneratorServiceTest01AddFloats extends TestGeneratorServiceTes
                 .methodName("addFloats")
                 .arguments(Arrays.asList(2f, 3f))
                 .build());
+        assertEquals(testGenerator.getCurrentTestRecordingPhase(), TestRecordingPhase.DURING_METHOD_RUN);
         testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(5f)
                 .build());
+        assertEquals(testGenerator.getCurrentTestRecordingPhase(), TestRecordingPhase.AFTER_METHOD_RUN);
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
