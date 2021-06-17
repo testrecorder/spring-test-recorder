@@ -19,7 +19,8 @@ public class ObjectInfo {
     protected String initCode = "";
     protected boolean initAdded = false;
     // TODO IB !!!! set this
-    protected TestRecordingPhase creationPhase = TestRecordingPhase.UNKNOWN;
+    protected ObjectInfoCreationContext context;
+    protected TestRecordingPhase creationPhase;
     // TODO IB find a better solution
     protected Runnable toRunAfterMethodRun = null;
 
@@ -36,14 +37,18 @@ public class ObjectInfo {
         return !initCode.equals("");
     }
 
-    protected ObjectInfo(Object object, String objectName, String inlineCode) {
-        this.object = object;
-        this.objectName = objectName;
+    protected ObjectInfo(ObjectInfoCreationContext context, String inlineCode) {
+        this.context = context;
+        this.creationPhase = context.getTestGenerator().getCurrentTestRecordingPhase();
+        this.object = context.getObject();
+        this.objectName = context.getObjectName();
         this.inlineCode = inlineCode;
         this.composedClassNameForDeclare = object.getClass().getSimpleName();
     }
 
-    protected ObjectInfo(Object object, String objectName, String inlineCode, String composedClassNameForDeclare) {
+    protected ObjectInfo(ObjectInfoCreationContext context, Object object, String objectName, String inlineCode, String composedClassNameForDeclare) {
+        this.context = context;
+        this.creationPhase = context.getTestGenerator().getCurrentTestRecordingPhase();
         this.object = object;
         this.objectName = objectName;
         this.inlineCode = inlineCode;

@@ -15,7 +15,7 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject() instanceof HashSet<?>) {
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
             @SuppressWarnings("unchecked")
             HashSet<Object> hashSet = (HashSet<Object>)context.getObject();

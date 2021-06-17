@@ -28,9 +28,7 @@ public class ObjectInfoFactoryWithLombokBuilderImpl extends ObjectInfoFactory {
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (objectCreationAnalyzerService.canBeCreatedWithLombokBuilder(context.getObject())) {
 
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(),
-                    context.getObjectName(),
-                    context.getObjectName());
+            ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
             objectInfo.declareRequiredImports.add(context.getObject().getClass().getName());
 

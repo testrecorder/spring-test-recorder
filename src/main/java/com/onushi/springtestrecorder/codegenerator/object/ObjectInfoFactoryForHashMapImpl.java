@@ -15,7 +15,7 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject() instanceof HashMap<?, ?>) {
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
             @SuppressWarnings("unchecked")
             HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();

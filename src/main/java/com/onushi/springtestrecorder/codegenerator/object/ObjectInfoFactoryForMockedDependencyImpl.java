@@ -19,7 +19,7 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject().getClass().isAnnotationPresent(RecordMockForTest.class)) {
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
             objectInfo.declareRequiredImports = Arrays.asList(
                     "static org.mockito.Mockito.*",

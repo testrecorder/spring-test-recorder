@@ -6,7 +6,7 @@ public class ObjectInfoFactoryForNotRedFields extends ObjectInfoFactory {
 
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
-        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+        ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
         objectInfo.initCode = new StringGenerator()
                 .setTemplate("// TODO Create this object (Could not read object fields)\n" +

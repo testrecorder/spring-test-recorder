@@ -28,7 +28,7 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject().getClass().getName().startsWith("[")) {
 
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
             ArrayAsList arrayAsList = getElementList(context.getObject());
 

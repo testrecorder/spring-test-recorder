@@ -29,7 +29,7 @@ public class ObjectInfoFactoryWithNoArgsAndFieldsImpl extends ObjectInfoFactory 
             return null;
         }
 
-        ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+        ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
         StringBuilder fieldsInitCode = new StringBuilder();
         List<ObjectInfo> fieldObjectInfos = new ArrayList<>();

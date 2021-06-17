@@ -17,7 +17,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
         if (context.getObject() instanceof List<?>) {
-            ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
+            ObjectInfo objectInfo = new ObjectInfo(context, context.getObjectName());
 
             @SuppressWarnings("unchecked")
             List<ObjectInfo> elements = ((List<Object>) context.getObject()).stream()
