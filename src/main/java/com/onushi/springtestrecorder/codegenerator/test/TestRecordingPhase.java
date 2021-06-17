@@ -1,6 +1,5 @@
 package com.onushi.springtestrecorder.codegenerator.test;
 
-// TODO IB !!!! set in TestGenerator
 public enum TestRecordingPhase {
     UNKNOWN,
     BEFORE_METHOD_RUN,

@@ -18,7 +18,6 @@ public class ObjectInfo {
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     protected boolean initAdded = false;
-    // TODO IB !!!! set this
     protected ObjectInfoCreationContext context;
     protected TestRecordingPhase creationPhase;
     // TODO IB find a better solution
@@ -38,19 +37,14 @@ public class ObjectInfo {
     }
 
     protected ObjectInfo(ObjectInfoCreationContext context, String inlineCode) {
+        this(context, inlineCode, context.getObject().getClass().getSimpleName());
+    }
+
+    protected ObjectInfo(ObjectInfoCreationContext context, String inlineCode, String composedClassNameForDeclare) {
         this.context = context;
         this.creationPhase = context.getTestGenerator().getCurrentTestRecordingPhase();
         this.object = context.getObject();
         this.objectName = context.getObjectName();
-        this.inlineCode = inlineCode;
-        this.composedClassNameForDeclare = object.getClass().getSimpleName();
-    }
-
-    protected ObjectInfo(ObjectInfoCreationContext context, Object object, String objectName, String inlineCode, String composedClassNameForDeclare) {
-        this.context = context;
-        this.creationPhase = context.getTestGenerator().getCurrentTestRecordingPhase();
-        this.object = object;
-        this.objectName = objectName;
         this.inlineCode = inlineCode;
         this.composedClassNameForDeclare = composedClassNameForDeclare;
     }
