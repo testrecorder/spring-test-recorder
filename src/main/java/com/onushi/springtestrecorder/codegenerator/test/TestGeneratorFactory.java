@@ -23,10 +23,8 @@ public class TestGeneratorFactory {
 
     public TestGenerator createTestGenerator(BeforeMethodRunInfo beforeMethodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
-        testGenerator.threadId = beforeMethodRunInfo.getThreadId();
+        testGenerator.threadId = Thread.currentThread().getId();
 
-        // TODO IB !!!! 1 require threadId.
-        // TODO IB !!!! 1 check the thread in testGeneratorFactory.addDependencyMethodRun and add in all mocking tests
         if (beforeMethodRunInfo.getArguments() == null) {
             throw new IllegalArgumentException("arguments");
         }
@@ -53,8 +51,9 @@ public class TestGeneratorFactory {
 
     public void addDependencyMethodRun(TestGenerator testGenerator, DependencyMethodRunInfo dependencyMethodRunInfo) {
         // TODO IB LATER this check should be optional
-        // TODO IB !!!! 1 check thread
-        testGenerator.dependencyMethodRuns.add(dependencyMethodRunInfo);
+        if (testGenerator.getThreadId() == dependencyMethodRunInfo.getThreadId()) {
+            testGenerator.dependencyMethodRuns.add(dependencyMethodRunInfo);
+        }
     }
 
     public void addAfterMethodRunInfo(TestGenerator testGenerator, AfterMethodRunInfo afterMethodRunInfo) {

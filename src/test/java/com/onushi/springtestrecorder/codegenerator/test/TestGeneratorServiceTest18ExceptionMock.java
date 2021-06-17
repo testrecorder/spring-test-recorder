@@ -20,12 +20,14 @@ public class TestGeneratorServiceTest18ExceptionMock extends TestGeneratorServic
         // Arrange
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
         DependencyMethodRunInfo dependencyMethodRunInfo1 = DependencyMethodRunInfo.builder()
+                .threadId(Thread.currentThread().getId())
                 .target(personRepositoryImpl)
                 .methodName("getPersonsCountFromDB")
                 .arguments(Arrays.asList("a", null))
                 .result(2)
                 .build();
         DependencyMethodRunInfo dependencyMethodRunInfo2 = DependencyMethodRunInfo.builder()
+                .threadId(Thread.currentThread().getId())
                 .target(personRepositoryImpl)
                 .methodName("getPersonFromDB")
                 .arguments(Collections.singletonList(3))

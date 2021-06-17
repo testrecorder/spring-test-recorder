@@ -34,7 +34,6 @@ public class RecordTestAspect {
             MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint) proceedingJoinPoint;
             MethodSignature methodSignature = (MethodSignature) methodInvocation.getSignature();
             testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
-                    .threadId(Thread.currentThread().getId())
                     .target(methodInvocation.getTarget())
                     .methodName(methodSignature.getName())
                     .arguments(Arrays.asList(methodInvocation.getArgs()))

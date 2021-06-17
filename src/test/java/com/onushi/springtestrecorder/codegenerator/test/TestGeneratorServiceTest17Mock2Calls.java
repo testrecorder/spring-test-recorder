@@ -23,6 +23,7 @@ public class TestGeneratorServiceTest17Mock2Calls extends TestGeneratorServiceTe
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
         DependencyMethodRunInfo dependencyMethodRunInfo1 = DependencyMethodRunInfo.builder()
+                .threadId(Thread.currentThread().getId())
                 .target(personRepositoryImpl)
                 .methodName("getPersonsCountFromDB")
                 .arguments(Arrays.asList("a", null))
@@ -30,6 +31,7 @@ public class TestGeneratorServiceTest17Mock2Calls extends TestGeneratorServiceTe
                 .build();
         Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
         DependencyMethodRunInfo dependencyMethodRunInfo2 = DependencyMethodRunInfo.builder()
+                .threadId(Thread.currentThread().getId())
                 .target(personRepositoryImpl)
                 .methodName("getPersonFromDB")
                 .arguments(Collections.singletonList(2))

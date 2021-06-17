@@ -23,6 +23,7 @@ public class TestGeneratorServiceTest16Mock extends TestGeneratorServiceTest {
         Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
         DependencyMethodRunInfo dependencyMethodRunInfo = DependencyMethodRunInfo.builder()
+                .threadId(Thread.currentThread().getId())
                 .target(personRepositoryImpl)
                 .methodName("getPersonFromDB")
                 .arguments(Collections.singletonList(2))

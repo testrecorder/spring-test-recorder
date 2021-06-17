@@ -8,7 +8,6 @@ import java.util.*;
 
 @Getter
 public class TestGenerator {
-    // TODO IB !!!! 1 use it everywhere
     protected long threadId;
     // TODO IB simplify this and refactor towards this being a Context
     protected ObjectInfo targetObjectInfo;

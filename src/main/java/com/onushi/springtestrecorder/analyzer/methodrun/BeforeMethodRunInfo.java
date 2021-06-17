@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Builder
 public class BeforeMethodRunInfo {
-    protected long threadId;
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;

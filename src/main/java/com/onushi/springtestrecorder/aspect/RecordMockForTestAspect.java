@@ -64,7 +64,6 @@ public class RecordMockForTestAspect {
             // we add this DependencyMethodRunInfo only if the TestGenerator was present both before and after run
             intersection.retainAll(testGeneratorsAtEnd);
             // TODO IB could could there be a similar problem with the side effects on args of mocks?
-            // TODO IB !!!! 1 put thread test inside
             for (TestGenerator testGenerator : intersection) {
                 if (testGenerator.getThreadId() == dependencyMethodRunInfo.getThreadId()) {
                     testGeneratorFactory.addDependencyMethodRun(testGenerator, dependencyMethodRunInfo);
