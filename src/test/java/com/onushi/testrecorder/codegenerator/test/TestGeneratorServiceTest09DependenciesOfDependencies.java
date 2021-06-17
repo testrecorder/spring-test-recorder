@@ -2,7 +2,8 @@ package com.onushi.testrecorder.codegenerator.test;
 
 import com.onushi.sample.model.Person;
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -36,14 +37,14 @@ public class TestGeneratorServiceTest09DependenciesOfDependencies extends TestGe
         List<Person> personList = Arrays.asList(paul, tom);
         Person[] personArray = {paul, tom};
 
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("someFunction")
                 .arguments(Arrays.asList(personList, personArray))
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(personList)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

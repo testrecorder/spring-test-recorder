@@ -3,7 +3,8 @@ package com.onushi.testrecorder.codegenerator.test;
 import com.onushi.sample.model.StudentWithBuilder;
 import com.onushi.sample.model.StudentWithDefaultInitFields;
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -22,16 +23,17 @@ public class TestGeneratorServiceTest14NoArgsConstructor extends TestGeneratorSe
                 .lastName("Wayne")
                 .age(60)
                 .build();
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("processStudents")
                 .arguments(Arrays.asList(student1, student2))
-                .result(null)
                 .fallBackResultType(void.class)
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
                 .exception(null)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

@@ -2,7 +2,8 @@ package com.onushi.testrecorder.codegenerator.test;
 
 import com.onushi.sample.model.Person;
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -34,15 +35,14 @@ public class TestGeneratorServiceTest25AssertHashSet extends TestGeneratorServic
         personSet.add(marco);
         personSet.add(tom);
 
-
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("createPersonHashSet")
                 .arguments(Collections.emptyList())
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(personSet)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

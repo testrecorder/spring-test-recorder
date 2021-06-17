@@ -5,21 +5,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
-// TODO IB !!!! obsolete
-public class RecordedMethodRunInfo {
-    // TODO IB !!!! how about the thread?
+public class BeforeMethodRunInfo {
     protected long threadId;
     protected Object target;
     protected String methodName;
     protected List<Object> arguments;
     protected Class<?> fallBackResultType;
-    protected List<DependencyMethodRunInfo> dependencyMethodRuns;
-    protected Object result;
-    protected Exception exception;
+
 }

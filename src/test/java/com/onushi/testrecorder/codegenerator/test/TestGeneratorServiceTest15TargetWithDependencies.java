@@ -3,7 +3,8 @@ package com.onushi.testrecorder.codegenerator.test;
 import com.onushi.sample.model.Person;
 import com.onushi.sample.services.PersonRepositoryImpl;
 import com.onushi.sample.services.PersonService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -20,18 +21,19 @@ public class TestGeneratorServiceTest15TargetWithDependencies extends TestGenera
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new PersonService(new PersonRepositoryImpl()))
                 .methodName("loadPerson")
                 .arguments(Collections.singletonList(2))
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(Person.builder()
                         .dateOfBirth(date1)
                         .firstName("Bruce")
                         .lastName("Lee")
                         .build())
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

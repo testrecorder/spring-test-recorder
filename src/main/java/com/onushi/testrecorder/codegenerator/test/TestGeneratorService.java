@@ -27,6 +27,7 @@ public class TestGeneratorService {
             "    //TODO rename the test to describe the use case\n" +
             "    //TODO refactor the generated code to make it easier to understand\n";
 
+    // TODO IB !!!! here I should check that I have all the info for generation
     public String generateTestCode(TestGenerator testGenerator) {
         return getBeginMarkerString() +
                 getPackageString(testGenerator) +

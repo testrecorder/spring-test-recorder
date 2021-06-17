@@ -1,5 +1,8 @@
 package com.onushi.testrecorder.codegenerator.test;
 
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.DependencyMethodRunInfo;
 import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.testrecorder.codegenerator.object.ObjectInfo;
 import com.onushi.testrecorder.codegenerator.object.ObjectInfoFactoryManager;
@@ -18,7 +21,48 @@ public class TestGeneratorFactory {
         this.objectInfoFactoryManager = objectInfoFactoryManager;
     }
 
-    // TODO IB !!!! 3 create in 2 steps from RecordedMethodRunInfoBefore and RecordedMethodRunInfoAfter
+    public TestGenerator createTestGenerator(BeforeMethodRunInfo beforeMethodRunInfo) {
+        TestGenerator testGenerator = new TestGenerator();
+
+        if (beforeMethodRunInfo.getArguments() == null) {
+            throw new IllegalArgumentException("arguments");
+        }
+        if (beforeMethodRunInfo.getTarget() == null) {
+            throw new IllegalArgumentException("target");
+        }
+
+        testGenerator.packageName = beforeMethodRunInfo.getTarget().getClass().getPackage().getName();
+        testGenerator.shortClassName = beforeMethodRunInfo.getTarget().getClass().getSimpleName();
+
+        testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
+                beforeMethodRunInfo.getTarget(),
+                objectNameGenerator.getBaseObjectName(beforeMethodRunInfo.getTarget()));
+        testGenerator.methodName = beforeMethodRunInfo.getMethodName();
+
+        testGenerator.argumentObjectInfos = beforeMethodRunInfo.getArguments().stream()
+                .map(x -> objectInfoFactoryManager.getCommonObjectInfo(testGenerator, x))
+                .collect(Collectors.toList());
+
+        testGenerator.fallBackResultType = beforeMethodRunInfo.getFallBackResultType();
+
+        return testGenerator;
+    }
+
+    public void addDependencyMethodRun(TestGenerator testGenerator, DependencyMethodRunInfo dependencyMethodRunInfo) {
+        testGenerator.dependencyMethodRuns.add(dependencyMethodRunInfo);
+    }
+
+    public void addAfterMethodRunInfo(TestGenerator testGenerator, AfterMethodRunInfo afterMethodRunInfo) {
+        testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
+                afterMethodRunInfo.getResult());
+
+        testGenerator.expectedException = afterMethodRunInfo.getException();
+
+        testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, testGenerator.fallBackResultType);
+    }
+
+
+    // TODO IB !!!! obsolete
     public TestGenerator createTestGenerator(RecordedMethodRunInfo recordedMethodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
 

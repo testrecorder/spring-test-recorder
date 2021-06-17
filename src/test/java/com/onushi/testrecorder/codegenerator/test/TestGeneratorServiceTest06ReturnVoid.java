@@ -1,7 +1,8 @@
 package com.onushi.testrecorder.codegenerator.test;
 
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -14,17 +15,16 @@ public class TestGeneratorServiceTest06ReturnVoid extends TestGeneratorServiceTe
     @Test
     void generateTestWhenResultIsVoid() {
         // Arrange
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("doNothing")
                 .arguments(Collections.emptyList())
-                .result(null)
                 .fallBackResultType(void.class)
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
                 .exception(null)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
-
+                .build());
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
 

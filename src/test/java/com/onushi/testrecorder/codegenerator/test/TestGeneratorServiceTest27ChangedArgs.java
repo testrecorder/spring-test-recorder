@@ -3,7 +3,8 @@ package com.onushi.testrecorder.codegenerator.test;
 import com.onushi.sample.model.Department;
 import com.onushi.sample.model.Employee;
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -27,19 +28,19 @@ public class TestGeneratorServiceTest27ChangedArgs extends TestGeneratorServiceT
                         .build())
                 .build();
 
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
-                .target(new SampleService())
+        SampleService sampleService = new SampleService();
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+                .target(sampleService)
                 .methodName("modifyEmployee")
                 .arguments(Collections.singletonList(employee))
-                .result(null)
                 .fallBackResultType(void.class)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
+                .build());
 
-        SampleService sampleService = new SampleService();
         sampleService.modifyEmployee(employee);
 
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

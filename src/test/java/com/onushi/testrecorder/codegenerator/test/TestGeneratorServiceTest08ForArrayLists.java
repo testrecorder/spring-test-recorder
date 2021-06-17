@@ -1,7 +1,8 @@
 package com.onushi.testrecorder.codegenerator.test;
 
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -17,14 +18,15 @@ public class TestGeneratorServiceTest08ForArrayLists extends TestGeneratorServic
         // Arrange
         List<String> stringList = Arrays.asList("a", "b");
         List<Object> objectList = Arrays.asList(1, "b", null);
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("processLists")
                 .arguments(Arrays.asList(stringList, objectList))
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(42)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

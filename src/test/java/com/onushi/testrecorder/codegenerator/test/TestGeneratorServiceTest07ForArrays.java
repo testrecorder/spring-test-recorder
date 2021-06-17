@@ -1,7 +1,8 @@
 package com.onushi.testrecorder.codegenerator.test;
 
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -24,16 +25,17 @@ public class TestGeneratorServiceTest07ForArrays extends TestGeneratorServiceTes
         short[] shortArray = {3, 4};
         String[] stringArray = {"a", "z"};
         Object[] objectArray = {"a", 2};
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("processArrays")
                 .arguments(Arrays.asList(boolArray, byteArray, charArray, doubleArray,
                         floatArray, intArray, longArray, shortArray, stringArray, objectArray))
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(42)
                 .exception(null)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

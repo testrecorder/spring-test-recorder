@@ -3,7 +3,8 @@ package com.onushi.testrecorder.codegenerator.test;
 import com.onushi.sample.model.CyclicChild;
 import com.onushi.sample.model.CyclicParent;
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -25,14 +26,14 @@ public class TestGeneratorServiceTest24CyclicDepsInResult extends TestGeneratorS
         cyclicParent.id = 1;
         cyclicParent.childList = Collections.singletonList(cyclicChild);
 
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("createCyclicObjects")
                 .arguments(Collections.emptyList())
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(cyclicParent)
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

@@ -1,7 +1,8 @@
 package com.onushi.testrecorder.codegenerator.test;
 
 import com.onushi.sample.services.SampleService;
-import com.onushi.testrecorder.analyzer.methodrun.RecordedMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.testrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.testrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -14,17 +15,16 @@ public class TestGeneratorServiceTest05WithException extends TestGeneratorServic
     @Test
     void generateTestWhenExceptionIsThrown() {
         // Arrange
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("testException")
                 .arguments(Collections.singletonList(5))
-                .result(null)
                 .fallBackResultType(String.class)
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
                 .exception(new IllegalArgumentException("x"))
-                .dependencyMethodRuns(new ArrayList<>())
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
-
+                .build());
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
 

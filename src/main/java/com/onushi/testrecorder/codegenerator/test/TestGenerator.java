@@ -15,6 +15,8 @@ public class TestGenerator {
     protected String shortClassName;
     protected String methodName;
     protected List<ObjectInfo> argumentObjectInfos;
+    protected Class<?> fallBackResultType;
+
     protected ObjectInfo expectedResultObjectInfo;
     protected String resultDeclareClassName;
     protected Exception expectedException;
