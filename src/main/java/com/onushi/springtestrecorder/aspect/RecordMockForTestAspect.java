@@ -2,7 +2,8 @@ package com.onushi.springtestrecorder.aspect;
 
 import com.onushi.springtestrecorder.analyzer.methodrun.DependencyMethodRunInfo;
 import com.onushi.springtestrecorder.analyzer.methodrun.DependencyMethodRunInfoBuilder;
-import com.onushi.springtestrecorder.analyzer.methodrun.RecordedMethodRunInfoBuilder;
+import com.onushi.springtestrecorder.codegenerator.test.TestGenerator;
+import com.onushi.springtestrecorder.codegenerator.test.TestGeneratorFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,9 +19,11 @@ import java.util.Set;
 // @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class RecordMockForTestAspect {
     private final RecordingContext recordingContext;
+    private final TestGeneratorFactory testGeneratorFactory;
 
-    public RecordMockForTestAspect(RecordingContext recordingContext) {
+    public RecordMockForTestAspect(RecordingContext recordingContext, TestGeneratorFactory testGeneratorFactory) {
         this.recordingContext = recordingContext;
+        this.testGeneratorFactory = testGeneratorFactory;
     }
 
     @SuppressWarnings({"EmptyMethod", "unused"})
@@ -38,7 +41,7 @@ public class RecordMockForTestAspect {
         dependencyMethodRunInfoBuilder.setThreadId(Thread.currentThread().getId())
                 .setMethodInvocation((MethodInvocationProceedingJoinPoint) proceedingJoinPoint);
 
-        Set<RecordedMethodRunInfoBuilder> testRecordingsAtStart = new HashSet<>(recordingContext.getMethodRunInfoBuilderSet());
+        Set<TestGenerator> testGeneratorsAtStart = new HashSet<>(recordingContext.getTestGeneratorSet());
 
         Object result;
         Exception thrownException;
@@ -56,12 +59,16 @@ public class RecordMockForTestAspect {
                     .setException(thrownException)
                     .build();
 
-            Set<RecordedMethodRunInfoBuilder> testRecordingsAtEnd = new HashSet<>(recordingContext.getMethodRunInfoBuilderSet());
-            Set<RecordedMethodRunInfoBuilder> intersection = new HashSet<>(testRecordingsAtStart);
-            // we add this DependencyMethodRunInfo only if the recording was present both before and after run
-            intersection.retainAll(testRecordingsAtEnd);
-            for (RecordedMethodRunInfoBuilder recordedMethodRunInfoBuilder : intersection) {
-                recordedMethodRunInfoBuilder.addDependencyMethodRunInfo(dependencyMethodRunInfo);
+            Set<TestGenerator> testGeneratorsAtEnd = new HashSet<>(recordingContext.getTestGeneratorSet());
+            Set<TestGenerator> intersection = new HashSet<>(testGeneratorsAtStart);
+            // we add this DependencyMethodRunInfo only if the TestGenerator was present both before and after run
+            intersection.retainAll(testGeneratorsAtEnd);
+            // TODO IB could could there be a similar problem with the side effects on args of mocks?
+            // TODO IB !!!! put thread test inside
+            for (TestGenerator testGenerator : intersection) {
+                if (testGenerator.getThreadId() == dependencyMethodRunInfo.getThreadId()) {
+                    testGeneratorFactory.addDependencyMethodRun(testGenerator, dependencyMethodRunInfo);
+                }
             }
         } catch (Exception ex) {
             System.out.println("Could not add DependencyMethodRunInfo for method " + methodInvocation.getSignature().getName());

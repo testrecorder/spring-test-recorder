@@ -24,6 +24,7 @@ public class TestGeneratorFactory {
 
     public TestGenerator createTestGenerator(BeforeMethodRunInfo beforeMethodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
+        testGenerator.threadId = beforeMethodRunInfo.getThreadId();
 
         // TODO IB !!!! require threadId.
         // TODO IB !!!! check the thread in testGeneratorFactory.addDependencyMethodRun and add in all mocking tests
@@ -51,6 +52,7 @@ public class TestGeneratorFactory {
         return testGenerator;
     }
 
+    // TODO IB !!!! is there a better way to do this?
     public void addDependencyMethodRun(TestGenerator testGenerator, DependencyMethodRunInfo dependencyMethodRunInfo) {
         testGenerator.dependencyMethodRuns.add(dependencyMethodRunInfo);
     }
@@ -73,40 +75,39 @@ public class TestGeneratorFactory {
 
 
     // TODO IB !!!! obsolete
-    public TestGenerator createTestGenerator(RecordedMethodRunInfo recordedMethodRunInfo) {
-        TestGenerator testGenerator = new TestGenerator();
-
-        if (recordedMethodRunInfo.getArguments() == null) {
-            throw new IllegalArgumentException("arguments");
-        }
-        if (recordedMethodRunInfo.getTarget() == null) {
-            throw new IllegalArgumentException("target");
-        }
-
-        testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
-        testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
-
-        // TODO IB !!!! this info is available during method run only. Mock should be postponed
-        testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
-
-        testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
-                recordedMethodRunInfo.getTarget(),
-                objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));
-        testGenerator.methodName = recordedMethodRunInfo.getMethodName();
-
-        testGenerator.argumentObjectInfos = recordedMethodRunInfo.getArguments().stream()
-                .map(x -> objectInfoFactoryManager.getCommonObjectInfo(testGenerator, x))
-                .collect(Collectors.toList());
-
-
-        testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
-                recordedMethodRunInfo.getResult());
-        testGenerator.expectedException = recordedMethodRunInfo.getException();
-
-        testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, recordedMethodRunInfo.getFallBackResultType());
-
-        return testGenerator;
-    }
+//    public TestGenerator createTestGenerator(RecordedMethodRunInfo recordedMethodRunInfo) {
+//        TestGenerator testGenerator = new TestGenerator();
+//
+//        if (recordedMethodRunInfo.getArguments() == null) {
+//            throw new IllegalArgumentException("arguments");
+//        }
+//        if (recordedMethodRunInfo.getTarget() == null) {
+//            throw new IllegalArgumentException("target");
+//        }
+//
+//        testGenerator.packageName = recordedMethodRunInfo.getTarget().getClass().getPackage().getName();
+//        testGenerator.shortClassName = recordedMethodRunInfo.getTarget().getClass().getSimpleName();
+//
+//        // testGenerator.dependencyMethodRuns = recordedMethodRunInfo.getDependencyMethodRuns();
+//
+//        testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
+//                recordedMethodRunInfo.getTarget(),
+//                objectNameGenerator.getBaseObjectName(recordedMethodRunInfo.getTarget()));
+//        testGenerator.methodName = recordedMethodRunInfo.getMethodName();
+//
+//        testGenerator.argumentObjectInfos = recordedMethodRunInfo.getArguments().stream()
+//                .map(x -> objectInfoFactoryManager.getCommonObjectInfo(testGenerator, x))
+//                .collect(Collectors.toList());
+//
+//
+//        testGenerator.expectedResultObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
+//                recordedMethodRunInfo.getResult());
+//        testGenerator.expectedException = recordedMethodRunInfo.getException();
+//
+//        testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, recordedMethodRunInfo.getFallBackResultType());
+//
+//        return testGenerator;
+//    }
 
     private String getResultDeclareClassName(ObjectInfo expectedResultObjectInfo, Class<?> fallBackResultType) {
         if (expectedResultObjectInfo.getObject() != null) {

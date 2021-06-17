@@ -8,6 +8,8 @@ import java.util.*;
 
 @Getter
 public class TestGenerator {
+    // TODO IB !!!! use it everywhere
+    protected long threadId;
     // TODO IB simplify this and refactor towards this being a Context
     protected ObjectInfo targetObjectInfo;
     // TODO IB these 2 should be in targetObjectInfo
@@ -21,7 +23,7 @@ public class TestGenerator {
     protected String resultDeclareClassName;
     protected Exception expectedException;
 
-    protected List<DependencyMethodRunInfo> dependencyMethodRuns = new ArrayList<>();
+    protected final List<DependencyMethodRunInfo> dependencyMethodRuns = Collections.synchronizedList(new ArrayList<>());
 
     protected final Map<Object, ObjectInfo> objectInfoCache = new LinkedHashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
