@@ -12,7 +12,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest27ChangedArgs extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorServiceTest {
     @Test
     void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() throws Exception {
         Employee employee = Employee.builder()
@@ -44,6 +44,7 @@ public class TestGeneratorServiceTest27ChangedArgs extends TestGeneratorServiceT
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
+        // TODO IB !!!! this test should also generate asserts for changed args
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sample.services;\n" +

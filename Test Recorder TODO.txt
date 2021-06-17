@@ -243,7 +243,6 @@ DONE ==========================
 	10.06.2021 =========
 		OK - Order in TestGeneratorServiceTests
 
-
 	11.06.2021 =========
 		OK - Clean my github account 
 		
@@ -280,7 +279,7 @@ DONE ==========================
 
 			OK - ObjectInfoFactoryWithAllArgsConstructorImpl
 		
-	17.06.2021
+	17.06.2021 =========
 		OK - Why mocking does not work anymore?
 			maybe because I change the order of some init in TestGeneratorFactory
 			
@@ -297,80 +296,79 @@ DONE ==========================
 			BeforeMethodRunInfo
 			AfterMethodRunInfo
 			Unshelf "implement the new way of creating TestGenerator in the 2 aspects"
-		
-		
-TODO ==========================
 			
-	
+		OK - 	Bug. If I modify the params, the test will have them already modified
+			It's ok to construct init objects from current value since 
+				before objects are used in arange
+				after objects are used after
+				if there are some common ones, they are inited before so it's ok
+				keep a bool about when an object is inited
+				also when an object cannot be created, create it's dependencies and add a TODO that the object should be created 
+		
+			Refactor plan
+				RecordedMethodRunInfo should be split in 2 
+					BeforeMethodRunInfo
+					AfterMethodRunInfo
+					
+			TestGenerator and TestGeneratorFactory should use these 2 objects
+					
+			for the args + target
+				construct ObjectInfos
+				
+			call the target.method()
+			
+			For all existing objects 
+				get objects for result + dependencies
 
-	!!!! Bug. If I modify the params, the test will have them already modified
-		It's ok to construct init objects from current value since 
-			before objects are used in arange
-			after objects are used after
-			if there are some common ones, they are inited before so it's ok
-			keep a bool about when an object is inited
-			also when an object cannot be created, create it's dependencies and add a TODO that the object should be created 
-	
-		Refactor plan
-			RecordedMethodRunInfo should be split in 2 
-				BeforeMethodRunInfo
-				AfterMethodRunInfo
-				
-		TestGenerator and TestGeneratorFactory should use these 2 objects
-				
-		for the args + target
-			construct ObjectInfos
+		OK - Add complex demo in a separate project
+			private void demo() throws Exception {
+				List<Integer> personIds = new ArrayList<>();
+				personIds.add(1);
+				personIds.add(2);
+
+				Map<Integer, Person> personMap = this.personService.loadPersons(personIds);
+			}
+
+TODO ==========================
+
+	SIDE EFFECTS
+		OK - Write a demo to understand the problem
+
+
+		VisibleProps should be computed for every object before and after the call 
 			fill initialValue for all objects in the context
-			
-		call the target.method()
-		
-		For all existing objects 
-			get objects for result + dependencies
+
 			fill finalValue for all objects in the context
 
-	
+		How can I know if an object was changed from side effects? 
+			add equals to StringOrObjectInfo
+			if no initial
+				=> not changed
+			else 
+				Compare visibleProperties
 
+		Check side effects on target, arguments, any dependencies
 
-	for iterations, generate max 3 items and add a comment about the parameter
+		create assertEquals() also for all the changed values
+
+		Write tests for different cases of objects reuse, side effects etc
+		
+		
+
+	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
+
+	for iterations, generate asserts for max 3 items and add a comment about the parameter
+		in visibleProperties keep all
 	
 	DZone - article about spring-test-recorder
-	
-	// The demo should be in a test
-    private void demo() throws Exception {
-        List<Integer> personIds = new ArrayList<>();
-        personIds.add(1);
-        personIds.add(2);
-
-        Map<Integer, Person> personMap = this.personService.loadPersons(personIds);
-    }
 	
 	Does it work in Spring projects without SpringBoot?
 	
 	Does it work in normal projects?
 		AspectJ should be called somehow
 	
-	
-
-			
-	Check side effects on target, arguments, any dependencies
-		OK - Write a demo to understand the problem
-
-		How can I know if an object was changed from side effects? 
-			add equals to StringOrObjectInfo
-			if initial
-			else Compare visibleProperties
-
-		Result could contain objects that were sent as parameters and not changed. These should not be asserted unless they change
-
-		create assertEquals() for all the changed values
-
-		VisibleProps should be computed for every object before and after the call 
-		
-		Write tests for different cases of objects reuse, side effects etc
-	
 	Publish a library to MAVEN Repository
 		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
-
 	
 	Exceptions thrown are not added to includes
 		in mocks
@@ -380,7 +378,6 @@ TODO ==========================
 		Ex: Float / float
 
 	Test what happens when you call a void returning method and want to mock it?
-
 
 	Handle more classes
 		Class class 
@@ -392,7 +389,6 @@ TODO ==========================
 	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
 	
 	solve more TODOs
-
 		
 	Sometimes variable names are phased: list1, list4, list5
 		I could assign names to objects only when adding them to the generated code
@@ -426,8 +422,6 @@ LATER ==========================
 	Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
 	
 	I could give significant var names from names of fields and getters
-	
-	For collections I could read 5 props and then if there are more add a comment that a parameter can be set for more
 	
 	For read objects I could limit the depth to 3-4 to avoid stack overflow. Later param + comment
 	

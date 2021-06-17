@@ -9,7 +9,6 @@ import java.util.*;
 @Getter
 public class TestGenerator {
     protected long threadId;
-    // TODO IB simplify this and refactor towards this being a Context
     protected ObjectInfo targetObjectInfo;
     // TODO IB these 2 should be in targetObjectInfo
     protected String packageName;
