@@ -285,15 +285,18 @@ DONE ==========================
 			maybe because I change the order of some init in TestGeneratorFactory
 			
 	
-		OK -Create spring-test-recorder-demo
+		OK - Create spring-test-recorder-demo
+
+		OK - rename projects on disk, sources and github
+			spring-test-recorder
+			spring-test-recorder-demo
+			
+		OK - rename main branch to master
 		
 		
 		
 TODO ==========================
 	
-	decide about the project names
-		spring-test-recorder
-		spring-test-recorder-demo
 
 	Split RecordedMethodRunInfo in 2
 			BeforeMethodRunInfo
