@@ -3,8 +3,9 @@ package com.onushi.springtestrecorder.codegenerator.test;
 import com.onushi.sample.model.Person;
 import com.onushi.sample.services.PersonRepositoryImpl;
 import com.onushi.sample.services.PersonService;
+import com.onushi.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.analyzer.methodrun.DependencyMethodRunInfo;
-import com.onushi.springtestrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -32,14 +33,15 @@ public class TestGeneratorServiceTest16Mock extends TestGeneratorServiceTest {
                         .build())
                 .build();
 
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new PersonService(personRepositoryImpl))
                 .methodName("getPersonFirstName")
                 .arguments(Collections.singletonList(2))
-                .dependencyMethodRuns(Collections.singletonList(dependencyMethodRunInfo))
+                .build());
+        testGeneratorFactory.addDependencyMethodRun(testGenerator, dependencyMethodRunInfo);
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result("Bruce")
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);

@@ -8,6 +8,7 @@ import com.onushi.springtestrecorder.codegenerator.object.ObjectInfo;
 import com.onushi.springtestrecorder.codegenerator.object.ObjectInfoFactoryManager;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +25,8 @@ public class TestGeneratorFactory {
     public TestGenerator createTestGenerator(BeforeMethodRunInfo beforeMethodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
 
+        // TODO IB !!!! require threadId.
+        // TODO IB !!!! check the thread in testGeneratorFactory.addDependencyMethodRun and add in all mocking tests
         if (beforeMethodRunInfo.getArguments() == null) {
             throw new IllegalArgumentException("arguments");
         }
@@ -59,6 +62,13 @@ public class TestGeneratorFactory {
         testGenerator.expectedException = afterMethodRunInfo.getException();
 
         testGenerator.resultDeclareClassName = getResultDeclareClassName(testGenerator.expectedResultObjectInfo, testGenerator.fallBackResultType);
+
+        ArrayList<ObjectInfo> objectInfos = new ArrayList<>(testGenerator.objectInfoCache.values());
+        for (ObjectInfo objectInfo : objectInfos) {
+            if (objectInfo.getToRunAfterMethodRun() != null) {
+                objectInfo.getToRunAfterMethodRun().run();
+            }
+        }
     }
 
 

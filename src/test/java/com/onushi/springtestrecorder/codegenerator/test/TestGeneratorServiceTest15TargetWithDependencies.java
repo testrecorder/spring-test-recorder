@@ -44,6 +44,7 @@ public class TestGeneratorServiceTest15TargetWithDependencies extends TestGenera
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "import static org.mockito.Mockito.*;\n" +
                         "import com.onushi.sample.model.Person;\n" +
                         "import java.text.SimpleDateFormat;\n" +
                         "\n" +
@@ -54,7 +55,7 @@ public class TestGeneratorServiceTest15TargetWithDependencies extends TestGenera
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
                         "\n" +
-                        "        PersonRepositoryImpl personRepositoryImpl1 = new PersonRepositoryImpl();\n" +
+                        "        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);\n" +
                         "        PersonService personService = new PersonService(personRepositoryImpl1);\n" +
                         "\n" +
                         "        // Act\n" +

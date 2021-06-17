@@ -296,11 +296,11 @@ DONE ==========================
 		
 		
 TODO ==========================
-	
-
 	Split RecordedMethodRunInfo in 2
 			BeforeMethodRunInfo
 			AfterMethodRunInfo
+			
+	Unshelf "implement the new way of creating TestGenerator in the 2 aspects"
 
 	!!!! Bug. If I modify the params, the test will have them already modified
 		It's ok to construct init objects from current value since 

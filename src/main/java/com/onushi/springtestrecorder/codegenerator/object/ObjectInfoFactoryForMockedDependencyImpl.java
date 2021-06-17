@@ -1,6 +1,7 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
 import com.onushi.springtestrecorder.analyzer.methodrun.DependencyMethodRunInfo;
+import com.onushi.springtestrecorder.aspect.RecordMockForTest;
 import com.onushi.springtestrecorder.codegenerator.template.StringGenerator;
 
 import java.util.ArrayList;
@@ -17,20 +18,22 @@ public class ObjectInfoFactoryForMockedDependencyImpl extends ObjectInfoFactory 
 
     @Override
     public ObjectInfo createObjectInfo(ObjectInfoCreationContext context) {
-        List<DependencyMethodRunInfo> dependencyMethodRuns =
-                context.getTestGenerator().getDependencyMethodRuns().stream()
-                .filter(x -> x.getTarget().getClass() == context.getObject().getClass())
-                .collect(Collectors.toList());
-        if (dependencyMethodRuns.size() > 0) {
+        if (context.getObject().getClass().isAnnotationPresent(RecordMockForTest.class)) {
             ObjectInfo objectInfo = new ObjectInfo(context.getObject(), context.getObjectName(), context.getObjectName());
 
             objectInfo.declareRequiredImports = Arrays.asList(
                     "static org.mockito.Mockito.*",
                     context.getObject().getClass().getName());
 
-            objectInfo.initDependencies = getDependencies(context, dependencyMethodRuns);
+            objectInfo.toRunAfterMethodRun = () -> {
+                List<DependencyMethodRunInfo> dependencyMethodRuns =
+                        context.getTestGenerator().getDependencyMethodRuns().stream()
+                                .filter(x -> x.getTarget().getClass() == context.getObject().getClass())
+                                .collect(Collectors.toList());
+                objectInfo.initDependencies = getDependencies(context, dependencyMethodRuns);
 
-            objectInfo.initCode = getInitCode(context, dependencyMethodRuns);
+                objectInfo.initCode = getInitCode(context, dependencyMethodRuns);
+            };
 
             return objectInfo;
         } else {

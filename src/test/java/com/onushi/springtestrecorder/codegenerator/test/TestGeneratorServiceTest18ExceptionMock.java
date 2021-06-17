@@ -2,8 +2,9 @@ package com.onushi.springtestrecorder.codegenerator.test;
 
 import com.onushi.sample.services.PersonRepositoryImpl;
 import com.onushi.sample.services.PersonService;
+import com.onushi.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.analyzer.methodrun.DependencyMethodRunInfo;
-import com.onushi.springtestrecorder.analyzer.methodrun.RecordedMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -31,14 +32,17 @@ public class TestGeneratorServiceTest18ExceptionMock extends TestGeneratorServic
                 .result(null)
                 .exception(new NoSuchElementException())
                 .build();
-        RecordedMethodRunInfo recordedMethodRunInfo = RecordedMethodRunInfo.builder()
+
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new PersonService(personRepositoryImpl))
                 .methodName("getPersonFirstName")
                 .arguments(Collections.singletonList(3))
-                .dependencyMethodRuns(Arrays.asList(dependencyMethodRunInfo1, dependencyMethodRunInfo2))
+                .build());
+        testGeneratorFactory.addDependencyMethodRun(testGenerator, dependencyMethodRunInfo1);
+        testGeneratorFactory.addDependencyMethodRun(testGenerator, dependencyMethodRunInfo2);
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(null)
-                .build();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(recordedMethodRunInfo);
+                .build());
 
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
