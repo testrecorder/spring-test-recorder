@@ -330,44 +330,40 @@ DONE ==========================
 			}
 
 		OK - In TestGenerator keep track of TestRecordingPhase
+		
+	2021.18.06 =============
+		SIDE EFFECTS
+			OK - Write a demo to understand the problem
+
+
+			OK - VisiblePropertySnapshot
+				PropertyValue propertyValue
+				List<ObjectInfo> dependencies
+			
+			OK - VisibleProperty should contain a 
+				Map<TestRecordingPhase, VisiblePropertySnapshot> snapshots
+				
+			OK - create a function in ObjectInfoFactory to save snapshots
+			
+			OK - all the things saved now in finalValue and finalDependencies should be put in snapshots
+			
+			OK - use the snapshots for assert
+			
+			OK - one by one all the calls to addVisibleProperty should be converted to saveSnapshot
+			
+			OK - remove finalValue and finalDependencies
+	
+			OK - save values in the correct TestRecordingPhase
+	
 
 TODO ==========================
-	TEST - For each object keep track when it was created
-
-
 
 	SIDE EFFECTS
-		OK - Write a demo to understand the problem
-
-
-		VisiblePropertyState
-			PropertyValue propertyValue
-			List<ObjectInfo> dependencies
-		
-		VisibleProperty should contain a 
-			Map<TestRecordingPhase, VisiblePropertyState> snapshot
-			
-		
-		create a function in ObjectInfo to save snapshots
-		
-		all the things saved now in finalValue and finalDependencies should be put in snapshot.get(AFTER_METHOD_RUN)
-		
-		use the snapshot.get(AFTER_METHOD_RUN) for assert if found
-		
-		
-		
-		one by one all the calls to addVisibleProperty should be converted to saveSnapshot
-		
-		remove finalValue and finalDependencies
-		
-		-----
-		
-		save values in the correct TestRecordingPhase
+		be sure that all object have at least a snapshot
 		
 		save values before and after
 		
 		create asserts when value change
-
 
 		Write tests for different cases of objects reuse, side effects etc
 

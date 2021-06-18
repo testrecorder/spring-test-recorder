@@ -9,6 +9,7 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 public class VisibleProperty {
+    // all VisibleProperty should have at least one snapshot
     protected Map<TestRecordingPhase, VisiblePropertySnapshot> snapshots;
 
     // TODO IB !!!! improve
