@@ -18,7 +18,6 @@ public class ObjectInfo {
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     protected boolean initAdded = false;
-    protected TestRecordingPhase creationPhase;
     // TODO IB !!!! 4 find a better solution. Can I move in ObjectInfoFactory
     protected Runnable toRunAfterMethodRun = null;
 
@@ -35,7 +34,6 @@ public class ObjectInfo {
     }
 
     protected ObjectInfo(ObjectInfoCreationContext context, String inlineCode, String composedClassNameForDeclare) {
-        this.creationPhase = context.getTestGenerator().getCurrentTestRecordingPhase();
         this.object = context.getObject();
         this.objectName = context.getObjectName();
         this.inlineCode = inlineCode;
