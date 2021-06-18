@@ -7,7 +7,7 @@ INFO ==========================
 	How to use proxy and dynamic-pointcut
 		http://www.java2s.com/Code/Java/Spring/DynamicPointcutExample.htm
 		http://stonefishy.github.io/blog/2015/06/12/spring-aop-dynamic-pointcut/
-		Can I create proxy for the target service (if it's service) and use proxis for all the target dependencies?
+		Can I create proxy for the target service (if it's service) and use proxies for all the target dependencies?
 		
 		
 		
@@ -444,7 +444,7 @@ TODO ==========================
 	Write tests for all the code that could break
 		check coverage again
 
-	Sa citesc de la rus cum sa pregatesc cod pt Git
+	Read when the russian guy said about Git preparation
 	
 LATER ==========================
 	There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
@@ -466,7 +466,7 @@ LATER ==========================
 	
 	allow recording mocks from different threads
 
-    What do I do when some fields cound not be read? Do the same for all generic factories
+    What do I do when some fields could not be read? Do the same for all generic factories
 		1. I could ignore them and consider just the rest of fields
 		2. I could go to fallback
 		

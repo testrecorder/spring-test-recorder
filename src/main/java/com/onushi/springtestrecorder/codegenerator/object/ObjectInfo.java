@@ -1,6 +1,5 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
-import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 import lombok.Getter;
 
 import java.util.*;

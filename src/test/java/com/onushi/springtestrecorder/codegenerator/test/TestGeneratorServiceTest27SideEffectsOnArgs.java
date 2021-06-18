@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorServiceTest {
     @Test
-    void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() throws Exception {
+    void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() {
         Employee employee = Employee.builder()
                 .id(1)
                 .firstName("John")
