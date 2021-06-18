@@ -52,10 +52,6 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            // TODO IB obsolete
-            objectInfo.addVisibleProperty(".size()", VisibleProperty.builder()
-                    .finalValue(PropertyValue.fromString(String.valueOf(elements.size())))
-                    .build());
             addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
                     VisiblePropertySnapshot.builder()
                             .value(PropertyValue.fromString(String.valueOf(elements.size())))
@@ -66,10 +62,6 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                         .setTemplate(".get({{index}})")
                         .addAttribute("index", i)
                         .generate();
-                // TODO IB obsolete
-                objectInfo.addVisibleProperty(key, VisibleProperty.builder()
-                        .finalValue(PropertyValue.fromObjectInfo(element))
-                        .build());
                 addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
                         VisiblePropertySnapshot.builder()
                                 .value(PropertyValue.fromObjectInfo(element))

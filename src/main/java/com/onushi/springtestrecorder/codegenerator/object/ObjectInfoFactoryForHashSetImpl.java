@@ -62,10 +62,6 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            // TODO IB obsolete
-            objectInfo.addVisibleProperty(".size()", VisibleProperty.builder()
-                    .finalValue(PropertyValue.fromString(String.valueOf(elements.size())))
-                    .build());
             addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
                     VisiblePropertySnapshot.builder()
                             .value(PropertyValue.fromString(String.valueOf(elements.size())))
@@ -76,11 +72,6 @@ public class ObjectInfoFactoryForHashSetImpl extends ObjectInfoFactory {
                         .setTemplate(".contains({{inline}})")
                         .addAttribute("inline", element.getInlineCode())
                         .generate();
-                // TODO IB obsolete
-                objectInfo.addVisibleProperty(key, VisibleProperty.builder()
-                        .finalValue(PropertyValue.fromString("true"))
-                        .finalDependencies(Collections.singletonList(element))
-                        .build());
                 addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
                         VisiblePropertySnapshot.builder()
                                 .value(PropertyValue.fromString("true"))

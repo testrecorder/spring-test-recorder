@@ -23,13 +23,6 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
                     .addAttribute("uuid", context.getObject().toString())
                     .generate();
 
-            // TODO IB obsolete
-            objectInfo.addVisibleProperty("",
-                    VisibleProperty.builder()
-                        .finalValue(PropertyValue.fromString(value))
-                        .requiredImports(Collections.singletonList(fullClassName))
-                        .build());
-
             addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
                     VisiblePropertySnapshot.builder()
                             .value(PropertyValue.fromString(value))

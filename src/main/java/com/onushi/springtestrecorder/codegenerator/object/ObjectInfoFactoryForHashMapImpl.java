@@ -79,10 +79,6 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            // TODO IB obsolete
-            objectInfo.addVisibleProperty(".size()", VisibleProperty.builder()
-                    .finalValue(PropertyValue.fromString(String.valueOf(keyElements.size())))
-                    .build());
             addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
                     VisiblePropertySnapshot.builder()
                             .value(PropertyValue.fromString(String.valueOf(keyElements.size())))
@@ -94,11 +90,6 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                         .addAttribute("inline", element.getInlineCode())
                         .generate();
                 ObjectInfo valueElement = objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), hashMap.get(element.getObject()));
-                // TODO IB obsolete
-                objectInfo.addVisibleProperty(key, VisibleProperty.builder()
-                        .finalValue(PropertyValue.fromObjectInfo(valueElement))
-                        .finalDependencies(Collections.singletonList(element))
-                        .build());
                 addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
                         VisiblePropertySnapshot.builder()
                                 .value(PropertyValue.fromObjectInfo(valueElement))

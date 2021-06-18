@@ -22,12 +22,6 @@ public class ObjectInfo {
     // TODO IB !!!! 4 find a better solution. Can I move in ObjectInfoFactory
     protected Runnable toRunAfterMethodRun = null;
 
-    // TODO IB !!!! remove all calls to addVisibleProperty
-    protected ObjectInfo addVisibleProperty(String key, VisibleProperty visibleProperty) {
-        this.visibleProperties.put(key, visibleProperty);
-        return this;
-    }
-
     public void setInitAdded(boolean initAdded) {
         this.initAdded = initAdded;
     }
