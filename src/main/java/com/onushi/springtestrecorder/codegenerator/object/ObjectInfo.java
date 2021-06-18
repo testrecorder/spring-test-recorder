@@ -18,7 +18,6 @@ public class ObjectInfo {
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     protected boolean initAdded = false;
-    protected ObjectInfoCreationContext context;
     protected TestRecordingPhase creationPhase;
     // TODO IB find a better solution
     protected Runnable toRunAfterMethodRun = null;
@@ -41,7 +40,6 @@ public class ObjectInfo {
     }
 
     protected ObjectInfo(ObjectInfoCreationContext context, String inlineCode, String composedClassNameForDeclare) {
-        this.context = context;
         this.creationPhase = context.getTestGenerator().getCurrentTestRecordingPhase();
         this.object = context.getObject();
         this.objectName = context.getObjectName();
