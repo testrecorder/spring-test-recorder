@@ -20,4 +20,16 @@ public class PropertyValue {
         result.objectInfo = objectInfo;
         return result;
     }
+
+    public boolean isSameValue(PropertyValue otherPropertyValue) {
+        if (otherPropertyValue == null) {
+            return false;
+        }
+        if (this.string != null) {
+            return this.string.equals(otherPropertyValue.getString());
+        } else if (this.objectInfo != null) {
+            return this.objectInfo == otherPropertyValue.objectInfo;
+        }
+        return otherPropertyValue.string == null && otherPropertyValue.objectInfo == null;
+    }
 }
