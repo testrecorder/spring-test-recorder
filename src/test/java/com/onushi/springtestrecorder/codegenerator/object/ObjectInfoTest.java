@@ -13,8 +13,6 @@ import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -126,7 +124,9 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
         assertEquals("com.onushi.sample.model.Color", objectInfo.getDeclareRequiredImports().get(0));
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("Color.BLUE", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("Color.BLUE", getKeySnapshot(objectInfo, "").getValue().getString());
+        assertEquals(1, getKeySnapshot(objectInfo, "").getRequiredImports().size());
+        assertEquals("com.onushi.sample.model.Color", getKeySnapshot(objectInfo, "").getRequiredImports().get(0));
     }
 
     @Test

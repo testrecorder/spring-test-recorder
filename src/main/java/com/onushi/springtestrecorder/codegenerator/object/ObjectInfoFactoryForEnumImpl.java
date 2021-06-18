@@ -9,11 +9,19 @@ public class ObjectInfoFactoryForEnumImpl extends ObjectInfoFactory {
         if (clazz.isEnum()) {
             String inlineCode = clazz.getSimpleName() + "." + context.getObject().toString();
             ObjectInfo objectInfo = new ObjectInfo(context, inlineCode)
+                    // TODO IB obsolete
                     .addVisibleProperty("", VisibleProperty.builder()
                         .finalValue(PropertyValue.fromString(inlineCode))
                         .requiredImports(Collections.singletonList(clazz.getName()))
                         .build()
                     );
+
+            addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                    VisiblePropertySnapshot.builder()
+                            .value(PropertyValue.fromString(inlineCode))
+                            .requiredImports(Collections.singletonList(clazz.getName()))
+                            .build());
+
             objectInfo.declareRequiredImports.add(clazz.getName());
 
             return objectInfo;
