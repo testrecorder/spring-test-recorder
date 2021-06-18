@@ -37,8 +37,8 @@ public class TestHelperObjectsGeneratorService {
         List<String> result = new ArrayList<>();
         for (String key : objectInfo.getVisibleProperties().keySet()) {
             VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
-            if (visibleProperty.getRequiredHelperObjects() != null) {
-                result.addAll(visibleProperty.getRequiredHelperObjects());
+            if (visibleProperty.getLastSnapshot().getRequiredHelperObjects() != null) {
+                result.addAll(visibleProperty.getLastSnapshot().getRequiredHelperObjects());
             }
             if (visibleProperty.getLastSnapshot().getOtherDependencies() != null) {
                 for (ObjectInfo finalDependency : visibleProperty.getLastSnapshot().getOtherDependencies()) {
