@@ -153,10 +153,10 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
         assertEquals(1, objectInfo.getInitRequiredImports().size());
         assertNotEquals("", objectInfo.getInitCode());
-        assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals(1, objectInfo.visibleProperties.size());
 
+        assertEquals(1, objectInfo.visibleProperties.size());
         VisibleProperty visibleProperty = objectInfo.visibleProperties.get("");
+        assertNotNull(visibleProperty);
         assertEquals(1, visibleProperty.snapshots.size());
         assertNotNull(visibleProperty.snapshots.get(TestRecordingPhase.BEFORE_METHOD_RUN));
 
@@ -178,8 +178,8 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getDeclareRequiredImports().size());
         assertEquals("int[] array1 = {1, 2, 4};", objectInfo.getInitCode());
         assertEquals(4, objectInfo.visibleProperties.size());
-        assertEquals("3", objectInfo.visibleProperties.get(".length").getFinalValue().getString());
-        ObjectInfo element = objectInfo.visibleProperties.get("[0]").getFinalValue().getObjectInfo();
+        assertEquals("3", getKeySnapshot(objectInfo, ".length").getValue().getString());
+        ObjectInfo element = getKeySnapshot(objectInfo, "[0]").getValue().getObjectInfo();
         assertEquals("1", element.visibleProperties.get("").getFinalValue().getString());
     }
 
@@ -470,5 +470,9 @@ class ObjectInfoTest {
         assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"1\")").getFinalValue().getString());
         assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"2\")").getFinalValue().getString());
         assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"3\")").getFinalValue().getString());
+    }
+
+    private VisiblePropertySnapshot getKeySnapshot(ObjectInfo objectInfo, String key) {
+        return objectInfo.visibleProperties.get(key).getSnapshots().get(TestRecordingPhase.BEFORE_METHOD_RUN);
     }
 }

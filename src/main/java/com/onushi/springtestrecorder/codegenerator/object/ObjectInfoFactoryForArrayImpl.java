@@ -53,18 +53,28 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", getElementsInlineCode(elements))
                     .generate();
 
+            // TODO IB obsolete
             objectInfo.addVisibleProperty(".length", VisibleProperty.builder()
                     .finalValue(PropertyValue.fromString(String.valueOf(elements.size())))
                     .build());
+            addVisiblePropertySnapshot(objectInfo, ".length", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                    VisiblePropertySnapshot.builder()
+                            .value(PropertyValue.fromString(String.valueOf(elements.size())))
+                            .build());
             for (int i = 0; i < elements.size(); i++) {
                 ObjectInfo element = elements.get(i);
                 String key = new StringGenerator()
                         .setTemplate("[{{index}}]")
                         .addAttribute("index", i)
                         .generate();
+                // TODO IB obsolete
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
                         .finalValue(PropertyValue.fromObjectInfo(element))
                         .build());
+                addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
+                        VisiblePropertySnapshot.builder()
+                                .value(PropertyValue.fromObjectInfo(element))
+                                .build());
             }
 
             return objectInfo;
