@@ -332,17 +332,42 @@ DONE ==========================
 		OK - In TestGenerator keep track of TestRecordingPhase
 
 TODO ==========================
-
-	For each object keep track when it was created
-
-	I should create objects as soon as possible
-		this applies to mocked params and returns
-
+	TEST - For each object keep track when it was created
 
 
 
 	SIDE EFFECTS
 		OK - Write a demo to understand the problem
+
+
+		VisiblePropertyState
+			PropertyValue propertyValue
+			List<ObjectInfo> dependencies
+		
+		VisibleProperty should contain a 
+			Map<TestRecordingPhase, VisiblePropertyState> snapshot
+			
+		
+		create a function in ObjectInfo to save snapshots
+		
+		all the things saved now in finalValue and finalDependencies should be put in snapshot.get(AFTER_METHOD_RUN)
+		
+		use the snapshot.get(AFTER_METHOD_RUN) for assert if found
+		
+		
+		
+		one by one all the calls to addVisibleProperty should be converted to saveSnapshot
+		
+		remove finalValue and finalDependencies
+		
+		-----
+		
+		save values in the correct TestRecordingPhase
+		
+		save values before and after
+		
+		create asserts when value change
+
 
 		Write tests for different cases of objects reuse, side effects etc
 
@@ -362,8 +387,11 @@ TODO ==========================
 
 		create assertEquals() also for all the changed values
 
-		
-		
+
+
+	I should create objects as soon as possible
+		this applies to mocked params and returns
+
 
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 
