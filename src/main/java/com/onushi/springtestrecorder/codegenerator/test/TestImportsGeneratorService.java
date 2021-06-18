@@ -52,8 +52,8 @@ public class TestImportsGeneratorService {
         List<String> result = new ArrayList<>();
         for (String key : objectInfo.getVisibleProperties().keySet()) {
             VisibleProperty visibleProperty = objectInfo.getVisibleProperties().get(key);
-            if (visibleProperty.getRequiredImports() != null) {
-                result.addAll(visibleProperty.getRequiredImports());
+            if (visibleProperty.getLastSnapshot().getRequiredImports() != null) {
+                result.addAll(visibleProperty.getLastSnapshot().getRequiredImports());
             }
             if (visibleProperty.getLastSnapshot().getOtherDependencies() != null) {
                 for (ObjectInfo finalDependency : visibleProperty.getLastSnapshot().getOtherDependencies()) {
