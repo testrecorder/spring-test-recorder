@@ -192,7 +192,7 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
         assertEquals(1, objectInfo.getDeclareRequiredImports().size());
         assertEquals(1, objectInfo.getInitRequiredImports().size());
-        assertEquals("List<String> list1 = Arrays.asList(\"1\", \"2\", \"3\");", objectInfo.getInitCode());
+        assertEquals("List<String> list1 = new ArrayList<>(Arrays.asList(\"1\", \"2\", \"3\"));", objectInfo.getInitCode());
         assertEquals(4, objectInfo.visibleProperties.size());
         assertEquals("3", getKeySnapshot(objectInfo,".size()").getValue().getString());
         ObjectInfo element = getKeySnapshot(objectInfo,".get(0)").getValue().getObjectInfo();

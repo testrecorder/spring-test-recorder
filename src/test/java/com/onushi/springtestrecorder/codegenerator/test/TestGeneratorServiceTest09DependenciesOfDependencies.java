@@ -82,7 +82,7 @@ public class TestGeneratorServiceTest09DependenciesOfDependencies extends TestGe
                         "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
                         "\n" +
-                        "        List<Person> arrayList1 = Arrays.asList(person1, person2);\n" +
+                        "        List<Person> arrayList1 = new ArrayList<>(Arrays.asList(person1, person2));\n" +
                         "\n" +
                         "        Person[] array1 = {person1, person2};\n" +
                         "\n" +

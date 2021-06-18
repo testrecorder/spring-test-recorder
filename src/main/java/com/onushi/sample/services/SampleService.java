@@ -280,4 +280,9 @@ public class SampleService {
 
         return personMap;
     }
+
+    public int changeArrayList(List<Float> floatList) {
+        floatList.add(1, 1f);
+        return 42;
+    }
 }

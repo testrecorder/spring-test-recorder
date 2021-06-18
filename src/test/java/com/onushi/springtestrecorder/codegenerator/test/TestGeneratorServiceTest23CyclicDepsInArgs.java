@@ -63,7 +63,7 @@ public class TestGeneratorServiceTest23CyclicDepsInArgs extends TestGeneratorSer
                         "        CyclicChild cyclicChild1 = new CyclicChild();\n" +
                         "        cyclicChild1.date = date1;\n" +
                         "        cyclicChild1.parent = ...;\n" +
-                        "        List<CyclicChild> singletonList1 = Arrays.asList(cyclicChild1);\n" +
+                        "        List<CyclicChild> singletonList1 = new ArrayList<>(Arrays.asList(cyclicChild1));\n" +
                         "\n" +
                         "        CyclicParent cyclicParent1 = new CyclicParent();\n" +
                         "        cyclicParent1.childList = singletonList1;\n" +

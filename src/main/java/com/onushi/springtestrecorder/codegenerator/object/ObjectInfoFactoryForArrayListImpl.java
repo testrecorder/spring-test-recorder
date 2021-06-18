@@ -46,7 +46,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .generate();
 
             objectInfo.initCode = new StringGenerator()
-                    .setTemplate("{{composedClassNameForDeclare}} {{objectName}} = Arrays.asList({{elementsInlineCode}});")
+                    .setTemplate("{{composedClassNameForDeclare}} {{objectName}} = new ArrayList<>(Arrays.asList({{elementsInlineCode}}));")
                     .addAttribute("composedClassNameForDeclare", objectInfo.composedClassNameForDeclare)
                     .addAttribute("objectName", context.getObjectName())
                     .addAttribute("elementsInlineCode", elementsInlineCode)

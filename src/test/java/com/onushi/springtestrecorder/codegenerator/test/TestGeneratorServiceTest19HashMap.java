@@ -48,11 +48,11 @@ public class TestGeneratorServiceTest19HashMap extends TestGeneratorServiceTest 
                         "    @Test\n" +
                         "    void processMap() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        List<String> arrayList1 = Arrays.asList(\"0\", \"1\");\n" +
+                        "        List<String> arrayList1 = new ArrayList<>(Arrays.asList(\"0\", \"1\"));\n" +
                         "\n" +
-                        "        List<String> arrayList2 = Arrays.asList(\"0\", \"1\", \"2\");\n" +
+                        "        List<String> arrayList2 = new ArrayList<>(Arrays.asList(\"0\", \"1\", \"2\"));\n" +
                         "\n" +
-                        "        List<String> arrayList3 = Arrays.asList(\"0\", \"1\", \"2\", \"3\");\n" +
+                        "        List<String> arrayList3 = new ArrayList<>(Arrays.asList(\"0\", \"1\", \"2\", \"3\"));\n" +
                         "\n" +
                         "        Map<String, List<String>> hashMap1 = new HashMap<>();\n" +
                         "        hashMap1.put(\"1\", arrayList1);\n" +

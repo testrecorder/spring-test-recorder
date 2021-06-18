@@ -46,7 +46,7 @@ public class TestGeneratorServiceTest13RepeatedArgs extends TestGeneratorService
                         "    void repeatedArgs() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        int[] array1 = {3, 4, 3};\n" +
-                        "        List<Float> arrayList1 = Arrays.asList(3.0f, 3.0f);\n" +
+                        "        List<Float> arrayList1 = new ArrayList<>(Arrays.asList(3.0f, 3.0f));\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +

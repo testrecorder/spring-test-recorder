@@ -45,8 +45,8 @@ public class TestGeneratorServiceTest08ForArrayLists extends TestGeneratorServic
                         "    @Test\n" +
                         "    void processLists() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        List<String> arrayList1 = Arrays.asList(\"a\", \"b\");\n" +
-                        "        List<Object> arrayList2 = Arrays.asList(1, \"b\", null);\n" +
+                        "        List<String> arrayList1 = new ArrayList<>(Arrays.asList(\"a\", \"b\"));\n" +
+                        "        List<Object> arrayList2 = new ArrayList<>(Arrays.asList(1, \"b\", null));\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
