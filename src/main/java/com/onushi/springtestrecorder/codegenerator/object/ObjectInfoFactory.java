@@ -90,9 +90,6 @@ public abstract class ObjectInfoFactory {
             visibleProperty = new VisibleProperty();
             objectInfo.visibleProperties.put(key, visibleProperty);
         }
-        if (visibleProperty.snapshots == null) {
-            visibleProperty.snapshots  = new LinkedHashMap<>();
-        }
         visibleProperty.snapshots.put(testRecordingPhase, visiblePropertySnapshot);
     }
 }

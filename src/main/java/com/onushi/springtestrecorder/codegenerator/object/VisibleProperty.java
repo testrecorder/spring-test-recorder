@@ -2,15 +2,17 @@ package com.onushi.springtestrecorder.codegenerator.object;
 
 import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Getter
-@NoArgsConstructor
 public class VisibleProperty {
-    // all VisibleProperty should have at least one snapshot
+    // all VisibleProperty  have at least one snapshot since addVisiblePropertySnapshot is used
     protected Map<TestRecordingPhase, VisiblePropertySnapshot> snapshots;
+
+    public VisibleProperty() {
+        this.snapshots = new LinkedHashMap<>();
+    }
 
     // TODO IB !!!! improve
     // TODO IB !!!! test that this is in order

@@ -359,11 +359,9 @@ DONE ==========================
 TODO ==========================
 
 	SIDE EFFECTS
-		be sure that all object have at least a snapshot
-		
 		save values before and after
 		
-		create asserts when value change
+		create asserts when value change between snapshots
 
 		Write tests for different cases of objects reuse, side effects etc
 
@@ -380,8 +378,6 @@ TODO ==========================
 				=> not changed
 			else 
 				Compare visibleProperties
-
-		create assertEquals() also for all the changed values
 
 
 
