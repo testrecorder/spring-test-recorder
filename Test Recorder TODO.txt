@@ -359,11 +359,15 @@ DONE ==========================
 TODO ==========================
 
 	SIDE EFFECTS
-		Write test to check side effects on ArrayList
-		
+		for ArrayList
+			OK - save VisiblePropertySnapshots before and after
+			
+			OK - write test with expected side effects
+			
+			OK - How can I know if an object was changed from side effects? 
+				implement PropertyValue.isSameValue
 
-		
-		save VisiblePropertySnapshots before and after
+			implement and make the test run
 		
 		create asserts when value change between snapshots
 
@@ -376,12 +380,6 @@ TODO ==========================
 
 			fill finalValue for all objects in the context
 
-		How can I know if an object was changed from side effects? 
-			add equals to StringOrObjectInfo
-			if no initial
-				=> not changed
-			else 
-				Compare visibleProperties
 
 
 

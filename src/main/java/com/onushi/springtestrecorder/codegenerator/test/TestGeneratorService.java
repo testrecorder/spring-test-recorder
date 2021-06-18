@@ -12,15 +12,18 @@ public class TestGeneratorService {
     private final TestArrangeGeneratorService testArrangeGeneratorService;
     private final TestActGeneratorService testActGeneratorService;
     private final TestAssertGeneratorService testAssertGeneratorService;
+    private final TestSideEffectsGeneratorService testSideEffectsGeneratorService;
 
     public TestGeneratorService(TestImportsGeneratorService testImportsGeneratorService,
                                 TestArrangeGeneratorService testArrangeGeneratorService,
                                 TestActGeneratorService testActGeneratorService,
-                                TestAssertGeneratorService testAssertGeneratorService) {
+                                TestAssertGeneratorService testAssertGeneratorService,
+                                TestSideEffectsGeneratorService testSideEffectsGeneratorService) {
         this.testImportsGeneratorService = testImportsGeneratorService;
         this.testArrangeGeneratorService = testArrangeGeneratorService;
         this.testActGeneratorService = testActGeneratorService;
         this.testAssertGeneratorService = testAssertGeneratorService;
+        this.testSideEffectsGeneratorService = testSideEffectsGeneratorService;
     }
 
     public final String COMMENT_BEFORE_TEST =
@@ -55,6 +58,7 @@ public class TestGeneratorService {
                         testArrangeGeneratorService.getArrangeCode(testGenerator) +
                         testActGeneratorService.getActCode(testGenerator) +
                         testAssertGeneratorService.getAssertCode(testGenerator) +
+                        testSideEffectsGeneratorService.getSideEffectsCode(testGenerator) +
                 "    }\n" +
                 "}\n")
             .addAttribute("testClassName", testGenerator.getShortClassName() + "Test")
