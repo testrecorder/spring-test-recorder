@@ -40,7 +40,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator,null, "test");
         assertEquals("null", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("null", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("null", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -52,7 +52,7 @@ class ObjectInfoTest {
         assertEquals(0, objectInfo.getDeclareRequiredImports().size());
         assertEquals("", objectInfo.getInitCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("1.0f", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("1.0f", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -60,7 +60,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 1L, "test");
         assertEquals("1L", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("1L", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("1L", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -68,7 +68,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, (byte)11, "test");
         assertEquals("(byte)11", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("(byte)11", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("(byte)11", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -108,7 +108,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 2, "test");
         assertEquals("2", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("2", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("2", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -116,7 +116,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 2.5, "test");
         assertEquals("2.5", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("2.5", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("2.5", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -238,11 +238,8 @@ class ObjectInfoTest {
         assertEquals("person1", objectInfo.getInlineCode());
 
         assertEquals(3, objectInfo.visibleProperties.size());
-        ObjectInfo element = objectInfo.visibleProperties.get(".getFirstName()").getFinalValue().getObjectInfo();
+        ObjectInfo element = getKeySnapshot(objectInfo, ".getFirstName()").getValue().getObjectInfo();
         assertEquals("null", element.visibleProperties.get("").getFinalValue().getString());
-        Method method = objectInfo.visibleProperties.get(".getFirstName()").getPropertySource().getGetter();
-        assertNotNull(method);
-        assertEquals("getFirstName", method.getName());
     }
 
     @Test
@@ -319,11 +316,8 @@ class ObjectInfoTest {
         assertEquals("student1", objectInfo.getInlineCode());
 
         assertEquals(3, objectInfo.visibleProperties.size());
-        ObjectInfo element = objectInfo.visibleProperties.get(".firstName").getFinalValue().getObjectInfo();
+        ObjectInfo element = getKeySnapshot(objectInfo, ".firstName").getValue().getObjectInfo();
         assertEquals("\"Fn\"", element.visibleProperties.get("").getFinalValue().getString());
-        Field field = objectInfo.visibleProperties.get(".firstName").getPropertySource().getField();
-        assertNotNull(field);
-        assertEquals("firstName", field.getName());
     }
 
     @Test

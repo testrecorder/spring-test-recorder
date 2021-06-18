@@ -14,9 +14,17 @@ public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
         String fullClassName = context.getObject().getClass().getName();
         ObjectInfo objectInfo = getObjectInfo(context, fullClassName);
         if (objectInfo != null) {
-            return objectInfo.addVisibleProperty("", VisibleProperty.builder()
+            // TODO IB obsolete
+            objectInfo.addVisibleProperty("", VisibleProperty.builder()
                     .finalValue(PropertyValue.fromString(objectInfo.inlineCode))
                     .build());
+
+            addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                    VisiblePropertySnapshot.builder()
+                            .value(PropertyValue.fromString(objectInfo.inlineCode))
+                            .build());
+
+            return objectInfo;
         }
         return null;
     }

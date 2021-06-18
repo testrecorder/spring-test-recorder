@@ -56,10 +56,15 @@ public abstract class ObjectInfoFactory {
                 ObjectInfo valueObjectInfo =
                         objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), value);
                 String key = "." + publicGetter.getName() + "()";
+                // TODO IB obsolete
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
                         .propertySource(PropertySource.fromGetter(publicGetter))
                         .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
+                addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
+                        VisiblePropertySnapshot.builder()
+                                .value(PropertyValue.fromObjectInfo(valueObjectInfo))
+                                .build());
             } catch (Exception ex) {
                 // TODO IB add a comment
             }
@@ -72,10 +77,16 @@ public abstract class ObjectInfoFactory {
                 ObjectInfo valueObjectInfo =
                         objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), value);
                 String key = "." + publicField.getName();
+                // TODO IB obsolete
                 objectInfo.addVisibleProperty(key, VisibleProperty.builder()
                         .propertySource(PropertySource.fromField(publicField))
                         .finalValue(PropertyValue.fromObjectInfo(valueObjectInfo))
                         .build());
+                addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
+                        VisiblePropertySnapshot.builder()
+                                .value(PropertyValue.fromObjectInfo(valueObjectInfo))
+                                .build());
+
             } catch(Exception ex) {
                 // TODO IB add a comment
             }
