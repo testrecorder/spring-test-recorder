@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @Builder
 public class VisiblePropertySnapshot {
+    // TODO IB !!!! check these everywhere and clarify
     protected List<String> requiredImports;
     protected List<String> requiredHelperObjects;
 

@@ -74,7 +74,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, (short)100, "test");
         assertEquals("(short)100", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("(short)100", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("(short)100", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -82,7 +82,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, 'a', "test");
         assertEquals("'a'", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("'a'", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("'a'", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -90,7 +90,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, "Hello World", "test");
         assertEquals("\"Hello World\"", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("\"Hello World\"", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("\"Hello World\"", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -98,7 +98,7 @@ class ObjectInfoTest {
         ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, true, "test");
         assertEquals("true", objectInfo.getInlineCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("true", objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("true", getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
     @Test
@@ -138,7 +138,7 @@ class ObjectInfoTest {
         assertEquals("UUID uuid1 = UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\");", objectInfo.getInitCode());
         assertEquals(1, objectInfo.visibleProperties.size());
         assertEquals("UUID.fromString(\"123e4567-e89b-12d3-a456-426614174000\")",
-                objectInfo.visibleProperties.get("").getFinalValue().getString());
+                getKeySnapshot(objectInfo, "").getValue().getString());
     }
 
 
@@ -180,7 +180,7 @@ class ObjectInfoTest {
         assertEquals(4, objectInfo.visibleProperties.size());
         assertEquals("3", getKeySnapshot(objectInfo, ".length").getValue().getString());
         ObjectInfo element = getKeySnapshot(objectInfo, "[0]").getValue().getObjectInfo();
-        assertEquals("1", element.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("1", getKeySnapshot(element, "").getValue().getString());
     }
 
     @Test
@@ -196,7 +196,7 @@ class ObjectInfoTest {
         assertEquals(4, objectInfo.visibleProperties.size());
         assertEquals("3", getKeySnapshot(objectInfo,".size()").getValue().getString());
         ObjectInfo element = getKeySnapshot(objectInfo,".get(0)").getValue().getObjectInfo();
-        assertEquals("\"1\"", element.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("\"1\"", getKeySnapshot(element, "").getValue().getString());
     }
 
     @Test
@@ -239,7 +239,7 @@ class ObjectInfoTest {
 
         assertEquals(3, objectInfo.visibleProperties.size());
         ObjectInfo element = getKeySnapshot(objectInfo, ".getFirstName()").getValue().getObjectInfo();
-        assertEquals("null", element.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("null", getKeySnapshot(element, "").getValue().getString());
     }
 
     @Test
@@ -317,7 +317,7 @@ class ObjectInfoTest {
 
         assertEquals(3, objectInfo.visibleProperties.size());
         ObjectInfo element = getKeySnapshot(objectInfo, ".firstName").getValue().getObjectInfo();
-        assertEquals("\"Fn\"", element.visibleProperties.get("").getFinalValue().getString());
+        assertEquals("\"Fn\"", getKeySnapshot(element, "").getValue().getString());
     }
 
     @Test
