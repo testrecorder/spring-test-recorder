@@ -23,12 +23,20 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
 
             objectInfo.initCode = String.format("Date %s = simpleDateFormat.parse(\"%s\");\n", context.getObjectName(), dateStr);
 
+            // TODO IB obsolete
             objectInfo.addVisibleProperty("", VisibleProperty.builder()
                             .finalValue(PropertyValue.fromString(String.format("simpleDateFormat.parse(\"%s\")", dateStr)))
                             .requiredImports(Collections.singletonList("java.text.SimpleDateFormat"))
                             .requiredHelperObjects(Collections.singletonList(SIMPLE_DATE_FORMAT_HELPER))
                             .build()
                     );
+
+            addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                    VisiblePropertySnapshot.builder()
+                            .value(PropertyValue.fromString(String.format("simpleDateFormat.parse(\"%s\")", dateStr)))
+                            .requiredImports(Collections.singletonList("java.text.SimpleDateFormat"))
+                            .requiredHelperObjects(Collections.singletonList(SIMPLE_DATE_FORMAT_HELPER))
+                            .build());
 
             return objectInfo;
         } else {

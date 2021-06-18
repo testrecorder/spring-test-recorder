@@ -7,6 +7,7 @@ import com.onushi.springtestrecorder.analyzer.object.FieldValue;
 import com.onushi.springtestrecorder.analyzer.object.FieldValueStatus;
 import com.onushi.springtestrecorder.analyzer.object.ObjectStateReaderService;
 import com.onushi.springtestrecorder.codegenerator.test.TestGenerator;
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 import com.onushi.springtestrecorder.utils.ServiceCreatorUtils;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.onushi.springtestrecorder.codegenerator.object.ObjectInfoFactoryForDateImpl.SIMPLE_DATE_FORMAT_HELPER;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -29,6 +31,7 @@ class ObjectInfoTest {
     void setUp() {
         testGenerator = mock(TestGenerator.class);
         when(testGenerator.getPackageName()).thenReturn("com.onushi.sample.model");
+        when(testGenerator.getCurrentTestRecordingPhase()).thenReturn(TestRecordingPhase.BEFORE_METHOD_RUN);
         objectInfoFactoryManager = ServiceCreatorUtils.createObjectInfoFactoryManager();
     }
 
@@ -151,8 +154,18 @@ class ObjectInfoTest {
         assertEquals(1, objectInfo.getInitRequiredImports().size());
         assertNotEquals("", objectInfo.getInitCode());
         assertEquals(1, objectInfo.visibleProperties.size());
-        assertEquals("simpleDateFormat.parse(\"2021-01-01 00:00:00.000\")",
-                objectInfo.visibleProperties.get("").getFinalValue().getString());
+        assertEquals(1, objectInfo.visibleProperties.size());
+
+        VisibleProperty visibleProperty = objectInfo.visibleProperties.get("");
+        assertEquals(1, visibleProperty.snapshots.size());
+        assertNotNull(visibleProperty.snapshots.get(TestRecordingPhase.BEFORE_METHOD_RUN));
+
+        VisiblePropertySnapshot snapshot = visibleProperty.snapshots.get(TestRecordingPhase.BEFORE_METHOD_RUN);
+        assertEquals(1, snapshot.getRequiredImports().size());
+        assertEquals("java.text.SimpleDateFormat", snapshot.getRequiredImports().get(0));
+        assertEquals(1, snapshot.getRequiredHelperObjects().size());
+        assertEquals(SIMPLE_DATE_FORMAT_HELPER, snapshot.getRequiredHelperObjects().get(0));
+        assertEquals("simpleDateFormat.parse(\"2021-01-01 00:00:00.000\")", snapshot.getValue().getString());
     }
 
     @Test

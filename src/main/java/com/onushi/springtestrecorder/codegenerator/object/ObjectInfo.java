@@ -19,9 +19,10 @@ public class ObjectInfo {
     protected String initCode = "";
     protected boolean initAdded = false;
     protected TestRecordingPhase creationPhase;
-    // TODO IB find a better solution
+    // TODO IB !!!! 4 find a better solution. Can I move in ObjectInfoFactory
     protected Runnable toRunAfterMethodRun = null;
 
+    // TODO IB !!!! remove all calls to addVisibleProperty
     protected ObjectInfo addVisibleProperty(String key, VisibleProperty visibleProperty) {
         this.visibleProperties.put(key, visibleProperty);
         return this;

@@ -1,10 +1,12 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
 import com.onushi.springtestrecorder.analyzer.classInfo.ClassInfoService;
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,5 +80,18 @@ public abstract class ObjectInfoFactory {
                 // TODO IB add a comment
             }
         }
+    }
+
+    protected void addVisiblePropertySnapshot(ObjectInfo objectInfo, String key,
+                  TestRecordingPhase testRecordingPhase, VisiblePropertySnapshot visiblePropertySnapshot) {
+        VisibleProperty visibleProperty = objectInfo.visibleProperties.get(key);
+        if (visibleProperty == null) {
+            visibleProperty = new VisibleProperty();
+            objectInfo.visibleProperties.put(key, visibleProperty);
+        }
+        if (visibleProperty.snapshots == null) {
+            visibleProperty.snapshots  = new LinkedHashMap<>();
+        }
+        visibleProperty.snapshots.put(testRecordingPhase, visiblePropertySnapshot);
     }
 }
