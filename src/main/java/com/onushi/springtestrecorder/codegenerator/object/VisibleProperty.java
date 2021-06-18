@@ -26,4 +26,28 @@ public class VisibleProperty {
     protected PropertyValue finalValue;
     // dependencies that not come from value, like the key of a map
     protected List<ObjectInfo> finalDependencies;
+
+    // TODO IB !!!! improve
+    // TODO IB !!!! test that this is in order
+    // TODO IB !!!! exception if there is no snapshot
+    public VisiblePropertySnapshot getFirstSnapshot() {
+        if (snapshots != null) {
+            for (TestRecordingPhase testRecordingPhase : snapshots.keySet()) {
+                return snapshots.get(testRecordingPhase);
+            }
+        }
+        return null;
+    }
+
+    // TODO IB !!!! improve
+    public VisiblePropertySnapshot getLastSnapshot() {
+        if (snapshots != null) {
+            VisiblePropertySnapshot result = null;
+            for (TestRecordingPhase testRecordingPhase : snapshots.keySet()) {
+                result = snapshots.get(testRecordingPhase);
+            }
+            return result;
+        }
+        return null;
+    }
 }

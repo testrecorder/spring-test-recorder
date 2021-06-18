@@ -48,7 +48,7 @@ public class TestAssertGeneratorService {
         } else {
             for (Map.Entry<String, VisibleProperty> entry : objectInfo.getVisibleProperties().entrySet()) {
                 VisibleProperty visibleProperty = entry.getValue();
-                PropertyValue finalValue = visibleProperty.getFinalValue();
+                PropertyValue finalValue = visibleProperty.getLastSnapshot().getValue();
                 String composedPath = assertPath + entry.getKey();
 
                 CodeNode objectsInit = null;
@@ -105,7 +105,7 @@ public class TestAssertGeneratorService {
         }
         String statement = new StringGenerator()
                 .setTemplate("        assertEquals({{expected}}, {{composedPath}});\n")
-                .addAttribute("expected", visibleProperty.getFinalValue().getString())
+                .addAttribute("expected", visibleProperty.getLastSnapshot().getValue().getString())
                 .addAttribute("composedPath", composedPath)
                 .generate();
         result.addChild(new CodeStatement(statement));

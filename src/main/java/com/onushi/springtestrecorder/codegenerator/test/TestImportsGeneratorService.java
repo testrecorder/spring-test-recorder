@@ -60,8 +60,8 @@ public class TestImportsGeneratorService {
                     result.addAll(getDeclareAndInitRequiredImports(finalDependency));
                 }
             }
-            if (visibleProperty.getFinalValue().getObjectInfo() != null) {
-                result.addAll(getVisiblePropsRequiredImports(visibleProperty.getFinalValue().getObjectInfo()));
+            if (visibleProperty.getLastSnapshot().getValue().getObjectInfo() != null) {
+                result.addAll(getVisiblePropsRequiredImports(visibleProperty.getLastSnapshot().getValue().getObjectInfo()));
             }
         }
         return result;
