@@ -459,11 +459,11 @@ class ObjectInfoTest {
                 "set1.add(\"3\");\n", objectInfo.getInitCode());
         assertEquals("Set<String>", objectInfo.getComposedClassNameForDeclare());
         assertEquals(5, objectInfo.visibleProperties.size());
-        assertEquals("4", objectInfo.visibleProperties.get(".size()").getFinalValue().getString());
-        assertEquals( "true", objectInfo.visibleProperties.get(".contains(null)").getFinalValue().getString());
-        assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"1\")").getFinalValue().getString());
-        assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"2\")").getFinalValue().getString());
-        assertEquals( "true", objectInfo.visibleProperties.get(".contains(\"3\")").getFinalValue().getString());
+        assertEquals("4", getKeySnapshot(objectInfo, ".size()").getValue().getString());
+        assertEquals( "true", getKeySnapshot(objectInfo, ".contains(null)").getValue().getString());
+        assertEquals( "true", getKeySnapshot(objectInfo, ".contains(\"1\")").getValue().getString());
+        assertEquals( "true", getKeySnapshot(objectInfo, ".contains(\"2\")").getValue().getString());
+        assertEquals( "true", getKeySnapshot(objectInfo, ".contains(\"3\")").getValue().getString());
     }
 
     private VisiblePropertySnapshot getKeySnapshot(ObjectInfo objectInfo, String key) {
