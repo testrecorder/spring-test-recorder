@@ -331,7 +331,7 @@ DONE ==========================
 
 		OK - In TestGenerator keep track of TestRecordingPhase
 		
-	2021.18.06 =============
+	2021.06.18 =============
 		SIDE EFFECTS
 			OK - Write a demo to understand the problem
 
@@ -359,7 +359,11 @@ DONE ==========================
 TODO ==========================
 
 	SIDE EFFECTS
-		save values before and after
+		Write test to check side effects on ArrayList
+		
+
+		
+		save VisiblePropertySnapshots before and after
 		
 		create asserts when value change between snapshots
 

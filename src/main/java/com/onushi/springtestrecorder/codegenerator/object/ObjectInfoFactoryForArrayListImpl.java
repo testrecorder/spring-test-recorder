@@ -1,6 +1,7 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
 import com.onushi.springtestrecorder.codegenerator.template.StringGenerator;
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +31,6 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
 
             objectInfo.initRequiredImports = Collections.singletonList("java.util.Arrays");
 
-
             objectInfo.initDependencies = elements.stream()
                     .distinct()
                     .collect(Collectors.toList());
@@ -52,25 +52,39 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
-                    VisiblePropertySnapshot.builder()
-                            .value(PropertyValue.fromString(String.valueOf(elements.size())))
-                            .build());
-            for (int i = 0; i < elements.size(); i++) {
-                ObjectInfo element = elements.get(i);
-                String key = new StringGenerator()
-                        .setTemplate(".get({{index}})")
-                        .addAttribute("index", i)
-                        .generate();
-                addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
-                        VisiblePropertySnapshot.builder()
-                                .value(PropertyValue.fromObjectInfo(element))
-                                .build());
+            takeSnapshot(objectInfo, context);
+
+            if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
+                objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);
             }
 
             return objectInfo;
         } else {
             return null;
+        }
+    }
+
+    void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
+        @SuppressWarnings("unchecked")
+        List<ObjectInfo> elements = ((List<Object>) context.getObject()).stream()
+                .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
+                .collect(Collectors.toList());
+
+
+        addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                VisiblePropertySnapshot.builder()
+                        .value(PropertyValue.fromString(String.valueOf(elements.size())))
+                        .build());
+        for (int i = 0; i < elements.size(); i++) {
+            ObjectInfo element = elements.get(i);
+            String key = new StringGenerator()
+                    .setTemplate(".get({{index}})")
+                    .addAttribute("index", i)
+                    .generate();
+            addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
+                    VisiblePropertySnapshot.builder()
+                            .value(PropertyValue.fromObjectInfo(element))
+                            .build());
         }
     }
 }
