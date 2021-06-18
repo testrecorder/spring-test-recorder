@@ -432,11 +432,11 @@ class ObjectInfoTest {
                 "map1.put(\"3\", 3);\n", objectInfo.getInitCode());
         assertEquals("Map<String, Integer>", objectInfo.getComposedClassNameForDeclare());
         assertEquals(5, objectInfo.visibleProperties.size());
-        assertEquals("4", objectInfo.visibleProperties.get(".size()").getFinalValue().getString());
-        assertEquals( "0", objectInfo.visibleProperties.get(".get(null)").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
-        assertEquals( "1", objectInfo.visibleProperties.get(".get(\"1\")").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
-        assertEquals( "2", objectInfo.visibleProperties.get(".get(\"2\")").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
-        assertEquals( "3", objectInfo.visibleProperties.get(".get(\"3\")").getFinalValue().getObjectInfo().visibleProperties.get("").getFinalValue().getString());
+        assertEquals("4", getKeySnapshot(objectInfo, ".size()").getValue().getString());
+        assertEquals( "0", getKeySnapshot(getKeySnapshot(objectInfo, ".get(null)").getValue().getObjectInfo(), "").getValue().getString());
+        assertEquals( "1", getKeySnapshot(getKeySnapshot(objectInfo, ".get(\"1\")").getValue().getObjectInfo(), "").getValue().getString());
+        assertEquals( "2", getKeySnapshot(getKeySnapshot(objectInfo, ".get(\"2\")").getValue().getObjectInfo(), "").getValue().getString());
+        assertEquals( "3", getKeySnapshot(getKeySnapshot(objectInfo, ".get(\"3\")").getValue().getObjectInfo(), "").getValue().getString());
     }
 
     @Test
