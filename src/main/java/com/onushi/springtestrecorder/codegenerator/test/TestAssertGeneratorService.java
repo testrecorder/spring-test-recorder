@@ -52,8 +52,9 @@ public class TestAssertGeneratorService {
                 String composedPath = assertPath + entry.getKey();
 
                 CodeNode objectsInit = null;
-                if (visibleProperty.getFinalDependencies() != null) {
-                    objectsInit = new CodeStatement(testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getFinalDependencies()).getCode());
+                if (visibleProperty.getLastSnapshot().getOtherDependencies() != null) {
+                    objectsInit = new CodeStatement(
+                            testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getLastSnapshot().getOtherDependencies()).getCode());
                 }
 
                 if (finalValue.getString() != null && (finalValue.getString().equals("null") ||

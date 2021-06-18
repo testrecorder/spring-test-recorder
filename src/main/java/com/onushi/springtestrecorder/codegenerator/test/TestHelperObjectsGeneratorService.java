@@ -40,8 +40,8 @@ public class TestHelperObjectsGeneratorService {
             if (visibleProperty.getRequiredHelperObjects() != null) {
                 result.addAll(visibleProperty.getRequiredHelperObjects());
             }
-            if (visibleProperty.getFinalDependencies() != null) {
-                for (ObjectInfo finalDependency : visibleProperty.getFinalDependencies()) {
+            if (visibleProperty.getLastSnapshot().getOtherDependencies() != null) {
+                for (ObjectInfo finalDependency : visibleProperty.getLastSnapshot().getOtherDependencies()) {
                     result.addAll(getInitRequiredHelperObjects(finalDependency));
                 }
             }
