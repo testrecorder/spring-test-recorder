@@ -1,5 +1,7 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -23,16 +25,26 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
 
             objectInfo.initCode = String.format("Date %s = simpleDateFormat.parse(\"%s\");\n", context.getObjectName(), dateStr);
 
-            addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
-                    VisiblePropertySnapshot.builder()
-                            .value(PropertyValue.fromString(String.format("simpleDateFormat.parse(\"%s\")", dateStr)))
-                            .requiredImports(Collections.singletonList("java.text.SimpleDateFormat"))
-                            .requiredHelperObjects(Collections.singletonList(SIMPLE_DATE_FORMAT_HELPER))
-                            .build());
+            takeSnapshot(objectInfo, context);
+
+            if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
+                objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);
+            }
 
             return objectInfo;
         } else {
             return null;
         }
+    }
+
+    void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        String dateStr = simpleDateFormat.format((Date) context.getObject());
+        addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                VisiblePropertySnapshot.builder()
+                        .value(PropertyValue.fromString(String.format("simpleDateFormat.parse(\"%s\")", dateStr)))
+                        .requiredImports(Collections.singletonList("java.text.SimpleDateFormat"))
+                        .requiredHelperObjects(Collections.singletonList(SIMPLE_DATE_FORMAT_HELPER))
+                        .build());
     }
 }

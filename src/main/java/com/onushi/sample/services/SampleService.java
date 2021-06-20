@@ -285,4 +285,10 @@ public class SampleService {
         floatList.add(1, 1f);
         return 42;
     }
+
+    public int changeDate(Date date) {
+        date.setTime(date.getTime() + 60*60*1000);
+        return 42;
+    }
+
 }

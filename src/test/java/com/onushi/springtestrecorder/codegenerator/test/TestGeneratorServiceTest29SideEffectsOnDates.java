@@ -6,29 +6,26 @@ import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest29SideEffectsOnDates extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithSideEffectsOnArrayLists() {
+    void generateTestWithSideEffectsOnArrayLists() throws ParseException {
         // Arrange
-        List<Float> floatList = new ArrayList<>();
-        floatList.add(0f);
-        floatList.add(2f);
-        floatList.add(3f);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = simpleDateFormat.parse("2021-01-01 00:00:00.000");
 
         SampleService sampleService = new SampleService();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(sampleService)
-                .methodName("changeArrayList")
-                .arguments(Collections.singletonList(floatList))
+                .methodName("changeDate")
+                .arguments(Collections.singletonList(date))
                 .build());
-        sampleService.changeArrayList(floatList);
+        sampleService.changeDate(date);
         testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(42)
                 .build());
@@ -43,29 +40,28 @@ public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGener
                         "\n" +
                         "import org.junit.jupiter.api.Test;\n" +
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import java.util.List;\n" +
-                        "import java.util.Arrays;\n" +
+                        "import java.util.Date;\n" +
+                        "import java.text.SimpleDateFormat;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
                         "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
-                        "    void changeArrayList() throws Exception {\n" +
+                        "    void changeDate() throws Exception {\n" +
                         "        // Arrange\n" +
-                        "        List<Float> arrayList1 = new ArrayList<>(Arrays.asList(0.0f, 2.0f, 3.0f));\n" +
+                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                        "\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"2021-01-01 00:00:00.000\");\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        Integer result = sampleService.changeArrayList(arrayList1);\n" +
+                        "        Integer result = sampleService.changeDate(date1);\n" +
                         "\n" +
                         "        // Assert\n" +
                         "        assertEquals(42, result);\n" +
                         "\n" +
                         "        // Side Effects\n" +
-                        "        assertEquals(4, arrayList1.size());\n" +
-                        "        assertEquals(1.0f, arrayList1.get(1));\n" +
-                        "        assertEquals(2.0f, arrayList1.get(2));\n" +
-                        "        assertEquals(3.0f, arrayList1.get(3));\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"2021-01-01 01:00:00.000\"), date1);\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
@@ -73,23 +69,21 @@ public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGener
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! I should put all tests here to eliminate warnings and to make sure the generate code is ok
     @Test
-    void changeArrayList() throws Exception {
+    void changeDate() throws Exception {
         // Arrange
-        List<Float> arrayList1 = new ArrayList<>(Arrays.asList(0.0f, 2.0f, 3.0f));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        Date date1 = simpleDateFormat.parse("2021-01-01 00:00:00.000");
         SampleService sampleService = new SampleService();
 
         // Act
-        Integer result = sampleService.changeArrayList(arrayList1);
+        Integer result = sampleService.changeDate(date1);
 
         // Assert
         assertEquals(42, result);
 
         // Side Effects
-        assertEquals(4, arrayList1.size());
-        assertEquals(1.0f, arrayList1.get(1));
-        assertEquals(2.0f, arrayList1.get(2));
-        assertEquals(3.0f, arrayList1.get(3));
+        assertEquals(simpleDateFormat.parse("2021-01-01 01:00:00.000"), date1);
     }
 }

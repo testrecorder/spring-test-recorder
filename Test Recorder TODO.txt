@@ -355,11 +355,8 @@ DONE ==========================
 	
 			OK - save values in the correct TestRecordingPhase
 	
-
-TODO ==========================
-
-	SIDE EFFECTS
-		for ArrayList
+	2021-06-20
+		OK - for ArrayList
 			OK - save VisiblePropertySnapshots before and after
 			
 			OK - write test with expected side effects
@@ -371,22 +368,43 @@ TODO ==========================
 				actually should be the same function since result has only AfterMethodRunInfo so it should appear in asserts
 			
 			OK - implement and make the test run
-			
 		
-		Side effects on boxed
-		
-		create asserts when value change between snapshots
 
+
+
+TODO ==========================
+	SIDE EFFECTS
+		OK - Null
+		
+		OK - ObjectInfoFactoryForArrayListImpl
+
+		ObjectInfoFactoryForDateImpl
+
+		ObjectInfoFactoryForUUIDImpl
+
+		ObjectInfoFactoryForArrayImpl
+		
+		ObjectInfoFactoryForHashMapImpl
+		
+		ObjectInfoFactoryForHashSetImpl
+		
+		setVisiblePropertiesForUnknown
+	
+	
+		ObjectInfoFactoryForPrimitiveImpl
+		ObjectInfoFactoryForEnumImpl
+			primitives with side effects cannot be inline
+			same for all inline objects with side effects
+			Side effects on boxed
+		
+		
 		Write tests for different cases of objects reuse, side effects etc
 
-		Check side effects on target, arguments, any dependencies
-
-		VisibleProps should be computed for every object before and after the call 
-			fill initialValue for all objects in the context
-
-			fill finalValue for all objects in the context
-
+		Check side effects on dependencies or arguments
+		
 		later: mark objects already processed
+
+
 
 	Sa fac configurare pt TestRecorder. On off. Can i modify while running?
 	
