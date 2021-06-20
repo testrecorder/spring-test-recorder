@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest29SideEffectsOnDates extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithSideEffectsOnArrayLists() throws ParseException {
+    void generateTestWithSideEffectsOnDates() throws ParseException {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Date date = simpleDateFormat.parse("2021-01-01 00:00:00.000");

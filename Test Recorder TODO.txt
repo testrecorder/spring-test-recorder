@@ -378,9 +378,10 @@ TODO ==========================
 		
 		OK - ObjectInfoFactoryForArrayListImpl
 
-		ObjectInfoFactoryForDateImpl
+		OK - ObjectInfoFactoryForDateImpl
 
-		ObjectInfoFactoryForUUIDImpl
+		OK - ObjectInfoFactoryForUUIDImpl
+			are immutable
 
 		ObjectInfoFactoryForArrayImpl
 		
@@ -403,6 +404,8 @@ TODO ==========================
 		Check side effects on dependencies or arguments
 		
 		later: mark objects already processed
+		
+		add all generated test together with the test of generation
 
 
 
