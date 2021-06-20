@@ -87,7 +87,7 @@ public class TestGeneratorServiceTest07ForArrays extends TestGeneratorServiceTes
     }
 
     @Test
-    void processArrays() throws Exception {
+    void processArrays() {
         // Arrange
         boolean[] array1 = {true, false};
 

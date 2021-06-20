@@ -58,7 +58,7 @@ public class TestGeneratorServiceTest11AssertArrays extends TestGeneratorService
     }
 
     @Test
-    void returnIntArray() throws Exception {
+    void returnIntArray() {
         // Arrange
         SampleService sampleService = new SampleService();
 

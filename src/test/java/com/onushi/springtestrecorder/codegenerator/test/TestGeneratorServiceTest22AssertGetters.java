@@ -95,7 +95,7 @@ public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServic
     }
 
     @Test
-    void createEmployee() throws Exception {
+    void createEmployee() {
         // Arrange
         SampleService sampleService = new SampleService();
 

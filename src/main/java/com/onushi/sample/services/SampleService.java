@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@SuppressWarnings("ALL")
 @Component
 public class SampleService {
     public int add(int x, int y) {

@@ -75,7 +75,7 @@ public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGener
 
     // TODO IB !!!! I should put all tests here to eliminate warnings and to make sure the generate code is ok
     @Test
-    void changeArrayList() throws Exception {
+    void changeArrayList() {
         // Arrange
         List<Float> arrayList1 = new ArrayList<>(Arrays.asList(0.0f, 2.0f, 3.0f));
         SampleService sampleService = new SampleService();

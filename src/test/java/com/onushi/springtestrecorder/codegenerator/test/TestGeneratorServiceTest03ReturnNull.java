@@ -59,7 +59,7 @@ public class TestGeneratorServiceTest03ReturnNull extends TestGeneratorServiceTe
     }
 
     @Test
-    void returnNull() throws Exception {
+    void returnNull() {
         // Arrange
         SampleService sampleService = new SampleService();
 

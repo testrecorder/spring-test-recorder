@@ -65,7 +65,7 @@ public class TestGeneratorServiceTest04ObjectsAsArguments extends TestGeneratorS
     }
 
     @Test
-    void getFirstName() throws Exception {
+    void getFirstName() {
         // Arrange
         Person person1 = Person.builder()
                 .dateOfBirth(null)

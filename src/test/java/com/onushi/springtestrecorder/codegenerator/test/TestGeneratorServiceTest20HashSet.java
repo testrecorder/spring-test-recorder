@@ -67,7 +67,7 @@ public class TestGeneratorServiceTest20HashSet extends TestGeneratorServiceTest 
     }
 
     @Test
-    void processSet() throws Exception {
+    void processSet() {
         // Arrange
         Set<Double> hashSet1 = new HashSet<>();
         hashSet1.add(null);

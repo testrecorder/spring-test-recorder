@@ -52,7 +52,7 @@ public abstract class ObjectInfoFactory {
 
         if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
             objectInfo.toRunAfterMethodRun = () ->
-                    setVisiblePropertiesForUnknownInternal(objectInfo, context, objectInfoFactoryManager, classInfoService);;
+                    setVisiblePropertiesForUnknownInternal(objectInfo, context, objectInfoFactoryManager, classInfoService);
         }
     }
 

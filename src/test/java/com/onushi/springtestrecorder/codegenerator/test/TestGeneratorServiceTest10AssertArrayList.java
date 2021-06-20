@@ -60,7 +60,7 @@ public class TestGeneratorServiceTest10AssertArrayList extends TestGeneratorServ
     }
 
     @Test
-    void createList() throws Exception {
+    void createList() {
         // Arrange
         SampleService sampleService = new SampleService();
 

@@ -99,9 +99,7 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
     private void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
         @SuppressWarnings("unchecked")
         HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
-        List<Object> keys = getKeysList(hashMap);
-
-        List<ObjectInfo> keyElements = keys.stream()
+        List<ObjectInfo> keyElements = getKeysList(hashMap).stream()
                 .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                 .collect(Collectors.toList());
 

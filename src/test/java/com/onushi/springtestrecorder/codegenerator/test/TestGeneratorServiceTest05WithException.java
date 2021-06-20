@@ -53,7 +53,7 @@ public class TestGeneratorServiceTest05WithException extends TestGeneratorServic
     }
 
     @Test
-    void testException() throws Exception {
+    void testException() {
         // Arrange
         SampleService sampleService = new SampleService();
 

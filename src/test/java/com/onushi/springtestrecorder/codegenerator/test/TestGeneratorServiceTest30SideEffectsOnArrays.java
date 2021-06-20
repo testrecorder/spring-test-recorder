@@ -63,7 +63,7 @@ public class TestGeneratorServiceTest30SideEffectsOnArrays extends TestGenerator
     }
 
     @Test
-    void changeArray() throws Exception {
+    void changeArray() {
         // Arrange
         char[] array1 = {'a', 'z'};
         SampleService sampleService = new SampleService();

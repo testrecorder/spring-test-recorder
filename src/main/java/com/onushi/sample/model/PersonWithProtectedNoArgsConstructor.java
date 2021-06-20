@@ -5,6 +5,7 @@ public class PersonWithProtectedNoArgsConstructor {
     }
 
     public static PersonWithProtectedNoArgsConstructor createService() {
+        //noinspection InstantiationOfUtilityClass
         return new PersonWithProtectedNoArgsConstructor();
     }
 }
