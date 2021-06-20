@@ -70,4 +70,20 @@ public class TestGeneratorServiceTest12AssertObject extends TestGeneratorService
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void returnPerson() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Person result = sampleService.returnPerson();
+
+        // Assert
+        assertEquals(simpleDateFormat.parse("2021-01-01 00:00:00.000"), result.getDateOfBirth());
+        assertEquals("Tom", result.getFirstName());
+        assertEquals("Richardson", result.getLastName());
+    }
 }

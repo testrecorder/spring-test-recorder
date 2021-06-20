@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestGeneratorServiceTest25AssertHashSet extends TestGeneratorServiceTest {
     @Test
@@ -96,5 +97,37 @@ public class TestGeneratorServiceTest25AssertHashSet extends TestGeneratorServic
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void createPersonHashSet() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Set<Person> result = sampleService.createPersonHashSet();
+
+        // Assert
+        assertEquals(2, result.size());
+
+        Date date1 = simpleDateFormat.parse("1980-01-02 00:00:00.000");
+        Person person1 = Person.builder()
+                .dateOfBirth(date1)
+                .firstName("Marco")
+                .lastName("Polo")
+                .build();
+
+        assertTrue(result.contains(person1));
+
+        Date date2 = simpleDateFormat.parse("1970-02-03 00:00:00.000");
+        Person person2 = Person.builder()
+                .dateOfBirth(date2)
+                .firstName("Tom")
+                .lastName("Richardson")
+                .build();
+
+        assertTrue(result.contains(person2));
     }
 }

@@ -6,6 +6,7 @@ import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,7 +58,21 @@ public class TestGeneratorServiceTest13RepeatedArgs extends TestGeneratorService
                         "    }\n" +
                         "}\n" +
                         "\n" +
-                        "END GENERATED TEST =========\n"),
+                        "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void repeatedArgs() {
+        // Arrange
+        int[] array1 = {3, 4, 3};
+        List<Float> arrayList1 = new ArrayList<>(Arrays.asList(3.0f, 3.0f));
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Integer result = sampleService.repeatedArgs(array1, arrayList1);
+
+        // Assert
+        assertEquals(42, result);
     }
 }

@@ -6,6 +6,7 @@ import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,5 +60,19 @@ public class TestGeneratorServiceTest08ForArrayLists extends TestGeneratorServic
                         "\n" +
                         "END GENERATED TEST =========\n"),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void processLists() {
+        // Arrange
+        List<String> arrayList1 = new ArrayList<>(Arrays.asList("a", "b"));
+        List<Object> arrayList2 = new ArrayList<>(Arrays.asList(1, "b", null));
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Integer result = sampleService.processLists(arrayList1, arrayList2);
+
+        // Assert
+        assertEquals(42, result);
     }
 }

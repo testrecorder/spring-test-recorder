@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestGeneratorServiceTest21ListOfListOfPerson extends TestGeneratorServiceTest {
     @Test
@@ -87,5 +88,31 @@ public class TestGeneratorServiceTest21ListOfListOfPerson extends TestGeneratorS
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void createListOfPersonList() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        List<List<Person>> result = sampleService.createListOfPersonList();
+
+        // Assert
+        assertEquals(2, result.size());
+
+        assertEquals(2, result.get(0).size());
+
+        assertEquals(simpleDateFormat.parse("1980-01-02 00:00:00.000"), result.get(0).get(0).getDateOfBirth());
+        assertEquals("Paul", result.get(0).get(0).getFirstName());
+        assertEquals("Thompson", result.get(0).get(0).getLastName());
+
+        assertEquals(simpleDateFormat.parse("1970-02-03 00:00:00.000"), result.get(0).get(1).getDateOfBirth());
+        assertEquals("Tom", result.get(0).get(1).getFirstName());
+        assertEquals("Richardson", result.get(0).get(1).getLastName());
+
+        assertNull(result.get(1));
     }
 }

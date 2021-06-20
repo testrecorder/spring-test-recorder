@@ -54,4 +54,16 @@ public class TestGeneratorServiceTest01AddFloats extends TestGeneratorServiceTes
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void addFloats() {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Float result = sampleService.addFloats(2.0f, 3.0f);
+
+        // Assert
+        assertEquals(5.0f, result);
+    }
 }

@@ -56,4 +56,18 @@ public class TestGeneratorServiceTest11AssertArrays extends TestGeneratorService
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void returnIntArray() throws Exception {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act
+        int[] result = sampleService.returnIntArray();
+
+        // Assert
+        assertEquals(2, result.length);
+        assertEquals(3, result[0]);
+        assertEquals(4, result[1]);
+    }
 }

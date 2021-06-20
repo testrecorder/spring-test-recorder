@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestGeneratorServiceTest05WithException extends TestGeneratorServiceTest {
     @Test
@@ -49,5 +50,14 @@ public class TestGeneratorServiceTest05WithException extends TestGeneratorServic
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void testException() throws Exception {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act & Assert
+        assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));
     }
 }

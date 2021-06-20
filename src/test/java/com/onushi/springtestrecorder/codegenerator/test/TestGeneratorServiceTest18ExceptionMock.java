@@ -13,6 +13,8 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.*;
 
 public class TestGeneratorServiceTest18ExceptionMock extends TestGeneratorServiceTest {
     @Test
@@ -79,5 +81,21 @@ public class TestGeneratorServiceTest18ExceptionMock extends TestGeneratorServic
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void getPersonFirstName() throws Exception {
+        // Arrange
+        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);
+        when(personRepositoryImpl1.getPersonsCountFromDB("a", null)).thenReturn(2);
+        doThrow(NoSuchElementException.class)
+                .when(personRepositoryImpl1).getPersonFromDB(3);
+        PersonService personService = new PersonService(personRepositoryImpl1);
+
+        // Act
+        Object result = personService.getPersonFirstName(3);
+
+        // Assert
+        assertNull(result);
     }
 }

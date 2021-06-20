@@ -69,4 +69,20 @@ public class TestGeneratorServiceTest24CyclicDepsInResult extends TestGeneratorS
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void createCyclicObjects() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        CyclicParent result = sampleService.createCyclicObjects();
+
+        // Assert
+        assertEquals(1, result.childList.size());
+        assertEquals(simpleDateFormat.parse("1980-01-02 00:00:00.000"), result.childList.get(0).date);
+        assertEquals(1, result.id);
+    }
 }

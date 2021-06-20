@@ -331,4 +331,12 @@ public class SampleService {
 
         return 42;
     }
+
+    public Integer processLists(List<String> arrayList1, List<Object> arrayList2) {
+        return 42;
+    }
+
+    public List<Person> someFunction(List<Person> personsList, Person[] personArray) {
+        return personsList;
+    }
 }

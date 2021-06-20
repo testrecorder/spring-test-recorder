@@ -114,4 +114,39 @@ public class TestGeneratorServiceTest26AssertHashMap extends TestGeneratorServic
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void createPersonHashMap() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Map<Person, Person> result = sampleService.createPersonHashMap();
+
+        // Assert
+        Date date1 = simpleDateFormat.parse("1970-01-02 00:00:00.000");
+        Person person1 = Person.builder()
+                .dateOfBirth(date1)
+                .firstName("Marco")
+                .lastName("Polo")
+                .build();
+
+        Person person2 = Person.builder()
+                .dateOfBirth(date1)
+                .firstName("Tom")
+                .lastName("Richardson")
+                .build();
+
+        assertEquals(2, result.size());
+
+        assertEquals(simpleDateFormat.parse("1920-02-03 00:00:00.000"), result.get(person1).getDateOfBirth());
+        assertEquals("Marco'", result.get(person1).getFirstName());
+        assertEquals("Father", result.get(person1).getLastName());
+
+        assertEquals(simpleDateFormat.parse("1920-02-04 00:00:00.000"), result.get(person2).getDateOfBirth());
+        assertEquals("Tom's", result.get(person2).getFirstName());
+        assertEquals("Father", result.get(person2).getLastName());
+    }
 }

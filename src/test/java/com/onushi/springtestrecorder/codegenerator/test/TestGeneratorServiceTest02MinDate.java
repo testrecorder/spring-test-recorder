@@ -64,4 +64,20 @@ public class TestGeneratorServiceTest02MinDate extends TestGeneratorServiceTest 
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void minDate() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        Date date1 = simpleDateFormat.parse("2021-01-01 00:00:00.000");
+        Date date2 = simpleDateFormat.parse("2021-02-02 00:00:00.000");
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Date result = sampleService.minDate(date1, date2);
+
+        // Assert
+        assertEquals(date1, result);
+    }
 }

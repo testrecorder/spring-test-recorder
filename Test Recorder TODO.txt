@@ -369,28 +369,34 @@ DONE ==========================
 			
 			OK - implement and make the test run
 		
+		SIDE EFFECTS
+			OK - Null
+			
+			OK - ObjectInfoFactoryForArrayListImpl
 
+			OK - ObjectInfoFactoryForDateImpl
 
+			OK - ObjectInfoFactoryForUUIDImpl
+				are immutable
+
+			OK - ObjectInfoFactoryForArrayImpl
+			
+			OK - ObjectInfoFactoryForHashMapImpl
+			
+			OK - ObjectInfoFactoryForHashSetImpl
+			
+			OK - setVisiblePropertiesForUnknown
+
+		OK - add all generated tests near generation code
 
 TODO ==========================
-	SIDE EFFECTS
-		OK - Null
-		
-		OK - ObjectInfoFactoryForArrayListImpl
-
-		OK - ObjectInfoFactoryForDateImpl
-
-		OK - ObjectInfoFactoryForUUIDImpl
-			are immutable
-
-		OK - ObjectInfoFactoryForArrayImpl
-		
-		OK - ObjectInfoFactoryForHashMapImpl
-		
-		OK - ObjectInfoFactoryForHashSetImpl
-		
-		setVisiblePropertiesForUnknown
 	
+	clean warnings
+
+
+	SIDE EFFECTS
+		Check side effects on dependencies of args
+
 	
 		ObjectInfoFactoryForPrimitiveImpl
 		ObjectInfoFactoryForEnumImpl
@@ -399,11 +405,8 @@ TODO ==========================
 			Side effects on boxed
 		
 		
-		
-		
 		Write tests for different cases of objects reuse, side effects etc
 
-		Check side effects on dependencies or arguments
 		
 		later: mark objects already processed
 		

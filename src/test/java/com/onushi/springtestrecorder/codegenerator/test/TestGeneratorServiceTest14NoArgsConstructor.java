@@ -71,4 +71,22 @@ public class TestGeneratorServiceTest14NoArgsConstructor extends TestGeneratorSe
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void processStudents() {
+        // Arrange
+        StudentWithDefaultInitFields studentWithDefaultInitFields1 = new StudentWithDefaultInitFields();
+
+        StudentWithBuilder studentWithBuilder1 = StudentWithBuilder.builder()
+                .age(60)
+                .firstName("John")
+                .lastName("Wayne")
+                .build();
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        sampleService.processStudents(studentWithDefaultInitFields1, studentWithBuilder1);
+
+    }
 }

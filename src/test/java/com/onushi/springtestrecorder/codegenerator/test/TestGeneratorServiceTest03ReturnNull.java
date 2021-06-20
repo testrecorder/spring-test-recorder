@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestGeneratorServiceTest03ReturnNull extends TestGeneratorServiceTest {
     @Test
@@ -55,5 +56,17 @@ public class TestGeneratorServiceTest03ReturnNull extends TestGeneratorServiceTe
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
 
+    }
+
+    @Test
+    void returnNull() throws Exception {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act
+        PersonRepository result = sampleService.returnNull();
+
+        // Assert
+        assertNull(result);
     }
 }

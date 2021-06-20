@@ -63,4 +63,21 @@ public class TestGeneratorServiceTest04ObjectsAsArguments extends TestGeneratorS
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void getFirstName() throws Exception {
+        // Arrange
+        Person person1 = Person.builder()
+                .dateOfBirth(null)
+                .firstName("Mary")
+                .lastName("Poe")
+                .build();
+        SampleService sampleService = new SampleService();
+
+        // Act
+        String result = sampleService.getFirstName(person1);
+
+        // Assert
+        assertEquals("Mary", result);
+    }
 }

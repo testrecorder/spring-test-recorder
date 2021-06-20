@@ -62,7 +62,23 @@ public class TestGeneratorServiceTest20HashSet extends TestGeneratorServiceTest 
                         "    }\n" +
                         "}\n" +
                         "\n" +
-                        "END GENERATED TEST =========\n"),
+                        "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void processSet() throws Exception {
+        // Arrange
+        Set<Double> hashSet1 = new HashSet<>();
+        hashSet1.add(null);
+        hashSet1.add(1.2);
+        hashSet1.add(2.6);
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Float result = sampleService.processSet(hashSet1);
+
+        // Assert
+        assertEquals(42.42f, result);
     }
 }

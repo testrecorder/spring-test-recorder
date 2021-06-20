@@ -51,4 +51,14 @@ public class TestGeneratorServiceTest06ReturnVoid extends TestGeneratorServiceTe
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void doNothing() {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act
+        sampleService.doNothing();
+
+    }
 }

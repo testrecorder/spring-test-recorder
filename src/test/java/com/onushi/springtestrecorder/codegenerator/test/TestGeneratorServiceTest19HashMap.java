@@ -72,4 +72,27 @@ public class TestGeneratorServiceTest19HashMap extends TestGeneratorServiceTest 
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void processMap() {
+        // Arrange
+        List<String> arrayList1 = new ArrayList<>(Arrays.asList("0", "1"));
+
+        List<String> arrayList2 = new ArrayList<>(Arrays.asList("0", "1", "2"));
+
+        List<String> arrayList3 = new ArrayList<>(Arrays.asList("0", "1", "2", "3"));
+
+        Map<String, List<String>> hashMap1 = new HashMap<>();
+        hashMap1.put("1", arrayList1);
+        hashMap1.put("2", arrayList2);
+        hashMap1.put("3", arrayList3);
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Integer result = sampleService.processMap(hashMap1);
+
+        // Assert
+        assertEquals(42, result);
+    }
 }

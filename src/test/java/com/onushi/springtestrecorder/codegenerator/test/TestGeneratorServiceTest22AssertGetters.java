@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServiceTest {
     @Test
@@ -91,5 +92,38 @@ public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServic
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void createEmployee() throws Exception {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Employee result = sampleService.createEmployee();
+
+        // Assert
+        assertEquals(100, result.getDepartment().getId());
+        assertEquals("IT", result.getDepartment().getName());
+
+        assertEquals("John", result.getFirstName());
+
+        assertEquals(1, result.getId());
+
+        assertEquals("Doe", result.getLastName());
+
+        assertEquals(1000.0, result.getSalaryParam1());
+
+        assertEquals(1500.0, result.getSalaryParam2());
+
+        assertEquals(0.0, result.getSalaryParam3());
+
+        assertEquals(Color.BLUE, result.getTeamColor());
+
+        assertFalse(result.isTeamLeader());
+
+        assertFalse(result.isTeamLeader);
+
+        assertEquals(Color.BLUE, result.teamColor);
     }
 }

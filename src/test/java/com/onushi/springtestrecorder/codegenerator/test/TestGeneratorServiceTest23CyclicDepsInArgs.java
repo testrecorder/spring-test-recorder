@@ -9,7 +9,7 @@ import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -81,5 +81,30 @@ public class TestGeneratorServiceTest23CyclicDepsInArgs extends TestGeneratorSer
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void processCyclicObjects() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        Date date1 = simpleDateFormat.parse("1980-01-02 00:00:00.000");
+        // TODO Solve initialisation for cyclic dependency in com.onushi.sample.model.CyclicParent
+        CyclicChild cyclicChild1 = new CyclicChild();
+        cyclicChild1.date = date1;
+        List<CyclicChild> singletonList1 = new ArrayList<>(Arrays.asList(cyclicChild1));
+
+        CyclicParent cyclicParent1 = new CyclicParent();
+        cyclicParent1.childList = singletonList1;
+        cyclicParent1.id = 1;
+        cyclicChild1.parent = cyclicParent1;
+
+        SampleService sampleService = new SampleService();
+
+        // Act
+        Integer result = sampleService.processCyclicObjects(cyclicParent1);
+
+        // Assert
+        assertEquals(42, result);
     }
 }

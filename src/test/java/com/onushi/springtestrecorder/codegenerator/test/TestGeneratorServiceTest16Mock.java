@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestGeneratorServiceTest16Mock extends TestGeneratorServiceTest {
     @Test
@@ -88,5 +90,29 @@ public class TestGeneratorServiceTest16Mock extends TestGeneratorServiceTest {
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void getPersonFirstName() throws Exception {
+        // Arrange
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");
+        Person person1 = Person.builder()
+                .dateOfBirth(date1)
+                .firstName("Bruce")
+                .lastName("Lee")
+                .build();
+
+        PersonRepositoryImpl personRepositoryImpl1 = mock(PersonRepositoryImpl.class);
+        when(personRepositoryImpl1.getPersonFromDB(2)).thenReturn(person1);
+
+        PersonService personService = new PersonService(personRepositoryImpl1);
+
+        // Act
+        String result = personService.getPersonFirstName(2);
+
+        // Assert
+        assertEquals("Bruce", result);
     }
 }
