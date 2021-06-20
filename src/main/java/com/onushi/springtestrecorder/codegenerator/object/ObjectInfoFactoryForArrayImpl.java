@@ -1,6 +1,7 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
 import com.onushi.springtestrecorder.codegenerator.template.StringGenerator;
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,20 +54,10 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", getElementsInlineCode(elements))
                     .generate();
 
-            addVisiblePropertySnapshot(objectInfo, ".length", context.getTestGenerator().getCurrentTestRecordingPhase(),
-                    VisiblePropertySnapshot.builder()
-                            .value(PropertyValue.fromString(String.valueOf(elements.size())))
-                            .build());
-            for (int i = 0; i < elements.size(); i++) {
-                ObjectInfo element = elements.get(i);
-                String key = new StringGenerator()
-                        .setTemplate("[{{index}}]")
-                        .addAttribute("index", i)
-                        .generate();
-                addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
-                        VisiblePropertySnapshot.builder()
-                                .value(PropertyValue.fromObjectInfo(element))
-                                .build());
+            takeSnapshot(objectInfo, context);
+
+            if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
+                objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);
             }
 
             return objectInfo;
@@ -74,6 +65,30 @@ public class ObjectInfoFactoryForArrayImpl extends ObjectInfoFactory {
             return null;
         }
     }
+
+    private void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
+        ArrayAsList arrayAsList = getElementList(context.getObject());
+
+        List<ObjectInfo> elements = arrayAsList.list
+                .stream()
+                .map(fieldValue -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), fieldValue))
+                .collect(Collectors.toList());
+
+        addVisiblePropertySnapshot(objectInfo, ".length", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                VisiblePropertySnapshot.builder()
+                        .value(PropertyValue.fromString(String.valueOf(elements.size())))
+                        .build());
+        for (int i = 0; i < elements.size(); i++) {
+            ObjectInfo element = elements.get(i);
+            String key = new StringGenerator()
+                    .setTemplate("[{{index}}]")
+                    .addAttribute("index", i)
+                    .generate();
+            addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
+                    VisiblePropertySnapshot.builder()
+                            .value(PropertyValue.fromObjectInfo(element))
+                            .build());
+        }    }
 
     private String getElementsInlineCode(List<ObjectInfo> elements) {
         return elements.stream()

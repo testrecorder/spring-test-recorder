@@ -291,4 +291,8 @@ public class SampleService {
         return 42;
     }
 
+    public Integer changeArray(char[] array) {
+        array[0] = 'b';
+        return 42;
+    }
 }
