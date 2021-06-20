@@ -387,7 +387,7 @@ TODO ==========================
 		
 		OK - ObjectInfoFactoryForHashMapImpl
 		
-		ObjectInfoFactoryForHashSetImpl
+		OK - ObjectInfoFactoryForHashSetImpl
 		
 		setVisiblePropertiesForUnknown
 	
@@ -397,6 +397,8 @@ TODO ==========================
 			primitives with side effects cannot be inline
 			same for all inline objects with side effects
 			Side effects on boxed
+		
+		
 		
 		
 		Write tests for different cases of objects reuse, side effects etc
@@ -478,6 +480,8 @@ TODO ==========================
 	Read when the russian guy said about Git preparation
 	
 LATER ==========================
+	For HashMap and HashSet we don't assert missing elements from side effects
+
 	There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
 	
 	Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo

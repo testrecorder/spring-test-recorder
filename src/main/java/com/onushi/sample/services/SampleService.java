@@ -317,4 +317,18 @@ public class SampleService {
         personsHashMap.put(son, father);
         return 42;
     }
+
+    public Integer changeHashSet(Set<Person> hashSet) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth = simpleDateFormat.parse("1980-01-03");
+        Person person = Person.builder()
+                .firstName("FN")
+                .lastName("LN")
+                .dateOfBirth(dateOfBirth)
+                .build();
+
+        hashSet.add(person);
+
+        return 42;
+    }
 }
