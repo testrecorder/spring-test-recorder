@@ -62,9 +62,9 @@ public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGener
                         "\n" +
                         "        // Side Effects\n" +
                         "        assertEquals(4, arrayList1.size());\n" +
-                        "        assertEquals(1f, arrayList1.get(1));\n" +
-                        "        assertEquals(2f, arrayList1.get(2));\n" +
-                        "        assertEquals(3f, arrayList1.get(3));\n" +
+                        "        assertEquals(1.0f, arrayList1.get(1));\n" +
+                        "        assertEquals(2.0f, arrayList1.get(2));\n" +
+                        "        assertEquals(3.0f, arrayList1.get(3));\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
