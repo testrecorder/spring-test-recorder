@@ -44,8 +44,19 @@ public abstract class ObjectInfoFactory {
         }
     }
 
-
     protected void setVisiblePropertiesForUnknown(ObjectInfo objectInfo,
+                  ObjectInfoCreationContext context, ObjectInfoFactoryManager objectInfoFactoryManager,
+                  ClassInfoService classInfoService) {
+
+        setVisiblePropertiesForUnknownInternal(objectInfo, context, objectInfoFactoryManager, classInfoService);
+
+        if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
+            objectInfo.toRunAfterMethodRun = () ->
+                    setVisiblePropertiesForUnknownInternal(objectInfo, context, objectInfoFactoryManager, classInfoService);;
+        }
+    }
+
+    private void setVisiblePropertiesForUnknownInternal(ObjectInfo objectInfo,
                 ObjectInfoCreationContext context, ObjectInfoFactoryManager objectInfoFactoryManager,
                 ClassInfoService classInfoService) {
         List<Method> publicGetters = classInfoService.getPublicGetters(objectInfo.getObject().getClass());

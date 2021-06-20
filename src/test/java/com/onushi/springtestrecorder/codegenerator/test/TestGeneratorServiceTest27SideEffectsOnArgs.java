@@ -44,7 +44,6 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
-        // TODO IB !!!! 2 this test should also generate asserts for changed args
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package com.onushi.sample.services;\n" +
@@ -82,6 +81,11 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
                         "        // Act\n" +
                         "        sampleService.modifyEmployee(employee1);\n" +
                         "\n" +
+                        "\n" +
+                        "        // Side Effects\n" +
+                        "        assertEquals(2000.0, employee1.getSalaryParam1());\n" +
+                        "        assertEquals(4500.0, employee1.getSalaryParam2());\n" +
+                        "        assertEquals(\"IT New\", employee1.getDepartment().getName());\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +

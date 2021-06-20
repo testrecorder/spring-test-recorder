@@ -28,6 +28,7 @@ public class PropertyValue {
         if (this.string != null) {
             return this.string.equals(otherPropertyValue.getString());
         } else if (this.objectInfo != null) {
+            // TODO IB !!!! here check recursively for changes
             return this.objectInfo == otherPropertyValue.objectInfo;
         }
         return otherPropertyValue.string == null && otherPropertyValue.objectInfo == null;
