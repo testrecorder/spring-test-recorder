@@ -72,7 +72,7 @@ public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGener
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! make I should put all tests here to eliminate warnings and to make sure the generate code is ok
+    // TODO IB !!!! I should put all tests here to eliminate warnings and to make sure the generate code is ok
     @Test
     void changeArrayList() throws Exception {
         // Arrange
@@ -87,8 +87,8 @@ public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGener
 
         // Side Effects
         assertEquals(4, arrayList1.size());
-        assertEquals(1f, arrayList1.get(1));
-        assertEquals(2f, arrayList1.get(2));
-        assertEquals(3f, arrayList1.get(3));
+        assertEquals(1.0f, arrayList1.get(1));
+        assertEquals(2.0f, arrayList1.get(2));
+        assertEquals(3.0f, arrayList1.get(3));
     }
 }

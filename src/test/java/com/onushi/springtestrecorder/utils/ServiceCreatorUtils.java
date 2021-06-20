@@ -25,11 +25,7 @@ public class ServiceCreatorUtils {
                         new ClassInfoService(),
                         new TestObjectsInitGeneratorService(new StringService()),
                         new StringService()
-                ),
-                new TestSideEffectsGeneratorService(
-                        new ClassInfoService(),
-                        new TestObjectsInitGeneratorService(new StringService()),
-                        new StringService())
+                )
         );
     }
 

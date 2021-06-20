@@ -367,7 +367,13 @@ TODO ==========================
 			OK - How can I know if an object was changed from side effects? 
 				implement PropertyValue.isSameValue
 
-			implement and make the test run
+			OK - getAssertCode is 90% similar
+				actually should be the same function since result has only AfterMethodRunInfo so it should appear in asserts
+			
+			OK - implement and make the test run
+			
+		
+		Side effects on boxed
 		
 		create asserts when value change between snapshots
 
@@ -380,8 +386,10 @@ TODO ==========================
 
 			fill finalValue for all objects in the context
 
+		later: mark objects already processed
 
-
+	Sa fac configurare pt TestRecorder. On off. Can i modify while running?
+	
 
 	I should create objects as soon as possible
 		this applies to mocked params and returns
