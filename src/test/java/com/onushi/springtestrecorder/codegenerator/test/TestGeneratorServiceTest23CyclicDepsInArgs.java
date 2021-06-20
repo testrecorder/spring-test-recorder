@@ -92,7 +92,7 @@ public class TestGeneratorServiceTest23CyclicDepsInArgs extends TestGeneratorSer
         // TODO Solve initialisation for cyclic dependency in com.onushi.sample.model.CyclicParent
         CyclicChild cyclicChild1 = new CyclicChild();
         cyclicChild1.date = date1;
-        List<CyclicChild> singletonList1 = new ArrayList<>(Arrays.asList(cyclicChild1));
+        List<CyclicChild> singletonList1 = new ArrayList<>(Collections.singletonList(cyclicChild1));
 
         CyclicParent cyclicParent1 = new CyclicParent();
         cyclicParent1.childList = singletonList1;

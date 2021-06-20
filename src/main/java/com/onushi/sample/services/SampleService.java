@@ -4,24 +4,12 @@ import com.onushi.sample.model.*;
 import com.onushi.springtestrecorder.aspect.RecordTest;
 import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
 public class SampleService {
-    public int testField = 0;
-
-    public int getTestField() {
-        return testField;
-    }
-
-    public SampleService setTestField(int testField) {
-        this.testField = testField;
-        return this;
-    }
-
     public int add(int x, int y) {
         return addInternal(x, y);
     }
@@ -30,39 +18,12 @@ public class SampleService {
         return x + y;
     }
 
-    public int negate(int x) {
-        return -x;
-    }
-
-    public int returnZero() {
-        return 0;
-    }
-
     public PersonRepository returnNull() {
         return null;
     }
 
     public float addFloats(float x, float y) {
         return x + y;
-    }
-
-    public Integer addStrings(String a, String b) {
-        return Integer.parseInt(a) + Integer.parseInt(b);
-    }
-
-    public boolean logicalAnd(boolean a, boolean b) {
-        return a && b;
-    }
-
-    public String toYYYY_MM_DD_T_HH_MM_SS_Z(Date date, Date date1) {
-        TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        df.setTimeZone(tz);
-        return df.format(date);
-    }
-
-    public int testTypes(short s, byte b, int a, boolean b1, char c, double d) {
-        return 5;
     }
 
     public Date minDate(Date date1, Date date2) {
@@ -124,22 +85,6 @@ public class SampleService {
     public void processStudents(StudentWithDefaultInitFields student1, StudentWithBuilder student2) {
     }
 
-    public int demoFunction(List<Person> personList, OtherEmployee[] otherEmployeeArray) {
-        return 42;
-    }
-
-    public int doSomething(String a, String b) {
-        return 42;
-    }
-
-    public int testEnum(Color color) {
-        return 2;
-    }
-
-    public int testUUID(UUID uuid) {
-        return 2;
-    }
-
     public int processMap(Map<String, List<String>> map) {
         return 42;
     }
@@ -197,11 +142,6 @@ public class SampleService {
         return Arrays.asList(1, 2, 3);
     }
 
-    public Date createDate() throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.parse("1980-01-02");
-    }
-
     public int processCyclicObjects(CyclicParent cyclicParent) {
         return 42;
     }
@@ -238,10 +178,6 @@ public class SampleService {
         personSet.add(tom);
 
         return personSet;
-    }
-
-    public int processPersonsSet(Set<Person> persons) {
-        return 42;
     }
 
     public Map<Person, Person> createPersonHashMap() throws ParseException {

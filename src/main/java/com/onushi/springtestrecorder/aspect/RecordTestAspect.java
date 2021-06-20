@@ -29,7 +29,7 @@ public class RecordTestAspect {
     // TODO IB how can I make this AOP framework independent?
     @Around("@annotation(com.onushi.springtestrecorder.aspect.RecordTest)")
     public Object applyRecordTestForThis(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        TestGenerator testGenerator = null;
+        TestGenerator testGenerator;
         try {
             MethodInvocationProceedingJoinPoint methodInvocation = (MethodInvocationProceedingJoinPoint) proceedingJoinPoint;
             MethodSignature methodSignature = (MethodSignature) methodInvocation.getSignature();

@@ -15,7 +15,7 @@ INFO ==========================
 		What if the objects do not have public fields or getters?
 		I need just a visitor inserted in all args and all dependencies of args
 			will return objectState + name of params for all methods and constructors
-		Easy solution - adnotate each class that I want to get the state with an Annotation
+		Easy solution - annotate each class that I want to get the state with an Annotation
 	
 		We could do like Lombok does and inject some method to give us info about the dependencies
 		http://notatube.blogspot.com/2010/12/project-lombok-creating-custom.html
@@ -119,11 +119,11 @@ DONE ==========================
 
 	OK - The application being tested should not crash because of RecordTest
 
-	OK - Problems with the CGLIB proxyes
+	OK - Problems with the CGLIB proxies
 		When a component is injected in a component a proxy is generated
 
 	RecordMockForTest
-		OK - create the type annotation and itercept all public calls inside the type
+		OK - create the type annotation and intercept all public calls inside the type
 		
 		OK - Intercept all calls inside methods with RecordMockForTest
 			add them to RecordedMethodRunInfo.dependencyMethodRuns
@@ -295,14 +295,14 @@ DONE ==========================
 		OK - Split RecordedMethodRunInfo in 2
 			BeforeMethodRunInfo
 			AfterMethodRunInfo
-			Unshelf "implement the new way of creating TestGenerator in the 2 aspects"
+			Unshelve "implement the new way of creating TestGenerator in the 2 aspects"
 			
 		OK - 	Bug. If I modify the params, the test will have them already modified
 			It's ok to construct init objects from current value since 
-				before objects are used in arange
+				before objects are used in arrange
 				after objects are used after
-				if there are some common ones, they are inited before so it's ok
-				keep a bool about when an object is inited
+				if there are some common ones, they are initialised before so it's ok
+				keep a bool about when an object is initialised
 				also when an object cannot be created, create it's dependencies and add a TODO that the object should be created 
 		
 			Refactor plan
@@ -389,10 +389,10 @@ DONE ==========================
 
 		OK - add all generated tests near generation code
 
+		OK - clean some warnings
+
 TODO ==========================
 	
-	clean warnings
-
 
 	SIDE EFFECTS
 		Check side effects on dependencies of args
@@ -414,7 +414,7 @@ TODO ==========================
 
 
 
-	Sa fac configurare pt TestRecorder. On off. Can i modify while running?
+	Create configuration for TestRecorder. On off. Can i modify while running?
 	
 
 	I should create objects as soon as possible
