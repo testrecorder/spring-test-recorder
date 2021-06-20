@@ -5,6 +5,7 @@ import com.onushi.springtestrecorder.analyzer.object.ObjectCreationAnalyzerServi
 import com.onushi.springtestrecorder.analyzer.object.ObjectStateReaderService;
 import com.onushi.springtestrecorder.codegenerator.object.CglibService;
 import com.onushi.springtestrecorder.codegenerator.object.ObjectInfoFactoryManager;
+import com.onushi.springtestrecorder.codegenerator.object.ObjectInfoService;
 import com.onushi.springtestrecorder.codegenerator.template.StringService;
 import com.onushi.springtestrecorder.codegenerator.test.*;
 
@@ -24,7 +25,8 @@ public class ServiceCreatorUtils {
                 new TestAssertGeneratorService(
                         new ClassInfoService(),
                         new TestObjectsInitGeneratorService(new StringService()),
-                        new StringService()
+                        new StringService(),
+                        new ObjectInfoService()
                 )
         );
     }

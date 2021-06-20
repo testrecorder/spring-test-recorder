@@ -4,10 +4,7 @@ import com.onushi.springtestrecorder.analyzer.classInfo.ClassInfoService;
 import com.onushi.springtestrecorder.codegenerator.codetree.CodeBlock;
 import com.onushi.springtestrecorder.codegenerator.codetree.CodeNode;
 import com.onushi.springtestrecorder.codegenerator.codetree.CodeStatement;
-import com.onushi.springtestrecorder.codegenerator.object.ObjectInfo;
-import com.onushi.springtestrecorder.codegenerator.object.PropertyValue;
-import com.onushi.springtestrecorder.codegenerator.object.VisibleProperty;
-import com.onushi.springtestrecorder.codegenerator.object.VisiblePropertySnapshot;
+import com.onushi.springtestrecorder.codegenerator.object.*;
 import com.onushi.springtestrecorder.codegenerator.template.StringGenerator;
 import com.onushi.springtestrecorder.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
@@ -21,13 +18,16 @@ public class TestAssertGeneratorService {
     private final ClassInfoService classInfoService;
     private final TestObjectsInitGeneratorService testObjectsInitGeneratorService;
     private final StringService stringService;
+    private final ObjectInfoService objectInfoService;
 
     public TestAssertGeneratorService(ClassInfoService classInfoService,
                                       TestObjectsInitGeneratorService testObjectsInitGeneratorService,
-                                      StringService stringService) {
+                                      StringService stringService,
+                                      ObjectInfoService objectInfoService) {
         this.classInfoService = classInfoService;
         this.testObjectsInitGeneratorService = testObjectsInitGeneratorService;
         this.stringService = stringService;
+        this.objectInfoService = objectInfoService;
     }
 
     public String getResultAssertCode(TestGenerator testGenerator) {
@@ -111,7 +111,7 @@ public class TestAssertGeneratorService {
 
     private boolean isSideEffectDetected(VisibleProperty visibleProperty, VisiblePropertySnapshot firstSnapshot, VisiblePropertySnapshot lastSnapshot) {
         if (visibleProperty.getSnapshots().values().size() > 1) {
-            return !firstSnapshot.getValue().isSameValue(lastSnapshot.getValue());
+            return !objectInfoService.isSameValue(firstSnapshot.getValue(), lastSnapshot.getValue());
         } else {
             return visibleProperty.hasAfterMethodRunSnapshot();
         }

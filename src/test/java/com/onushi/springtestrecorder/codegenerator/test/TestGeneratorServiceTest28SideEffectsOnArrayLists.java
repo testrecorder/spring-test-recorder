@@ -73,7 +73,6 @@ public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGener
                 StringUtils.prepareForCompare(testString));
     }
 
-    // TODO IB !!!! I should put all tests here to eliminate warnings and to make sure the generate code is ok
     @Test
     void changeArrayList() {
         // Arrange
