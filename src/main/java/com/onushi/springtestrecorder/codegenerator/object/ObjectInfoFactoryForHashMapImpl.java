@@ -1,6 +1,7 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
 import com.onushi.springtestrecorder.codegenerator.template.StringGenerator;
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,22 +21,13 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
             @SuppressWarnings("unchecked")
             HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
 
-            List<Object> keys = hashMap.keySet()
-                    .stream()
-                    .sorted(Comparator.comparing(k -> {
-                        if (k == null) {
-                            return "";
-                        } else {
-                            return k.toString();
-                        }
-                    }))
-                    .collect(Collectors.toList());
-            List<Object> values = new ArrayList<>(hashMap.values());
+            List<Object> keys = getKeysList(hashMap);
 
             List<ObjectInfo> keyElements = keys.stream()
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                     .collect(Collectors.toList());
 
+            List<Object> values = new ArrayList<>(hashMap.values());
             List<ObjectInfo> valueElements = values.stream()
                     .distinct()
                     .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
@@ -79,27 +71,56 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .addAttribute("elementsInlineCode", elementsInlineCode)
                     .generate();
 
-            addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
-                    VisiblePropertySnapshot.builder()
-                            .value(PropertyValue.fromString(String.valueOf(keyElements.size())))
-                            .build());
+            takeSnapshot(objectInfo, context);
 
-            for (ObjectInfo element : keyElements) {
-                String key = new StringGenerator()
-                        .setTemplate(".get({{inline}})")
-                        .addAttribute("inline", element.getInlineCode())
-                        .generate();
-                ObjectInfo valueElement = objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), hashMap.get(element.getObject()));
-                addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
-                        VisiblePropertySnapshot.builder()
-                                .value(PropertyValue.fromObjectInfo(valueElement))
-                                .otherDependencies(Collections.singletonList(element))
-                                .build());
+            if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
+                objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);
             }
 
             return objectInfo;
         } else {
             return null;
+        }
+    }
+
+    private List<Object> getKeysList(HashMap<Object, Object> hashMap) {
+        return hashMap.keySet()
+                .stream()
+                .sorted(Comparator.comparing(k -> {
+                    if (k == null) {
+                        return "";
+                    } else {
+                        return k.toString();
+                    }
+                }))
+                .collect(Collectors.toList());
+    }
+
+    private void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
+        @SuppressWarnings("unchecked")
+        HashMap<Object, Object> hashMap = (HashMap<Object, Object>)context.getObject();
+        List<Object> keys = getKeysList(hashMap);
+
+        List<ObjectInfo> keyElements = keys.stream()
+                .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
+                .collect(Collectors.toList());
+
+        addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                VisiblePropertySnapshot.builder()
+                        .value(PropertyValue.fromString(String.valueOf(keyElements.size())))
+                        .build());
+
+        for (ObjectInfo element : keyElements) {
+            String key = new StringGenerator()
+                    .setTemplate(".get({{inline}})")
+                    .addAttribute("inline", element.getInlineCode())
+                    .generate();
+            ObjectInfo valueElement = objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), hashMap.get(element.getObject()));
+            addVisiblePropertySnapshot(objectInfo, key, context.getTestGenerator().getCurrentTestRecordingPhase(),
+                    VisiblePropertySnapshot.builder()
+                            .value(PropertyValue.fromObjectInfo(valueElement))
+                            .otherDependencies(Collections.singletonList(element))
+                            .build());
         }
     }
 }

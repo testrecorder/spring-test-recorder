@@ -70,7 +70,6 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
                 .map(element -> objectInfoFactoryManager.getCommonObjectInfo(context.getTestGenerator(), element))
                 .collect(Collectors.toList());
 
-
         addVisiblePropertySnapshot(objectInfo, ".size()", context.getTestGenerator().getCurrentTestRecordingPhase(),
                 VisiblePropertySnapshot.builder()
                         .value(PropertyValue.fromString(String.valueOf(elements.size())))

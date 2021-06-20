@@ -385,7 +385,7 @@ TODO ==========================
 
 		OK - ObjectInfoFactoryForArrayImpl
 		
-		ObjectInfoFactoryForHashMapImpl
+		OK - ObjectInfoFactoryForHashMapImpl
 		
 		ObjectInfoFactoryForHashSetImpl
 		

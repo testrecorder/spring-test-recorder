@@ -295,4 +295,26 @@ public class SampleService {
         array[0] = 'b';
         return 42;
     }
+
+    public Integer changeHashMap(Map<Person, Person> personsHashMap) throws ParseException {
+        personsHashMap.clear();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth1 = simpleDateFormat.parse("1970-01-02");
+        Date dateOfBirth2 = simpleDateFormat.parse("1970-01-02");
+        Person son = Person.builder()
+                .firstName("FN")
+                .lastName("LN")
+                .dateOfBirth(dateOfBirth1)
+                .build();
+
+        Person father = Person.builder()
+                .firstName("FN1'")
+                .lastName("LN1")
+                .dateOfBirth(dateOfBirth2)
+                .build();
+
+        personsHashMap.put(son, father);
+        return 42;
+    }
 }
