@@ -389,7 +389,7 @@ DONE ==========================
 
 		OK - add all generated tests near generation code
 
-		OK - clean some warnings
+		OK - fix warnings
 
 TODO ==========================
 	
@@ -406,7 +406,6 @@ TODO ==========================
 		
 		
 		Write tests for different cases of objects reuse, side effects etc
-
 		
 		later: mark objects already processed
 		
