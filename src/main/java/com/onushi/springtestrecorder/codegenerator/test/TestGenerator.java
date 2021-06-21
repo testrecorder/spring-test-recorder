@@ -9,7 +9,7 @@ import java.util.*;
 @Getter
 public class TestGenerator {
     protected long threadId;
-    protected TestRecordingPhase currentTestRecordingPhase = TestRecordingPhase.UNKNOWN;
+    protected TestRecordingPhase currentTestRecordingPhase = TestRecordingPhase.BEFORE_METHOD_RUN;
     protected ObjectInfo targetObjectInfo;
     // TODO IB these 2 should be in targetObjectInfo
     protected String packageName;

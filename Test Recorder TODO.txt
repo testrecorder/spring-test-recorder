@@ -392,7 +392,48 @@ DONE ==========================
 		OK - fix warnings
 
 TODO ==========================
+	ObjectInfoService
+		Prerequisites
+			all objectInfo.VisibleProperties should have AFTER_METHOD_RUN snapshot
+		
+		objectInfoChangedDeep(ObjectInfo objectInfo, first, ObjectInfo objectInfo, last) 
+		I need to know if an ObjectInfo changed it's state between first snapshot and AFTER_METHOD_RUN
+			foreach VisibleProperties
+				If >=2 Snapshots
+					If String
+						if strings different
+							return false;
+					If ObjectInfo
+						if same reference 
+							ok, do nothing
+						if diff reference
+							compare firstSnapshot of objectInfo1 with lastSnapshot of object2
+				Else
+					if string
+						did not change
+					if ObjectInfo
+						call objectInfoChangedDeep
+						
+						
+		visiblePropertyChangedDeep(VisibleProperty visibleProperty, first, VisibleProperty visibleProperty, last)
+						
+
+
+		isSameValueDeep - compare snapshot.values
+			
+		objectInfoChangedDeep(ObjectInfo) objectInfo)
 	
+		visiblePropertyChangedDeep(VisibleProperty visibleProperty)
+	
+		isSameValueDeep(PropertyValue otherPropertyValue1, PropertyValue otherPropertyValue2)
+			call objectInfoChangedDeep
+	
+		isSameObjectInfoConsideringAfterMethodRunSnapshotDeep(ObjectInfo objectInfo1, ObjectInfo objectInfo2)
+
+		isSameValueConsideringAfterMethodRunSnapshotDeep(PropertyValue otherPropertyValue1, PropertyValue otherPropertyValue2)
+		
+		
+
 
 	SIDE EFFECTS
 		Check side effects on dependencies of args

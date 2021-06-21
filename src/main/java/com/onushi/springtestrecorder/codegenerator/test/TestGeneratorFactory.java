@@ -23,7 +23,6 @@ public class TestGeneratorFactory {
 
     public TestGenerator createTestGenerator(BeforeMethodRunInfo beforeMethodRunInfo) {
         TestGenerator testGenerator = new TestGenerator();
-        testGenerator.currentTestRecordingPhase = TestRecordingPhase.BEFORE_METHOD_RUN;
         testGenerator.threadId = Thread.currentThread().getId();
 
         if (beforeMethodRunInfo.getArguments() == null) {
