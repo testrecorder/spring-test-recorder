@@ -30,26 +30,24 @@ public class TestGeneratorServiceTest15TargetWithDependencies extends TestGenera
                 .arguments(Collections.singletonList(2))
                 .build());
 
+        Person person = Person.builder()
+                .dateOfBirth(date1)
+                .firstName("Bruce")
+                .lastName("Lee")
+                .build();
+
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
         DependencyMethodRunInfo dependencyMethodRunInfo = DependencyMethodRunInfo.builder()
                 .threadId(Thread.currentThread().getId())
                 .target(personRepositoryImpl)
                 .methodName("getPersonFromDB")
                 .arguments(Collections.singletonList(2))
-                .result(Person.builder()
-                        .dateOfBirth(date1)
-                        .firstName("Bruce")
-                        .lastName("Lee")
-                        .build())
+                .result(person)
                 .build();
         testGeneratorFactory.addDependencyMethodRun(testGenerator, dependencyMethodRunInfo);
 
         testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
-                .result(Person.builder()
-                        .dateOfBirth(date1)
-                        .firstName("Bruce")
-                        .lastName("Lee")
-                        .build())
+                .result(person)
                 .build());
 
         // Act

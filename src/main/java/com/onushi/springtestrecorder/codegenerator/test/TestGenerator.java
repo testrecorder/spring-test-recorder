@@ -24,7 +24,8 @@ public class TestGenerator {
 
     protected final List<DependencyMethodRunInfo> dependencyMethodRuns = Collections.synchronizedList(new ArrayList<>());
 
-    protected final Map<Object, ObjectInfo> objectInfoCache = new LinkedHashMap<>();
+    // TODO IB !!!! here it was LinkedHashMap
+    protected final Map<Object, ObjectInfo> objectInfoCache = new IdentityHashMap<>();
     protected final Map<String, Integer> lastIndexForObjectName = new HashMap<>();
     protected final Set<Object> objectsPendingInit = new HashSet<>();
 

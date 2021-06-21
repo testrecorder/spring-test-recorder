@@ -57,36 +57,37 @@ public class TestGeneratorServiceTest31SideEffectsOnHashMaps extends TestGenerat
                         "        // Arrange\n" +
                         "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
                         "\n" +
-                        "        Date date1 = simpleDateFormat.parse(\"1970-01-02 00:00:00.000\");\n" +
+                        "        Date date1 = simpleDateFormat.parse(\"1970-01-01 00:00:00.000\");\n" +
                         "        Person person1 = Person.builder()\n" +
                         "            .dateOfBirth(date1)\n" +
                         "            .firstName(\"Marco\")\n" +
                         "            .lastName(\"Polo\")\n" +
                         "            .build();\n" +
                         "\n" +
+                        "        Date date2 = simpleDateFormat.parse(\"1971-01-01 00:00:00.000\");\n" +
                         "        Person person2 = Person.builder()\n" +
-                        "            .dateOfBirth(date1)\n" +
+                        "            .dateOfBirth(date2)\n" +
                         "            .firstName(\"Tom\")\n" +
                         "            .lastName(\"Richardson\")\n" +
                         "            .build();\n" +
                         "\n" +
-                        "        Date date2 = simpleDateFormat.parse(\"1920-02-04 00:00:00.000\");\n" +
+                        "        Date date3 = simpleDateFormat.parse(\"1920-01-01 00:00:00.000\");\n" +
                         "        Person person3 = Person.builder()\n" +
-                        "            .dateOfBirth(date2)\n" +
-                        "            .firstName(\"Tom's\")\n" +
-                        "            .lastName(\"Father\")\n" +
-                        "            .build();\n" +
-                        "\n" +
-                        "        Date date3 = simpleDateFormat.parse(\"1920-02-03 00:00:00.000\");\n" +
-                        "        Person person4 = Person.builder()\n" +
                         "            .dateOfBirth(date3)\n" +
                         "            .firstName(\"Marco'\")\n" +
                         "            .lastName(\"Father\")\n" +
                         "            .build();\n" +
                         "\n" +
+                        "        Date date4 = simpleDateFormat.parse(\"1921-01-01 00:00:00.000\");\n" +
+                        "        Person person4 = Person.builder()\n" +
+                        "            .dateOfBirth(date4)\n" +
+                        "            .firstName(\"Tom's\")\n" +
+                        "            .lastName(\"Father\")\n" +
+                        "            .build();\n" +
+                        "\n" +
                         "        Map<Person, Person> hashMap1 = new HashMap<>();\n" +
-                        "        hashMap1.put(person1, person4);\n" +
-                        "        hashMap1.put(person2, person3);\n" +
+                        "        hashMap1.put(person1, person3);\n" +
+                        "        hashMap1.put(person2, person4);\n" +
                         "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
@@ -97,15 +98,16 @@ public class TestGeneratorServiceTest31SideEffectsOnHashMaps extends TestGenerat
                         "        assertEquals(42, result);\n" +
                         "\n" +
                         "        // Side Effects\n" +
+                        "        Date date5 = simpleDateFormat.parse(\"1970-02-02 00:00:00.000\");\n" +
                         "        Person person5 = Person.builder()\n" +
-                        "            .dateOfBirth(date1)\n" +
+                        "            .dateOfBirth(date5)\n" +
                         "            .firstName(\"FN\")\n" +
                         "            .lastName(\"LN\")\n" +
                         "            .build();\n" +
                         "\n" +
                         "        assertEquals(1, hashMap1.size());\n" +
                         "\n" +
-                        "        assertEquals(date1, hashMap1.get(person5).getDateOfBirth());\n" +
+                        "        assertEquals(simpleDateFormat.parse(\"1970-03-03 00:00:00.000\"), hashMap1.get(person5).getDateOfBirth());\n" +
                         "        assertEquals(\"FN1'\", hashMap1.get(person5).getFirstName());\n" +
                         "        assertEquals(\"LN1\", hashMap1.get(person5).getLastName());\n" +
                         "    }\n" +
@@ -120,36 +122,37 @@ public class TestGeneratorServiceTest31SideEffectsOnHashMaps extends TestGenerat
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-        Date date1 = simpleDateFormat.parse("1970-01-02 00:00:00.000");
+        Date date1 = simpleDateFormat.parse("1970-01-01 00:00:00.000");
         Person person1 = Person.builder()
                 .dateOfBirth(date1)
                 .firstName("Marco")
                 .lastName("Polo")
                 .build();
 
+        Date date2 = simpleDateFormat.parse("1971-01-01 00:00:00.000");
         Person person2 = Person.builder()
-                .dateOfBirth(date1)
+                .dateOfBirth(date2)
                 .firstName("Tom")
                 .lastName("Richardson")
                 .build();
 
-        Date date2 = simpleDateFormat.parse("1920-02-04 00:00:00.000");
+        Date date3 = simpleDateFormat.parse("1920-01-01 00:00:00.000");
         Person person3 = Person.builder()
-                .dateOfBirth(date2)
-                .firstName("Tom's")
-                .lastName("Father")
-                .build();
-
-        Date date3 = simpleDateFormat.parse("1920-02-03 00:00:00.000");
-        Person person4 = Person.builder()
                 .dateOfBirth(date3)
                 .firstName("Marco'")
                 .lastName("Father")
                 .build();
 
+        Date date4 = simpleDateFormat.parse("1921-01-01 00:00:00.000");
+        Person person4 = Person.builder()
+                .dateOfBirth(date4)
+                .firstName("Tom's")
+                .lastName("Father")
+                .build();
+
         Map<Person, Person> hashMap1 = new HashMap<>();
-        hashMap1.put(person1, person4);
-        hashMap1.put(person2, person3);
+        hashMap1.put(person1, person3);
+        hashMap1.put(person2, person4);
 
         SampleService sampleService = new SampleService();
 
@@ -160,15 +163,16 @@ public class TestGeneratorServiceTest31SideEffectsOnHashMaps extends TestGenerat
         assertEquals(42, result);
 
         // Side Effects
+        Date date5 = simpleDateFormat.parse("1970-02-02 00:00:00.000");
         Person person5 = Person.builder()
-                .dateOfBirth(date1)
+                .dateOfBirth(date5)
                 .firstName("FN")
                 .lastName("LN")
                 .build();
 
         assertEquals(1, hashMap1.size());
 
-        assertEquals(date1, hashMap1.get(person5).getDateOfBirth());
+        assertEquals(simpleDateFormat.parse("1970-03-03 00:00:00.000"), hashMap1.get(person5).getDateOfBirth());
         assertEquals("FN1'", hashMap1.get(person5).getFirstName());
         assertEquals("LN1", hashMap1.get(person5).getLastName());
     }

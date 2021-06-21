@@ -18,7 +18,8 @@ public class ObjectInfoService {
             return otherPropertyValue2.getString().equals(otherPropertyValue1.getString());
         } else if (otherPropertyValue2.getObjectInfo() != null) {
             // TODO IB !!!! test if an ObjectInfo has some changes
-            return otherPropertyValue2.getObjectInfo() == otherPropertyValue1.getObjectInfo();
+            // return otherPropertyValue2.getObjectInfo() == otherPropertyValue1.getObjectInfo();
+            return true;
         }
         return otherPropertyValue1.getString() == null && otherPropertyValue1.getObjectInfo() == null;
     }

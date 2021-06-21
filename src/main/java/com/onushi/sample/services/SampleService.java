@@ -183,10 +183,10 @@ public class SampleService {
 
     public Map<Person, Person> createPersonHashMap() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth1 = simpleDateFormat.parse("1970-01-02");
-        Date dateOfBirth2 = simpleDateFormat.parse("1970-01-02");
-        Date dateOfBirth3 = simpleDateFormat.parse("1920-02-03");
-        Date dateOfBirth4 = simpleDateFormat.parse("1920-02-04");
+        Date dateOfBirth1 = simpleDateFormat.parse("1970-01-01");
+        Date dateOfBirth2 = simpleDateFormat.parse("1971-01-01");
+        Date dateOfBirth3 = simpleDateFormat.parse("1920-01-01");
+        Date dateOfBirth4 = simpleDateFormat.parse("1921-01-01");
         Person marco = Person.builder()
                 .firstName("Marco")
                 .lastName("Polo")
@@ -237,8 +237,8 @@ public class SampleService {
         personsHashMap.clear();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth1 = simpleDateFormat.parse("1970-01-02");
-        Date dateOfBirth2 = simpleDateFormat.parse("1970-01-02");
+        Date dateOfBirth1 = simpleDateFormat.parse("1970-02-02");
+        Date dateOfBirth2 = simpleDateFormat.parse("1970-03-03");
         Person son = Person.builder()
                 .firstName("FN")
                 .lastName("LN")
