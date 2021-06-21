@@ -15,7 +15,6 @@ public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
         String fullClassName = context.getObject().getClass().getName();
         ObjectInfo objectInfo = getObjectInfo(context, fullClassName);
         if (objectInfo != null) {
-            // TODO IB !!!! Test
             takeSnapshot(objectInfo, context);
             if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
                 objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);

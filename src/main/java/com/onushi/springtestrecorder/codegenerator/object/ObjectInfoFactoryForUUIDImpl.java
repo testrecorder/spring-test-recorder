@@ -32,7 +32,6 @@ public class ObjectInfoFactoryForUUIDImpl extends ObjectInfoFactory {
         return null;
     }
 
-    // TODO IB !!!! test
     private void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
         String value = new StringGenerator()
                 .setTemplate("UUID.fromString(\"{{uuid}}\")")
