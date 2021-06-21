@@ -74,8 +74,7 @@ public class TestAssertGeneratorService {
                 VisibleProperty visibleProperty = entry.getValue();
                 VisiblePropertySnapshot firstSnapshot = visibleProperty.getFirstSnapshot();
                 VisiblePropertySnapshot lastSnapshot = visibleProperty.getLastSnapshot();
-                // TODO IB !!!! rename to lastValue
-                PropertyValue finalValue = lastSnapshot.getValue();
+                PropertyValue lastValue = lastSnapshot.getValue();
                 String composedPath = assertPath + entry.getKey();
 
                 if (onlySideEffects) {
@@ -99,18 +98,18 @@ public class TestAssertGeneratorService {
                             testObjectsInitGeneratorService.getObjectsInit(visibleProperty.getLastSnapshot().getOtherDependencies()).getCode());
                 }
 
-                if (finalValue.getString() != null && (finalValue.getString().equals("null") ||
-                        finalValue.getString().equals("true") ||
-                        finalValue.getString().equals("false"))) {
-                    result.addChild(getSpecificAssert(composedPath, objectsInit, finalValue.getString()));
+                if (lastValue.getString() != null && (lastValue.getString().equals("null") ||
+                        lastValue.getString().equals("true") ||
+                        lastValue.getString().equals("false"))) {
+                    result.addChild(getSpecificAssert(composedPath, objectsInit, lastValue.getString()));
                 } else {
-                    if (finalValue.getObjectInfo() != null) {
+                    if (lastValue.getObjectInfo() != null) {
                         if (objectsInit != null) {
                             result.addPrerequisite(objectsInit);
                         }
                         // if we detect side effects for an object, assert it's children fully
-                        result.addChild(getAssertCode(finalValue.getObjectInfo(), composedPath, false));
-                    } else if (finalValue.getString() != null) {
+                        result.addChild(getAssertCode(lastValue.getObjectInfo(), composedPath, false));
+                    } else if (lastValue.getString() != null) {
                         result.addChild(getAssertEqualsForString(visibleProperty, composedPath, objectsInit));
                     }
                 }
