@@ -16,7 +16,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ObjectInfoService2_ObjectWithString {
+public class ObjectInfoService3_ObjectWithString {
     private ObjectInfoService objectInfoService;
     private ObjectInfo objectInfo;
 
