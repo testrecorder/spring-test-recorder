@@ -392,85 +392,25 @@ DONE ==========================
 		OK - fix warnings
 		
 	2021-06-21
+		OK - Detect deep changes in objects
 		
+		OK - Write tests for this
 
 TODO ==========================
-	ObjectInfoService
-		Prerequisites
-			all objectInfo.VisibleProperties should have AFTER_METHOD_RUN snapshot
-				actually no, since some properties disapear, like arrayList.get(5) if the arrayList is shorter
-				
-		Create gradual tests
-			Simple objects
-				null
-				
-				strings
-					test with Date
-					
-			Complex objects, 1 step deep
-		
-		objectInfoChangedDeep(ObjectInfo objectInfo, first, ObjectInfo objectInfo, last) 
-		I need to know if an ObjectInfo changed it's state between first snapshot and AFTER_METHOD_RUN
-			foreach VisibleProperties
-				If >=2 Snapshots
-					If String
-						if strings different
-							return false;
-					If ObjectInfo
-						if same reference 
-							ok, do nothing
-						if diff reference
-							compare firstSnapshot of objectInfo1 with lastSnapshot of object2
-				Else
-					if string
-						did not change
-					if ObjectInfo
-						call objectInfoChangedDeep
-						
-				
-		test takeSnapshot for
-			null, UUID, Enum, Primitives
-			
-				
-		visiblePropertyChangedDeep(VisibleProperty visibleProperty, first, VisibleProperty visibleProperty, last)
-
-		isSameValueDeep - compare snapshot.values
-			
-		objectInfoChangedDeep(ObjectInfo) objectInfo)
-	
-		visiblePropertyChangedDeep(VisibleProperty visibleProperty)
-	
-		isSameValueDeep(PropertyValue otherPropertyValue1, PropertyValue otherPropertyValue2)
-			call objectInfoChangedDeep
-	
-		isSameObjectInfoConsideringAfterMethodRunSnapshotDeep(ObjectInfo objectInfo1, ObjectInfo objectInfo2)
-
-		isSameValueConsideringAfterMethodRunSnapshotDeep(PropertyValue otherPropertyValue1, PropertyValue otherPropertyValue2)
-		
-		
-
-
 	SIDE EFFECTS
-		Check side effects on dependencies of args
-
-	
 		ObjectInfoFactoryForPrimitiveImpl
 		ObjectInfoFactoryForEnumImpl
 			primitives with side effects cannot be inline
 			same for all inline objects with side effects
 			Side effects on boxed
 		
-		
 		Write tests for different cases of objects reuse, side effects etc
 		
-		later: mark objects already processed
+		later: mark objects already processed when detecting side effects
 		
-		add all generated test together with the test of generation
-
 
 
 	Create configuration for TestRecorder. On off. Can i modify while running?
-	
 
 	I should create objects as soon as possible
 		this applies to mocked params and returns
