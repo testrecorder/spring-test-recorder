@@ -125,4 +125,61 @@ class ObjectInfoService4_ComplexObject {
         assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.FIRST_SNAPSHOT, objectInfo, TestRecordingMoment.LAST_SNAPSHOT));
         assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.LAST_SNAPSHOT, objectInfo, TestRecordingMoment.FIRST_SNAPSHOT));
     }
+
+    @Test
+    void testChildObjectFieldChangedToNull() {
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("someFakeMethod")
+                .arguments(Collections.singletonList(employee))
+                .build());
+
+        employee.getDepartment().setName(null);
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
+                .build());
+
+        ObjectInfo objectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator, employee);
+        assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.FIRST_SNAPSHOT, objectInfo, TestRecordingMoment.LAST_SNAPSHOT));
+        assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.LAST_SNAPSHOT, objectInfo, TestRecordingMoment.FIRST_SNAPSHOT));
+    }
+
+    @Test
+    void testChildObjectFieldChangedToNull2() {
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("someFakeMethod")
+                .arguments(Collections.singletonList(employee))
+                .build());
+
+        employee.setDepartment(Department.builder()
+                .id(101)
+                .name(null)
+                .build());
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
+                .build());
+
+        ObjectInfo objectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator, employee);
+        assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.FIRST_SNAPSHOT, objectInfo, TestRecordingMoment.LAST_SNAPSHOT));
+        assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.LAST_SNAPSHOT, objectInfo, TestRecordingMoment.FIRST_SNAPSHOT));
+    }
+
+    @Test
+    void testChildObjectToNull() {
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+                .target(new SampleService())
+                .methodName("someFakeMethod")
+                .arguments(Collections.singletonList(employee))
+                .build());
+
+        employee.setDepartment(null);
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
+                .build());
+
+        ObjectInfo objectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator, employee);
+        assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.FIRST_SNAPSHOT, objectInfo, TestRecordingMoment.LAST_SNAPSHOT));
+        assertFalse(objectInfoService.objectInfoEquivalent(objectInfo, TestRecordingMoment.LAST_SNAPSHOT, objectInfo, TestRecordingMoment.FIRST_SNAPSHOT));
+    }
 }

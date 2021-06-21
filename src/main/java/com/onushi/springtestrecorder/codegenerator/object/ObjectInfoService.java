@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 // TODO IB !!!! use @NotNull in other places too
 // TODO IB !!!! test cyclic
-// TODO IB !!!! make sure to have 100% coverage here
 @Service
 public class ObjectInfoService {
     public boolean objectInfoEquivalent(ObjectInfo objectInfo1, @NonNull TestRecordingMoment testRecordingMoment1,
