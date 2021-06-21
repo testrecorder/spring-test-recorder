@@ -426,7 +426,11 @@ TODO ==========================
 					if ObjectInfo
 						call objectInfoChangedDeep
 						
-						
+				
+		test takeSnapshot for
+			null, UUID, Enum, Primitives
+			
+				
 		visiblePropertyChangedDeep(VisibleProperty visibleProperty, first, VisibleProperty visibleProperty, last)
 						
 

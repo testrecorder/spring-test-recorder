@@ -1,6 +1,7 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
 import com.onushi.springtestrecorder.codegenerator.template.StringService;
+import com.onushi.springtestrecorder.codegenerator.test.TestRecordingPhase;
 
 public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
     private final StringService stringService;
@@ -14,14 +15,22 @@ public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
         String fullClassName = context.getObject().getClass().getName();
         ObjectInfo objectInfo = getObjectInfo(context, fullClassName);
         if (objectInfo != null) {
-            // TODO IB !!!! these do not need takeSnapshot?
-            addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
-                    VisiblePropertySnapshot.builder()
-                            .value(PropertyValue.fromString(objectInfo.inlineCode))
-                            .build());
+            // TODO IB !!!! Test
+            takeSnapshot(objectInfo, context);
+            if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
+                objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);
+            }
+
             return objectInfo;
         }
         return null;
+    }
+
+    private void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
+        addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
+                VisiblePropertySnapshot.builder()
+                        .value(PropertyValue.fromString(objectInfo.inlineCode))
+                        .build());
     }
 
     private ObjectInfo getObjectInfo(ObjectInfoCreationContext context, String fullClassName) {

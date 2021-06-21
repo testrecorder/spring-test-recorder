@@ -18,6 +18,7 @@ public class ObjectInfoFactoryForNullImpl extends ObjectInfoFactory {
         return null;
     }
 
+    // TODO IB !!!! test
     private void takeSnapshot(ObjectInfo objectInfo, ObjectInfoCreationContext context) {
         addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
                 VisiblePropertySnapshot.builder()

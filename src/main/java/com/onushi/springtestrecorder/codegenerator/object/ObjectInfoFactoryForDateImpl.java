@@ -26,7 +26,6 @@ public class ObjectInfoFactoryForDateImpl extends ObjectInfoFactory {
             objectInfo.initCode = String.format("Date %s = simpleDateFormat.parse(\"%s\");\n", context.getObjectName(), dateStr);
 
             takeSnapshot(objectInfo, context);
-
             if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
                 objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);
             }
