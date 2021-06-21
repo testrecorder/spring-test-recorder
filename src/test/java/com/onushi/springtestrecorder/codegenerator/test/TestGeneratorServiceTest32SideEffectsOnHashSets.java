@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestGeneratorServiceTest32SideEffectsOnHashSets extends TestGeneratorServiceTest {
-    // TODO IB !!!! activate @Test
+    @Test
     void generateTestWithSideEffectsOnHashSets() throws ParseException {
         // Arrange
         SampleService sampleService = new SampleService();
@@ -142,5 +142,4 @@ public class TestGeneratorServiceTest32SideEffectsOnHashSets extends TestGenerat
 
         assertTrue(hashSet1.contains(person3));
     }
-
 }

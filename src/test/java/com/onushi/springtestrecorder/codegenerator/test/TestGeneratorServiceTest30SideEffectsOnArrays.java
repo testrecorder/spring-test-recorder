@@ -11,7 +11,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest30SideEffectsOnArrays extends TestGeneratorServiceTest {
-    // TODO IB !!!! activate @Test
+    @Test
     void generateTestWithSideEffectsOnArrays() {
         // Arrange
         char[] array = {'a', 'z'};

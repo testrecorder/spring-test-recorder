@@ -13,7 +13,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorServiceTest {
-    // TODO IB !!!! activate @Test
+    @Test
     void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() {
         Employee employee = Employee.builder()
                 .id(1)
@@ -83,9 +83,10 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
                         "\n" +
                         "\n" +
                         "        // Side Effects\n" +
+                        "        assertEquals(100, employee1.getDepartment().getId());\n" +
+                        "        assertEquals(\"IT New\", employee1.getDepartment().getName());\n" +
                         "        assertEquals(2000.0, employee1.getSalaryParam1());\n" +
                         "        assertEquals(4500.0, employee1.getSalaryParam2());\n" +
-                        // TODO IB !!!! "        assertEquals(\"IT New\", employee1.getDepartment().getName());\n" +
                         "    }\n" +
                         "}\n" +
                         "\n" +
@@ -95,7 +96,7 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
     }
 
     @Test
-    void modifyEmployee() {
+    void modifyEmployee() throws Exception {
         // Arrange
         Department department1 = Department.builder()
                 .id(100)
@@ -121,6 +122,8 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
 
 
         // Side Effects
+        assertEquals(100, employee1.getDepartment().getId());
+        assertEquals("IT New", employee1.getDepartment().getName());
         assertEquals(2000.0, employee1.getSalaryParam1());
         assertEquals(4500.0, employee1.getSalaryParam2());
     }

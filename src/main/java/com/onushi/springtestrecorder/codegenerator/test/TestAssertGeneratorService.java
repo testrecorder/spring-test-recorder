@@ -79,8 +79,17 @@ public class TestAssertGeneratorService {
                 String composedPath = assertPath + entry.getKey();
 
                 if (onlySideEffects) {
-                    if (!isSideEffectDetected(visibleProperty, firstSnapshot, lastSnapshot)) {
+                    // this means a property was present, but it's no longer
+                    if (!visibleProperty.hasAfterMethodRunSnapshot()) {
                         continue;
+                    }
+
+                    // if there are 2 versions, check if they differ
+                    if (firstSnapshot.getValue() != lastSnapshot.getValue()) {
+                        if (objectInfoService.propertyValuesEquivalent(firstSnapshot.getValue(), TestRecordingMoment.FIRST_SNAPSHOT,
+                                lastSnapshot.getValue(), TestRecordingMoment.LAST_SNAPSHOT)) {
+                            continue;
+                        }
                     }
                 }
 
@@ -108,16 +117,6 @@ public class TestAssertGeneratorService {
             }
         }
         return result;
-    }
-
-    // TODO IB !!!! 1 move to ObjectInfoService
-    private boolean isSideEffectDetected(VisibleProperty visibleProperty, VisiblePropertySnapshot firstSnapshot, VisiblePropertySnapshot lastSnapshot) {
-        if (visibleProperty.getSnapshots().values().size() > 1) {
-            // TODO IB !!!! return !objectInfoService.isSameValueDeep(firstSnapshot.getValue(), lastSnapshot.getValue());
-            return false;
-        } else {
-            return visibleProperty.hasAfterMethodRunSnapshot();
-        }
     }
 
     private CodeNode getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {

@@ -14,7 +14,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest23CyclicDepsInArgs extends TestGeneratorServiceTest {
-    @Test
+    // TODO IB !!!! Activate @Test
     void generateTestForCyclicDependenciesInArgs() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

@@ -50,7 +50,7 @@ public class ObjectInfoService {
         return true;
     }
 
-    private boolean propertyValuesEquivalent(PropertyValue propertyValue1, TestRecordingMoment testRecordingMoment1,
+    public boolean propertyValuesEquivalent(PropertyValue propertyValue1, TestRecordingMoment testRecordingMoment1,
                                              PropertyValue propertyValue2, TestRecordingMoment testRecordingMoment2) {
         if (propertyValue1.getString() != null) {
             if (propertyValue2.getString() == null) {

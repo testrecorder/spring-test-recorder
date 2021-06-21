@@ -13,7 +13,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest29SideEffectsOnDates extends TestGeneratorServiceTest {
-    // TODO IB !!!! activate @Test
+    @Test
     void generateTestWithSideEffectsOnDates() throws ParseException {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
