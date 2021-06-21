@@ -395,6 +395,18 @@ TODO ==========================
 	ObjectInfoService
 		Prerequisites
 			all objectInfo.VisibleProperties should have AFTER_METHOD_RUN snapshot
+				actually no, since some properties disapear
+				
+		Create gradual tests
+			Simple objects
+				null
+				
+				strings
+					test with Date
+					
+			Complex objects, 1 step deep
+		
+			
 		
 		objectInfoChangedDeep(ObjectInfo objectInfo, first, ObjectInfo objectInfo, last) 
 		I need to know if an ObjectInfo changed it's state between first snapshot and AFTER_METHOD_RUN

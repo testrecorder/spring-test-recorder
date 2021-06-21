@@ -14,6 +14,7 @@ public class ObjectInfoFactoryForPrimitiveImpl extends ObjectInfoFactory {
         String fullClassName = context.getObject().getClass().getName();
         ObjectInfo objectInfo = getObjectInfo(context, fullClassName);
         if (objectInfo != null) {
+            // TODO IB !!!! these do not need takeSnapshot?
             addVisiblePropertySnapshot(objectInfo, "", context.getTestGenerator().getCurrentTestRecordingPhase(),
                     VisiblePropertySnapshot.builder()
                             .value(PropertyValue.fromString(objectInfo.inlineCode))
