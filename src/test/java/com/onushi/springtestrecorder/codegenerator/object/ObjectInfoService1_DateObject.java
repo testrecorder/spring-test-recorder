@@ -1,6 +1,5 @@
 package com.onushi.springtestrecorder.codegenerator.object;
 
-import com.onushi.sample.model.SimplePerson;
 import com.onushi.sample.services.SampleService;
 import com.onushi.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
 import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
@@ -11,32 +10,36 @@ import com.onushi.springtestrecorder.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ObjectInfoService_ObjectWithString {
+public class ObjectInfoService1_DateObject {
     private ObjectInfoService objectInfoService;
     private ObjectInfo objectInfo;
 
     @BeforeEach
-    protected void setUp() {
+    protected void setUp() throws ParseException {
         TestGeneratorFactory testGeneratorFactory = ServiceCreatorUtils.createTestGeneratorFactory();
         ObjectInfoFactoryManager objectInfoFactoryManager = ServiceCreatorUtils.createObjectInfoFactoryManager();
         objectInfoService = new ObjectInfoService();
 
-        SimplePerson simplePerson = new SimplePerson("John");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse("2021-01-01");
 
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("dummyMethod")
-                .arguments(Collections.singletonList(simplePerson))
+                .arguments(Collections.singletonList(date))
                 .build());
         testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(null)
                 .build());
-        objectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator, simplePerson);
+        objectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator, date);
     }
 
     @Test
