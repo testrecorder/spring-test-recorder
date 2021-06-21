@@ -8,9 +8,11 @@ import java.util.Map;
 @Getter
 public class VisibleProperty {
     // all VisibleProperty  have at least one snapshot since addVisiblePropertySnapshot is used
+    protected String key;
     protected Map<TestRecordingPhase, VisiblePropertySnapshot> snapshots;
 
-    public VisibleProperty() {
+    public VisibleProperty(String key) {
+        this.key = key;
         this.snapshots = new LinkedHashMap<>();
     }
 
@@ -40,5 +42,13 @@ public class VisibleProperty {
 
     public boolean hasAfterMethodRunSnapshot() {
         return this.snapshots.get(TestRecordingPhase.AFTER_METHOD_RUN) != null;
+    }
+
+    @Override
+    public String toString() {
+        return "VisibleProperty{" +
+                "key='" + key + '\'' +
+                ", snapshots.size()=" + snapshots.size() +
+                '}';
     }
 }

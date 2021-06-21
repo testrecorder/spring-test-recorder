@@ -97,7 +97,7 @@ public abstract class ObjectInfoFactory {
                   TestRecordingPhase testRecordingPhase, VisiblePropertySnapshot visiblePropertySnapshot) {
         VisibleProperty visibleProperty = objectInfo.visibleProperties.get(key);
         if (visibleProperty == null) {
-            visibleProperty = new VisibleProperty();
+            visibleProperty = new VisibleProperty(key);
             objectInfo.visibleProperties.put(key, visibleProperty);
         }
         visibleProperty.snapshots.put(testRecordingPhase, visiblePropertySnapshot);
