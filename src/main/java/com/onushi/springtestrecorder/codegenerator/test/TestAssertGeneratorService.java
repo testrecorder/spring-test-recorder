@@ -74,6 +74,7 @@ public class TestAssertGeneratorService {
                 VisibleProperty visibleProperty = entry.getValue();
                 VisiblePropertySnapshot firstSnapshot = visibleProperty.getFirstSnapshot();
                 VisiblePropertySnapshot lastSnapshot = visibleProperty.getLastSnapshot();
+                // TODO IB !!!! rename to lastValue
                 PropertyValue finalValue = lastSnapshot.getValue();
                 String composedPath = assertPath + entry.getKey();
 
@@ -109,9 +110,11 @@ public class TestAssertGeneratorService {
         return result;
     }
 
+    // TODO IB !!!! 1 move to ObjectInfoService
     private boolean isSideEffectDetected(VisibleProperty visibleProperty, VisiblePropertySnapshot firstSnapshot, VisiblePropertySnapshot lastSnapshot) {
         if (visibleProperty.getSnapshots().values().size() > 1) {
-            return !objectInfoService.isSameValue(firstSnapshot.getValue(), lastSnapshot.getValue());
+            // TODO IB !!!! return !objectInfoService.isSameValueDeep(firstSnapshot.getValue(), lastSnapshot.getValue());
+            return false;
         } else {
             return visibleProperty.hasAfterMethodRunSnapshot();
         }
