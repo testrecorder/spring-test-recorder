@@ -40,13 +40,6 @@ public class VisibleProperty {
         return null;
     }
 
-    public VisiblePropertySnapshot getAfterMethodRunSnapshot() {
-        if (snapshots != null) {
-            return snapshots.get(TestRecordingPhase.AFTER_METHOD_RUN);
-        }
-        return null;
-    }
-
     public boolean hasAfterMethodRunSnapshot() {
         return this.snapshots.get(TestRecordingPhase.AFTER_METHOD_RUN) != null;
     }
