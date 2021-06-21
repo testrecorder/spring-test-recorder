@@ -390,12 +390,15 @@ DONE ==========================
 		OK - add all generated tests near generation code
 
 		OK - fix warnings
+		
+	2021-06-21
+		
 
 TODO ==========================
 	ObjectInfoService
 		Prerequisites
 			all objectInfo.VisibleProperties should have AFTER_METHOD_RUN snapshot
-				actually no, since some properties disapear
+				actually no, since some properties disapear, like arrayList.get(5) if the arrayList is shorter
 				
 		Create gradual tests
 			Simple objects
@@ -405,8 +408,6 @@ TODO ==========================
 					test with Date
 					
 			Complex objects, 1 step deep
-		
-			
 		
 		objectInfoChangedDeep(ObjectInfo objectInfo, first, ObjectInfo objectInfo, last) 
 		I need to know if an ObjectInfo changed it's state between first snapshot and AFTER_METHOD_RUN
@@ -432,8 +433,6 @@ TODO ==========================
 			
 				
 		visiblePropertyChangedDeep(VisibleProperty visibleProperty, first, VisibleProperty visibleProperty, last)
-						
-
 
 		isSameValueDeep - compare snapshot.values
 			
