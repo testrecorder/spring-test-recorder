@@ -2,12 +2,12 @@ package com.onushi.springtestrecorder.analyzer.classInfo;
 
 import com.onushi.springtestrecorder.analyzer.object.FieldValue;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-@Data
+@Getter
 @Builder
 public class MatchingConstructor {
     private Constructor<?> constructor;

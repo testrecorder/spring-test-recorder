@@ -35,7 +35,7 @@ public class TestGeneratorFactory {
         testGenerator.packageName = beforeMethodRunInfo.getTarget().getClass().getPackage().getName();
         testGenerator.shortClassName = beforeMethodRunInfo.getTarget().getClass().getSimpleName();
 
-        testGenerator.targetObjectInfo = objectInfoFactoryManager.getNamedObjectInfo(testGenerator,
+        testGenerator.targetObjectInfo = objectInfoFactoryManager.getCommonObjectInfo(testGenerator,
                 beforeMethodRunInfo.getTarget(),
                 objectNameGenerator.getBaseObjectName(beforeMethodRunInfo.getTarget()));
         testGenerator.methodName = beforeMethodRunInfo.getMethodName();

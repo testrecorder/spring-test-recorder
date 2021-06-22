@@ -60,13 +60,11 @@ public class ObjectInfoFactoryManager {
         );
     }
 
-    // Cannot be moved to a separate cache class since it will result in cyclic dependency
-    // TODO IB !!!! if target is already in cache ... I should use it
-    public ObjectInfo getNamedObjectInfo(TestGenerator testGenerator, Object object, String preferredName) {
-        return createObjectInfo(testGenerator, object, preferredName);
+    public ObjectInfo getCommonObjectInfo(TestGenerator testGenerator, Object object) {
+        return getCommonObjectInfo(testGenerator, object, null);
     }
 
-    public ObjectInfo getCommonObjectInfo(TestGenerator testGenerator, Object object) {
+    public ObjectInfo getCommonObjectInfo(TestGenerator testGenerator, Object object, String preferredName) {
         ObjectInfo existingObject = testGenerator.getObjectInfoCache().get(object);
         if (existingObject != null) {
             return existingObject;
@@ -79,8 +77,10 @@ public class ObjectInfoFactoryManager {
                 return new ObjectInfoFactoryForCyclicDependencyImpl().createObjectInfo(context);
             }
             testGenerator.getObjectsPendingInit().add(object);
-            String objectName = objectNameGenerator.getNewObjectName(testGenerator, object);
-            ObjectInfo objectInfo = createObjectInfo(testGenerator, object, objectName);
+            if (preferredName == null) {
+                preferredName = objectNameGenerator.getNewObjectName(testGenerator, object);
+            }
+            ObjectInfo objectInfo = createObjectInfo(testGenerator, object, preferredName);
             testGenerator.getObjectInfoCache().put(object, objectInfo);
             testGenerator.getObjectsPendingInit().remove(object);
             return objectInfo;

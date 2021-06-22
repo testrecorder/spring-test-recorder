@@ -403,27 +403,40 @@ DONE ==========================
 		
 		OK - activate all tests, again
 		
+		OK - test side effects on primitives and enums
+			there cannot be side effects
+		
 
 TODO ==========================
 	SIDE EFFECTS
-		OK - Write more tests 
-	
-		ObjectInfoFactoryForPrimitiveImpl
-		ObjectInfoFactoryForEnumImpl
-			primitives with side effects cannot be inline
-			same for all inline objects with side effects
-			Side effects on boxed
-		
 		Write tests for different cases of objects reuse, side effects etc
 		
+			Send targetObject as a parameter to targetObject + sideEffects
+			
+			Return targetObject as a result + sideEffects
+			
+			Send targetObject as a parameter to targetObject and return it + sideEffects
+			
+			Send an object twice as a parameter + sideEffects
+			
+			
+		
+		
+		
+		
+		
+		
+		
 
+	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
+
+	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
 
 	Create configuration for TestRecorder. On off. Can i modify while running?
 
 	I should create objects as soon as possible
 		this applies to mocked params and returns
 
-	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 
 	for iterations, generate asserts for max 3 items and add a comment about the parameter
 		in visibleProperties keep all
@@ -442,9 +455,6 @@ TODO ==========================
 		in mocks
 		in test
 
-	Is there a problem with boxed vs unboxed types?
-		Ex: Float / float
-
 	Test what happens when you call a void returning method and want to mock it?
 
 	Handle more classes
@@ -454,7 +464,6 @@ TODO ==========================
 		All Set<> from java.utils
 		All HashMap<> from java.utils
 
-	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
 	
 	solve more TODOs
 		
@@ -478,6 +487,10 @@ TODO ==========================
 	 
 	Test in a real project
 		See what problems appear
+		
+	Improve test coverage? 
+		It might involve writing tests for code that is 100% ok
+		Like ToString that is used for debug.
 
 	Write tests for all the code that could break
 		check coverage again
