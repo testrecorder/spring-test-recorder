@@ -17,22 +17,8 @@ public class TestGeneratorServiceTest21ListOfListOfPerson extends TestGeneratorS
     @Test
     void generateTestForListOfListOfPerson() throws Exception {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
-        Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
-        Person paul = Person.builder()
-                .firstName("Paul")
-                .lastName("Thompson")
-                .dateOfBirth(dateOfBirth1)
-                .build();
-
-        Person tom = Person.builder()
-                .firstName("Tom")
-                .lastName("Richardson")
-                .dateOfBirth(dateOfBirth2)
-                .build();
-
-        List<Person> personList = Arrays.asList(paul, tom);
+        SampleService sampleService = new SampleService();
+        List<List<Person>> listOfPersonList = sampleService.createListOfPersonList();
 
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
@@ -40,7 +26,7 @@ public class TestGeneratorServiceTest21ListOfListOfPerson extends TestGeneratorS
                 .arguments(Collections.emptyList())
                 .build());
         testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
-                .result(Arrays.asList(personList, null))
+                .result(listOfPersonList)
                 .build());
 
         // Act

@@ -72,7 +72,6 @@ public class ObjectInfoFactoryForHashMapImpl extends ObjectInfoFactory {
                     .generate();
 
             takeSnapshot(objectInfo, context);
-
             if (context.getTestGenerator().getCurrentTestRecordingPhase() != TestRecordingPhase.AFTER_METHOD_RUN) {
                 objectInfo.toRunAfterMethodRun = () -> takeSnapshot(objectInfo, context);
             }

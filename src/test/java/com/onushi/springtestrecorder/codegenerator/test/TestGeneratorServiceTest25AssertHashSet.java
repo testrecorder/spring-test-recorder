@@ -17,24 +17,8 @@ public class TestGeneratorServiceTest25AssertHashSet extends TestGeneratorServic
     @Test
     void generateTestForHashSetAsserts() throws Exception {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth1 = simpleDateFormat.parse("1980-01-02");
-        Date dateOfBirth2 = simpleDateFormat.parse("1970-02-03");
-        Person marco = Person.builder()
-                .firstName("Marco")
-                .lastName("Polo")
-                .dateOfBirth(dateOfBirth1)
-                .build();
-
-        Person tom = Person.builder()
-                .firstName("Tom")
-                .lastName("Richardson")
-                .dateOfBirth(dateOfBirth2)
-                .build();
-
-        Set<Person> personSet = new HashSet<>();
-        personSet.add(marco);
-        personSet.add(tom);
+        SampleService sampleService = new SampleService();
+        Set<Person> personSet = sampleService.createPersonHashSet();
 
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())

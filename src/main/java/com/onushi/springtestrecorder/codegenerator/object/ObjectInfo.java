@@ -17,7 +17,7 @@ public class ObjectInfo {
     protected final List<String> initRequiredHelperObjects = new ArrayList<>();
     protected String initCode = "";
     protected boolean initAdded = false;
-    // TODO IB !!!! 4 find a better solution. Can I move in ObjectInfoFactory
+    // TODO IB find a better solution
     protected Runnable toRunAfterMethodRun = null;
 
     public void setInitAdded(boolean initAdded) {

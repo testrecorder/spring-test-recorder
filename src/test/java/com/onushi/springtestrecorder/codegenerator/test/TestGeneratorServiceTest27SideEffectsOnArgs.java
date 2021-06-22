@@ -1,5 +1,6 @@
 package com.onushi.springtestrecorder.codegenerator.test;
 
+import com.onushi.sample.model.Color;
 import com.onushi.sample.model.Department;
 import com.onushi.sample.model.Employee;
 import com.onushi.sample.services.SampleService;
@@ -15,19 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorServiceTest {
     @Test
     void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() {
-        Employee employee = Employee.builder()
-                .id(1)
-                .firstName("John")
-                .lastName("Doe")
-                .salaryParam1(1000)
-                .salaryParam2(1500)
-                .department(Department.builder()
-                        .id(100)
-                        .name("IT")
-                        .build())
-                .build();
-
         SampleService sampleService = new SampleService();
+        Employee employee = sampleService.createEmployee();
+
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(sampleService)
                 .methodName("modifyEmployee")
@@ -52,6 +43,7 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
                         "import static org.junit.jupiter.api.Assertions.*;\n" +
                         "import com.onushi.sample.model.Employee;\n" +
                         "import com.onushi.sample.model.Department;\n" +
+                        "import com.onushi.sample.model.Color;\n" +
                         "\n" +
                         "class SampleServiceTest {\n" +
                         "    //TODO rename the test to describe the use case\n" +
@@ -73,7 +65,7 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
                         "            .salaryParam1(1000.0)\n" +
                         "            .salaryParam2(1500.0)\n" +
                         "            .salaryParam3(0.0)\n" +
-                        "            .teamColor(null)\n" +
+                        "            .teamColor(Color.BLUE)\n" +
                         "            .build();\n" +
                         "\n" +
                         "        SampleService sampleService = new SampleService();\n" +
@@ -96,7 +88,7 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
     }
 
     @Test
-    void modifyEmployee() throws Exception {
+    void modifyEmployee() {
         // Arrange
         Department department1 = Department.builder()
                 .id(100)
@@ -112,7 +104,7 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
                 .salaryParam1(1000.0)
                 .salaryParam2(1500.0)
                 .salaryParam3(0.0)
-                .teamColor(null)
+                .teamColor(Color.BLUE)
                 .build();
 
         SampleService sampleService = new SampleService();

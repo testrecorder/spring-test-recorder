@@ -18,21 +18,11 @@ public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServic
     @Test
     void generateTestForObjectsWithGetters() {
         // Arrange
-        Employee employee = Employee.builder()
-                .id(1)
-                .firstName("John")
-                .lastName("Doe")
-                .salaryParam1(1000)
-                .salaryParam2(1500)
-                .teamColor(Color.BLUE)
-                .department(Department.builder()
-                        .id(100)
-                        .name("IT")
-                        .build())
-                .build();
+        SampleService sampleService = new SampleService();
+        Employee employee = sampleService.createEmployee();
 
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
-                .target(new SampleService())
+                .target(sampleService)
                 .methodName("createEmployee")
                 .arguments(Collections.emptyList())
                 .build());
