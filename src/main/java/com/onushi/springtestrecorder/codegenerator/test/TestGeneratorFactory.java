@@ -51,7 +51,6 @@ public class TestGeneratorFactory {
     }
 
     public void addDependencyMethodRun(TestGenerator testGenerator, DependencyMethodRunInfo dependencyMethodRunInfo) {
-        // TODO IB LATER this check should be optional
         if (testGenerator.getThreadId() == dependencyMethodRunInfo.getThreadId()) {
             testGenerator.dependencyMethodRuns.add(dependencyMethodRunInfo);
         }

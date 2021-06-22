@@ -406,39 +406,54 @@ DONE ==========================
 		OK - test side effects on primitives and enums
 			there cannot be side effects
 		
+		OK - SIDE EFFECTS
+			Write tests for different cases of objects reuse, side effects etc
+			
+				OK - Send targetObject as a parameter to targetObject + sideEffects
+				
+				OK - Return targetObject as a result + sideEffects
+				
+				OK - Send targetObject as a parameter to targetObject twice and return it + sideEffects		
 
 TODO ==========================
-	SIDE EFFECTS
-		Write tests for different cases of objects reuse, side effects etc
-		
-			OK - Send targetObject as a parameter to targetObject + sideEffects
-			
-			Send targetObject as a parameter to targetObject twice and return it + sideEffects
-			
-			
-		
-		
-		
-		
-		
-		
-		
-
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 
 	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
-
-	Create configuration for TestRecorder. On off. Can i modify while running?
+		this is done, I thing
 
 	I should create objects as soon as possible
 		this applies to mocked params and returns
 
+	Exceptions thrown are not added to includes
+		in mocks
+		in test
 
-	for iterations, generate asserts for max 3 items and add a comment about the parameter
-		in visibleProperties keep all
-	
-	DZone - article about spring-test-recorder
-	
+	Test what happens when you call a void returning method and want to mock it?
+
+    What do I do when some fields could not be read? Do the same for all generic factories
+		1. I could ignore them and consider just the rest of fields
+		2. I could go to fallback
+
+	Consider field default values for all the generic factories
+		Do I need to do something? Think for each of them
+
+	-----
+
+	Configuration for TestRecorder. 
+		Can i modify while running?
+		
+		TestGeneration On/off. 
+		
+		testGenerator.getThreadId() == dependencyMethodRunInfo.getThreadId()
+
+		for iterations, generate asserts/sideEffects for max 3 items and add a comment about the parameter
+			in visibleProperties keep all
+
+		For read objects I could limit the depth to 3-4 to avoid stack overflow. Later param + comment
+		
+		Enable/Disable logging
+		
+
 	Does it work in Spring projects without SpringBoot?
 	
 	Does it work in normal projects?
@@ -447,20 +462,14 @@ TODO ==========================
 	Publish a library to MAVEN Repository
 		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
 	
-	Exceptions thrown are not added to includes
-		in mocks
-		in test
-
-	Test what happens when you call a void returning method and want to mock it?
-
 	Handle more classes
 		Class class 
 		Calendar class
 		All List<> from java.utils
 		All Set<> from java.utils
 		All HashMap<> from java.utils
+		...
 
-	
 	solve more TODOs
 		
 	Sometimes variable names are phased: list1, list4, list5
@@ -476,10 +485,8 @@ TODO ==========================
 		checking params 
 		raising exceptions
 		where to treat exceptions
-
-	I should add logging for debugging as a param of the Annotation
 	
-	Demo for IonutP, Rares
+	Demo for Rares
 	 
 	Test in a real project
 		See what problems appear
@@ -488,53 +495,39 @@ TODO ==========================
 		It might involve writing tests for code that is 100% ok
 		Like ToString that is used for debug.
 
-	Write tests for all the code that could break
-		check coverage again
-
 	Read when the russian guy said about Git preparation
 	
-LATER ==========================
+	DZone - article about spring-test-recorder
+
+
+v2 ==========================
+	static fields are not handled yet
+
 	For HashMap and HashSet we don't assert missing elements from side effects
 
 	There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
 	
 	Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
-	
-	I could give significant var names from names of fields and getters
-	
-	For read objects I could limit the depth to 3-4 to avoid stack overflow. Later param + comment
-	
-	Use visibleProperties as fallback for init, in comment
-
+		
 	Add the date in the in name of the test function to be able to run them in order
 		make it a parameter
 
 	I could have a fallback with serializable
 
 	if you have a Component with multiple instances called from the RecordTest method, mocks will be duplicated
-	
-	allow recording mocks from different threads
 
-    What do I do when some fields could not be read? Do the same for all generic factories
-		1. I could ignore them and consider just the rest of fields
-		2. I could go to fallback
-		
-	Consider field default values for all the generic factories
-		Do I need to do something? Think for each of them
-
-	Handle other Java common classes
-
-	full injection for factories?
-	
-	if needed object initialisation code could be learned from github	
+	full injection for ObjectInfoFactoryManager?
 	
 	Handle Generics
 
 	arrays of arrays
+
+	
+v3 ==========================
+	if needed object initialisation code could be learned from github	
 	
 	global variables changed - but this is not ok
 	
-	static fields are not handled yet
-	
-	
+	I could give significant var names from names of fields and getters
+		
 	
