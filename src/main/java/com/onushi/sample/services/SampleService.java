@@ -276,4 +276,8 @@ public class SampleService {
     public List<Person> someFunction(List<Person> personsList, Person[] personArray) {
         return personsList;
     }
+
+    public void changeFloat(Float f1) {
+        f1 = 5.0f;
+    }
 }

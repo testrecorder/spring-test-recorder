@@ -396,8 +396,18 @@ DONE ==========================
 		
 		OK - Write tests for this
 
+	2022-06-22
+		OK - clean side effects related TODOs
+		
+		OK - mark objects already processed when detecting side effects
+		
+		OK - activate all tests, again
+		
+
 TODO ==========================
 	SIDE EFFECTS
+		OK - Write more tests 
+	
 		ObjectInfoFactoryForPrimitiveImpl
 		ObjectInfoFactoryForEnumImpl
 			primitives with side effects cannot be inline
@@ -406,15 +416,12 @@ TODO ==========================
 		
 		Write tests for different cases of objects reuse, side effects etc
 		
-		later: mark objects already processed when detecting side effects
-		
 
 
 	Create configuration for TestRecorder. On off. Can i modify while running?
 
 	I should create objects as soon as possible
 		this applies to mocked params and returns
-
 
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 
