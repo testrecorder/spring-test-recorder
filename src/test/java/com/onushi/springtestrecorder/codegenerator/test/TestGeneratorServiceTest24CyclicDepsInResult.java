@@ -1,6 +1,5 @@
 package com.onushi.springtestrecorder.codegenerator.test;
 
-import com.onushi.sample.model.CyclicChild;
 import com.onushi.sample.model.CyclicParent;
 import com.onushi.sample.services.SampleService;
 import com.onushi.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
@@ -17,17 +16,11 @@ public class TestGeneratorServiceTest24CyclicDepsInResult extends TestGeneratorS
     @Test
     void generateTestForCyclicDependenciesInResult() throws Exception {
         // Arrange
-        // TODO IB !!!! when testing create objects, call SampleService.create...
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        CyclicParent cyclicParent = new CyclicParent();
-        CyclicChild cyclicChild = new CyclicChild();
-        cyclicChild.parent = cyclicParent;
-        cyclicChild.date = simpleDateFormat.parse("1980-01-02");
-        cyclicParent.id = 1;
-        cyclicParent.childList = Collections.singletonList(cyclicChild);
+        SampleService sampleService = new SampleService();
+        CyclicParent cyclicParent = sampleService.createCyclicObjects();
 
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
-                .target(new SampleService())
+                .target(sampleService)
                 .methodName("createCyclicObjects")
                 .arguments(Collections.emptyList())
                 .build());
