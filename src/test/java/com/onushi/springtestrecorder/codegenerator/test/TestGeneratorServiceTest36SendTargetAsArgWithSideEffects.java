@@ -1,7 +1,6 @@
 package com.onushi.springtestrecorder.codegenerator.test;
 
-import com.onushi.sample.model.Color;
-import com.onushi.sample.services.SampleService;
+import com.onushi.sample.services.ServiceWithState;
 import com.onushi.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
 import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
@@ -12,28 +11,51 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest36SendTargetAsArgWithSideEffects extends TestGeneratorServiceTest {
-    // TODO IB !!!! activate
-//    @Test
-//    void generateTest() {
-//        // Arrange
-//        // actually you cannot change the value of a enum it will be a different object
-//        SampleService sampleService = new SampleService();
-//        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
-//                .target(sampleService)
-//                .methodName("changeSampleService")
-//                .arguments(Collections.singletonList(sampleService))
-//                .fallBackResultType(void.class)
-//                .build());
-//        sampleService.changeSampleService(sampleService);
-//        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
-//                .result(null)
-//                .build());
-//
-//        // Act
-//        String testString = testGeneratorService.generateTestCode(testGenerator);
-//
-//        // Assert
-//        assertEquals(StringUtils.prepareForCompare(""),
-//                StringUtils.prepareForCompare(testString));
-//    }
+    @Test
+    void generateTest() {
+        // Arrange
+        // actually you cannot change the value of a enum it will be a different object
+        ServiceWithState serviceWithState = new ServiceWithState(5);
+        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+                .target(serviceWithState)
+                .methodName("changeService")
+                .arguments(Collections.singletonList(serviceWithState))
+                .fallBackResultType(void.class)
+                .build());
+        serviceWithState.changeService(serviceWithState);
+        testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
+                .result(null)
+                .build());
+
+        // Act
+        String testString = testGeneratorService.generateTestCode(testGenerator);
+
+        // Assert
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
+                        "\n" +
+                        "package com.onushi.sample.services;\n" +
+                        "\n" +
+                        "import org.junit.jupiter.api.Test;\n" +
+                        "import static org.junit.jupiter.api.Assertions.*;\n" +
+                        "\n" +
+                        "class ServiceWithStateTest {\n" +
+                        "    //TODO rename the test to describe the use case\n" +
+                        "    //TODO refactor the generated code to make it easier to understand\n" +
+                        "    @Test\n" +
+                        "    void changeService() throws Exception {\n" +
+                        "        // Arrange\n" +
+                        "        ServiceWithState serviceWithState = new ServiceWithState(5);\n" +
+                        "\n" +
+                        "        // Act\n" +
+                        "        serviceWithState.changeService(serviceWithState);\n" +
+                        "\n" +
+                        "\n" +
+                        "        // Side Effects\n" +
+                        "        assertEquals(10, serviceWithState.getSampleInt());\n" +
+                        "    }\n" +
+                        "}\n" +
+                        "\n" +
+                        "END GENERATED TEST ========="),
+                StringUtils.prepareForCompare(testString));
+    }
 }

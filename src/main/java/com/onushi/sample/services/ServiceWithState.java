@@ -1,8 +1,14 @@
 package com.onushi.sample.services;
 
-public class ServiceWithState {
-    public int sampleInt  = 5;
+import lombok.Getter;
 
+@Getter
+public class ServiceWithState {
+    private int sampleInt;
+
+    public ServiceWithState(int sampleInt) {
+        this.sampleInt = sampleInt;
+    }
 
     public void changeService(ServiceWithState serviceWithState) {
         serviceWithState.sampleInt = 10;

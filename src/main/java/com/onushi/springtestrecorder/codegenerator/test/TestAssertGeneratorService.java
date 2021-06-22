@@ -10,6 +10,7 @@ import com.onushi.springtestrecorder.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TestAssertGeneratorService {
@@ -42,6 +43,7 @@ public class TestAssertGeneratorService {
     public String getSideEffectsAssertCode(TestGenerator testGenerator) {
         List<ObjectInfo> objectsToCheck = new ArrayList<>(testGenerator.argumentObjectInfos);
         objectsToCheck.add(testGenerator.targetObjectInfo);
+        objectsToCheck = objectsToCheck.stream().distinct().collect(Collectors.toList());
 
         CodeBlock sideEffectsCodeBlock = new CodeBlock();
         for (ObjectInfo objectInfo : objectsToCheck) {

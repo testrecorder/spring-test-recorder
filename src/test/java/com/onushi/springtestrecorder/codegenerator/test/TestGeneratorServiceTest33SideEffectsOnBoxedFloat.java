@@ -6,7 +6,6 @@ import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
