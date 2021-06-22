@@ -14,7 +14,6 @@ public class TestGeneratorServiceTest36SendTargetAsArgWithSideEffects extends Te
     @Test
     void generateTest() {
         // Arrange
-        // actually you cannot change the value of a enum it will be a different object
         ServiceWithState serviceWithState = new ServiceWithState(5);
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(serviceWithState)
@@ -57,5 +56,18 @@ public class TestGeneratorServiceTest36SendTargetAsArgWithSideEffects extends Te
                         "\n" +
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
+    }
+
+    @Test
+    void changeService() {
+        // Arrange
+        ServiceWithState serviceWithState = new ServiceWithState(5);
+
+        // Act
+        serviceWithState.changeService(serviceWithState);
+
+
+        // Side Effects
+        assertEquals(10, serviceWithState.getSampleInt());
     }
 }
