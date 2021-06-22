@@ -284,4 +284,8 @@ public class SampleService {
     public void changeString(String string) {
         string = "new string";
     }
+
+    public void changeEnum(Color color) {
+        color = Color.GREEN;
+    }
 }
