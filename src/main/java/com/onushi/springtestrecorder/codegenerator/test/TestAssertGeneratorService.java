@@ -60,6 +60,8 @@ public class TestAssertGeneratorService {
 
     private CodeNode getAssertCode(ObjectInfo objectInfo, String assertPath, boolean onlySideEffects, Set<ObjectInfoWithPath> objectsAlreadyAnalysed) {
         CodeBlock result = new CodeBlock();
+
+        // avoid infinite traversal
         String assertPathEnd = getAssertPathEnd(assertPath);
         if (assertPathEnd != null) {
             ObjectInfoWithPath objectInfoWithPath = new ObjectInfoWithPath(objectInfo, assertPathEnd);
@@ -68,8 +70,6 @@ public class TestAssertGeneratorService {
             }
             objectsAlreadyAnalysed.add(objectInfoWithPath);
         }
-
-        // TODO IB !!!! avoid infinite traversal
 
         if (objectInfo.getObject() != null &&
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
