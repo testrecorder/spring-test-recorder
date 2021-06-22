@@ -57,4 +57,14 @@ public class TestGeneratorServiceTest33SideEffectsOnBoxedFloat extends TestGener
                         "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
+
+    @Test
+    void changeFloat() {
+        // Arrange
+        SampleService sampleService = new SampleService();
+
+        // Act
+        sampleService.changeFloat(2.0f);
+
+    }
 }
