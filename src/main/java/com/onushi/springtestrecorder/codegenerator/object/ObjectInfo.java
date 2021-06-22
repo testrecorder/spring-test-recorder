@@ -6,6 +6,8 @@ import java.util.*;
 
 @Getter
 public class ObjectInfo {
+    public static final String CYCLIC_OBJECT_REPLACEMENT = "CYCLIC_OBJECT_REPLACEMENT";
+
     protected final Object object;
     protected final String objectName;
     protected final String inlineCode;
@@ -37,6 +39,13 @@ public class ObjectInfo {
         this.objectName = context.getObjectName();
         this.inlineCode = inlineCode;
         this.composedClassNameForDeclare = composedClassNameForDeclare;
+    }
+
+    @Override
+    public String toString() {
+        return "ObjectInfo{" +
+                "objectName='" + objectName + '\'' +
+                '}';
     }
 }
 

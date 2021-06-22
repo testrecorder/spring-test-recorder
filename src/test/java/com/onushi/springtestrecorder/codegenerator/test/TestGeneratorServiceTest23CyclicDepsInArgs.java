@@ -17,16 +17,11 @@ public class TestGeneratorServiceTest23CyclicDepsInArgs extends TestGeneratorSer
     @Test
     void generateTestForCyclicDependenciesInArgs() throws Exception {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        CyclicParent cyclicParent = new CyclicParent();
-        CyclicChild cyclicChild = new CyclicChild();
-        cyclicChild.parent = cyclicParent;
-        cyclicChild.date = simpleDateFormat.parse("1980-01-02");
-        cyclicParent.id = 1;
-        cyclicParent.childList = Collections.singletonList(cyclicChild);
+        SampleService sampleService = new SampleService();
+        CyclicParent cyclicParent = sampleService.createCyclicObjects();
 
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
-                .target(new SampleService())
+                .target(sampleService)
                 .methodName("processCyclicObjects")
                 .arguments(Collections.singletonList(cyclicParent))
                 .build());

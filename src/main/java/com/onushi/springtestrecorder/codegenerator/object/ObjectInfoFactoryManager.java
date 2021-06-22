@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.onushi.springtestrecorder.codegenerator.object.ObjectInfo.CYCLIC_OBJECT_REPLACEMENT;
+
 @Service
 public class ObjectInfoFactoryManager {
     private final ClassInfoService classInfoService;
@@ -73,7 +75,7 @@ public class ObjectInfoFactoryManager {
                 ObjectInfoCreationContext context = new ObjectInfoCreationContext();
                 context.setTestGenerator(testGenerator);
                 context.setObject(object);
-                context.setObjectName("dummy");
+                context.setObjectName(CYCLIC_OBJECT_REPLACEMENT);
                 return new ObjectInfoFactoryForCyclicDependencyImpl().createObjectInfo(context);
             }
             testGenerator.getObjectsPendingInit().add(object);

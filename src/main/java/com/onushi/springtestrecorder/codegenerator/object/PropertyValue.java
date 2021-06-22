@@ -20,4 +20,12 @@ public class PropertyValue {
         result.objectInfo = objectInfo;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "PropertyValue{" +
+                "string='" + string + '\'' +
+                ", objectInfo=" + objectInfo +
+                '}';
+    }
 }

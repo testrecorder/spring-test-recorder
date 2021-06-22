@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! test cyclic
 @Service
 public class ObjectInfoService {
     public boolean objectInfoEquivalent(ObjectInfo objectInfo1, @NonNull TestRecordingMoment testRecordingMoment1,
@@ -17,6 +16,10 @@ public class ObjectInfoService {
         }
         if (objectInfo1 == null || objectInfo2 == null) {
             return false;
+        }
+        if (objectInfo1.getObjectName().equals(ObjectInfo.CYCLIC_OBJECT_REPLACEMENT) ||
+                objectInfo2.getObjectName().equals(ObjectInfo.CYCLIC_OBJECT_REPLACEMENT)) {
+            return true;
         }
         if (objectInfo1 == objectInfo2 && testRecordingMoment1 == testRecordingMoment2) {
             return true;
