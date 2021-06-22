@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestGeneratorServiceTest25AssertHashSet extends TestGeneratorServiceTest {
     @Test
-    void generateTestForHashSetAsserts() throws Exception {
+    void generateTest() throws Exception {
         // Arrange
         SampleService sampleService = new SampleService();
         Set<Person> personSet = sampleService.createPersonHashSet();

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest31SideEffectsOnHashMaps extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithSideEffectsOnHashMaps() throws ParseException {
+    void generateTest() throws ParseException {
         // Arrange
         SampleService sampleService = new SampleService();
         Map<Person, Person> personsHashMap = sampleService.createPersonHashMap();

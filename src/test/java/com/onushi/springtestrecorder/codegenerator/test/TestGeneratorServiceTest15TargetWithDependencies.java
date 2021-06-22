@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 public class TestGeneratorServiceTest15TargetWithDependencies extends TestGeneratorServiceTest {
     @Test
-    void generateTestTargetWithDependencies() throws Exception {
+    void generateTest() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Date date1 = simpleDateFormat.parse("1940-11-27 00:00:00.000");

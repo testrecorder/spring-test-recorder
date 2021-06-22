@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 public class TestGeneratorServiceTest18ExceptionMock extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithExceptionThrownByMockCall() {
+    void generateTest() {
         // Arrange
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();
         DependencyMethodRunInfo dependencyMethodRunInfo1 = DependencyMethodRunInfo.builder()

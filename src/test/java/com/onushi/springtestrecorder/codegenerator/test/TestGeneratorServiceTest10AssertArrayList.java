@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest10AssertArrayList extends TestGeneratorServiceTest {
     @Test
-    void generateTestForAssertListOfIntegers() {
+    void generateTest() {
         // Arrange
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())

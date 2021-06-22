@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest08ForArrayLists extends TestGeneratorServiceTest {
     @Test
-    void generateTestForArrayLists() {
+    void generateTest() {
         // Arrange
         List<String> stringList = Arrays.asList("a", "b");
         List<Object> objectList = Arrays.asList(1, "b", null);

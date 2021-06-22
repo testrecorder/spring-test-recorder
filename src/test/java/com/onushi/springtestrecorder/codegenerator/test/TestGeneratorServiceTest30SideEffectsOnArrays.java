@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest30SideEffectsOnArrays extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithSideEffectsOnArrays() {
+    void generateTest() {
         // Arrange
         char[] array = {'a', 'z'};
         SampleService sampleService = new SampleService();

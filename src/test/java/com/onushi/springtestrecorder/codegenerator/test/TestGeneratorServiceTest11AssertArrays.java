@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest11AssertArrays extends TestGeneratorServiceTest {
     @Test
-    void generateTestForMethodThatReturnsArray() {
+    void generateTest() {
         // Arrange
         int[] result = {3, 4};
 

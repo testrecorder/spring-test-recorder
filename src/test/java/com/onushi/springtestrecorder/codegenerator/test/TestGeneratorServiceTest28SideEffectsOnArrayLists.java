@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest28SideEffectsOnArrayLists extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithSideEffectsOnArrayLists() {
+    void generateTest() {
         // Arrange
         List<Float> floatList = new ArrayList<>();
         floatList.add(0f);

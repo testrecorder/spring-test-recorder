@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest14NoArgsConstructor extends TestGeneratorServiceTest {
     @Test
-    void generateTestForNoArgsConstructor() {
+    void generateTest() {
         // Arrange
         StudentWithDefaultInitFields student1 = new StudentWithDefaultInitFields();
         StudentWithBuilder student2 = StudentWithBuilder.builder()

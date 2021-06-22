@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest01AddFloats extends TestGeneratorServiceTest {
     @Test
-    void generateTestForAddFloats() {
+    void generateTest() {
         // Arrange
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())

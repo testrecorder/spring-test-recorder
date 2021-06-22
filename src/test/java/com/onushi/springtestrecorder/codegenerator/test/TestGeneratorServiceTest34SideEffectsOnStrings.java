@@ -6,25 +6,24 @@ import com.onushi.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import com.onushi.springtestrecorder.utils.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGeneratorServiceTest33SideEffectsOnBoxedFloat extends TestGeneratorServiceTest {
+public class TestGeneratorServiceTest34SideEffectsOnStrings extends TestGeneratorServiceTest {
     @Test
     void generateTest() {
         // Arrange
-        // actually you cannot change the value of a boxed float, it will be a different object
-        Float f1 = 2f;
+        // actually you cannot change the value of a string it will be a different object
+        String string = "my string";
         SampleService sampleService = new SampleService();
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(sampleService)
-                .methodName("changeFloat")
-                .arguments(Collections.singletonList(f1))
+                .methodName("changeString")
+                .arguments(Collections.singletonList(string))
                 .fallBackResultType(void.class)
                 .build());
-        sampleService.changeFloat(f1);
+        sampleService.changeString(string);
         testGeneratorFactory.addAfterMethodRunInfo(testGenerator, AfterMethodRunInfo.builder()
                 .result(null)
                 .build());
@@ -44,12 +43,12 @@ public class TestGeneratorServiceTest33SideEffectsOnBoxedFloat extends TestGener
                         "    //TODO rename the test to describe the use case\n" +
                         "    //TODO refactor the generated code to make it easier to understand\n" +
                         "    @Test\n" +
-                        "    void changeFloat() throws Exception {\n" +
+                        "    void changeString() throws Exception {\n" +
                         "        // Arrange\n" +
                         "        SampleService sampleService = new SampleService();\n" +
                         "\n" +
                         "        // Act\n" +
-                        "        sampleService.changeFloat(2.0f);\n" +
+                        "        sampleService.changeString(\"my string\");\n" +
                         "\n" +
                         "    }\n" +
                         "}\n" +
@@ -59,12 +58,12 @@ public class TestGeneratorServiceTest33SideEffectsOnBoxedFloat extends TestGener
     }
 
     @Test
-    void changeFloat() {
+    void changeString() {
         // Arrange
         SampleService sampleService = new SampleService();
 
         // Act
-        sampleService.changeFloat(2.0f);
+        sampleService.changeString("my string");
 
     }
 }

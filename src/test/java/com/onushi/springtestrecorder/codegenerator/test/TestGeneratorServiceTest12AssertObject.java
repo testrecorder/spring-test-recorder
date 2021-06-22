@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest12AssertObject extends TestGeneratorServiceTest {
     @Test
-    void generateTestForMethodThatReturnsPerson() throws Exception {
+    void generateTest() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth = simpleDateFormat.parse("2021-01-01");

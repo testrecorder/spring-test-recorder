@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestGeneratorServiceTest05WithException extends TestGeneratorServiceTest {
     @Test
-    void generateTestWhenExceptionIsThrown() {
+    void generateTest() {
         // Arrange
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())

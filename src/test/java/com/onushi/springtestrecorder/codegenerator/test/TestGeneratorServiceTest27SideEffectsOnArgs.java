@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorServiceTest {
     @Test
-    void testThatSideEffectsDoNotAffectTheArrangeCodeGeneration() {
+    void generateTest() {
         SampleService sampleService = new SampleService();
         Employee employee = sampleService.createEmployee();
 

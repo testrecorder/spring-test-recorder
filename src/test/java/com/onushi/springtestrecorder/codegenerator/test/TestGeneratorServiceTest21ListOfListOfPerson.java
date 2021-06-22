@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestGeneratorServiceTest21ListOfListOfPerson extends TestGeneratorServiceTest {
     @Test
-    void generateTestForListOfListOfPerson() throws Exception {
+    void generateTest() throws Exception {
         // Arrange
         SampleService sampleService = new SampleService();
         List<List<Person>> listOfPersonList = sampleService.createListOfPersonList();

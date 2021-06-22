@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServiceTest {
     @Test
-    void generateTestForObjectsWithGetters() {
+    void generateTest() {
         // Arrange
         SampleService sampleService = new SampleService();
         Employee employee = sampleService.createEmployee();

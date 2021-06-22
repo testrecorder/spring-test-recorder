@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 public class TestGeneratorServiceTest17Mock2Calls extends TestGeneratorServiceTest {
     @Test
-    void generateTestWith2MockCalls() throws Exception {
+    void generateTest() throws Exception {
         // Arrange
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         PersonRepositoryImpl personRepositoryImpl = new PersonRepositoryImpl();

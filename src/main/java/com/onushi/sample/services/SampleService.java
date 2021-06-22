@@ -280,4 +280,8 @@ public class SampleService {
     public void changeFloat(Float f1) {
         f1 = 5.0f;
     }
+
+    public void changeString(String string) {
+        string = "new string";
+    }
 }

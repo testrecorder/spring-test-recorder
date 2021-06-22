@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest19HashMap extends TestGeneratorServiceTest {
     @Test
-    void generateTestForHashMaps() {
+    void generateTest() {
         // Arrange
         Map<String, List<String>> map = new HashMap<>();
         map.put("1", Arrays.asList("0", "1"));

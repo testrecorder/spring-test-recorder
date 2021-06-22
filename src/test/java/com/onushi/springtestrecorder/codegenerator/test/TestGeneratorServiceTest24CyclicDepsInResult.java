@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest24CyclicDepsInResult extends TestGeneratorServiceTest {
     @Test
-    void generateTestForCyclicDependenciesInResult() throws Exception {
+    void generateTest() throws Exception {
         // Arrange
         SampleService sampleService = new SampleService();
         CyclicParent cyclicParent = sampleService.createCyclicObjects();

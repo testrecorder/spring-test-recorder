@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestGeneratorServiceTest03ReturnNull extends TestGeneratorServiceTest {
     @Test
-    void generateTestForReturnNull() {
+    void generateTest() {
         // Arrange
 
         TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest26AssertHashMap extends TestGeneratorServiceTest {
     @Test
-    void generateAssertTestForHashMap() throws Exception {
+    void generateTest() throws Exception {
         // Arrange
         Map<Person, Person> personMap = new SampleService().createPersonHashMap();
 

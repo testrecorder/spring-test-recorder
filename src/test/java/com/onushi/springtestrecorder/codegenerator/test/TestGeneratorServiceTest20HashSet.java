@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest20HashSet extends TestGeneratorServiceTest {
     @Test
-    void generateTestForHashSets() {
+    void generateTest() {
         // Arrange
         Set<Double> set = new HashSet<>();
         set.add(null);

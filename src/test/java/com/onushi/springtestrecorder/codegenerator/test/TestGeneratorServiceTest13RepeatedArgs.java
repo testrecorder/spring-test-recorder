@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest13RepeatedArgs extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithRepeatedArgs() {
+    void generateTest() {
         // Arrange
         int[] intArray = {3, 4, 3};
         List<Float> floatList = Arrays.asList(3.0f, 3.0f);

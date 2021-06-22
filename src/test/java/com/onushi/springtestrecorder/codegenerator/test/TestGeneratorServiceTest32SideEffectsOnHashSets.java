@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestGeneratorServiceTest32SideEffectsOnHashSets extends TestGeneratorServiceTest {
     @Test
-    void generateTestWithSideEffectsOnHashSets() throws ParseException {
+    void generateTest() throws ParseException {
         // Arrange
         SampleService sampleService = new SampleService();
         Set<Person> hashSet = sampleService.createPersonHashSet();

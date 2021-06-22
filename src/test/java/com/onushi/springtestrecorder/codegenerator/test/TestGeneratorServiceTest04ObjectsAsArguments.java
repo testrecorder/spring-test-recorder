@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest04ObjectsAsArguments extends TestGeneratorServiceTest {
     @Test
-    void generateTestWhenHavingObjectAsArgument() {
+    void generateTest() {
         // Arrange
         Person person = Person.builder()
                 .firstName("Mary")

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGeneratorServiceTest07ForArrays extends TestGeneratorServiceTest {
     @Test
-    void generateTestForArrays() {
+    void generateTest() {
         // Arrange
         boolean[] boolArray = {true, false};
         byte[] byteArray = {1, 2};
