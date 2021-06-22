@@ -19,4 +19,8 @@ public class ServiceWithState {
         return this;
     }
 
+    public ServiceWithState returnService2(ServiceWithState serviceWithState1, ServiceWithState serviceWithState2) {
+        serviceWithState1.sampleInt = 11;
+        return serviceWithState1;
+    }
 }
