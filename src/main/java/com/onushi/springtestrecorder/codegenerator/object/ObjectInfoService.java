@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO IB !!!! use @NotNull in other places too
 // TODO IB !!!! test cyclic
 @Service
 public class ObjectInfoService {

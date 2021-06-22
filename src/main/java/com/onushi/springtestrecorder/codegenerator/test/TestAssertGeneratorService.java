@@ -9,9 +9,7 @@ import com.onushi.springtestrecorder.codegenerator.template.StringGenerator;
 import com.onushi.springtestrecorder.codegenerator.template.StringService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TestAssertGeneratorService {
@@ -37,7 +35,7 @@ public class TestAssertGeneratorService {
             return "";
         } else {
             return "        // Assert\n" +
-                getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result", false).getCode();
+                getAssertCode(testGenerator.getExpectedResultObjectInfo(), "result", false, new HashSet<>()).getCode();
         }
     }
 
@@ -47,7 +45,7 @@ public class TestAssertGeneratorService {
 
         CodeBlock sideEffectsCodeBlock = new CodeBlock();
         for (ObjectInfo objectInfo : objectsToCheck) {
-            sideEffectsCodeBlock.addChild(getAssertCode(objectInfo, objectInfo.getInlineCode(), true));
+            sideEffectsCodeBlock.addChild(getAssertCode(objectInfo, objectInfo.getInlineCode(), true, new HashSet<>()));
         }
 
         String sideEffectsCode = sideEffectsCodeBlock.getCode();
@@ -60,8 +58,18 @@ public class TestAssertGeneratorService {
         }
     }
 
-    private CodeNode getAssertCode(ObjectInfo objectInfo, String assertPath, boolean onlySideEffects) {
+    private CodeNode getAssertCode(ObjectInfo objectInfo, String assertPath, boolean onlySideEffects, Set<ObjectInfoWithPath> objectsAlreadyAnalysed) {
         CodeBlock result = new CodeBlock();
+        String assertPathEnd = getAssertPathEnd(assertPath);
+        if (assertPathEnd != null) {
+            ObjectInfoWithPath objectInfoWithPath = new ObjectInfoWithPath(objectInfo, assertPathEnd);
+            if (objectsAlreadyAnalysed.contains(objectInfoWithPath)) {
+                return result;
+            }
+            objectsAlreadyAnalysed.add(objectInfoWithPath);
+        }
+
+        // TODO IB !!!! avoid infinite traversal
 
         if (objectInfo.getObject() != null &&
                 classInfoService.hasEquals(objectInfo.getObject().getClass()) &&
@@ -107,8 +115,7 @@ public class TestAssertGeneratorService {
                         if (objectsInit != null) {
                             result.addPrerequisite(objectsInit);
                         }
-                        // if we detect side effects for an object, assert it's children fully
-                        result.addChild(getAssertCode(lastValue.getObjectInfo(), composedPath, false));
+                        result.addChild(getAssertCode(lastValue.getObjectInfo(), composedPath, false, objectsAlreadyAnalysed));
                     } else if (lastValue.getString() != null) {
                         result.addChild(getAssertEqualsForString(visibleProperty, composedPath, objectsInit));
                     }
@@ -116,6 +123,20 @@ public class TestAssertGeneratorService {
             }
         }
         return result;
+    }
+
+    private String getAssertPathEnd(String assertPath) {
+        String assertPathEnd = null;
+        int lastIndex = assertPath.lastIndexOf(".");
+        if (lastIndex != -1) {
+            String assertPath1 = assertPath.substring(0, lastIndex);
+            lastIndex = assertPath1.lastIndexOf(".");
+            if (lastIndex != -1) {
+                assertPathEnd = assertPath.substring(lastIndex);
+                lastIndex++;
+            }
+        }
+        return assertPathEnd;
     }
 
     private CodeNode getAssertEqualsForObject(ObjectInfo objectInfo, String assertPath) {
