@@ -13,4 +13,10 @@ public class ServiceWithState {
     public void changeService(ServiceWithState serviceWithState) {
         serviceWithState.sampleInt = 10;
     }
+
+    public ServiceWithState returnService() {
+        this.sampleInt++;
+        return this;
+    }
+
 }

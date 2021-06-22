@@ -411,13 +411,9 @@ TODO ==========================
 	SIDE EFFECTS
 		Write tests for different cases of objects reuse, side effects etc
 		
-			Send targetObject as a parameter to targetObject + sideEffects
+			OK - Send targetObject as a parameter to targetObject + sideEffects
 			
-			Return targetObject as a result + sideEffects
-			
-			Send targetObject as a parameter to targetObject and return it + sideEffects
-			
-			Send an object twice as a parameter + sideEffects
+			Send targetObject as a parameter to targetObject twice and return it + sideEffects
 			
 			
 		
