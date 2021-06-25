@@ -113,8 +113,8 @@ For each execution of a Spring component method annotated with **@RecordTest**, 
 - Context, arguments and results for the annotated methods are retrieved using Aspect Oriented Programing (AOP).  
 - Java Reflection is used to analyse all these objects and their dependencies. 
 - Java primitives, Enums and commonly used Java classes like Date, ArrayList, HashMap, HashSet are recognised and handled accordingly.  
-  For other objects the tool will detect and use constructors, setters, fields, Lombok builders.  
-  If the tool cannot detect how to create an object, a TODO will be generated with object state information.  
+  For other objects the tool will detect and use constructors, setters, fields or Lombok.  
+  If the tool cannot create an object, a TODO will be generated with object state information.  
 - The generated test is written in the console.
   
 A similar approach is used to generate mocks for methods in a Spring component annotated with **@RecordMockForTest**.
