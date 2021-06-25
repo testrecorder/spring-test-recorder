@@ -46,7 +46,7 @@ INFO ==========================
 		
 		Maven refresh
 		
-		@ComponentScan(basePackages={..., "com.onushi.springtestrecorder"},
+		@ComponentScan(basePackages={"...", "com.onushi.springtestrecorder"})
 
 		import com.onushi.springtestrecorder.aspect.RecordTest;
 		
@@ -396,7 +396,7 @@ DONE ==========================
 		
 		OK - Write tests for this
 
-	2022-06-22
+	2021-06-22
 		OK - clean side effects related TODOs
 		
 		OK - mark objects already processed when detecting side effects
@@ -415,32 +415,71 @@ DONE ==========================
 				
 				OK - Send targetObject as a parameter to targetObject twice and return it + sideEffects		
 
-TODO ==========================
-	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
+	2021-06-25
+		Learn from Myth of Genius Programmer https://www.youtube.com/watch?v=0SARbwvhupQ
+			Don't try to be a genius. There is no genius. Lose the ego
+		
+			Criticism is not evil
+			
+			Embrace failure
+		
+			Fail fast and learn
+			
+			Dont't try to hide your tracks to protect your ego
+			
+			Give up the individual ego and get a project ego
+			
+			In time the failures will get smaller and the successes bigger
+			
+			Being the biggest fish in the pond will be confortable/safe but you will not learn much
+				I say, but becoming the biggest fish moght involve learning a lot ... see 12co
+			
+			Being willing to admit mistakes. Ok to be vulnerable. You are open and other people will open too.
+			
+			Involve collaborators early, but not too early
+					Initial Idea
+					Prototype
+					Involve Collaborators
+						Usually people involve others too late
+					Code, code, code
+			
+			Before involving colaborators
+				Coherent design
+					
+				Mission Statement
+					Goals and non-goals
+					
+				Some amount of running code. Proof of concept
 
-	sometimes I can use protected setters/properties/getters in assert if the namespace is correct
-		this is done, I thing
+TODO ==========================
+
+			
+			
+			
+		
+
+	Read again exception handling best practices
+		checking params 
+		raising exceptions
+		where to treat exceptions
+
+
+	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
+		ObjectInfoFactoryFallbackImpl
+		ObjectInfoFactoryForNotRedFields
+
+		What do I do when some fields could not be read? Do the same for all generic factories
+			1. I could ignore them and consider just the rest of fields
+			2. I could go to fallback
 
 	I should create objects as soon as possible
 		this applies to mocked params and returns
-
-	Exceptions thrown are not added to includes
-		in mocks
-		in test
-
-	Test what happens when you call a void returning method and want to mock it?
-
-    What do I do when some fields could not be read? Do the same for all generic factories
-		1. I could ignore them and consider just the rest of fields
-		2. I could go to fallback
-
-	Consider field default values for all the generic factories
-		Do I need to do something? Think for each of them
-
-	-----
+			I should send first the params, then the return ... 
+				write test to show the problem
 
 	Configuration for TestRecorder. 
 		Can i modify while running?
+			https://stackoverflow.com/questions/52594764/how-to-hot-reload-properties-in-java-ee-and-spring-boot/52648630#52648630
 		
 		TestGeneration On/off. 
 		
@@ -453,15 +492,56 @@ TODO ==========================
 		
 		Enable/Disable logging
 		
+		Add the date in the name of the test function to be able to run them in order
+			make it a parameter
+		
+	solve more TODOs or postpone to v2
+	
+	Demo to Rares, Claudiu+Sebi, 
+	 
+	Test in a real project
+		See what problems appear
+	
+	Publish in github
+	
+		Publish a library to MAVEN Repository
+			https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
+	
+		Add licence to the code
+			On each line
+				/*
+				 * Copyright (c) 2007 Mockito contributors
+				 * This program is made available under the terms of the MIT License.
+				 */		
+				 
+			
+		
 
-	Does it work in Spring projects without SpringBoot?
-	
-	Does it work in normal projects?
-		AspectJ should be called somehow
-	
-	Publish a library to MAVEN Repository
-		https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
-	
+		Read when the russian guy said about Git preparation
+		
+
+	Promote
+		https://linux-audit.com/how-to-promote-your-open-source-project/
+
+		DZone - article about spring-test-recorder
+
+		Another use - reproduce a bug in an algorithm and isolate it in a use case
+		
+		https://github.com/zenika-open-source/promote-open-source-project/blob/master/README.md
+
+
+v2 ==========================
+	I can use protected properties/getters in assert if context.isObjectInSamePackageWithTest()
+
+
+	Test what happens when you call a void returning method and want to mock it?
+		Write test
+
+	Exceptions thrown are not added to includes
+		write test
+			in mocks
+			in test
+
 	Handle more classes
 		Class class 
 		Calendar class
@@ -469,11 +549,13 @@ TODO ==========================
 		All Set<> from java.utils
 		All HashMap<> from java.utils
 		...
-
-	solve more TODOs
 		
 	Sometimes variable names are phased: list1, list4, list5
 		I could assign names to objects only when adding them to the generated code
+
+		
+	Consider field default values for all the generic factories
+		Do I need to do something? Think for each of them
 
 	Maybe I should use both Annotations be for Class/Function?
 		
@@ -481,37 +563,25 @@ TODO ==========================
 		If not possible, write to console
 		Add a parameter to specify the path for generation
 
-	Read again exception handling best practices
-		checking params 
-		raising exceptions
-		where to treat exceptions
-	
-	Demo for Rares
-	 
-	Test in a real project
-		See what problems appear
-		
-	Improve test coverage? 
+
+v3 ==========================
+	Does it work in Spring projects without SpringBoot?
+
+	Improve test coverage more? 
 		It might involve writing tests for code that is 100% ok
 		Like ToString that is used for debug.
 
-	Read when the russian guy said about Git preparation
-	
-	DZone - article about spring-test-recorder
-
-
-v2 ==========================
 	static fields are not handled yet
+
+	How can I make it work in projects without spring?
+		AspectJ should be called somehow
 
 	For HashMap and HashSet we don't assert missing elements from side effects
 
 	There is a problem with false getters. A getter should start with get or is and be followed be upper letter. There should be a corresponding field
 	
-	Sometimes we should get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
+	Sometimes we could get child objects separately before assert. Like Department department1 = result.getDepartment(). This works well in ObjectInfo
 		
-	Add the date in the in name of the test function to be able to run them in order
-		make it a parameter
-
 	I could have a fallback with serializable
 
 	if you have a Component with multiple instances called from the RecordTest method, mocks will be duplicated
@@ -523,11 +593,10 @@ v2 ==========================
 	arrays of arrays
 
 	
-v3 ==========================
+v4 ==========================
 	if needed object initialisation code could be learned from github	
 	
 	global variables changed - but this is not ok
 	
 	I could give significant var names from names of fields and getters
 		
-	
