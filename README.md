@@ -15,21 +15,22 @@ Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot config
     
     @ComponentScan(basePackages={"...", "com.onushi.springtestrecorder"})
 
-Mark a method in a Spring component with an @RecordTest annotation.
-You mark some injected dependencies with @RecordMockForTest annotation.
-You run the project and interact with UI/API.
-Context, arguments and results are retrieved using Aspect Oriented Programing and Reflection and used to generate a test for each function call in the console or to a disk file.
+Mark a method in a Spring component with an @RecordTest annotation.  
+Mark some injected dependencies with @RecordMockForTest annotation.  
+You run the project and interact with UI/API.  
+Context, arguments and results are retrieved using Aspect Oriented Programing and Reflection and used to generate a test for each function call in the console or to a disk file.  
 
-I know Test Driven Development is a great way to write software, but there are cases when generating a test from existing code might still be needed for various reasons:
-- when you want to maintain code that does not have unit tests and want to be sure you don't introduce new bugs
-- when for some reason in your company there is no time/budget/culture/wiliness to do TDD, but having generated tests is still better than no tests
-- when the tests and mocks are long and hard to write and you could use a jumpstart
-- when you are doing big changes in the design and a lot of the tests need to be rewritten
+Test-driven development is a great way to write software, but there are cases when generating a test from existing code might still be needed for various reasons:
+- when you want to change code that does not have unit tests and want to be sure you don't introduce new bugs
+- when for some reason in your company there is no time/budget to use TDD, but having tests generated after writing the code is still better than no tests
+- when the tests and mocks are long and hard to write, so you could use a jump start
+- when you are doing big changes in the design, and a lot of the tests need to be rewritten
 - when you want to record a functional test with real data from UI
+- when you need to add a failing unit test before fixing a bug  
 
 
 Example:
-Let's say you have some function for calculating Employee salary that does not have automated tests yet:
+Let's say you have some function for calculating Employee salary that does not have unit tests yet:
 
 	public class SalaryService {
 		public double computeEmployeeSalary(int employeeId) throws Exception {
@@ -50,7 +51,7 @@ Let's say you have some function for calculating Employee salary that does not h
 	}
 
 
-You add @RecordTest to computeEmployeeSalary function to mark that you want tests generated from the calls to this function.
+You add @RecordTest to computeEmployeeSalary function to mark that you want tests generated from the runtime calls to this function.
 You add @RecordMockForTest to EmployeeRepository class to mark that you want this class mocked in the tests.
 You interact with the UI/API and the computeEmployeeSalary function is called with real data.
 
