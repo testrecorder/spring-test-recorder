@@ -1,9 +1,13 @@
-## spring-test-recorder
-
-A Spring tool that creates unit/integration tests from runtime calls
+## spring-test-recorder 
+#### A Spring tool that creates unit/integration tests from runtime calls
 
 It works in projects using Spring Boot and generates JUnit tests for selected methods.  
 It can also generate mocks using Mockito for selected dependencies.  
+
+
+The tool will handle most of the cases and leave TODOs in places where the code could not be generated automatically.  
+Solving these TODOs is mandatory in order to make the test work. Refactoring and polishing the generated tests is highly recommended.
+
 
 ## When is this tool needed?
  There are cases when generating a test from existing code might be needed:
@@ -14,10 +18,8 @@ It can also generate mocks using Mockito for selected dependencies.
 - when you want to record a functional test with real data from UI
 - when there is no time or budget to use Test-driven development (TDD)
 
-The tool will handle most of the cases and leave TODOs in places where the code could not be generated automatically.  
-Solving these TODOs is mandatory in order to make the test work. Refactoring and polishing the generated tests is highly recommended.
 
-## Preparations
+## Usage
 Add this dependency in project's pom.xml:
 
     <dependency>
@@ -28,12 +30,12 @@ Add this dependency in project's pom.xml:
 
 Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot configuration. 
     
-    @ComponentScan(basePackages={"...", "com.onushi.springtestrecorder"})
+    @ComponentScan(basePackages={..., "com.onushi.springtestrecorder"})
 
-## Usage
 - Mark methods in Spring components with @RecordTest annotation.  
 - Mark injected components that you want to mock with @RecordMockForTest annotation.  
 - Run the project and interact with the User Interface or API in order to call the annotated methods.  
+
 
 ## Code example
 Let's say we have a method for calculating Employee salary that does not have unit tests yet.  
@@ -105,6 +107,7 @@ The generated test is something like this (depending on the real data):
 
 Now all we need to do is refactor a little the generated code, add a test description, and the unit test is done.
 
+
 ## How does it work?
 For each execution of a Spring component method annotated with @RecordTest, the following steps are executed:
 - Context, arguments and results for the annotated methods are retrieved using Aspect Oriented Programing (AOP).  
@@ -114,9 +117,7 @@ For each execution of a Spring component method annotated with @RecordTest, the 
   If the tool cannot detect how to create an object, a TODO will be generated with object state information.  
 - The generated test is written in the console.
   
-
-  A similar approach is used to generate mocks for methods in a Spring component annotated with @RecordMockForTest.  
-
+A similar approach is used to generate mocks for methods in a Spring component annotated with @RecordMockForTest.
 
 
 ## Questions? Problems? Suggestions?
