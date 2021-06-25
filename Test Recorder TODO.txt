@@ -456,12 +456,18 @@ DONE ==========================
 
 
 TODO ==========================
+	README.md
+		add a simple use case first
+			Record unit test
+
+		then specify the complex case
+			Record unit test with mocking
+	
 	Add badges
+		https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a
 
 	Should I use Onushi or ibreaz for package?
 	
-	
-
 	Read again exception handling best practices
 		checking params 
 		raising exceptions
@@ -526,6 +532,8 @@ TODO ==========================
 		Add the link to the github in https://github.com/open-source-ideas/open-source-ideas/issues/281
 
 v2 ==========================
+	Try with gradle
+
 	I can use protected properties/getters in assert if context.isObjectInSamePackageWithTest()
 
 

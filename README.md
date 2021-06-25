@@ -2,6 +2,10 @@
 
 is a tool for Spring that records JUnit + Mockito unit/integration tests from runtime calls
 
+## Relevant Technologies
+
+Java, Spring Boot, JUnit, Mockito
+
 ## How to use it
 Add this dependency to pom.xml
 
@@ -17,7 +21,7 @@ Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot config
 
 Mark a method in a Spring component with an @RecordTest annotation.  
 Mark some injected dependencies with @RecordMockForTest annotation.  
-You run the project and interact with UI/API.  
+Run the project and interact with UI/API.  
 Context, arguments and results are retrieved using Aspect Oriented Programing and Reflection and used to generate a test for each function call in the console or to a disk file.  
 
 Test-driven development is a great way to write software, but there are cases when generating a test from existing code might still be needed for various reasons:
@@ -93,8 +97,6 @@ The resulted test will be like this (depending on the real data):
 		}
 	}
 
-## Relevant Technology
 
-Java, Spring, JUnit, Mockito
 
 
