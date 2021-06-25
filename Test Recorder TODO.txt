@@ -1,5 +1,6 @@
 
 INFO ==========================
+
 	There is another test recorder 
 		http://testrecorder.amygdalum.net/index.html
 		Get from github and try to see what tests are generated
@@ -416,7 +417,7 @@ DONE ==========================
 				OK - Send targetObject as a parameter to targetObject twice and return it + sideEffects		
 
 	2021-06-25
-		Learn from Myth of Genius Programmer https://www.youtube.com/watch?v=0SARbwvhupQ
+		OK - Learn from Myth of Genius Programmer https://www.youtube.com/watch?v=0SARbwvhupQ
 			Don't try to be a genius. There is no genius. Lose the ego
 		
 			Criticism is not evil
@@ -451,12 +452,15 @@ DONE ==========================
 					
 				Some amount of running code. Proof of concept
 
-TODO ==========================
+		OK - Add MIT license to all files
 
-			
-			
-			
-		
+
+TODO ==========================
+	Add badges
+
+	Should I use Onushi or ibreaz for package?
+	
+	
 
 	Read again exception handling best practices
 		checking params 
@@ -507,16 +511,6 @@ TODO ==========================
 		Publish a library to MAVEN Repository
 			https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
 	
-		Add licence to the code
-			On each line
-				/*
-				 * Copyright (c) 2007 Mockito contributors
-				 * This program is made available under the terms of the MIT License.
-				 */		
-				 
-			
-		
-
 		Read when the russian guy said about Git preparation
 		
 
@@ -529,6 +523,7 @@ TODO ==========================
 		
 		https://github.com/zenika-open-source/promote-open-source-project/blob/master/README.md
 
+		Add the link to the github in https://github.com/open-source-ideas/open-source-ideas/issues/281
 
 v2 ==========================
 	I can use protected properties/getters in assert if context.isObjectInSamePackageWithTest()
