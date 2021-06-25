@@ -6,7 +6,7 @@ It can also generate mocks using Mockito for selected dependencies.
 
 
 The tool will handle most of the cases and leave TODOs in places where the code could not be generated automatically.  
-Solving these TODOs is mandatory in order to make the test work. Refactoring and polishing the generated tests is highly recommended.
+Solving these TODOs is mandatory in order to make the tests work. Refactoring and polishing the generated tests is highly recommended.
 
 
 ## When is this tool needed?
@@ -32,14 +32,14 @@ Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot config
     
     @ComponentScan(basePackages={..., "com.onushi.springtestrecorder"})
 
-- Mark methods in Spring components with @RecordTest annotation.  
-- Mark injected components that you want to mock with @RecordMockForTest annotation.  
+- Mark methods in Spring components with **@RecordTest** annotation.  
+- Mark injected components that you want to mock with **@RecordMockForTest** annotation.  
 - Run the project and interact with the User Interface or API in order to call the annotated methods.  
 
 
 ## Code example
 Let's say we have a method for calculating Employee salary that does not have unit tests yet.  
-We add @RecordTest to computeEmployeeSalary method to mark that we want generated tests.
+We add **@RecordTest** to computeEmployeeSalary method to mark that we want generated tests.
 
 	public class SalaryService {
         @RecordTest
@@ -52,7 +52,7 @@ We add @RecordTest to computeEmployeeSalary method to mark that we want generate
 	}
 	
 The method calls getEmployee from EmployeeRepository, an injected component.  
-We add @RecordMockForTest to EmployeeRepository class to mark that we want this class mocked in the tests.
+We add **@RecordMockForTest** to EmployeeRepository class to mark that we want this class mocked in the tests.
 
     @RecordMockForTest
 	public class EmployeeRepository {
@@ -109,7 +109,7 @@ Now all we need to do is refactor a little the generated code, add a test descri
 
 
 ## How does it work?
-For each execution of a Spring component method annotated with @RecordTest, the following steps are executed:
+For each execution of a Spring component method annotated with **@RecordTest**, the following steps are executed:
 - Context, arguments and results for the annotated methods are retrieved using Aspect Oriented Programing (AOP).  
 - Java Reflection is used to analyse all these objects and their dependencies. 
 - Java primitives, Enums and commonly used Java classes like Date, ArrayList, HashMap, HashSet are recognised and handled accordingly.  
@@ -117,7 +117,7 @@ For each execution of a Spring component method annotated with @RecordTest, the 
   If the tool cannot detect how to create an object, a TODO will be generated with object state information.  
 - The generated test is written in the console.
   
-A similar approach is used to generate mocks for methods in a Spring component annotated with @RecordMockForTest.
+A similar approach is used to generate mocks for methods in a Spring component annotated with **@RecordMockForTest**.
 
 
 ## Questions? Problems? Suggestions?
