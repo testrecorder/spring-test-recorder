@@ -454,23 +454,10 @@ DONE ==========================
 
 		OK - Add MIT license to all files
 
+		OK - README.md
+
 
 TODO ==========================
-	README.md
-		add a simple use case first
-			Record unit test
-
-		then specify the complex case
-			Record unit test with mocking
-	
-	Should I use Onushi or ibreaz for package?
-	
-	Read again exception handling best practices
-		checking params 
-		raising exceptions
-		where to treat exceptions
-
-
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 		ObjectInfoFactoryFallbackImpl
 		ObjectInfoFactoryForNotRedFields
@@ -479,11 +466,46 @@ TODO ==========================
 			1. I could ignore them and consider just the rest of fields
 			2. I could go to fallback
 
+		
+	Read again exception handling best practices
+		checking params 
+		raising exceptions
+		where to treat exceptions
+
 	I should create objects as soon as possible
 		this applies to mocked params and returns
 			I should send first the params, then the return ... 
 				write test to show the problem
 
+		
+	solve more TODOs or postpone to v2
+	
+	Demo to Rares, Claudiu+Sebi, 
+	 
+	Test in a real project
+		See what problems appear
+	
+	Publish in github
+		Publish a library to MAVEN Repository
+			https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
+	
+		Add badges
+			https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a
+
+		Read when the russian guy said about Git preparation
+
+	Promote
+		https://linux-audit.com/how-to-promote-your-open-source-project/
+
+		DZone - article about spring-test-recorder
+
+		Another use - reproduce a bug in an algorithm and isolate it in a use case
+		
+		https://github.com/zenika-open-source/promote-open-source-project/blob/master/README.md
+
+		Add the link to the github in https://github.com/open-source-ideas/open-source-ideas/issues/281
+
+v2 ==========================
 	Configuration for TestRecorder. 
 		Can i modify while running?
 			https://stackoverflow.com/questions/52594764/how-to-hot-reload-properties-in-java-ee-and-spring-boot/52648630#52648630
@@ -501,38 +523,9 @@ TODO ==========================
 		
 		Add the date in the name of the test function to be able to run them in order
 			make it a parameter
-		
-	solve more TODOs or postpone to v2
-	
-	Demo to Rares, Claudiu+Sebi, 
-	 
-	Test in a real project
-		See what problems appear
-	
-	Publish in github
-	
-		Add badges
-			https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a
 
-	
-		Publish a library to MAVEN Repository
-			https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
-	
-		Read when the russian guy said about Git preparation
-		
+	Should I use Onushi or ibreaz for package?
 
-	Promote
-		https://linux-audit.com/how-to-promote-your-open-source-project/
-
-		DZone - article about spring-test-recorder
-
-		Another use - reproduce a bug in an algorithm and isolate it in a use case
-		
-		https://github.com/zenika-open-source/promote-open-source-project/blob/master/README.md
-
-		Add the link to the github in https://github.com/open-source-ideas/open-source-ideas/issues/281
-
-v2 ==========================
 	Try with gradle
 
 	I can use protected properties/getters in assert if context.isObjectInSamePackageWithTest()

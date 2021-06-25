@@ -35,6 +35,9 @@ Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot config
 - Mark methods in Spring components with **@RecordTest** annotation.  
 - Mark injected components that you want to mock with **@RecordMockForTest** annotation.  
 - Run the project and interact with the User Interface or API in order to call the annotated methods.  
+  
+
+You can check examples in [spring-test-recorder-demo](https://github.com/ibreaz/spring-test-recorder-demo).  
 
 
 ## Code example
