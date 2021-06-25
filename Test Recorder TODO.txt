@@ -463,9 +463,6 @@ TODO ==========================
 		then specify the complex case
 			Record unit test with mocking
 	
-	Add badges
-		https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a
-
 	Should I use Onushi or ibreaz for package?
 	
 	Read again exception handling best practices
@@ -513,6 +510,10 @@ TODO ==========================
 		See what problems appear
 	
 	Publish in github
+	
+		Add badges
+			https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a
+
 	
 		Publish a library to MAVEN Repository
 			https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
