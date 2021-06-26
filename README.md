@@ -6,7 +6,9 @@ It can also generate mocks using Mockito for selected dependencies.
 
 
 The tool will handle most of the cases and leave TODOs in places where the code could not be generated automatically.  
-Solving these TODOs is mandatory in order to make the tests work. Refactoring and polishing the generated tests is highly recommended.
+Solving these TODOs is mandatory in order to make the tests work. Also refactoring and polishing the generated tests is highly recommended.  
+From my experience using the tool, I estimate that 80% of the work is automated. 
+Even if the tool cannot completely automate test generation, it will provide a solid productivity boost.
 
 
 ## When is this tool needed?
@@ -113,11 +115,13 @@ Now all we need to do is refactor a little the generated code, add a test descri
 
 ## How does it work?
 For each execution of a Spring component method annotated with **@RecordTest**, the following steps are executed:
-- Context, arguments and results for the annotated methods are retrieved using Aspect Oriented Programing (AOP).  
+- Target object and method arguments for the annotated methods are retrieved using Aspect Oriented Programing (AOP).  
 - Java Reflection is used to analyse all these objects and their dependencies. 
 - Java primitives, Enums and commonly used Java classes like Date, ArrayList, HashMap, HashSet are recognised and handled accordingly.  
   For other objects the tool will detect and use constructors, setters, fields or Lombok.  
-  If the tool cannot create an object, a TODO will be generated with object state information.  
+  If the tool cannot create an object, a TODO will be generated with object state information.
+- The result object is retrieved also by using AOP. Asserts are generated based on the result and dependencies.
+- The tool will also detect side effects in the objects involved and will generate asserts.
 - The generated test is written in the console.
   
 A similar approach is used to generate mocks for methods in a Spring component annotated with **@RecordMockForTest**.
