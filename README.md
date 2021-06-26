@@ -24,15 +24,19 @@ Even if the tool cannot completely automate test generation, it will provide a s
 ## Usage
 Add this dependency in project's pom.xml:
 
+    ```Maven
     <dependency>
         <groupId>com.onushi</groupId>
         <artifactId>spring-test-recorder</artifactId>
         <version>0.1.0</version>
     </dependency>
+    ```
 
 Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot configuration. 
-    
-    @ComponentScan(basePackages={..., "com.onushi.springtestrecorder"})
+
+    ```Java
+    @ComponentScan(basePackages={"...", "com.onushi.springtestrecorder"})
+    ```
 
 - Mark methods in Spring components with **@RecordTest** annotation.  
 - Mark injected components that you want to mock with **@RecordMockForTest** annotation.  
@@ -46,6 +50,7 @@ You can check examples in [spring-test-recorder-demo](https://github.com/ibreaz/
 Let's say we have a method for calculating Employee salary that does not have unit tests yet.  
 We add **@RecordTest** to computeEmployeeSalary method to mark that we want generated tests.
 
+    ```Java
 	public class SalaryService {
         @RecordTest
 		public double computeEmployeeSalary(int employeeId) throws Exception {
@@ -55,10 +60,12 @@ We add **@RecordTest** to computeEmployeeSalary method to mark that we want gene
 			return salary;
 		}
 	}
+    ```
 	
 The method calls getEmployee from EmployeeRepository, an injected component.  
 We add **@RecordMockForTest** to EmployeeRepository class to mark that we want this class mocked in the tests.
 
+    ```Java
     @RecordMockForTest
 	public class EmployeeRepository {
 		public Employee getEmployee(int id) throws Exception {
@@ -68,10 +75,12 @@ We add **@RecordMockForTest** to EmployeeRepository class to mark that we want t
 			return employee;
 		}
 	}
+    ```
 
 We interact with the UI/API and the computeEmployeeSalary method is called with real data.
 The generated test is something like this (depending on the real data):
 
+    ```Java
 	import org.junit.jupiter.api.Test;
 	import static org.junit.jupiter.api.Assertions.*;
 	import com.sampleapp.model.Department;
@@ -109,6 +118,7 @@ The generated test is something like this (depending on the real data):
 			assertEquals(4000.0, result);
 		}
 	}
+    ```
 
 Now all we need to do is refactor a little the generated code, add a test description, and the unit test is done.
 
