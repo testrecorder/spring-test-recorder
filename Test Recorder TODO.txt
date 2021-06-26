@@ -458,7 +458,9 @@ DONE ==========================
 
 
 TODO ==========================
-	I should diferenciate between a mandatory TODO and a normal TODO
+	README.md
+		Add a simple example and then a complex example
+	
 	
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 		ObjectInfoFactoryFallbackImpl
@@ -508,6 +510,8 @@ TODO ==========================
 		Add the link to the github in https://github.com/open-source-ideas/open-source-ideas/issues/281
 
 v2 ==========================
+	Should I diferenciate between a mandatory TODO and a normal TODO?
+
 	Configuration for TestRecorder. 
 		Can i modify while running?
 			https://stackoverflow.com/questions/52594764/how-to-hot-reload-properties-in-java-ee-and-spring-boot/52648630#52648630

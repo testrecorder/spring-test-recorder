@@ -13,13 +13,11 @@ So even if the tool cannot completely automate test generation, it will provide 
 
 
 ## When is this tool needed?
- There are cases when generating a test from existing code might be needed:
 - when you want to change code that does not have unit tests and want to be sure you don't break the existing functionality
 - when you need to quickly add a failing unit test before fixing a bug
 - when the tests and mocks are long and hard to write, so you could use a jump start
 - when you are doing big changes in the design, and a lot of the tests need to be rewritten
-- when you want to record a functional test with real data from UI
-- when there is no time or budget to use Test-driven development (TDD)
+- when you want to record a functional test with real data from UI 
 
 
 ## Usage
