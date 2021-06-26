@@ -458,6 +458,8 @@ DONE ==========================
 
 
 TODO ==========================
+	I should diferenciate between a mandatory TODO and a normal TODO
+	
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 		ObjectInfoFactoryFallbackImpl
 		ObjectInfoFactoryForNotRedFields
@@ -489,12 +491,12 @@ TODO ==========================
 		Publish a library to MAVEN Repository
 			https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
 	
-		Add badges
-			https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a
-
 		Read when the russian guy said about Git preparation
 
 	Promote
+		Add badges
+			https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a
+
 		https://linux-audit.com/how-to-promote-your-open-source-project/
 
 		DZone - article about spring-test-recorder
