@@ -24,7 +24,7 @@ Even if the tool cannot completely automate test generation, it will provide a s
 ## Usage
 Add this dependency in project's pom.xml:
 
-```Java
+```XML
 <dependency>
     <groupId>com.onushi</groupId>
     <artifactId>spring-test-recorder</artifactId>
