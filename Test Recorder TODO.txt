@@ -456,12 +456,19 @@ DONE ==========================
 
 		OK - README.md
 
+	2021-06-27
+		OK - improve README.md
+			add a simple example first
+		
+		OK - add README.md for test-recorder-demo
 
 TODO ==========================
-	Spring-test-recorder-demo
-		Group code examples
+	Start using github for issues
+		use permalinks
 		
-		Add a simple example and then a complex example
+	Should I create a new user and move the project there?
+		
+	
 	
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 		ObjectInfoFactoryFallbackImpl
