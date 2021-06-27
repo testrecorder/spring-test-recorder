@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class ObjectStateReaderService {
+    /**
+     * @param object The source object
+     * @return A map of all the fields and info about them
+     */
     public Map<String, FieldValue> getObjectState(Object object) {
         if (object == null) {
             return new HashMap<>();
