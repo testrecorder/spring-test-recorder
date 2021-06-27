@@ -25,16 +25,16 @@ Add this dependency in project's pom.xml:
 
 ```XML
 <dependency>
-    <groupId>com.onushi</groupId>
+    <groupId>org.springtestrecorder</groupId>
     <artifactId>spring-test-recorder</artifactId>
     <version>0.1.0</version>
 </dependency>
 ```
 
-Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot configuration. 
+Add "org.springtestrecorder" to @ComponentScan in your Spring Boot configuration. 
 
 ```Java
-@ComponentScan(basePackages={"...", "com.onushi.springtestrecorder"})
+@ComponentScan(basePackages={"...", "org.springtestrecorder"})
 ```
 
 - Mark a method in a Spring components with **@RecordTest** annotation. The marks the method for test generation.  
@@ -67,7 +67,7 @@ In the console we will get the following:
 ```Java
 BEGIN GENERATED TEST =========
 
-package com.onushi.sample.services;
+package org.springtestrecorder.sample.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

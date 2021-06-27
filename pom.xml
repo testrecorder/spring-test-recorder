@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.onushi</groupId>
+	<groupId>org.springtestrecorder</groupId>
 	<artifactId>spring-test-recorder</artifactId>
 	<version>0.2.0</version>
 	<name>${project.groupId}:${project.artifactId}</name>

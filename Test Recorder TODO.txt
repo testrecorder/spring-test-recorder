@@ -40,16 +40,16 @@ INFO ==========================
 
 	How to use spring-test-recorder
 		<dependency>
-			<groupId>com.onushi</groupId>
+			<groupId>org.springtestrecorder</groupId>
 			<artifactId>spring-test-recorder</artifactId>
 			<version>0.1.0</version>
 		</dependency>
 		
 		Maven refresh
 		
-		@ComponentScan(basePackages={"...", "com.onushi.springtestrecorder"})
+		@ComponentScan(basePackages={"...", "org.springtestrecorder"})
 
-		import com.onushi.springtestrecorder.aspect.RecordTest;
+		import RecordTest;
 		
 		add @RecordTest to the function you want to record
 
@@ -526,7 +526,9 @@ TODO ==========================
 		Add the link to the github in https://github.com/open-source-ideas/open-source-ideas/issues/281
 
 v2 ==========================
-	Should I diferenciate between a mandatory TODO and a normal TODO?
+    Use package org.springtestrecorder
+
+	Should I differentiate between a mandatory TODO and a normal TODO?
 
 	Configuration for TestRecorder. 
 		Can i modify while running?
@@ -546,7 +548,6 @@ v2 ==========================
 		Add the date in the name of the test function to be able to run them in order
 			make it a parameter
 
-	Should I use Onushi or ibreaz for package?
 
 	Try with gradle
 
@@ -618,4 +619,3 @@ v4 ==========================
 	global variables changed - but this is not ok
 	
 	I could give significant var names from names of fields and getters
-		
