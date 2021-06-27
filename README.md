@@ -1,8 +1,8 @@
 ## spring-test-recorder 
 #### A Spring tool that creates unit/integration tests from runtime calls
 
-It works in projects using Spring Boot and generates JUnit tests for selected methods.  
-It can also generate mocks using Mockito for selected dependencies.  
+It works in projects using Spring Boot and generates JUnit tests for selected methods, marked with an annotation.  
+For these tests, it can also generate mocks using Mockito for dependencies marked with another annotation.  
 
 
 The tool will handle most of the cases and leave TODOs in places where the code could not be generated automatically. Solving these TODOs is mandatory in order to make the tests work. Also refactoring and polishing the generated tests is highly recommended.
@@ -41,8 +41,6 @@ Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot config
 - Optional: Mark injected components that you want to mock with **@RecordMockForTest** annotation.  
 - Run the project and interact with the User Interface or API in order to call the annotated method.  
   
-
-You can check examples in [spring-test-recorder-demo](https://github.com/ibreaz/spring-test-recorder-demo).  
 
 ## Example
 
@@ -172,6 +170,8 @@ class SalaryServiceTest {
 ```
 
 Now all we need to do is refactor a little the generated code, add a test description, and the unit test is done.
+
+You can check [spring-test-recorder-demo](https://github.com/ibreaz/spring-test-recorder-demo) to see a running project with examples.
 
 
 ## How does it work?
