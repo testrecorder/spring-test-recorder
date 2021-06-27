@@ -27,7 +27,7 @@ Add this dependency in project's pom.xml:
 <dependency>
     <groupId>org.springtestrecorder</groupId>
     <artifactId>spring-test-recorder</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
