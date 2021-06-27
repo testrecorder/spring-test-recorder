@@ -463,8 +463,14 @@ DONE ==========================
 		OK - add README.md for test-recorder-demo
 
 TODO ==========================
+	I could add Java docs for all the public methos, except samples
+	
+	What will be the publish version?
+
+	
 	Start using github for issues
 		use permalinks
+		use labels, milestones
 		
 	Should I create a new user and move the project there?
 		
@@ -500,7 +506,9 @@ TODO ==========================
 	Publish in github
 		Publish a library to MAVEN Repository
 			https://dzone.com/articles/how-to-create-a-java-library-from-scratch-to-maven
-	
+			https://central.sonatype.org/publish/requirements/
+				Sign Files with GPG/PGP
+				
 		Read when the russian guy said about Git preparation
 
 	Promote

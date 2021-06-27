@@ -2,20 +2,47 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.onushi</groupId>
 	<artifactId>spring-test-recorder</artifactId>
-	<version>0.1.0</version>
-	<name>spring-test-recorder</name>
-	<description>Spring Test Recorded Library</description>
+	<version>0.2.0</version>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>A Spring tool that creates unit/integration tests from runtime calls</description>
+	<url>https://github.com/ibreaz/spring-test-recorder</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Breaz Ionut Marius</name>
+			<email>ionut.breaz@gmail.com</email>
+			<organization>Onushi Software</organization>
+			<organizationUrl>https://github.com/ibreaz</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@github.com:ibreaz/spring-test-recorder.git</connection>
+		<developerConnection>scm:git:ssh://github.com:ibreaz/spring-test-recorder.git</developerConnection>
+		<url>https://github.com/ibreaz/spring-test-recorder</url>
+	</scm>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -39,4 +66,5 @@
 			<version>2.4.4</version>
 		</dependency>
 	</dependencies>
+
 </project>
