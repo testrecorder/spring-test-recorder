@@ -44,13 +44,64 @@ Add "com.onushi.springtestrecorder" to @ComponentScan in your Spring Boot config
 
 You can check examples in [spring-test-recorder-demo](https://github.com/ibreaz/spring-test-recorder-demo).  
 
+## Example
 
-## Code example
-Let's say we have a method for calculating Employee salary that does not have unit tests yet.  
+Let's start with something simple to illustrate the usage. Let's say we have a function that adds floats.
+
+```Java
+public float addFloats(float x, float y) {
+    return x + y;
+}
+```
+
+To generate unit tests for this method we add **@RecordTest** before it.
+
+```Java
+@RecordTest
+public float addFloats(float x, float y) {
+    return x + y;
+}
+```
+
+We run the application and addFloats is called with parameters 2f and 2f.
+In the console we will get the following:
+
+```Java
+BEGIN GENERATED TEST =========
+
+package com.onushi.sample.services;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class SampleServiceTest {
+    //TODO rename the test to describe the use case
+    //TODO refactor the generated code to make it easier to understand
+    @Test
+    void addFloats() throws Exception {
+        // Arrange
+        SampleService sampleService = new SampleService();
+    
+        // Act
+        Float result = sampleService.addFloats(2.0f, 3.0f);
+    
+        // Assert
+        assertEquals(5.0f, result);
+    }
+}
+
+END GENERATED TEST =========
+```
+
+
+## Another example
+Let's try something less straightforward.
+We have a method for calculating Employee salary that does not have unit tests yet.  
 We add **@RecordTest** to computeEmployeeSalary method to mark that we want generated tests.
 
 ```Java
 public class SalaryService {
+    // ...
     @RecordTest
     public double computeEmployeeSalary(int employeeId) throws Exception {
         // ...
@@ -58,6 +109,7 @@ public class SalaryService {
         // ...
         return salary;
     }
+    //...
 }
 ```
 	
