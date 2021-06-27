@@ -43,7 +43,7 @@ public class TestGeneratorServiceTest27SideEffectsOnArgs extends TestGeneratorSe
         // Act
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
-        Assertions.assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package org.springtestrecorder.sample.services;\n" +
                         "\n" +

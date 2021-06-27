@@ -41,7 +41,7 @@ public class TestGeneratorServiceTest35SideEffectsOnEnum extends TestGeneratorSe
         String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
-        Assertions.assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
+        assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
                         "\n" +
                         "package org.springtestrecorder.sample.services;\n" +
                         "\n" +

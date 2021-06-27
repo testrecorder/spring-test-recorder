@@ -8,7 +8,6 @@
 package org.springtestrecorder.codegenerator.codetree;
 
 import org.springtestrecorder.utils.StringUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +45,7 @@ class CodeNodeTest {
 
         assertEquals(18, root.getRawLinesCount());
 
-        Assertions.assertEquals(StringUtils.prepareForCompareNoTrim(
+        assertEquals(StringUtils.prepareForCompareNoTrim(
                 "assertEquals(2, result.size());\n" +
                      "\n" +
                      "Date date1 = simpleDateFormat.parse(\"1970-01-02 00:00:00.000\");\n" +
