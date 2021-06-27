@@ -61,7 +61,7 @@ public float addFloats(float x, float y) {
 }
 ```
 
-We run the application and addFloats is called with parameters 2f and 2f.
+We run the application and addFloats is called with parameters 2f and 3f.
 In the console we will get the following:
 
 ```Java

@@ -458,9 +458,6 @@ DONE ==========================
 
 
 TODO ==========================
-	Add link from spring-test-recorder to demo
-
-
 	Spring-test-recorder-demo
 		Group code examples
 		
@@ -473,7 +470,7 @@ TODO ==========================
 		What do I do when some fields could not be read? Do the same for all generic factories
 			1. I could ignore them and consider just the rest of fields
 			2. I could go to fallback
-
+		I should keep depth of objects that could not be created. Avoid getting lost in internal unknown objects
 		
 	Read again exception handling best practices
 		checking params 
