@@ -15,7 +15,7 @@
 	<version>0.2.0</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A Spring tool that creates unit/integration tests from runtime calls</description>
-	<url>https://github.com/ibreaz/spring-test-recorder</url>
+	<url>https://github.com/testrecorder/spring-test-recorder</url>
 
 	<licenses>
 		<license>
@@ -29,14 +29,14 @@
 			<name>Breaz Ionut Marius</name>
 			<email>ionut.breaz@gmail.com</email>
 			<organization>Onushi Software</organization>
-			<organizationUrl>https://github.com/ibreaz</organizationUrl>
+			<organizationUrl>https://github.com/testrecorder</organizationUrl>
 		</developer>
 	</developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:ibreaz/spring-test-recorder.git</connection>
-		<developerConnection>scm:git:ssh://github.com:ibreaz/spring-test-recorder.git</developerConnection>
-		<url>https://github.com/ibreaz/spring-test-recorder</url>
+		<connection>scm:git:git@github.com:testrecorder/spring-test-recorder.git</connection>
+		<developerConnection>scm:git:ssh://github.com:testrecorder/spring-test-recorder.git</developerConnection>
+		<url>https://github.com/testrecorder/spring-test-recorder</url>
 	</scm>
 
 	<properties>
@@ -54,6 +54,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

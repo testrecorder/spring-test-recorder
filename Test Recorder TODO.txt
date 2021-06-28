@@ -241,10 +241,10 @@ DONE ==========================
 	------
 		OK - Create a demo with complex args objects, mock and object asserts
 	
-	10.06.2021 =========
+	10.06.2021 =============
 		OK - Order in TestGeneratorServiceTests
 
-	11.06.2021 =========
+	11.06.2021 =============
 		OK - Clean my github account 
 		
 		OK - Rename project in gitHub to TestRecorder
@@ -262,7 +262,7 @@ DONE ==========================
 		OK - Test for a class with no constructor
 			do I consider that it has a public NoArgs constructor?
 	
-	12.06.2021 =========
+	12.06.2021 =============
 		OK - Manage to run the TestRecorder together with the target project
 		
 		OK - Allow object creation with NoArgsAndFields when same package and fields are package or protected
@@ -280,7 +280,7 @@ DONE ==========================
 
 			OK - ObjectInfoFactoryWithAllArgsConstructorImpl
 		
-	17.06.2021 =========
+	17.06.2021 =============
 		OK - Why mocking does not work anymore?
 			maybe because I change the order of some init in TestGeneratorFactory
 			
@@ -356,7 +356,7 @@ DONE ==========================
 	
 			OK - save values in the correct TestRecordingPhase
 	
-	2021-06-20
+	2021-06-20 =============
 		OK - for ArrayList
 			OK - save VisiblePropertySnapshots before and after
 			
@@ -392,12 +392,12 @@ DONE ==========================
 
 		OK - fix warnings
 		
-	2021-06-21
+	2021-06-21 =============
 		OK - Detect deep changes in objects
 		
 		OK - Write tests for this
 
-	2021-06-22
+	2021-06-22 =============
 		OK - clean side effects related TODOs
 		
 		OK - mark objects already processed when detecting side effects
@@ -416,7 +416,7 @@ DONE ==========================
 				
 				OK - Send targetObject as a parameter to targetObject twice and return it + sideEffects		
 
-	2021-06-25
+	2021-06-25 =============
 		OK - Learn from Myth of Genius Programmer https://www.youtube.com/watch?v=0SARbwvhupQ
 			Don't try to be a genius. There is no genius. Lose the ego
 		
@@ -456,21 +456,42 @@ DONE ==========================
 
 		OK - README.md
 
-	2021-06-27
+	2021-06-27 =============
 		OK - improve README.md
 			add a simple example first
 		
 		OK - add README.md for test-recorder-demo
 
 		OK - replace Assertions.assertEquals
+		
+	2021-06-28 =============
+		Create gmail and github account for TestRecorder
+		gmail
+			testrecorder2021@gmail.com / testrecorder_*
+		github
+			testrecorder / testrecorder_** email: testrecorder2021@gmail.com / 
 
 
 TODO ==========================
-	
-	I could add Java docs for all the public methos, except samples
-	
-	What will be the publish version?
+		
 
+	Use gradle for build
+		Read Gradle tutorial
+		
+		Convert Maven to gradle
+		
+		Publish 
+		
+		How to import in maven or in gradle?
+			Update also README.md
+	
+		
+	Add Java docs for all the public methos, except samples
+	
+	What will be the publish version? 
+		0.2.0
+	
+	
 	
 	Start using github for issues
 		use permalinks

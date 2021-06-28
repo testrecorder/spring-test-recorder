@@ -171,7 +171,7 @@ class SalaryServiceTest {
 
 Now all we need to do is refactor a little the generated code, add a test description, and the unit test is done.
 
-You can check [spring-test-recorder-demo](https://github.com/ibreaz/spring-test-recorder-demo) to see a running project with examples.
+You can check [spring-test-recorder-demo](https://github.com/testrecorder/spring-test-recorder-demo) to see a running project with examples.
 
 
 ## How does it work?
@@ -188,7 +188,7 @@ A similar approach is used to generate mocks for methods in a Spring component a
 
 
 ## Questions? Problems? Suggestions?
-To report a bug or request a feature, create a [GitHub issue](https://github.com/ibreaz/spring-test-recorder/issues/new/choose). 
+To report a bug or request a feature, create a [GitHub issue](https://github.com/testrecorder/spring-test-recorder/issues/new/choose). 
 Please ensure someone else hasn’t created an issue for the same topic.
 
 
