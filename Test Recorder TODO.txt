@@ -465,15 +465,16 @@ DONE ==========================
 		OK - replace Assertions.assertEquals
 		
 	2021-06-28 =============
-		Create gmail and github account for TestRecorder
-		gmail
-			testrecorder2021@gmail.com / testrecorder_*
-		github
-			testrecorder / testrecorder_** email: testrecorder2021@gmail.com / 
+		OK - Create gmail and github account for TestRecorder
+			gmail
+				testrecorder2021@gmail.com / testrecorder_*
+			github
+				testrecorder / testrecorder_** email: testrecorder2021@gmail.com / 
 
+
+		OK - Move repositories to testrecorder account and make them public
 
 TODO ==========================
-		
 
 	Use gradle for build
 		Read Gradle tutorial
@@ -491,13 +492,9 @@ TODO ==========================
 	What will be the publish version? 
 		0.2.0
 	
-	
-	
 	Start using github for issues
 		use permalinks
 		use labels, milestones
-		
-	Should I create a new user and move the project there?
 		
 	
 	

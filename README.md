@@ -21,7 +21,13 @@ So even if the tool cannot completely automate test generation, it will provide 
 
 
 ## Usage
-Add this dependency in project's pom.xml:
+Download the project. Open a terminal in the project folder and run: 
+
+```
+mvn clean install
+```
+
+Add this dependency in your project's pom.xml:
 
 ```XML
 <dependency>
@@ -179,7 +185,7 @@ For each execution of a Spring component method annotated with **@RecordTest**, 
 - Target object and method arguments for the annotated methods are retrieved using Aspect Oriented Programing (AOP).  
 - Java primitives, arrays, enums and commonly used Java classes like Date, ArrayList, HashMap, HashSet are recognised and handled accordingly.  
   For other objects the tool will use Java Reflection to detect and use constructors, setters, fields or Lombok.  
-  If the tool cannot create an object, a TODO will be generated with object state information.
+  If the tool cannot create an object, a TODO will be generated.
 - The result object is retrieved also by using AOP. Asserts are generated based on the result and result's dependencies.
 - The tool will also detect side effects in the objects involved and will generate asserts.
 - The generated test is written in the console.
