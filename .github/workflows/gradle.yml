@@ -28,4 +28,4 @@ jobs:
     - name: Code Coverage with Gradle
       run: ./gradlew codeCoverageReport  
     - name: upload code coverage
-      run: bash <(curl -s https://codecov.io/bash)
+      run: bash <(curl -s https://codecov.io/bash) -t <323145c8-6343-4220-a02b-065b84130743>
