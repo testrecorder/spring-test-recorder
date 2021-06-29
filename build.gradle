@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'jacoco'
 }
 
 repositories {
@@ -36,4 +37,8 @@ tasks.withType(JavaCompile) {
 
 test {
     useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }
