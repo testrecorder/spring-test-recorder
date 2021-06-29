@@ -2,6 +2,7 @@
 #### A Spring tool that creates unit/integration tests from runtime calls
 
 ![GitHub](https://img.shields.io/github/license/testrecorder/spring-test-recorder)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/testrecorder/spring-test-recorder/Java%20CI%20with%20Gradle)
 
 It works in projects using Spring Boot and generates JUnit tests for selected methods, marked with an annotation.  
 For these tests, it can also generate mocks using Mockito for dependencies marked with another annotation.  
