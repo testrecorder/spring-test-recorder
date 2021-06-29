@@ -491,22 +491,21 @@ TODO ==========================
 				gradlew test
 				gradlew run
 
-			
-				
-		Remove Maven
-
-		Update to gradle 7.1
-
+		OK - Remove Maven
 		
-		Publish to remove repository
-		
-		Update also README.md
+		OK - Write StackOverflow answer to this
+			https://stackoverflow.com/questions/67161867/gradle-cannot-update-successfully-from-v6-5-1-to-v7-0-0
+
+		OK - Update to gradle 7.1
+
+		OK - Update also README.md
 			how to build locally with gradle
 				spring-test-recorder
 				spring-test-recorder-demo
 		
 			How to import in maven or in gradle?
-	
+		
+		Publish to remove repository
 		
 	Add Java docs for all the public methos, except samples
 	
