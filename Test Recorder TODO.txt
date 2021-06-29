@@ -481,11 +481,31 @@ DONE ==========================
 TODO ==========================
 	Use gradle for build
 		Convert Maven to gradle
+			spring-test-recorder
+				gradlew build
+				gradlew test
+				gradlew publishToMavenLocal
+			
+			spring-test-recorder-demo
+				gradlew build
+				gradlew test
+				gradlew run
+
+			
+				
+		Remove Maven
+
+		Update to gradle 7.1
+
 		
-		Publish 
+		Publish to remove repository
 		
-		How to import in maven or in gradle?
-			Update also README.md
+		Update also README.md
+			how to build locally with gradle
+				spring-test-recorder
+				spring-test-recorder-demo
+		
+			How to import in maven or in gradle?
 	
 		
 	Add Java docs for all the public methos, except samples
