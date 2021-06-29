@@ -25,7 +25,9 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Test with Gradle
+      run: ./gradlew test  
     - name: Code Coverage with Gradle
-      run: ./gradlew codeCoverageReport  
-    - name: upload code coverage
+      run: ./gradlew jacocoTestReport  
+    - name: Upload Code Coverage report XML
       run: bash <(curl -s https://codecov.io/bash) -t 323145c8-6343-4220-a02b-065b84130743
