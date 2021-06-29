@@ -22,13 +22,11 @@ So even if the tool cannot completely automate test generation, it will provide 
 
 ## Usage
 Download this project. Open a terminal in the spring-test-recorder folder and run: 
-
 ```
-mvn clean install
+gradlew publishToMavenLocal
 ```
 
-Add spring-test-recorder dependency in your project's pom.xml:
-
+In your project, if you use Maven add the following dependency in pom.xml:
 ```XML
 <dependency>
     <groupId>org.springtestrecorder</groupId>
@@ -37,7 +35,12 @@ Add spring-test-recorder dependency in your project's pom.xml:
 </dependency>
 ```
 
-Add "org.springtestrecorder" to @ComponentScan in your Spring Boot configuration. 
+In your project, if you use Gradle add the following dependency in build.gradle:
+```
+implementation 'org.springtestrecorder:spring-test-recorder:0.2.0'
+```
+
+In your project, add "org.springtestrecorder" to @ComponentScan in your Spring Boot configuration. 
 
 ```Java
 @ComponentScan(basePackages={"...", "org.springtestrecorder"})
