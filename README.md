@@ -3,6 +3,7 @@
 
 ![GitHub](https://img.shields.io/github/license/testrecorder/spring-test-recorder)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/testrecorder/spring-test-recorder/Java%20CI%20with%20Gradle)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/testrecorder/spring-test-recorder)
 
 It works in projects using Spring Boot and generates JUnit tests for selected methods, marked with an annotation.  
 For these tests, it can also generate mocks using Mockito for dependencies marked with another annotation.  
