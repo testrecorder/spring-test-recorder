@@ -26,7 +26,7 @@ Download this project. Open a terminal in the spring-test-recorder folder and ru
 gradlew publishToMavenLocal
 ```
 
-In your project, if you use Maven add the following dependency in pom.xml:
+In your project, if you use Maven, add the following dependency in pom.xml:
 ```XML
 <dependency>
     <groupId>org.springtestrecorder</groupId>
@@ -35,7 +35,7 @@ In your project, if you use Maven add the following dependency in pom.xml:
 </dependency>
 ```
 
-In your project, if you use Gradle add the following dependency in build.gradle:
+In your project, if you use Gradle, add the following dependency in build.gradle:
 ```
 implementation 'org.springtestrecorder:spring-test-recorder:0.2.0'
 ```
