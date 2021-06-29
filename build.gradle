@@ -39,8 +39,8 @@ test {
     useJUnitPlatform()
 }
 
-task codeCoverageReport(type: JacocoReport) {
-    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 
     reports {
         xml.enabled true
@@ -48,8 +48,4 @@ task codeCoverageReport(type: JacocoReport) {
         html.enabled false
         csv.enabled false
     }
-}
-
-jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
 }
