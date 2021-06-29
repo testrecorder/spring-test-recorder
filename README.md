@@ -21,13 +21,13 @@ So even if the tool cannot completely automate test generation, it will provide 
 
 
 ## Usage
-Download the project. Open a terminal in the project folder and run: 
+Download this project. Open a terminal in the spring-test-recorder folder and run: 
 
 ```
 mvn clean install
 ```
 
-Add this dependency in your project's pom.xml:
+Add spring-test-recorder dependency in your project's pom.xml:
 
 ```XML
 <dependency>
