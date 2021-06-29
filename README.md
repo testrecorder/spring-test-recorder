@@ -1,6 +1,8 @@
 ## spring-test-recorder 
 #### A Spring tool that creates unit/integration tests from runtime calls
 
+https://img.shields.io/github/license/testrecorder/spring-test-recorder
+
 It works in projects using Spring Boot and generates JUnit tests for selected methods, marked with an annotation.  
 For these tests, it can also generate mocks using Mockito for dependencies marked with another annotation.  
 
