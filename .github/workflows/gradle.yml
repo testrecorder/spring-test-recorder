@@ -26,4 +26,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Code Coverage with Gradle
-      run: ./gradlew codeCoverageReport      
+      run: ./gradlew codeCoverageReport  
+    - name: upload code coverage
+      run: bash <(curl -s https://codecov.io/bash)
