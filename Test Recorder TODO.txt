@@ -474,11 +474,12 @@ DONE ==========================
 
 		OK - Move repositories to testrecorder account and make them public
 
-TODO ==========================
+	2021-06-29 =============
+		OK - Read Gradle tutorial	
+			https://docs.gradle.org/current/samples/sample_building_java_applications_multi_project.html
 
+TODO ==========================
 	Use gradle for build
-		Read Gradle tutorial
-		
 		Convert Maven to gradle
 		
 		Publish 
@@ -489,15 +490,18 @@ TODO ==========================
 		
 	Add Java docs for all the public methos, except samples
 	
-	What will be the publish version? 
-		0.2.0
-	
 	Start using github for issues
 		use permalinks
 		use labels, milestones
 		
 	
-	
+	In Java 15
+		WARNING: An illegal reflective access operation has occurred
+		WARNING: Illegal reflective access by org.springtestrecorder.analyzer.object.ObjectStateReaderService (file:/F:/Work/spring-test-recorder/target/classes/) to field java.lang.Throwable.detailMessage
+		WARNING: Please consider reporting this to the maintainers of org.springtestrecorder.analyzer.object.ObjectStateReaderService
+		WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+		WARNING: All illegal access operations will be denied in a future release
+		
 	If I am unable to create an object, I should still create it's dependencies and a commented code that sets it's private props
 		ObjectInfoFactoryFallbackImpl
 		ObjectInfoFactoryForNotRedFields
@@ -507,7 +511,7 @@ TODO ==========================
 			2. I could go to fallback
 		I should keep depth of objects that could not be created. Avoid getting lost in internal unknown objects
 		
-	Read again exception handling best practices
+	Check again exception handling
 		checking params 
 		raising exceptions
 		where to treat exceptions
