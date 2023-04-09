@@ -65,6 +65,7 @@ public class TestGeneratorServiceTest09DependenciesOfDependencies extends TestGe
                 "import org.junit.jupiter.api.Test;\n" +
                 "import static org.junit.jupiter.api.Assertions.*;\n" +
                 "import java.util.List;\n" +
+                "import java.util.ArrayList;\n" +
                 "import org.sample.model.Person;\n" +
                 "import java.util.Arrays;\n" +
                 "import java.util.Date;\n" +

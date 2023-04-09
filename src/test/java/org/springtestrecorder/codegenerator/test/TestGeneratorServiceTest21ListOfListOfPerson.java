@@ -49,6 +49,7 @@ public class TestGeneratorServiceTest21ListOfListOfPerson extends TestGeneratorS
                 "import org.junit.jupiter.api.Test;\n" +
                 "import static org.junit.jupiter.api.Assertions.*;\n" +
                 "import java.util.List;\n" +
+                "import java.util.ArrayList;\n" +
                 "import org.sample.model.Person;\n" +
                 "import java.text.SimpleDateFormat;\n" +
                 "\n" +

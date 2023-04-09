@@ -216,7 +216,7 @@ class ObjectInfoTest {
         final ObjectInfo objectInfo = objectInfoFactoryManager.createObjectInfo(testGenerator, list, "list1");
         assertEquals("list1", objectInfo.getInlineCode());
         assertEquals(0, objectInfo.getInitRequiredHelperObjects().size());
-        assertEquals(1, objectInfo.getDeclareRequiredImports().size());
+        assertEquals(2, objectInfo.getDeclareRequiredImports().size());
         assertEquals(1, objectInfo.getInitRequiredImports().size());
         assertEquals("List<String> list1 = new ArrayList<>(Arrays.asList(\"1\", \"2\", \"3\"));", objectInfo.getInitCode());
         assertEquals(4, objectInfo.visibleProperties.size());

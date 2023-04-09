@@ -47,6 +47,7 @@ public class TestGeneratorServiceTest08ForArrayLists extends TestGeneratorServic
                 "import org.junit.jupiter.api.Test;\n" +
                 "import static org.junit.jupiter.api.Assertions.*;\n" +
                 "import java.util.List;\n" +
+                "import java.util.ArrayList;\n" +
                 "import java.util.Arrays;\n" +
                 "\n" +
                 "class SampleServiceTest {\n" +

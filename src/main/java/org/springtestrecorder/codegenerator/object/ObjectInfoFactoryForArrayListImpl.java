@@ -34,6 +34,7 @@ public class ObjectInfoFactoryForArrayListImpl extends ObjectInfoFactory {
 
             objectInfo.declareRequiredImports = new ArrayList<>();
             objectInfo.declareRequiredImports.add("java.util.List");
+            objectInfo.declareRequiredImports.add("java.util.ArrayList");
             objectInfo.declareRequiredImports.addAll(getElementsDeclareRequiredImports(elements));
 
             objectInfo.initRequiredImports = Collections.singletonList("java.util.Arrays");

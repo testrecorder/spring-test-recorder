@@ -51,6 +51,7 @@ public class TestGeneratorServiceTest23CyclicDepsInArgs extends TestGeneratorSer
                 "import static org.junit.jupiter.api.Assertions.*;\n" +
                 "import org.sample.model.CyclicParent;\n" +
                 "import java.util.List;\n" +
+                "import java.util.ArrayList;\n" +
                 "import org.sample.model.CyclicChild;\n" +
                 "import java.util.Arrays;\n" +
                 "import java.util.Date;\n" +

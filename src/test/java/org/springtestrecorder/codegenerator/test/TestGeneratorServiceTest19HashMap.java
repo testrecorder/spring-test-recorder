@@ -52,6 +52,7 @@ public class TestGeneratorServiceTest19HashMap extends TestGeneratorServiceTest 
                 "import static org.junit.jupiter.api.Assertions.*;\n" +
                 "import java.util.Map;\n" +
                 "import java.util.List;\n" +
+                "import java.util.ArrayList;\n" +
                 "import java.util.HashMap;\n" +
                 "import java.util.Arrays;\n" +
                 "\n" +
