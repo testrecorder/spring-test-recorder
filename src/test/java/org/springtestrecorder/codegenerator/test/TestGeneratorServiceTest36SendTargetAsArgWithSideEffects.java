@@ -7,23 +7,23 @@
 
 package org.springtestrecorder.codegenerator.test;
 
-import org.springtestrecorder.sample.services.ServiceWithState;
-import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
-import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
-import org.springtestrecorder.utils.StringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.sample.services.ServiceWithState;
+import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
+import org.springtestrecorder.utils.StringUtils;
 
 public class TestGeneratorServiceTest36SendTargetAsArgWithSideEffects extends TestGeneratorServiceTest {
     @Test
     void generateTest() {
         // Arrange
-        ServiceWithState serviceWithState = new ServiceWithState(5);
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+        final ServiceWithState serviceWithState = new ServiceWithState(5);
+        final TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(serviceWithState)
                 .methodName("changeService")
                 .arguments(Collections.singletonList(serviceWithState))
@@ -35,45 +35,44 @@ public class TestGeneratorServiceTest36SendTargetAsArgWithSideEffects extends Te
                 .build());
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenerator);
+        final String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         Assertions.assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
-                        "\n" +
-                        "package org.springtestrecorder.sample.services;\n" +
-                        "\n" +
-                        "import org.junit.jupiter.api.Test;\n" +
-                        "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "\n" +
-                        "class ServiceWithStateTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
-                        "    @Test\n" +
-                        "    void changeService() throws Exception {\n" +
-                        "        // Arrange\n" +
-                        "        ServiceWithState serviceWithState = new ServiceWithState(5);\n" +
-                        "\n" +
-                        "        // Act\n" +
-                        "        serviceWithState.changeService(serviceWithState);\n" +
-                        "\n" +
-                        "\n" +
-                        "        // Side Effects\n" +
-                        "        assertEquals(10, serviceWithState.getSampleInt());\n" +
-                        "    }\n" +
-                        "}\n" +
-                        "\n" +
-                        "END GENERATED TEST ========="),
+                "\n" +
+                "package org.sample.services;\n" +
+                "\n" +
+                "import org.junit.jupiter.api.Test;\n" +
+                "import static org.junit.jupiter.api.Assertions.*;\n" +
+                "\n" +
+                "class ServiceWithStateTest {\n" +
+                "    //TODO rename the test to describe the use case\n" +
+                "    //TODO refactor the generated code to make it easier to understand\n" +
+                "    @Test\n" +
+                "    void changeService() throws Exception {\n" +
+                "        // Arrange\n" +
+                "        ServiceWithState serviceWithState = new ServiceWithState(5);\n" +
+                "\n" +
+                "        // Act\n" +
+                "        serviceWithState.changeService(serviceWithState);\n" +
+                "\n" +
+                "\n" +
+                "        // Side Effects\n" +
+                "        assertEquals(10, serviceWithState.getSampleInt());\n" +
+                "    }\n" +
+                "}\n" +
+                "\n" +
+                "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 
     @Test
     void changeService() {
         // Arrange
-        ServiceWithState serviceWithState = new ServiceWithState(5);
+        final ServiceWithState serviceWithState = new ServiceWithState(5);
 
         // Act
         serviceWithState.changeService(serviceWithState);
-
 
         // Side Effects
         assertEquals(10, serviceWithState.getSampleInt());

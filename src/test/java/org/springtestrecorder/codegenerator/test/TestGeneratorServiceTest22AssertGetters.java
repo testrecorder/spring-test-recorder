@@ -7,28 +7,27 @@
 
 package org.springtestrecorder.codegenerator.test;
 
-import org.springtestrecorder.sample.model.Color;
-import org.springtestrecorder.sample.model.Employee;
-import org.springtestrecorder.sample.services.SampleService;
-import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
-import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
-import org.springtestrecorder.utils.StringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
+import org.sample.model.Color;
+import org.sample.model.Employee;
+import org.sample.services.SampleService;
+import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
+import org.springtestrecorder.utils.StringUtils;
 
 public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServiceTest {
     @Test
     void generateTest() {
         // Arrange
-        SampleService sampleService = new SampleService();
-        Employee employee = sampleService.createEmployee();
+        final SampleService sampleService = new SampleService();
+        final Employee employee = sampleService.createEmployee();
 
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+        final TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(sampleService)
                 .methodName("createEmployee")
                 .arguments(Collections.emptyList())
@@ -38,66 +37,66 @@ public class TestGeneratorServiceTest22AssertGetters extends TestGeneratorServic
                 .build());
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenerator);
+        final String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
-                        "\n" +
-                        "package org.springtestrecorder.sample.services;\n" +
-                        "\n" +
-                        "import org.junit.jupiter.api.Test;\n" +
-                        "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import org.springtestrecorder.sample.model.Employee;\n" +
-                        "import org.springtestrecorder.sample.model.Color;\n" +
-                        "\n" +
-                        "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
-                        "    @Test\n" +
-                        "    void createEmployee() throws Exception {\n" +
-                        "        // Arrange\n" +
-                        "        SampleService sampleService = new SampleService();\n" +
-                        "\n" +
-                        "        // Act\n" +
-                        "        Employee result = sampleService.createEmployee();\n" +
-                        "\n" +
-                        "        // Assert\n" +
-                        "        assertEquals(100, result.getDepartment().getId());\n" +
-                        "        assertEquals(\"IT\", result.getDepartment().getName());\n" +
-                        "\n" +
-                        "        assertEquals(\"John\", result.getFirstName());\n" +
-                        "\n" +
-                        "        assertEquals(1, result.getId());\n" +
-                        "\n" +
-                        "        assertEquals(\"Doe\", result.getLastName());\n" +
-                        "\n" +
-                        "        assertEquals(1000.0, result.getSalaryParam1());\n" +
-                        "\n" +
-                        "        assertEquals(1500.0, result.getSalaryParam2());\n" +
-                        "\n" +
-                        "        assertEquals(0.0, result.getSalaryParam3());\n" +
-                        "\n" +
-                        "        assertEquals(Color.BLUE, result.getTeamColor());\n" +
-                        "\n" +
-                        "        assertFalse(result.isTeamLeader());\n" +
-                        "\n" +
-                        "        assertFalse(result.isTeamLeader);\n" +
-                        "\n" +
-                        "        assertEquals(Color.BLUE, result.teamColor);\n" +
-                        "    }\n" +
-                        "}\n" +
-                        "\n" +
-                        "END GENERATED TEST ========="),
+                "\n" +
+                "package org.sample.services;\n" +
+                "\n" +
+                "import org.junit.jupiter.api.Test;\n" +
+                "import static org.junit.jupiter.api.Assertions.*;\n" +
+                "import org.sample.model.Employee;\n" +
+                "import org.sample.model.Color;\n" +
+                "\n" +
+                "class SampleServiceTest {\n" +
+                "    //TODO rename the test to describe the use case\n" +
+                "    //TODO refactor the generated code to make it easier to understand\n" +
+                "    @Test\n" +
+                "    void createEmployee() throws Exception {\n" +
+                "        // Arrange\n" +
+                "        SampleService sampleService = new SampleService();\n" +
+                "\n" +
+                "        // Act\n" +
+                "        Employee result = sampleService.createEmployee();\n" +
+                "\n" +
+                "        // Assert\n" +
+                "        assertEquals(100, result.getDepartment().getId());\n" +
+                "        assertEquals(\"IT\", result.getDepartment().getName());\n" +
+                "\n" +
+                "        assertEquals(\"John\", result.getFirstName());\n" +
+                "\n" +
+                "        assertEquals(1, result.getId());\n" +
+                "\n" +
+                "        assertEquals(\"Doe\", result.getLastName());\n" +
+                "\n" +
+                "        assertEquals(1000.0, result.getSalaryParam1());\n" +
+                "\n" +
+                "        assertEquals(1500.0, result.getSalaryParam2());\n" +
+                "\n" +
+                "        assertEquals(0.0, result.getSalaryParam3());\n" +
+                "\n" +
+                "        assertEquals(Color.BLUE, result.getTeamColor());\n" +
+                "\n" +
+                "        assertFalse(result.isTeamLeader());\n" +
+                "\n" +
+                "        assertFalse(result.isTeamLeader);\n" +
+                "\n" +
+                "        assertEquals(Color.BLUE, result.teamColor);\n" +
+                "    }\n" +
+                "}\n" +
+                "\n" +
+                "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 
     @Test
     void createEmployee() {
         // Arrange
-        SampleService sampleService = new SampleService();
+        final SampleService sampleService = new SampleService();
 
         // Act
-        Employee result = sampleService.createEmployee();
+        final Employee result = sampleService.createEmployee();
 
         // Assert
         assertEquals(100, result.getDepartment().getId());

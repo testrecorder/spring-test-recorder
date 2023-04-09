@@ -7,34 +7,33 @@
 
 package org.springtestrecorder.codegenerator.test;
 
-import org.springtestrecorder.sample.model.Person;
-import org.springtestrecorder.sample.services.SampleService;
-import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
-import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
-import org.springtestrecorder.utils.StringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.sample.model.Person;
+import org.sample.services.SampleService;
+import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
+import org.springtestrecorder.utils.StringUtils;
 
 public class TestGeneratorServiceTest12AssertObject extends TestGeneratorServiceTest {
     @Test
     void generateTest() throws Exception {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth = simpleDateFormat.parse("2021-01-01");
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final Date dateOfBirth = simpleDateFormat.parse("2021-01-01");
 
-        Person person = Person.builder()
+        final Person person = Person.builder()
                 .firstName("Tom")
                 .lastName("Richardson")
                 .dateOfBirth(dateOfBirth)
                 .build();
 
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+        final TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("returnPerson")
                 .arguments(Collections.emptyList())
@@ -44,50 +43,50 @@ public class TestGeneratorServiceTest12AssertObject extends TestGeneratorService
                 .build());
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenerator);
+        final String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
-                        "\n" +
-                        "package org.springtestrecorder.sample.services;\n" +
-                        "\n" +
-                        "import org.junit.jupiter.api.Test;\n" +
-                        "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import org.springtestrecorder.sample.model.Person;\n" +
-                        "import java.text.SimpleDateFormat;\n" +
-                        "\n" +
-                        "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
-                        "    @Test\n" +
-                        "    void returnPerson() throws Exception {\n" +
-                        "        // Arrange\n" +
-                        "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
-                        "\n" +
-                        "        SampleService sampleService = new SampleService();\n" +
-                        "\n" +
-                        "        // Act\n" +
-                        "        Person result = sampleService.returnPerson();\n" +
-                        "\n" +
-                        "        // Assert\n" +
-                        "        assertEquals(simpleDateFormat.parse(\"2021-01-01 00:00:00.000\"), result.getDateOfBirth());\n" +
-                        "        assertEquals(\"Tom\", result.getFirstName());\n" +
-                        "        assertEquals(\"Richardson\", result.getLastName());\n" +
-                        "    }\n" +
-                        "}\n" +
-                        "\n" +
-                        "END GENERATED TEST ========="),
+                "\n" +
+                "package org.sample.services;\n" +
+                "\n" +
+                "import org.junit.jupiter.api.Test;\n" +
+                "import static org.junit.jupiter.api.Assertions.*;\n" +
+                "import org.sample.model.Person;\n" +
+                "import java.text.SimpleDateFormat;\n" +
+                "\n" +
+                "class SampleServiceTest {\n" +
+                testGeneratorService.COMMENT_BEFORE_TEST +
+                "    @Test\n" +
+                "    void returnPerson() throws Exception {\n" +
+                "        // Arrange\n" +
+                "        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\n" +
+                "\n" +
+                "        SampleService sampleService = new SampleService();\n" +
+                "\n" +
+                "        // Act\n" +
+                "        Person result = sampleService.returnPerson();\n" +
+                "\n" +
+                "        // Assert\n" +
+                "        assertEquals(simpleDateFormat.parse(\"2021-01-01 00:00:00.000\"), result.getDateOfBirth());\n" +
+                "        assertEquals(\"Tom\", result.getFirstName());\n" +
+                "        assertEquals(\"Richardson\", result.getLastName());\n" +
+                "    }\n" +
+                "}\n" +
+                "\n" +
+                "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 
     @Test
     void returnPerson() throws Exception {
         // Arrange
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-        SampleService sampleService = new SampleService();
+        final SampleService sampleService = new SampleService();
 
         // Act
-        Person result = sampleService.returnPerson();
+        final Person result = sampleService.returnPerson();
 
         // Assert
         assertEquals(simpleDateFormat.parse("2021-01-01 00:00:00.000"), result.getDateOfBirth());

@@ -7,9 +7,9 @@
 
 package org.springtestrecorder.analyzer.object;
 
-import org.springtestrecorder.sample.model.StudentWithPrivateFields;
-import org.springtestrecorder.sample.model.StudentWithPublicFields;
 import org.junit.jupiter.api.Test;
+import org.sample.model.StudentWithPrivateFields;
+import org.sample.model.StudentWithPublicFields;
 
 import java.util.Map;
 
