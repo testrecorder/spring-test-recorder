@@ -7,10 +7,10 @@
 
 package org.springtestrecorder.analyzer.classinfo;
 
-import org.springtestrecorder.sample.services.PersonRepositoryImpl;
 import org.springtestrecorder.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.Test;
-import org.springtestrecorder.sample.model.*;
+import org.sample.model.*;
+import org.sample.services.PersonRepositoryImpl;
 
 import java.lang.reflect.Method;
 import java.util.Date;

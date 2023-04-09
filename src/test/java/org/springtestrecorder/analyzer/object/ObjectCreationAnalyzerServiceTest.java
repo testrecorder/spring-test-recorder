@@ -7,12 +7,12 @@
 
 package org.springtestrecorder.analyzer.object;
 
-import org.springtestrecorder.sample.services.PersonRepositoryImpl;
-import org.springtestrecorder.sample.services.PersonService;
 import org.springtestrecorder.analyzer.classInfo.MatchingConstructor;
 import org.springtestrecorder.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.Test;
-import org.springtestrecorder.sample.model.*;
+import org.sample.model.*;
+import org.sample.services.PersonRepositoryImpl;
+import org.sample.services.PersonService;
 
 import java.util.List;
 import java.util.Map;

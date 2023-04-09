@@ -7,11 +7,11 @@
 
 package org.springtestrecorder.analyzer.classinfo;
 
-import org.springtestrecorder.sample.model.Department;
-import org.springtestrecorder.sample.model.Programmer;
 import org.springtestrecorder.analyzer.classInfo.ClassInfoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.sample.model.Department;
+import org.sample.model.Programmer;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

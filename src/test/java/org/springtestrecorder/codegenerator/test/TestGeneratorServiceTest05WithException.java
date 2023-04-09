@@ -7,23 +7,22 @@
 
 package org.springtestrecorder.codegenerator.test;
 
-import org.springtestrecorder.sample.services.SampleService;
-import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
-import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
-import org.springtestrecorder.utils.StringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import org.sample.services.SampleService;
+import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
+import org.springtestrecorder.utils.StringUtils;
 
 public class TestGeneratorServiceTest05WithException extends TestGeneratorServiceTest {
     @Test
     void generateTest() {
         // Arrange
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+        final TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(new SampleService())
                 .methodName("testException")
                 .arguments(Collections.singletonList(5))
@@ -34,36 +33,36 @@ public class TestGeneratorServiceTest05WithException extends TestGeneratorServic
                 .exception(new IllegalArgumentException("x"))
                 .build());
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenerator);
+        final String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
-                        "\n" +
-                        "package org.springtestrecorder.sample.services;\n" +
-                        "\n" +
-                        "import org.junit.jupiter.api.Test;\n" +
-                        "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "\n" +
-                        "class SampleServiceTest {\n" +
-                        testGeneratorService.COMMENT_BEFORE_TEST +
-                        "    @Test\n" +
-                        "    void testException() throws Exception {\n" +
-                        "        // Arrange\n" +
-                        "        SampleService sampleService = new SampleService();\n" +
-                        "\n" +
-                        "        // Act & Assert\n" +
-                        "        assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));\n" +
-                        "    }\n" +
-                        "}\n" +
-                        "\n" +
-                        "END GENERATED TEST ========="),
+                "\n" +
+                "package org.sample.services;\n" +
+                "\n" +
+                "import org.junit.jupiter.api.Test;\n" +
+                "import static org.junit.jupiter.api.Assertions.*;\n" +
+                "\n" +
+                "class SampleServiceTest {\n" +
+                testGeneratorService.COMMENT_BEFORE_TEST +
+                "    @Test\n" +
+                "    void testException() throws Exception {\n" +
+                "        // Arrange\n" +
+                "        SampleService sampleService = new SampleService();\n" +
+                "\n" +
+                "        // Act & Assert\n" +
+                "        assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));\n" +
+                "    }\n" +
+                "}\n" +
+                "\n" +
+                "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 
     @Test
     void testException() {
         // Arrange
-        SampleService sampleService = new SampleService();
+        final SampleService sampleService = new SampleService();
 
         // Act & Assert
         assertThrows(java.lang.IllegalArgumentException.class, () -> sampleService.testException(5));

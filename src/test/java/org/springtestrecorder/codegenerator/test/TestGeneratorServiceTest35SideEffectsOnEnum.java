@@ -7,26 +7,25 @@
 
 package org.springtestrecorder.codegenerator.test;
 
-import org.springtestrecorder.sample.model.Color;
-import org.springtestrecorder.sample.services.SampleService;
-import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
-import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
-import org.springtestrecorder.utils.StringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.sample.model.Color;
+import org.sample.services.SampleService;
+import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
+import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
+import org.springtestrecorder.utils.StringUtils;
 
 public class TestGeneratorServiceTest35SideEffectsOnEnum extends TestGeneratorServiceTest {
     @Test
     void generateTest() {
         // Arrange
         // actually you cannot change the value of a enum it will be a different object
-        Color color = Color.BLUE;
-        SampleService sampleService = new SampleService();
-        TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
+        final Color color = Color.BLUE;
+        final SampleService sampleService = new SampleService();
+        final TestGenerator testGenerator = testGeneratorFactory.createTestGenerator(BeforeMethodRunInfo.builder()
                 .target(sampleService)
                 .methodName("changeEnum")
                 .arguments(Collections.singletonList(color))
@@ -38,39 +37,39 @@ public class TestGeneratorServiceTest35SideEffectsOnEnum extends TestGeneratorSe
                 .build());
 
         // Act
-        String testString = testGeneratorService.generateTestCode(testGenerator);
+        final String testString = testGeneratorService.generateTestCode(testGenerator);
 
         // Assert
         assertEquals(StringUtils.prepareForCompare("BEGIN GENERATED TEST =========\n" +
-                        "\n" +
-                        "package org.springtestrecorder.sample.services;\n" +
-                        "\n" +
-                        "import org.junit.jupiter.api.Test;\n" +
-                        "import static org.junit.jupiter.api.Assertions.*;\n" +
-                        "import org.springtestrecorder.sample.model.Color;\n" +
-                        "\n" +
-                        "class SampleServiceTest {\n" +
-                        "    //TODO rename the test to describe the use case\n" +
-                        "    //TODO refactor the generated code to make it easier to understand\n" +
-                        "    @Test\n" +
-                        "    void changeEnum() throws Exception {\n" +
-                        "        // Arrange\n" +
-                        "        SampleService sampleService = new SampleService();\n" +
-                        "\n" +
-                        "        // Act\n" +
-                        "        sampleService.changeEnum(Color.BLUE);\n" +
-                        "\n" +
-                        "    }\n" +
-                        "}\n" +
-                        "\n" +
-                        "END GENERATED TEST ========="),
+                "\n" +
+                "package org.sample.services;\n" +
+                "\n" +
+                "import org.junit.jupiter.api.Test;\n" +
+                "import static org.junit.jupiter.api.Assertions.*;\n" +
+                "import org.sample.model.Color;\n" +
+                "\n" +
+                "class SampleServiceTest {\n" +
+                "    //TODO rename the test to describe the use case\n" +
+                "    //TODO refactor the generated code to make it easier to understand\n" +
+                "    @Test\n" +
+                "    void changeEnum() throws Exception {\n" +
+                "        // Arrange\n" +
+                "        SampleService sampleService = new SampleService();\n" +
+                "\n" +
+                "        // Act\n" +
+                "        sampleService.changeEnum(Color.BLUE);\n" +
+                "\n" +
+                "    }\n" +
+                "}\n" +
+                "\n" +
+                "END GENERATED TEST ========="),
                 StringUtils.prepareForCompare(testString));
     }
 
     @Test
     void changeEnum() throws Exception {
         // Arrange
-        SampleService sampleService = new SampleService();
+        final SampleService sampleService = new SampleService();
 
         // Act
         sampleService.changeEnum(Color.BLUE);

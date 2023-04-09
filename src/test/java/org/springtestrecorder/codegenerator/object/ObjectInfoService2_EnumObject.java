@@ -7,8 +7,6 @@
 
 package org.springtestrecorder.codegenerator.object;
 
-import org.springtestrecorder.sample.model.Color;
-import org.springtestrecorder.sample.services.SampleService;
 import org.springtestrecorder.analyzer.methodrun.AfterMethodRunInfo;
 import org.springtestrecorder.analyzer.methodrun.BeforeMethodRunInfo;
 import org.springtestrecorder.codegenerator.test.TestGenerator;
@@ -17,6 +15,8 @@ import org.springtestrecorder.codegenerator.test.TestRecordingMoment;
 import org.springtestrecorder.utils.ServiceCreatorUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.sample.model.Color;
+import org.sample.services.SampleService;
 
 import java.util.Collections;
 
